@@ -1,327 +1,90 @@
-# Capítulo II: Requirements Elicitation & Analysis
 
-## 2.1. Competidores
-En esta sección se identifican los principales competidores, tanto directos como indirectos, con modelos de negocio digitales similares o parcialmente comparables. Se han seleccionado tres referentes relevantes en el ámbito de aplicaciones de seguridad ciudadana y participación comunitaria.
-
-| **Competidor** | **Modelo y características principales** | **Diferencias con PeaceApp** | **Limitaciones** |
-|----------------|------------------------------------------|-------------------------------|-------------------|
-| ![SafeCity](assets/safecity.png) <br> **SafeCity** | Plataforma digital enfocada en reportes anónimos de acoso. Usa los datos para generar mapas de seguridad e impulsa campañas con ONG. | Especialización en acoso; análisis de datos más profundo para educación y políticas públicas. | Enfoque específico que reduce utilidad general; cobertura restringida a pocas ciudades. |
-| ![Nextdoor](assets/Nextdoor.webp) <br> **Nextdoor** | Red social de vecindarios con foros comunitarios, alertas de seguridad y grupos privados por ubicación. | Mayor enfoque en interacción social y comunitaria; presencia internacional amplia. | No es una app exclusiva de seguridad; riesgos de privacidad por su carácter social. |
-| ![Waze](assets/Waze.png) <br> **Waze** | Aplicación de navegación que permite reportar accidentes, peligros y tráfico en tiempo real. Gran base de usuarios. | Orientada a conductores y movilidad; no diseñada para prevención del delito ni seguridad personal. | Reportes poco detallados para seguridad ciudadana; no cubre incidentes fuera de la vía pública. |
-
-### 2.1.1. Análisis Competitivo
-
-
-<table>
-<thead>
-<tr>
-<th colspan="6"><strong>Competitive Analysis Landscape</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td colspan="6"><em>¿Por qué llevar a cabo este análisis?</em> Para conocer a nuestros competidores, sus estrategias y aprender de ellos para fortalecer la propuesta de PeaceApp.</td>
-</tr>
-<tr>
-<td colspan="2">Empresas (Aplicación)</td>
-<td><img src="assets/safecity.png" alt="SafeCity" width="60"><br><strong>SafeCity</strong></td>
-<td><img src="assets/Nextdoor.webp" alt="Nextdoor" width="60"><br><strong>Nextdoor</strong></td>
-<td><img src="assets/Waze.png" alt="Waze" width="60"><br><strong>Waze</strong></td>
-<td><img src="assets/peaceapp.jpg" alt="PeaceApp" width="60"><br><strong>PeaceApp</strong></td>
-</tr>
-
-<!-- PERFIL -->
-<tr>
-<td rowspan="2"><strong>Perfil</strong></td>
-<td>Overview</td>
-<td>Aplicación para reportar incidentes de acoso y violencia. Genera mapas de calor y colabora con ONG para concienciación.</td>
-<td>Red social privada de vecindarios. Permite discutir temas locales, reportar incidentes y organizar eventos.</td>
-<td>Aplicación de navegación GPS con reportes en tiempo real de tráfico, accidentes y peligros.</td>
-<td>Aplicación móvil enfocada en la seguridad ciudadana en Lima Metropolitana, con reportes en tiempo real de incidentes.</td>
-</tr>
-<tr>
-<td>Ventaja competitiva / ¿Qué valor ofrece?</td>
-<td>Reportes anónimos, seguridad y prevención. Empodera a víctimas al darles una voz en un entorno seguro.</td>
-<td>Conexión comunitaria y recursos locales. Refuerza la interacción vecinal.</td>
-<td>Eficiencia en desplazamientos y seguridad al conducir. Comunidad activa de conductores.</td>
-<td>Seguridad en tiempo real, colaboración ciudadana, accesibilidad y empoderamiento comunitario.</td>
-</tr>
-
-<!-- PERFIL DE MARKETING -->
-<tr>
-<td rowspan="2"><strong>Perfil de Marketing</strong></td>
-<td>Mercado objetivo</td>
-<td>Mujeres en áreas urbanas donde el acoso es más prevalente.</td>
-<td>Adultos propietarios y residentes de vecindarios urbanos/suburbanos.</td>
-<td>Conductores en ciudades grandes con problemas de tráfico.</td>
-<td>Ciudadanos de Lima Metropolitana preocupados por su seguridad personal.</td>
-</tr>
-<tr>
-<td>Estrategias de marketing</td>
-<td>Campañas de concienciación con ONG y publicidad digital.</td>
-<td>Publicidad en redes sociales y colaboraciones con asociaciones vecinales.</td>
-<td>Alianzas con empresas automotrices y publicidad geolocalizada.</td>
-<td>Campañas de sensibilización, publicidad digital y colaboración con comunidades locales.</td>
-</tr>
-
-<!-- PERFIL DE PRODUCTO -->
-<tr>
-<td rowspan="3"><strong>Perfil de Producto</strong></td>
-<td>Productos & Servicios</td>
-<td>App móvil de reportes de acoso + plataforma de datos para ONG y gobiernos.</td>
-<td>Red social vecinal con foros, anuncios y alertas de seguridad.</td>
-<td>App GPS con navegación, reportes de tráfico y alertas de carretera.</td>
-<td>App móvil y web con reportes ciudadanos, alertas de seguridad y mapas interactivos.</td>
-</tr>
-<tr>
-<td>Precios & Costos</td>
-<td>Modelo freemium. Gratis para usuarios; servicios premium para ONG/gobiernos.</td>
-<td>Gratuito para usuarios. Ingresos por publicidad de negocios locales.</td>
-<td>Gratis para usuarios. Ingresos por publicidad geolocalizada.</td>
-<td>Modelo freemium: gratis para usuarios; premium con análisis avanzados y reportes para organizaciones.</td>
-</tr>
-<tr>
-<td>Canales de distribución</td>
-<td>App móvil (iOS/Android) + plataforma web.</td>
-<td>App móvil (iOS/Android) + web.</td>
-<td>App móvil (iOS/Android) + web.</td>
-<td>App móvil (iOS/Android) + web con mapas interactivos.</td>
-</tr>
-
-<!-- SWOT -->
-<tr>
-<td rowspan="4"><strong>Análisis SWOT</strong></td>
-<td>Fortalezas</td>
-<td>Reportes anónimos, impacto social y alianzas con ONG.</td>
-<td>Red social hiperlocal, gran base de usuarios y diversidad de servicios.</td>
-<td>Navegación en tiempo real, comunidad activa e integración con servicios externos.</td>
-<td>Enfoque en seguridad urbana de Lima, colaboración ciudadana y facilidad de uso.</td>
-</tr>
-<tr>
-<td>Debilidades</td>
-<td>Dependencia del usuario y cobertura limitada.</td>
-<td>Problemas de privacidad y alto nivel de competencia con otras apps.</td>
-<td>Dependencia de usuarios, consumo alto de datos y monetización limitada.</td>
-<td>Cobertura inicial solo en Lima y dependencia de participación ciudadana.</td>
-</tr>
-<tr>
-<td>Oportunidades</td>
-<td>Expansión geográfica y mayor integración con otras plataformas.</td>
-<td>Creciente demanda de comunidades locales y alianzas con negocios.</td>
-<td>Integración con gobiernos y mayor personalización de rutas.</td>
-<td>Expansión a otras ciudades, alianzas con gobiernos y ONGs, creciente demanda de apps de seguridad.</td>
-</tr>
-<tr>
-<td>Amenazas</td>
-<td>Competencia creciente y cambios en regulaciones de datos.</td>
-<td>Cambios en privacidad y saturación de mercado.</td>
-<td>Competencia de Google Maps/Apple Maps y problemas de privacidad.</td>
-<td>Competencia de apps similares y cambios regulatorios en datos.</td>
-</tr>
-</tbody>
-</table>
-
-### 2.1.2. Estrategias y tácticas frente a competidores
-En base al análisis competitivo (SWOT) realizado, se definen las siguientes estrategias y tácticas que permitirán a PeaceApp diferenciarse, aprovechar las oportunidades del mercado y enfrentar las amenazas de la competencia:
-
-1. **Diferenciación por Especialización Local**  
-   - **Estrategia:** Aprovechar la debilidad de SafeCity y Nextdoor en cuanto a cobertura geográfica y focalizar a PeaceApp en Lima Metropolitana, ofreciendo un conocimiento profundo de la dinámica local de seguridad.  
-   - **Táctica:** Desarrollar campañas de comunicación que resalten el enfoque exclusivo en Lima y establecer alianzas con autoridades municipales y juntas vecinales.  
-
-2. **Fomento de la Participación Ciudadana**  
-   - **Estrategia:** Contrarrestar la dependencia de competidores como Waze y SafeCity en el volumen de usuarios, incentivando la participación activa en la plataforma.  
-   - **Táctica:** Implementar un sistema de recompensas (insignias digitales, beneficios o reconocimientos) para usuarios frecuentes que reporten incidentes o validen información.  
-
-3. **Alianzas Estratégicas para Credibilidad**  
-   - **Estrategia:** Responder a las fortalezas de SafeCity (ONGs) y Nextdoor (comunidad) estableciendo convenios con ONGs, organizaciones locales y fuerzas del orden que refuercen la confianza en la app.  
-   - **Táctica:** Integrar PeaceApp en programas de seguridad ciudadana y firmar acuerdos que garanticen flujo de datos bidireccional con autoridades y comunidades.  
-
-4. **Expansión Geográfica Controlada**  
-   - **Estrategia:** Frente a la amenaza de apps internacionales (Waze, Nextdoor), planificar una expansión progresiva hacia ciudades peruanas con mayor incidencia delictiva, consolidando primero el éxito en Lima.  
-   - **Táctica:** Realizar estudios de mercado por ciudad, priorizando aquellas con altos índices de criminalidad, y adaptar la estrategia de marketing a su realidad local.  
-
-5. **Innovación en Funcionalidades Diferenciadas**  
-   - **Estrategia:** Superar la falta de enfoque en seguridad de Waze y Nextdoor incorporando funciones exclusivas que aumenten el valor para los usuarios.  
-   - **Táctica:** Desarrollar características como alertas personalizadas, integración con transporte público, mapas predictivos de riesgo y un botón de pánico conectado directamente con las autoridades.  
-## 2.2. Entrevistas
-
-El objetivo realizar las entrevistas es para poder comprender las preocupaciones, necesidades y expectativas de nuestro segmento objetivo, en este caso los ciudadanos preocupados por su seguridad en espacios públicos, en relación con su seguridad en espacios públicos. La información recolectada guiará el desarrollo de funcionalidades clave en la aplicación móvil, buscando mejorar la seguridad y tranquilidad de los usuarios en su entorno.
-
-### 2.2.1. Diseño de entrevistas
-
-Para la primera parte necesitaremos algunos de sus datos personales:
-Nombres y Apellidos, edad, pasatiempos y ocupación
-
-**Segmento Objetivo: Ciudadanos preocupados por su seguridad en espacios
-públicos**
-
-1.  ¿Puede describir alguna situación reciente en un espacio público donde se haya sentido inseguro o preocupado por su seguridad?
-
-Objetivo: Captar experiencias personales y contextos específicos que
-generan inseguridad.
-
-2.  ¿Qué medidas toma actualmente para sentirse más seguro cuando se encuentra en espacios públicos?
-
-Objetivo: Conocer las prácticas o herramientas que ya utilizan para protegerse.
-
-3.  ¿Qué aspectos de los espacios públicos (iluminación, vigilancia, presencia policial, etc.) le generan mayor preocupación en términos de seguridad?
-
-Objetivo: Identificar factores específicos que afectan la percepción de seguridad.
-
-4.  ¿Cómo reaccionaría si fuera testigo o víctima de una situación peligrosa en un espacio público?
-
-Objetivo: Comprender las respuestas típicas de los ciudadanos ante situaciones de inseguridad.
-
-5.  ¿Qué tipo de información o alertas le gustaría recibir a través de una aplicación móvil para mejorar su seguridad en espacios públicos?
-
-Objetivo: Definir las funcionalidades más valiosas para los usuarios.
-
-6.  ¿Qué tan cómodo se siente utilizando aplicaciones móviles para reportar incidentes de seguridad o recibir alertas?
-
-Objetivo: Evaluar el nivel de comodidad y experiencia con tecnologías de seguridad.
-
-7.  ¿Ha utilizado alguna vez una aplicación móvil enfocada en la seguridad ciudadana? Si es así, ¿qué le gustó o no le gustó de esa experiencia?
-
-Objetivo: Identificar experiencias previas y posibles mejoras.
-
-8.  ¿Considera útil la posibilidad de compartir su ubicación en tiempo real con familiares o amigos cuando se encuentra en un espacio público?
-
-Objetivo: Evaluar el interés en funciones de seguridad basadas en la ubicación.
-
-9.  ¿Qué otras características o herramientas le gustarían que una aplicación móvil incluyera para ayudarle a sentirse más seguro en espacios públicos?
-
-Objetivo: Recopilar ideas adicionales para funcionalidades en la aplicación.
-
-10. ¿Qué aspectos de una aplicación móvil de seguridad le harían sentir más confiado en su uso regular? (Ej.: facilidad de uso, protección de datos, confiabilidad, etc.)
-
-Objetivo: Identificar los requisitos esenciales para que la aplicación sea adoptada ampliamente.
-
-### 2.2.2. Registro de entrevistas
-
-**URL de todas las entrevistas:** <>
-
-**Entrevista N°1:**
-
-![Entrevista1](assets/Entrevista1.png)
-
-**Timing:** 
-
-**Nombre:** Mauricio Rojas
-
-**Edad:** 22 años
-
-**Pasatiempos:** Salir con amigos y con mascotas.
-
-**Ocupación:** Estudiante Universitario (Ingeniería de Software)
-
-Mauricio se siente inseguro en zonas congestionadas cerca de su universidad, especialmente después de presenciar un robo que generó tensión entre los transeúntes. Para protegerse, se mantiene cauteloso y evita zonas peligrosas cuando es posible, prestando atención a su
-entorno. La falta de iluminación y vigilancia en las calles aumenta su sensación de inseguridad. Ante un incidente, su reacción sería grabarlo y difundirlo para garantizar que se realice una denuncia. Aunque no ha usado aplicaciones de seguridad ciudadana, le ustaría recibir alertas sobre zonas peligrosas y se siente cómodo usando tecnología para mantenerse informado. Considera útil compartir su ubicación en zonas desconocidas y valora la inclusión de foros en una app donde los usuarios puedan compartir experiencias. También le interesa que la aplicación sea confiable, especialmente en la protección de  datos y en la actualización de información basada en los reportes de los usuarios.
-
-**Entrevista N° 2:**
-
-![Entrevista2](assets/Entrevista2.png)
-
-**Timing:**
-
-Nombre: Edson Sanchez
-
-Edad: 20 años
-
-Pasatiempos: Salir con amigos y jugar fútbol.
-
-Ocupación: Estudiante Universitario (Psicología)
-
-El entrevistado se siente inseguro en espacios públicos, especialmente cerca de su casa a altas horas de la noche, que a pesar de que no le haya ocurrido nada siente algo de miedo. Le preocupa la falta de vigilancia y la iluminación deficiente en estos lugares. Ante situaciones peligrosas, prefiere evitar problemas para salvaguardar su seguridad. Valora recibir alertas sobre robos o zonas peligrosas a través de una aplicación móvil, aunque no ha usado una app de seguridad antes, conoce su potencial y está interesado en funciones como alarmas y mapas de riesgo. Además, considera útil compartir su ubicación en tiempo real en caso de riesgo o llamar a las autoridades.
-
-
-**Entrevista N° 3:**
-
-![Entrevista_5](assets/interview_5.png)
-
-**Timing:** 13:46
-
-**Nombre**: Maria Paula Rojas
-
-**Edad:** 19 años
-
-**Pasatiempos:** Dibujar, ver series animadas, cantar, estudiar educacion especial.
-
-**Ocupación:** Estudiante universitaria (Educacion Infantil)
-
-Maria Paula Rojas, una joven de 19 años que estudia Educación Infantil y disfruta de dibujar, ver series animadas, cantar y aprender sobre educación especial, participó en una conversación centrada en la seguridad y el uso de aplicaciones móviles. Durante la entrevista, se discutió la importancia de implementar herramientas tecnológicas para mejorar la seguridad en espacios públicos, incluyendo el desarrollo de una app que permita reportar y rastrear incidentes. También se habló sobre el potencial uso de tecnología para detectar y localizar robots, y se compararon algunas funciones con las que ofrecen dispositivos como los de Apple. La charla reflejó un claro interés en crear soluciones innovadoras que contribuyan a la protección de las personas en su entorno cotidiano.
-
-### 2.2.3. Análisis de entrevistas
-
-En base a las cinco entrevistas realizadas (N=5), se identificaron características objetivas y subjetivas comunes en los segmentos analizados. El perfil principal corresponde a **estudiantes universitarios jóvenes (20-22 años)** de Lima Metropolitana, con experiencias directas o indirectas de inseguridad ciudadana y alta disposición a usar tecnología para mejorar su seguridad.
-
-#### Características Objetivas
-- **Edad:** El 100% tiene entre 20 y 22 años.  
-- **Ocupación:** El 100% son estudiantes universitarios; el 20% combina estudios con trabajo formal.  
-- **Pasatiempos:** El 80% disfruta actividades recreativas como salir con amigos, jugar videojuegos, practicar deporte o pasear con mascotas. El 20% mencionó la lectura como actividad principal.  
-
-#### Características Subjetivas
-- **Percepción de inseguridad:** El 100% manifestó sentirse inseguro en zonas con poca iluminación o sin vigilancia.  
-- **Experiencias relacionadas:**  
-  - 60% ha presenciado robos o situaciones de riesgo (Mauricio, Marcia, Fernanda).  
-  - 40% no ha sido víctima ni testigo directo, pero perciben alto riesgo en su entorno (Edson, Jefferson).  
-- **Reacciones ante incidentes:**  
-  - 60% ayudaría a la víctima (auxilio, prestar celular, bloquear dispositivos).  
-  - 20% grabaría o difundiría el hecho.  
-  - 20% evitaría involucrarse y priorizaría su seguridad.  
-- **Uso de tecnología y disposición a apps:** El 100% no ha usado aplicaciones de seguridad ciudadana, pero el 100% estaría dispuesto a utilizarlas si son intuitivas y confiables.  
-- **Funcionalidades valoradas:**  
-  - 100% valora recibir **alertas sobre zonas peligrosas**.  
-  - 100% considera útil **compartir ubicación en tiempo real**.  
-  - 60% destacó la importancia de un **botón de emergencia o contacto directo con autoridades**.  
-  - 40% valoró la inclusión de **foros o espacios comunitarios**.  
-- **Confianza y datos:** El 100% enfatizó la necesidad de protección de datos personales y actualización constante de la información.  
-
-#### Conclusión
-El segmento entrevistado muestra un patrón homogéneo: **jóvenes universitarios urbanos, conscientes de la inseguridad en espacios públicos, especialmente en zonas mal iluminadas, con experiencias cercanas de riesgo y una clara disposición a usar soluciones tecnológicas**. Para ellos, PeaceApp debe priorizar **alertas en tiempo real, ubicación compartida, contacto con autoridades y seguridad en el manejo de datos**. Estas características son la base para construir arquetipos de usuario sólidos y orientar las decisiones de diseño, usabilidad y marketing de la aplicación.
-
-
-## 2.3. Needfinding
-
-### 2.3.1. User Personas
-
-En esta sección se presenta el User Persona que representa el segmento del proyecto. Este perfil permite comprender en profundidad las necesidades, motivaciones, frustraciones y comportamientos del usuario potencial del sistema, el cual busca mejorar la seguridad en la vía pública del país.
-
-![UserPersona](assets/AdrianaGutierrez.png)
-
-### 2.3.2. User Task Matrix
-
-**Ciudadanos preocupados por su seguridad en espacios públicos**  
-
-| **Tarea** | **Frecuencia / Importancia** |
-|-----------|-------------------------------|
-| Consultar a familiares o amigos sobre la seguridad de una zona antes de visitarla | Siempre / Alta |
-| Buscar en Internet o en redes sociales noticias sobre incidentes en su área | A veces / Media |
-| Evitar salir en horarios o lugares que son conocidos como peligrosos | Siempre / Alta |
-| Llamar a la policía o a servicios de emergencia en caso de sentirse en peligro | Casi nunca / Alta |
-| Organizarse con vecinos para mejorar la seguridad en la comunidad | Nunca / Media |
-| Usar aplicaciones de mapas para evitar zonas peligrosas conocidas | Nunca / Media |
-| Llevar consigo objetos de autodefensa personal | Nunca / Media |
-
----
-
-## Análisis  
-
-Adriana centra sus actividades en **mantenerse informada y protegida en espacios públicos**.  
-La consulta constante con familiares, redes sociales e Internet, así como la decisión de evitar salir en horarios peligrosos, son sus **acciones prioritarias**, ya que le permiten anticipar riesgos y tomar decisiones seguras.  
-
-Aunque **llamar a la policía o servicios de emergencia** es una acción poco frecuente, tiene una **alta importancia** por su carácter crítico en situaciones de peligro real.  
- 
-En resumen, la experiencia de Adriana está fuertemente orientada hacia la **prevención informada y la anticipación de riesgos**, lo que evidencia la necesidad de soluciones que le brinden **alertas confiables, comunicación ágil y herramientas tecnológicas de protección personal**.
-
-
-### 2.3.3. Empathy Mapping
-
-![EmpathyMapping](assets/EmpathyMapping.jpg)
-
-#### 2.3.4. As-is Scenario Mapping
-
-![AsIs](assets/AsIs.png)
-
-Enlace del As-Is Scenario Mapping: https://lucid.app/lucidchart/c1cb9ad8-c701-42db-9a14-30617f7dbc29/edit?viewport_loc=-495%2C43%2C2351%2C1078%2C0_0&invitationId=inv_26bc4b6e-dc17-4979-8706-54483829b3f9
-
-#### 2.4. Ubiquitous Language 
+# Capítulo III: Requirements Specification
+## 3.1. To-be Scenario Mapping
+
+![ToBe](assets/ToBe.png)
+
+Enlace del To-Be Scenario Mapping: https://lucid.app/lucidchart/9c2329c4-fd90-4760-9ce3-d2e30cbe1b86/edit?viewport_loc=-433%2C56%2C1791%2C836%2C0_0&invitationId=inv_3a88d771-9c52-4f43-8aef-2c234eea78d6
+
+## 3.2. User Stories
+
+| User/Technical Story ID | Título                                             | Descripción                                                                                                                                                                          | Criterios de Aceptación | Relacionado con (Epic ID) |
+|-------------------------|----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------|----------------------------|
+| EP01                    | Interfaz de Usuario y Navegación                   | Como usuario, quiero interactuar con una interfaz clara y fácil de navegar, para acceder a las funciones de la aplicación sin complicaciones.                                       | No corresponde.          | No corresponde.            |
+| EP02                    | Registro, Inicio de Sesión y Perfil                | Como usuario, quiero poder registrarme, iniciar sesión y personalizar mi perfil, para gestionar mi cuenta y preferencias dentro de la aplicación.                                  | No corresponde.          | No corresponde.            |
+| EP03                    | Mapa Interactivo y Reportes                        | Como usuario, quiero acceder a un mapa interactivo que muestre rutas seguras y zonas peligrosas, y poder enviar reportes de incidentes, para contribuir a la seguridad de mi comunidad. | No corresponde.          | No corresponde.            |
+| EP04                    | Diseño y Accesibilidad de la Landing Page         | Como visitante de la landing page, quiero acceder a una página bien diseñada y fácil de navegar, para obtener rápidamente información sobre PeaceApp y cómo descargarla.           | No corresponde.          | No corresponde.            |
+| EP05                    | Información y Contacto                             | Como visitante de la landing page, quiero encontrar información clara sobre los servicios y beneficios de la aplicación y tener la opción de contactar al equipo, para resolver cualquier duda o preocupación que tenga. | No corresponde.          | No corresponde.            |
+| US01          | Contactar con la Startup    | Como visitante de la Landing Page, quiero encontrar un formulario de contacto funcional y accesible, para poder comunicarme con el startup. | Escenario 1: Enviar un mensaje a los desarrolladores<br>Dado que el visitante tiene una consulta o comentario relacionado con la aplicación,<br>Cuando redacte un mensaje para contactar a los desarrolladores,<br>Entonces el sistema enviará el mensaje a la dirección de correo electrónico del startup. | EP05                       |
+| US02          | Navegar en la Landing Page  | Como visitante de la Landing Page, quiero encontrar las secciones bien definidas para comprender fácilmente la información mostrada. | Escenario 1: Visualizar información<br>Dado que el visitante está recorriendo la landing page,<br>Cuando acceda a una sección de la landing page,<br>Entonces podrá comprender la información, ya que, cada sección estará organizada.<br><br>Escenario 2: Navegación a través del menú principal<br>Dado que el visitante está en la landing page,<br>Cuando hace clic en una opción del menú principal (como "About Us", "Services", entre otros),<br>Entonces es redirigido a la sección correspondiente y la información se muestra claramente. | EP04                       |
+| US03          | Diseño Responsivo    | Como usuario, quiero que la aplicación se adapte bien a diferentes tamaños de pantalla, para poder usarla cómodamente en cualquier dispositivo, ya sea móvil, tablet o escritorio. | Escenario 1: Adaptación a dispositivos móviles<br>Dado que el usuario accede a la aplicación desde un smartphone,<br>Cuando la aplicación se carga en el dispositivo,<br>Entonces la interfaz se ajusta automáticamente para proporcionar una experiencia de uso óptima en una pantalla pequeña.<br><br>Escenario 2: Adaptación a tablets<br>Dado que el usuario accede a la aplicación desde una tablet,<br>Cuando la aplicación se carga en el dispositivo,<br>Entonces la interfaz muestra un diseño responsivo adecuado para la pantalla más grande, utilizando el espacio de manera eficiente. | EP01 |
+| US04          | Registro de Usuarios | Como usuario, quiero poder registrarme en la aplicación, para acceder a las funcionalidades de PeaceApp.                                                 | Escenario 1: Registro exitoso<br>Dado que el usuario ha completado todos los campos del formulario de registro,<br>Cuando hace clic en "Crear cuenta",<br>Entonces la cuenta se crea y el usuario accede a la aplicación.<br><br>Escenario 2: Registro incompleto<br>Dado que el usuario intenta registrarse sin completar todos los campos obligatorios,<br>Cuando hace clic en "Crear cuenta",<br>Entonces el sistema muestra un mensaje de error indicando qué campos faltan por completar.<br><br>Escenario 3: Registro con credenciales ya utilizadas<br>Dado que el usuario intenta registrarse utilizando un correo electrónico ya registrado en la base de datos,<br>Cuando hace clic en "Crear cuenta",<br>Entonces el sistema muestra un mensaje de error indicando que el correo electrónico ya está en uso y sugiere recuperar la contraseña. | EP02 |
+| US05          | Iniciar Sesión       | Como usuario registrado, quiero poder iniciar sesión con mi correo y contraseña, para acceder a mi cuenta.                                               | Escenario 1: Inicio de sesión exitoso<br>Dado que el usuario ha ingresado su correo y contraseña correctamente,<br>Cuando hace clic en "Iniciar sesión",<br>Entonces accede a su cuenta en la aplicación.<br><br>Escenario 2: Inicio de sesión con credenciales incorrectas<br>Dado que el usuario ingresa un correo electrónico o contraseña incorrectos,<br>Cuando hace clic en "Iniciar sesión",<br>Entonces el sistema muestra un mensaje de error indicando que las credenciales son incorrectas. | EP02 |
+| US06          | Generar Reporte de Incidentes  | Como usuario, quiero poder generar reportes de incidentes de seguridad, para contribuir a la actualización del mapa de calor. | Escenario 1: Reporte exitoso<br>Dado que el usuario ha presenciado un incidente,<br>Cuando completa el formulario de reporte en la aplicación,<br>Entonces el incidente se registra y el mapa de calor se actualiza.<br><br>Escenario 2: Reporte con datos incompletos<br>Dado que el usuario intenta enviar un reporte sin completar toda la información requerida,<br>Cuando hace clic en "Enviar reporte",<br>Entonces el sistema muestra un mensaje de error indicando los campos faltantes.<br><br>Escenario 3: Cancelación del reporte<br>Dado que el usuario ha comenzado a llenar un reporte de incidente,<br>Cuando decide cancelar el envío antes de completar el formulario,<br>Entonces el sistema le pregunta si está seguro de que desea cancelar y descartar los datos ingresados. | EP03 |
+| US07          | Adjuntar Evidencia al Reporte  | Como usuario, quiero poder adjuntar fotos o videos al reporte, para dar mayor credibilidad y detalle al incidente reportado. | Escenario 1: Adjuntar evidencia<br>Dado que el usuario está completando un reporte,<br>Cuando adjunta una foto o video desde su dispositivo,<br>Entonces el reporte se envía con la evidencia adjunta.<br><br>Escenario 2: Error al subir evidencia<br>Dado que el usuario intenta subir una imagen o video de gran tamaño que excede el límite permitido,<br>Cuando hace clic en "Subir evidencia",<br>Entonces el sistema muestra un mensaje de error indicando que el archivo es demasiado grande. | EP03 |
+| US08          | Visualización de Reportes        | Como ciudadano, quiero poder ver los reportes de otros usuarios sobre incidentes ocurridos en la zona, para estar al tanto de los eventos de seguridad. | Escenario 1: Visualización de reportes recientes<br>Dado que el ciudadano está navegando por la aplicación,<br>Cuando accede a la opción de "ver reportes",<br>Entonces la aplicación muestra los reportes más recientes en la zona del ciudadano.<br><br>Escenario 2: Visualización de reportes en el mapa<br>Dado que el ciudadano está utilizando el mapa interactivo en la aplicación,<br>Cuando activa la opción de mostrar reportes en el mapa,<br>Entonces la aplicación superpone los reportes relevantes en el mapa, mostrando la ubicación exacta de cada incidente. | EP03 |
+| US09          | Recibir Alertas de Zonas de Riesgo | Como ciudadano, quiero recibir alertas si me acerco a una zona de alto riesgo, para tomar las precauciones necesarias. | Escenario 1: Alerta de riesgo mientras está en una zona peligrosa<br>Dado que el ciudadano está caminando en una zona peligrosa según la aplicación,<br>Cuando la aplicación detecta que el ciudadano está en esa zona,<br>Entonces la aplicación envía una alerta al ciudadano. | EP03 |
+| US10         | Compartir Ubicación con Contactos en la Aplicación Móvil | Como usuario de la aplicación móvil, quiero poder compartir mi ubicación con mis contactos cercanos, para que puedan monitorear mi trayecto y estar alertas ante cualquier peligro. | Escenario 1: Compartir ubicación con éxito<br>Dado que un usuario desea compartir su ubicación desde la aplicación móvil,<br>Cuando activa la opción de compartir ubicación,<br>Entonces los contactos seleccionados reciben la ubicación en tiempo real.<br><br>Escenario 2: Error al compartir ubicación<br>Dado que un usuario intenta compartir su ubicación con sus contactos cercanos desde la aplicación móvil,<br>Cuando la misma no puede acceder a la ubicación del usuario,<br>Entonces se muestra un mensaje de error indicando que no se puede compartir la ubicación. | EP03 |
+| US11          | Editar Información de Perfil     | Como usuario, quiero poder editar mi información de perfil, para corregir o actualizar mis datos personales.                 | Escenario 1: Editar información de perfil exitosa<br>Dado que el usuario está en la pantalla de edición de su perfil,<br>Cuando el usuario actualiza su información personal y hace clic en el botón "Guardar cambios",<br>Entonces la información actualizada debe guardarse correctamente y mostrarse en el perfil del usuario, con un mensaje de confirmación indicando que los cambios se realizaron con éxito.<br><br>Escenario 2: Error al guardar información de perfil<br>Dado que el usuario está en la pantalla de edición de su perfil,<br>Cuando el usuario intenta guardar los cambios con un campo obligatorio vacío o con un formato incorrecto,<br>Entonces el sistema debe mostrar un mensaje de error indicando que la información no es válida, resaltando los campos que necesitan corrección, y no debe guardar los cambios hasta que toda la información esté correctamente completada. | EP02 |
+| US12          | Recuperar Contraseña             | Como usuario, quiero poder recuperar mi contraseña si la olvido, para poder acceder nuevamente a mi cuenta.                  | Escenario 1: Edición exitosa<br>Dado que el usuario accede a la configuración de su perfil,<br>Cuando cambia la información deseada,<br>Entonces la información se actualiza correctamente.<br><br>Escenario 2: Fallo en la edición de perfil<br>Dado que el usuario intenta guardar los cambios en su perfil,<br>Cuando hay un problema de conectividad o error del servidor,<br>Entonces el sistema muestra un mensaje de error indicando que los cambios no se han podido guardar. | EP02 |
+| US13          | Acceder a Mapa con Reportes          | Como usuario, quiero poder ver un mapa interactivo con los reportes de incidentes en mi área, para tomar decisiones informadas sobre mi seguridad. | Escenario 1: Acceso al mapa con reportes<br>Dado que el usuario está en la página principal de la aplicación,<br>Cuando selecciona el mapa,<br>Entonces se muestra un mapa interactivo con marcadores que representan los reportes de incidentes según su ubicación.<br><br>Escenario 2: Mapa sin reportes disponibles<br>Dado que el usuario está en una zona sin reportes registrados,<br>Cuando accede al mapa desde la aplicación,<br>Entonces el sistema muestra el mapa sin marcadores y con un mensaje indicando que no hay reportes disponibles en la zona seleccionada. | EP03 |
+| US14          | Acceder al Perfil de Usuario          | Como usuario, quiero acceder a mi perfil desde el menú principal, para visualizar mi información personal y configuraciones. | Escenario 1: Usuario sin imagen de perfil<br>Dado que el usuario ha iniciado sesión y accede a la sección "Perfil",<br>Cuando no tiene una imagen de perfil configurada,<br>Entonces el sistema muestra una imagen por defecto y la opción de subir una.<br>Y puede visualizar su información ingresada en el sistema.<br><br>Escenario 2: Usuario con imagen de perfil<br>Dado que el usuario ha iniciado sesión y accede a la sección "Perfil",<br>Cuando ya tiene una imagen de perfil configurada,<br>Entonces el sistema muestra la foto de perfil subida con la opción de cambiarla,<br>Y puede visualizar su información ingresada en el sistema. | EP02 |
+| US15          | Filtrar Reportes         | Como usuario, quiero poder filtrar los reportes para ver todos los reportes o solo los que yo he creado, para gestionar mejor la información relevante según mis intereses. | Escenario 1: Ver solo mis reportes<br>Dado que el usuario está en la sección de reportes,<br>Cuando selecciona la opción “Mis reportes”,<br>Entonces el sistema muestra únicamente los reportes generados por ese usuario.<br><br>Escenario 2: Ver todos los reportes<br>Dado que el usuario está en la sección de reportes,<br>Cuando selecciona la opción “Todos los reportes”,<br>Entonces el sistema muestra la lista completa de reportes disponibles en la base de datos.| EP03 |
+| US16          | Buscar Ubicación en el Mapa         | Como usuario, quiero poder explorar reportes de seguridad en diferentes zonas del mapa, para tomar decisiones informadas sobre mis desplazamientos. | Escenario 1: Buscar ubicación por dirección<br>Dado que el usuario está en la sección de mapa,<br>Cuando ingresa una dirección en el buscador,<br>Entonces el mapa se centra en esa ubicación y muestra los reportes disponibles en esa zona.<br><br>Escenario 2: Mover el mapa manualmente<br>Dado que el usuario está navegando el mapa,<br>Cuando arrastra o aleja el mapa hacia otra zona,<br>Entonces los reportes visibles se actualizan automáticamente según la nueva área mostrada.| EP03 |
+| TS01 | Autenticación JWT mediante RESTful API | Como desarrollador, quiero autenticar a los usuarios a través de un token JWT para que puedan acceder a la plataforma de manera segura. | Escenario 1: Inicio de sesión exitoso<br>Dado que el endpoint /api/v1/login está disponible<br>Cuando se envía un POST request con nombre de usuario y contraseña correctos<br>Entonces se recibe un response con un status 200<br>Y un token JWT es generado y enviado en el body del response.<br><br>Escenario 2: Fallo en inicio de sesión<br>Dado que el endpoint /api/v1/login está disponible<br>Cuando se envía un POST request con credenciales incorrectas<br>Entonces se recibe un response con un status 401<br>Y un mensaje en el body dice "Credenciales incorrectas." | No corresponde |
+| TS02 | Crear nuevo usuario mediante RESTful API | Como desarrollador, quiero permitir la creación de nuevos usuarios para que puedan acceder al sistema. | Escenario 1: Crear usuario con datos válidos<br>Dado que el endpoint /api/v1/users está disponible<br>Cuando se envía un POST request con nombre, correo y contraseña<br>Entonces se recibe un response con un status 201<br>Y el usuario es creado, y se devuelve un body con el ID del usuario y los datos ingresados.<br><br>Escenario 2: Crear usuario con correo duplicado<br>Dado que el endpoint /api/v1/users está disponible<br>Cuando se envía un POST request con un correo que ya existe<br>Entonces se recibe un response con un status 400<br>Y un mensaje en el body del response dice "El correo ya está en uso." | No corresponde |
+| TS03 | Editar perfil de usuario mediante RESTful API | Como desarrollador, quiero que los usuarios puedan actualizar su información personal para mantener sus perfiles al día. | Escenario 1: Actualizar nombre y correo del perfil<br>Dado que el endpoint /api/v1/users/{id} está disponible<br>Cuando se envía un PUT request con datos actualizados<br>Entonces se recibe un response con un status 200<br>Y la información del perfil es actualizada en el sistema. | No corresponde |
+| TS04 | Crear reporte de incidente mediante RESTful API | Como desarrollador, quiero que los usuarios puedan crear reportes de incidentes para compartir información sobre zonas peligrosas. | Escenario 1: Crear reporte de incidente válido<br>Dado que el endpoint /api/v1/reports está disponible<br>Cuando se envía un POST request con los detalles del incidente (ubicación, descripción, tipo)<br>Entonces se recibe un response con un status 201<br>Y el reporte es creado y registrado en el sistema.<br><br>Escenario 2: Intentar crear reporte con datos faltantes<br>Dado que el endpoint /api/v1/reports está disponible<br>Cuando se envía un POST request sin todos los detalles necesarios (como la ubicación)<br>Entonces se recibe un response con un status 400<br>Y un mensaje en el body dice "Datos insuficientes para crear el reporte." | No corresponde |
+| TS05 | Obtener lista de reportes mediante RESTful API | Como desarrollador, quiero que los usuarios puedan obtener una lista de reportes para ver incidentes recientes en su área. | Escenario 1: Obtener reportes existentes<br>Dado que el endpoint /api/v1/reports está disponible<br>Cuando se envía un GET request<br>Entonces se recibe un response con un status 200<br>Y una lista de reportes es devuelta en el body del response.<br><br>Escenario 2: No hay reportes disponibles<br>Dado que el endpoint /api/v1/reports está disponible<br>Cuando se envía un GET request<br>Entonces se recibe un response con un status 200<br>Y un mensaje en el body dice "No hay reportes disponibles." | No corresponde |
+| TS06 | Obtener reporte por ID mediante RESTful API | Como desarrollador, quiero que los usuarios puedan obtener los detalles de un solo reporte para consultar información específica sobre un incidente. | Escenario 1: Obtener reporte existente por ID<br>Dado que el endpoint /api/v1/reports/{id} está disponible<br>Cuando se envía un GET request con un ID válido<br>Entonces se recibe un response con un status 200<br>Y los detalles del reporte son devueltos en el body del response.<br><br>Escenario 2: Intentar obtener reporte con un ID inexistente<br>Dado que el endpoint /api/v1/reports/{id} está disponible<br>Cuando se envía un GET request con un ID inexistente<br>Entonces se recibe un response con un status 404<br>Y un mensaje en el body del response dice "Reporte no encontrado." | No corresponde |
+| TS07 | Crear coordenadas de ubicación al generar un reporte            | Como desarrollador, quiero registrar las coordenadas de una ubicación mediante un POST, para asociarlas al reporte de un incidente.                             |  Escenario 1: Creación exitosa   <br>Dado que el endpoint `/api/v1/locations/` está disponible,<br>Cuando se envía un POST con `latitude`, `longitude` y `idReport` válidos,<br>Entonces se recibe un status 200 y la ubicación queda registrada en el sistema.<br><br>Escenario 2: Faltan datos obligatorios<br>Dado que el desarrollador omite un campo obligatorio (ej. `latitude`),<br>Cuando se envía el POST,<br>Entonces el sistema responde con un status 400 indicando "Parámetros inválidos".<br><br>Escenario 3: ID de reporte no válido<br>Dado que se envía un `idReport` inexistente,<br>Cuando se realiza la solicitud,<br>Entonces el sistema responde con un status 404 o 400 con mensaje "Reporte no encontrado". | No corresponde |
+| TS08 | Obtener ubicaciones para renderizar reportes en el mapa         | Como desarrollador, quiero obtener las coordenadas mediante un GET, para mostrar los íconos de los reportes en el mapa.                                          | Escenario 1: Obtención exitosa  <br>Dado que el endpoint `/api/v1/locations/` está disponible,<br>Cuando se envía un GET,<br>Entonces se recibe un status 200 con la lista de ubicaciones.<br><br>Escenario 2: No hay ubicaciones registradas<br>Dado que no existen ubicaciones en la base de datos,<br>Cuando se hace la petición GET,<br>Entonces el sistema responde con status 200 y una lista vacía. | No corresponde |
+| TS09 | Crear alerta al acercarse a una zona de peligro                 | Como desarrollador, quiero crear una alerta mediante POST para notificar que un usuario está dentro del rango de un incidente.                                  |  Escenario 1: Creación exitosa   <br>Dado que el endpoint `/api/v1/alerts/` está disponible,<br>Cuando se envía un POST con `location`, `type`, `description`, `idUser`, `image_url` y `idReport` válidos,<br>Entonces se recibe un status 200 y la alerta queda registrada.<br><br>Escenario 2: Faltan campos obligatorios<br>Dado que se omite `location` o `idUser`,<br>Cuando se realiza la solicitud,<br>Entonces el sistema devuelve status 400 con mensaje de error.<br><br>Escenario 3: ID de usuario inválido<br>Dado que se envía un `idUser` no existente,<br>Cuando se realiza la solicitud,<br>Entonces el sistema devuelve status 404 o 400 indicando "Usuario no encontrado". | No corresponde |
+| TS10 | Obtener alertas por usuario                                      | Como desarrollador, quiero obtener las alertas específicas de un usuario mediante GET.                                                                          | Escenario 1: Obtención exitosa  <br>Dado que el endpoint `/api/v1/alerts/user/{userId}` está disponible,<br>Cuando se envía un GET con un `userId` válido,<br>Entonces se recibe un status 200 con la lista de alertas del usuario.<br><br>Escenario 2: Usuario sin alertas<br>Dado que el usuario no ha generado alertas,<br>Cuando se realiza la solicitud GET,<br>Entonces el sistema responde con status 200 y una lista vacía.<br><br>**Escenario 3: ID de usuario inválido**<br>Dado que se consulta un `userId` que no existe,<br>Cuando se realiza la solicitud GET,<br>Entonces se recibe un status 404. | No corresponde |
+| TS11 | Eliminar alertas al recargar el mapa                            | Como desarrollador, quiero eliminar todas las alertas del usuario al recargar el mapa para evitar duplicaciones.                                                 | Escenario 1: Eliminación exitosa<br>Dado que se requiere reiniciar las alertas al recargar el mapa,<br>Cuando se envía un DELETE al endpoint `/api/v1/alerts/`,<br>Entonces se recibe un status 200 confirmando que todas las alertas fueron eliminadas.<br><br>Escenario 2: No hay alertas activas<br>Dado que no hay alertas en el sistema,<br>Cuando se realiza la solicitud DELETE,<br>Entonces se devuelve igualmente un status 200 o 204 indicando que no había nada que eliminar. | No corresponde |
+| TS12 | Obtener detalles de una alerta por ID                           | Como desarrollador, quiero consultar una alerta específica por su ID.                                                                                            | Escenario 1: Consulta exitosa   <br>Dado que se accede al endpoint `/api/v1/alerts/{id}` con un ID válido,<br>Cuando se realiza un GET,<br>Entonces se recibe un status 200 con los datos de la alerta.<br><br>Escenario 2: ID de alerta no encontrado<br>Dado que se utiliza un ID que no corresponde a ninguna alerta,<br>Cuando se realiza la solicitud,<br>Entonces se recibe un status 404 con mensaje "Alerta no encontrada". | No corresponde |
+| TS13 | Obtener datos de usuario por email                              | Como desarrollador, quiero obtener un usuario mediante su email para fines de autenticación.                                                                     | Escenario 1: Usuario encontrado <br>Dado que el email existe,<br>Cuando se hace un GET a `/api/v1/users/{email}`,<br>Entonces se recibe un status 200 con los datos del usuario.<br><br>Escenario 2: Email no registrado<br>Dado que el email no está en la base de datos,<br>Cuando se realiza la solicitud GET,<br>Entonces se recibe un status 404 con mensaje "Usuario no encontrado". | No corresponde |
+
+## 3.3. Impact Mapping
+
+![ImpactMapping](assets/ImpactMapping.jpg)
+
+## 3.4. Product Backlog
+
+Se implementa el siguiente producto backlog a partir de las historias de
+usuario elaboradas, evaluándolas en un rango de 1,2,3,5,8 (serie
+Fibonacci), significando el mayor número como el más importante y
+relevante.
+
+| **ID** | **User Story / Technical Story Id** | **Título**                                                                   | **Descripción**                                                                                                                                                                    | **Story Points (1/2/3/5/8)** |
+|--------|-------------------------------------|------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------|
+| 1      | **US02**                            | Navegar en la Landing Page                                                   | Como visitante de la Landing Page, quiero encontrar las secciones bien definidas para comprender fácilmente la información mostrada.                                               | 1                            |
+| 2      | **US03**                            | Acceso a Planes                                                              | Como visitante de la Landing Page, quiero poder acceder a los detalles de los planes ofrecidos por PeaceApp, para elegir el que mejor se adapte a mis necesidades.                 | 2                            |
+| 3      | **US01**                            | Contactar con la Startup                                                     | Como visitante de la Landing Page, quiero encontrar un formulario de contacto funcional y accesible, para poder comunicarme con el startup.                                        | 1                            |
+| 4   | **US06** | Generar Reporte de Incidentes         | Como usuario, quiero poder generar reportes de incidentes de seguridad, para contribuir a la actualización del mapa de calor.                   | 3              |
+| 5   | **US07** | Adjuntar Evidencia al Reporte         | Como usuario, quiero poder adjuntar fotos o videos al reporte, para dar mayor credibilidad y detalle al incidente reportado.                    | 5              |
+| 6   | **US08** | Visualización de Reportes             | Como ciudadano, quiero poder ver los reportes de otros usuarios sobre incidentes ocurridos en la zona, para estar al tanto de los eventos.      | 3              |
+| 7   | **US13** | Acceder a Mapa con Reportes           | Como usuario, quiero poder ver un mapa interactivo con los reportes de incidentes en mi área, para tomar decisiones informadas sobre seguridad. | 8              |
+| 8   | **US16** | Buscar Ubicación en el Mapa           | Como usuario, quiero poder explorar reportes de seguridad en diferentes zonas del mapa, para tomar decisiones informadas sobre mis desplazamientos. | 3           |
+| 9   | **US15** | Filtrar Reportes                      | Como usuario, quiero poder filtrar los reportes para ver todos los reportes o solo los que yo he creado, para gestionar mejor la información.    | 2              |
+| 10  | **US09** | Recibir Alertas de Zonas de Riesgo    | Como ciudadano, quiero recibir alertas si me acerco a una zona de alto riesgo, para tomar las precauciones necesarias.                          | 5              |
+| 11  | **US10** | Compartir Ubicación con Contactos en la Aplicación Móvil     | Como usuario de la aplicación móvil, quiero poder compartir mi ubicación con mis contactos cercanos, para que puedan monitorear mi trayecto ante cualquier peligro.     | 5              |
+| 12  | **US11** | Editar Información de Perfil          | Como usuario, quiero poder editar mi información de perfil, para corregir o actualizar mis datos personales.                                    | 2              |
+| 13  | **US14** | Acceder al Perfil de Usuario          | Como usuario, quiero acceder a mi perfil desde el menú principal, para visualizar mi información personal y configuraciones.                     | 2              |
+| 14  | **US05** | Iniciar Sesión                        | Como usuario registrado, quiero poder iniciar sesión con mi correo y contraseña, para acceder a mi cuenta.                                      | 8              |
+| 15  | **US04** | Registro de Usuarios                  | Como usuario, quiero poder registrarme en la aplicación, para acceder a las funcionalidades de PeaceApp.                                       | 8              |
+| 16  | **US12** | Recuperar Contraseña                  | Como usuario, quiero poder recuperar mi contraseña si la olvido, para poder acceder nuevamente a mi cuenta.                                     | 2              |
+| 17  | **US03** | Diseño Responsivo                     | Como usuario, quiero que la aplicación se adapte a diferentes pantallas, para usarla cómodamente en móvil, tablet o escritorio.                 | 2              |
+| 18  | **TS04**   | Crear reporte de incidente mediante RESTful API       | Como desarrollador, quiero que los usuarios puedan crear reportes de incidentes para compartir información sobre zonas peligrosas.          | 5          |
+| 19  | **TS07**   | Crear coordenadas de ubicación al generar un reporte  | Como desarrollador, quiero registrar las coordenadas de una ubicación mediante un POST, para asociarlas al reporte de un incidente.         | 5          |
+| 20  | **TS08**   | Obtener ubicaciones para renderizar reportes en el mapa | Como desarrollador, quiero obtener las coordenadas mediante un GET, para mostrar los íconos de los reportes en el mapa.                    | 3          |
+| 21  | **TS05**   | Obtener lista de reportes mediante RESTful API        | Como desarrollador, quiero que los usuarios puedan obtener una lista de reportes para ver incidentes recientes en su área.                  | 3          |
+| 22  | **TS06**   | Obtener reporte por ID mediante RESTful API           | Como desarrollador, quiero que los usuarios puedan obtener los detalles de un solo reporte para consultar información específica sobre un incidente. | 3          |
+| 23  | **TS09**   | Crear alerta al acercarse a una zona de peligro       | Como desarrollador, quiero crear una alerta mediante POST para notificar que un usuario está dentro del rango de un incidente.              | 5          |
+| 24  | **TS10**   | Obtener alertas por usuario                           | Como desarrollador, quiero obtener las alertas específicas de un usuario mediante GET.                                                       | 3          |
+| 25  | **TS11**   | Eliminar alertas al recargar el mapa                  | Como desarrollador, quiero eliminar todas las alertas del usuario al recargar el mapa para evitar duplicaciones.                            | 2          |
+| 26  | **TS12**   | Obtener detalles de una alerta por ID                 | Como desarrollador, quiero consultar una alerta específica por su ID.                                                                       | 2          |
+| 27  | **TS03**   | Editar perfil de usuario mediante RESTful API         | Como desarrollador, quiero que los usuarios puedan actualizar su información personal para mantener sus perfiles al día.                    | 3          |
+| 28  | **TS13**   | Obtener datos de usuario por email                    | Como desarrollador, quiero obtener un usuario mediante su email para fines de autenticación.                                                | 2          |
+| 29  | **TS01**   | Autenticación JWT mediante RESTful API                | Como desarrollador, quiero autenticar a los usuarios a través de un token JWT para que puedan acceder a la plataforma de manera segura.     | 8          |
+| 30  | **TS02**   | Crear nuevo usuario mediante RESTful API              | Como desarrollador, quiero permitir la creación de nuevos usuarios para que puedan acceder al sistema.                                      | 8          |

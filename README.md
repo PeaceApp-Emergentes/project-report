@@ -324,3 +324,4 @@ En resumen, la experiencia de Adriana está fuertemente orientada hacia la **pre
 
 Enlace del As-Is Scenario Mapping: https://lucid.app/lucidchart/c1cb9ad8-c701-42db-9a14-30617f7dbc29/edit?viewport_loc=-495%2C43%2C2351%2C1078%2C0_0&invitationId=inv_26bc4b6e-dc17-4979-8706-54483829b3f9
 
+#### 2.4. Ubiquitous Language 

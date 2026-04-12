@@ -234,57 +234,21 @@ Ocupación: Estudiante Universitario (Psicología)
 El entrevistado se siente inseguro en espacios públicos, especialmente cerca de su casa a altas horas de la noche, que a pesar de que no le haya ocurrido nada siente algo de miedo. Le preocupa la falta de vigilancia y la iluminación deficiente en estos lugares. Ante situaciones peligrosas, prefiere evitar problemas para salvaguardar su seguridad. Valora recibir alertas sobre robos o zonas peligrosas a través de una aplicación móvil, aunque no ha usado una app de seguridad antes, conoce su potencial y está interesado en funciones como alarmas y mapas de riesgo. Además, considera útil compartir su ubicación en tiempo real en caso de riesgo o llamar a las autoridades.
 
 
-**Entrevista N°3:**
+**Entrevista N° 3:**
 
-![Entrevista3](assets/Entrevista3.png)
+![Entrevista_5](assets/interview_5.png)
 
-**Timing:**
+**Timing:** 13:46
 
-**Nombre**: Marcia Mascco  
+**Nombre**: Maria Paula Rojas
 
-**Edad:** 21 años
+**Edad:** 19 años
 
-**Pasatiempos:** Jugar videojuegos con su enamorado o amigos
+**Pasatiempos:** Dibujar, ver series animadas, cantar, estudiar educacion especial.
 
-**Ocupación:** Estudiante de la carrera de Administración y Marketing
+**Ocupación:** Estudiante universitaria (Educacion Infantil)
 
-La entrevistada no se siente segura en lugares donde no hay mucha iluminación ya que, como menciona, habia una zona por su residencia que estaba totalmente oscura y era zona donde robaban mucho. Afortunadamente, no ha sido victima de algún robo o alguna situación peligrosa, pero ante situaciones peligrosas ella indica que auxiliaria al afectado, dando su celular para llamar o bloquear dependiendo de lo que le hayan robado. Ella se siente cómoda y segura recibiendo alertas en su celuar, argumenta que revisa cada tanto algunas situaciones con alertas como, por ejemplo, google maps que manda alertas de tráfico o accidentes en alguna carretera. No ha usado apps de seguridad antes pero esta abierta a recibir una que le permita sentirse más segura en la vía pública y valora mucho las funcionalidades de alertas y de compartir ubicación en tiempo real.
-
-
-**Entrevista N° 4:**
-
-![Entrevista_4](assets/Entrevista4.png)
-
-**Timing:** 27:27
-
-**Nombre**: Fernanda Peña
-
-**Edad:** 21 años
-
-**Pasatiempos:** Salir a pasear con su mascota
-
-**Ocupación:** Estudiante universitaria
-
-La entrevistada expresa que no se siente completamente tranquila en áreas mal iluminadas, ya que, según comenta, cerca de su hogar había una zona oscura que solía ser un foco de robos. A pesar de no haber sido víctima de ningún incidente hasta el momento, en caso de enfrentar una situación peligrosa, señala que ayudaría a la persona afectada, ofreciéndole su teléfono para hacer una llamada de emergencia o para bloquear su dispositivo si es que le roban algo. Se siente cómoda recibiendo alertas en su celular y menciona que, con frecuencia, revisa notificaciones de situaciones como las alertas de tráfico o accidentes de Google Maps. Aunque nunca ha utilizado aplicaciones de seguridad previamente, está dispuesta a probar una que le brinde mayor sensación de protección mientras se desplaza por la ciudad. Valora especialmente las características de alertas y la posibilidad de compartir su ubicación en tiempo real con sus padres.
-
-**Entrevista N° 5:**
-
-![Entrevista5.png](assets/Entrevista5.png)
-
-**Timing:** 33:27
-
-**Nombre:** Jefferson Castro
-
-**Edad:** 22
-
-**Pasatiempos:** Leer
-
-**Ocupación:** Estudiante (Ingeniería de Software) y trabajador
-
-El entrevistado se muestra muy consciente de la inseguridad ciudadana en su comunidad, una situación que le afecta especialmente por no tener movilidad propia. Para evitar riesgos, ha adoptado medidas como no usar sus dispositivos en la calle y transitar por zonas concurridas. En caso de presenciar un delito, su reacción sería pedir ayuda; sin embargo, si él fuera la víctima, optaría por entregar sus pertenencias, pues su salud es más importante que cualquier objeto material. Él considera que la inseguridad es un problema cada vez más grave y ve la necesidad de contar con herramientas que ayuden a combatirla. Aunque no ha usado ninguna aplicación con este fin, está muy interesado en probar una que sea intuitiva y que pueda alertar a los usuarios sobre posibles riesgos.
-
-
-
+Maria Paula Rojas, una joven de 19 años que estudia Educación Infantil y disfruta de dibujar, ver series animadas, cantar y aprender sobre educación especial, participó en una conversación centrada en la seguridad y el uso de aplicaciones móviles. Durante la entrevista, se discutió la importancia de implementar herramientas tecnológicas para mejorar la seguridad en espacios públicos, incluyendo el desarrollo de una app que permita reportar y rastrear incidentes. También se habló sobre el potencial uso de tecnología para detectar y localizar robots, y se compararon algunas funciones con las que ofrecen dispositivos como los de Apple. La charla reflejó un claro interés en crear soluciones innovadoras que contribuyan a la protección de las personas en su entorno cotidiano.
 
 ### 2.2.3. Análisis de entrevistas
 

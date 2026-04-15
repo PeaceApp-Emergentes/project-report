@@ -1,6 +1,6 @@
 <div align="center">
 
-### Logo de Universidad
+![upc.png](assets/upc.png)
 
 **Universida Peruana de Ciencias Aplicadas**  
 
@@ -31,20 +31,20 @@
     <th>Código</th>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
+    <td>Arroyo Ormeño, André Alonso</td>
+    <td>U202114714</td>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
+    <td>Guia Carrasco, Pedro Andre</td>
+    <td>U202212010</td>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
+    <td>Noriega Suschenko, Anatoly Andrey</td>
+    <td>U202211813</td>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
+    <td>Reyes Trujillano, Fabian Alonso</td>
+    <td>U202218233</td>
   </tr>
   <tr>
     <td>Santillan Alvarado, Melina Liz</td>

@@ -3,14 +3,167 @@
 ## 4.1. Strategic-Level Attribute-Driven Design
 
 ### 4.1.1. Design Purpose
+El propósito del diseño arquitectónico de PeaceApp es proporcionar una base estructurada, segura, escalable y mantenible que soporte de manera eficiente la gestión de reportes ciudadanos de incidentes en tiempo real. A través del uso de principios de diseño como la separación de responsabilidades, el uso de patrones arquitectónicos adecuados y la definición de capas claras, se busca facilitar la implementación coherente de funcionalidades esenciales orientadas a la seguridad ciudadana, garantizando un desarrollo modular y alineado con las necesidades reales del dominio urbano. Esta arquitectura permitirá al equipo de desarrollo incorporar nuevas características, escalar servicios críticos como notificaciones en tiempo real o geolocalización, integrar sistemas externos (por ejemplo, autoridades locales o servicios de emergencia), y mantener una alta calidad en la experiencia de usuario, incluso ante cambios en el entorno tecnológico o en los requerimientos sociales.
+
+Para este proceso de diseño, nos basaremos en los siguientes objetivos y principios:
+
+- Escalabilidad y Flexibilidad: La arquitectura debe adaptarse a cambios futuros, permitiendo la integración de nuevas funcionalidades y la expansión del sistema sin comprometer rendimiento o estabilidad.
+- Modularidad y Reusabilidad: Fomentar un diseño modular que permita la reutilización de componentes y la incorporación de nuevas funcionalidades sin afectar el sistema existente.
+- Desacoplamiento: Reducir dependencias entre componentes, facilitando actualizaciones, mantenimiento y resolución de problemas.
+- Seguridad y Protección de Datos: Garantizar la protección de la información sensible de los usuarios mediante mecanismos de seguridad robustos y políticas de privacidad estrictas.
+- Interoperabilidad: Asegurar que PeaceApp pueda interactuar con plataformas externas, dispositivos móviles y servicios de terceros, especialmente con autoridades y sistemas de emergencia.
+- Mantenibilidad y Actualización Continua: Diseñar con visión a largo plazo para facilitar el mantenimiento y la evolución constante del sistema ante nuevas necesidades sociales o tecnológicas.
+- Alta Disponibilidad y Confiabilidad: Garantizar que el sistema esté operativo de manera continua, incluso en contextos de alta demanda o emergencias.
+- Experiencia de Usuario Óptima: Proporcionar una interacción fluida, intuitiva y confiable que incentive la participación ciudadana y eleve los niveles de confianza en la aplicación.
+
 
 ## 4.1.2. Attribute-Driven Design Inputs
 
 ### 4.1.2.1. Primary Functionality (Primary User Stories)
+A continuación, se detallan las funciones esenciales (user stories) que influyen de manera directa en la organización del sistema y orientan las decisiones del diseño arquitectónico de PeaceApp.
+
+| User Story ID | Título | Descripción |
+|---------------|----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| US04          | Registro de Usuarios | Como usuario, quiero poder registrarme en la aplicación, para acceder a las funcionalidades de PeaceApp.|
+| US05          | Iniciar Sesión       | Como usuario registrado, quiero poder iniciar sesión con mi correo y contraseña, para acceder a mi cuenta.|
+| US06          | Generar Reporte de Incidentes  | Como usuario, quiero poder generar reportes de incidentes de seguridad, para contribuir a la actualización del mapa de calor.|
+| US07          | Adjuntar Evidencia al Reporte  | Como usuario, quiero poder adjuntar fotos o videos al reporte, para dar mayor credibilidad y detalle al incidente reportado.|
+| US08          | Visualización de Reportes        | Como ciudadano, quiero poder ver los reportes de otros usuarios sobre incidentes ocurridos en la zona, para estar al tanto de los eventos de seguridad.|
+| US09          | Recibir Alertas de Zonas de Riesgo | Como ciudadano, quiero recibir alertas si me acerco a una zona de alto riesgo, para tomar las precauciones necesarias.|
+| US10          | Compartir Ubicación con Contactos en la Aplicación Móvil | Como usuario de la aplicación móvil, quiero poder compartir mi ubicación con mis contactos cercanos, para que puedan monitorear mi trayecto y estar alertas ante cualquier peligro.|
+| US13          | Acceder a Mapa con Reportes          | Como usuario, quiero poder ver un mapa interactivo con los reportes de incidentes en mi área, para tomar decisiones informadas sobre mi seguridad.|
+| US15          | Filtrar Reportes         | Como usuario, quiero poder filtrar los reportes para ver todos los reportes o solo los que yo he creado, para gestionar mejor la información relevante según mis intereses.|
+| US16          | Buscar Ubicación en el Mapa         | Como usuario, quiero poder explorar reportes de seguridad en diferentes zonas del mapa, para tomar decisiones informadas sobre mis desplazamientos.|
 
 ### 4.1.2.2. Quality Attribute Scenarios
+Los atributos de calidad determinados para PeaceApp son los que se detallan a continuación:
+
+**a. Disponibilidad:**
+
+Este atributo se trata de la capacidad del sistema para estar disponible y operativo cuando se necesita.
+En nuestra solución, esto significa que los usuarios podrán acceder a la aplicación en cualquier momento para reportar incidentes de seguridad o recibir alertas en tiempo real.
+La facilidad con la que se puede garantizar esta disponibilidad depende de una infraestructura confiable, redundante y con monitoreo constante.
+Una alta disponibilidad transmite confianza al ciudadano, asegurando que la plataforma siempre esté lista para su uso sin interrupciones inesperadas, especialmente en situaciones críticas.
+
+**b. Rendimiento:**
+
+Este atributo se trata de la capacidad del sistema para responder con rapidez y eficiencia bajo distintas cargas de trabajo.
+En nuestra solución, buscamos que los reportes de incidentes, el envío de alertas y las consultas de mapas se procesen en tiempo mínimo, evitando retrasos que puedan afectar la seguridad del usuario.
+La facilidad con la que se mantiene un buen rendimiento se logra mediante una arquitectura optimizada, balanceo de carga y pruebas de estrés que validen la eficiencia del sistema.
+Un alto rendimiento mejora la experiencia de los usuarios, reduciendo la frustración y asegurando que la información crítica llegue de forma oportuna.
+
+**c. Escalabilidad:**
+
+Este atributo se trata de la capacidad del sistema para crecer y adaptarse a un aumento de usuarios, datos o transacciones.
+En nuestra solución, esto significa que la aplicación puede ampliarse fácilmente para atender a más distritos o ciudades, soportando un mayor volumen de alertas y usuarios sin perder eficiencia.
+La facilidad con la que se logra esta escalabilidad proviene de una arquitectura modular y distribuida, diseñada desde el inicio para soportar crecimiento.
+Un sistema escalable asegura la continuidad del servicio y la adopción masiva sin necesidad de rediseños costosos.
+
+**d. Mantenibilidad:**
+
+Este atributo se trata de la capacidad del sistema para ser modificado fácilmente cuando se necesitan cambios o mejoras.
+En nuestra solución, el código será limpio, modular y bien documentado, lo cual facilita la detección y corrección de errores, así como la integración de nuevas funcionalidades (ejemplo: chat en tiempo real con autoridades).
+La facilidad con la que se mantiene y mejora el sistema reduce los tiempos de desarrollo, evita errores nuevos y permite adaptarse a las necesidades cambiantes de la comunidad.
+Una alta mantenibilidad asegura la evolución constante de PeaceApp con bajo riesgo y esfuerzo.
+
+**e. Usabilidad:**
+
+Este atributo se trata de la capacidad del sistema para ser entendido y utilizado con facilidad por los usuarios finales.
+En nuestra solución, nos enfocamos en una interfaz clara, intuitiva y accesible, que permita a los ciudadanos reportar incidentes o consultar alertas de manera rápida incluso en momentos de emergencia.
+La facilidad con la que un usuario interactúa con la aplicación depende de un diseño UX/UI bien estructurado, retroalimentación visual clara y soporte para accesibilidad.
+Una alta usabilidad fomenta la adopción de la plataforma, reduce la curva de aprendizaje y genera confianza en los ciudadanos para seguir utilizándola.
+
+**f. Seguridad:**
+
+Este atributo se trata de la capacidad del sistema para proteger la confidencialidad, integridad y disponibilidad de la información.
+En nuestra solución, esto implica implementar autenticación robusta, encriptación de datos y control de acceso según roles (usuario, autoridad, administrador).
+La facilidad con la que se garantiza la seguridad depende de políticas claras de protección de datos y del uso de estándares internacionales (ejemplo: OWASP).
+Una alta seguridad incrementa la confianza de los usuarios y asegura que la información sensible no sea vulnerada ni utilizada de forma indebida.
+
+**a. Disponibilidad:**
+
+| **Elemento**            | **Detalle**                                                                 |
+|--------------------------|-----------------------------------------------------------------------------|
+| **Escenario**           | Un ciudadano necesita reportar un incidente en la calle a través de la app. |
+| **Fuente de Estímulo**  | Ciudadano que usa la app                                                    |
+| **Estímulo**            | Intenta acceder a la app para reportar un incidente en la calle             |
+| **Medioambiente**       | El sistema se encuentra bajo condiciones normales de operación              |
+| **Artefacto**           | Servidor y frontend de PeaceApp                                             |
+| **Respuesta**           | El sistema responde y permite el registro del incidente sin caída del servicio |
+| **Medida de Respuesta** | Tiempo de disponibilidad ≥ 99.5% mensual                                    |
+
+**b. Rendimiento:**
+
+| **Elemento**            | **Detalle**                                                                 |
+|--------------------------|-----------------------------------------------------------------------------|
+| **Escenario**           | Un usuario envía un reporte con foto y geolocalización en horario concurrido. |
+| **Fuente de Estímulo**  | Usuario enviando un reporte                                                 |
+| **Estímulo**            | Envío de reporte de incidente con foto y geolocalización                    |
+| **Medioambiente**       | Sistema con 1000 usuarios concurrentes                                      |
+| **Artefacto**           | API de backend y base de datos                                              |
+| **Respuesta**           | Procesa y guarda el reporte en la base de datos                             |
+| **Medida de Respuesta** | Tiempo de respuesta ≤ 3 segundos                                            |
+
+**c. Escalabilidad:**
+
+| **Elemento**            | **Detalle**                                                                 |
+|--------------------------|-----------------------------------------------------------------------------|
+| **Escenario**           | El servicio se expande a nuevos distritos y la cantidad de usuarios se duplica. |
+| **Fuente de Estímulo**  | Municipalidad que amplía la cobertura                                       |
+| **Estímulo**            | Aumento de usuarios al extender el servicio a nuevos distritos              |
+| **Medioambiente**       | Sistema en crecimiento exponencial de usuarios y transacciones              |
+| **Artefacto**           | Arquitectura distribuida en la nube                                         |
+| **Respuesta**           | Se despliegan nuevas instancias y balanceadores automáticamente             |
+| **Medida de Respuesta** | El sistema soporta +10,000 usuarios sin degradación notable del rendimiento |
+
+**d. Mantenibilidad:**
+
+| **Elemento**            | **Detalle**                                                                 |
+|--------------------------|-----------------------------------------------------------------------------|
+| **Escenario**           | El equipo de desarrollo necesita agregar un módulo de comunicación con autoridades. |
+| **Fuente de Estímulo**  | Equipo de desarrollo                                                        |
+| **Estímulo**            | Necesidad de agregar un nuevo módulo de comunicación directa con autoridades |
+| **Medioambiente**       | Sistema en operación con versiones previas estables                         |
+| **Artefacto**           | Código fuente modular de PeaceApp                                           |
+| **Respuesta**           | Se implementa el nuevo módulo sin afectar funcionalidades existentes        |
+| **Medida de Respuesta** | Cambios implementados en ≤ 2 sprints sin errores críticos en producción     |
+
+**e. Usabilidad:**
+
+| **Elemento**            | **Detalle**                                                                 |
+|--------------------------|-----------------------------------------------------------------------------|
+| **Escenario**           | Un ciudadano bajo estrés necesita presionar el botón de emergencia.          |
+| **Fuente de Estímulo**  | Ciudadano que reporta un incidente                                          |
+| **Estímulo**            | Dificultad para ubicar el botón de “Emergencia”                             |
+| **Medioambiente**       | App utilizada en situación de estrés (robo, accidente, etc.)                |
+| **Artefacto**           | Interfaz gráfica del usuario (UI/UX)                                        |
+| **Respuesta**           | Se muestra un botón visible y accesible en la pantalla principal            |
+| **Medida de Respuesta** | 90% de usuarios logra reportar en ≤ 5 segundos durante pruebas de usabilidad |
+
+**f. Seguridad:**
+
+| **Elemento**            | **Detalle**                                                                 |
+|--------------------------|-----------------------------------------------------------------------------|
+| **Escenario**           | Un atacante intenta ingresar al sistema usando credenciales robadas.        |
+| **Fuente de Estímulo**  | Atacante externo                                                            |
+| **Estímulo**            | Intenta acceder a la base de datos con credenciales robadas                 |
+| **Medioambiente**       | Bajo ataque de fuerza bruta en horario crítico                              |
+| **Artefacto**           | Sistema de autenticación y base de datos                                    |
+| **Respuesta**           | Bloquea el intento, activa alertas y mantiene la integridad de los datos    |
+| **Medida de Respuesta** | 100% de accesos no autorizados bloqueados; logs generados y auditados en < 1min |
 
 ### 4.1.2.3. Constraints
+La tabla a continuación muestra las limitaciones que deben considerarse dentro del desarrollo de PeaceApp.
+
+| **ID**   | **Constraint** | **Restricción** | **Impacto** |
+|----------|----------------|-----------------|-------------|
+| **CON-01** | Conectividad Urbana Variable | En muchas zonas urbanas la conectividad móvil puede ser inestable o intermitente. | La aplicación debe permitir funcionamiento básico offline (ej. registro temporal de incidentes) y sincronización automática cuando haya conexión. |
+| **CON-02** | Presupuesto y Recursos | El proyecto cuenta con recursos financieros y humanos limitados. | Se priorizará el uso de tecnologías open source y librerías con soporte comunitario/comercial, enfocándose en un MVP funcional antes de ampliar funcionalidades. |
+| **CON-03** | Cumplimiento Normativo en Protección de Datos | PeaceApp debe cumplir con la Ley de Protección de Datos Personales en Perú (Ley N.° 29733) y normativas internacionales de privacidad. | Requiere incorporar cifrado de datos, autenticación segura, consentimiento explícito de usuarios y auditoría de accesos. |
+| **CON-04** | Integración con Infraestructura Municipal y Policial | La aplicación busca colaborar con entidades municipales y policiales que tienen sus propios sistemas de información. | Es necesario desarrollar APIs estandarizadas y protocolos de intercambio de datos, garantizando compatibilidad e interoperabilidad. |
+| **CON-05** | Diversidad de Dispositivos | Los usuarios utilizarán teléfonos móviles de diferentes gamas (alta, media, baja). | La aplicación debe ser ligera, optimizada en rendimiento y compatible con Android/iOS en versiones aún usadas en el mercado. |
+| **CON-06** | Tiempo de Entrega | El proyecto debe contar con un prototipo funcional para ser validado en pruebas piloto en un plazo corto. | Se debe adoptar un enfoque ágil (Scrum/Lean UX), entregando un MVP con las funcionalidades críticas: alertas, geolocalización y mapa de incidentes. |
+| **CON-07** | Sostenibilidad a Largo Plazo | La continuidad del sistema depende de su mantenimiento y financiamiento posterior. | Influirá en la elección de arquitecturas escalables y de bajo mantenimiento, así como en la búsqueda de convenios con municipalidades y ONGs. |
 
 ## 4.1.3. Architectural Drivers Backlog
 

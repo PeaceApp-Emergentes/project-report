@@ -17,6 +17,182 @@
 ## 4.1.4. Architectural Design Decisions
 
 ## 4.1.5. Quality Attribute Scenario Refinements
+Como resultado del proceso de definición de atributos de calidad para PeaceApp, se han identificado y priorizado escenarios críticos que impactan directamente en las decisiones arquitectónicas del sistema. Estos escenarios están alineados con los principales architectural drivers, tales como la gestión de reportes, la geolocalización, la generación de alertas y la autenticación segura.
+
+Los escenarios refinados permiten vincular los atributos de calidad (disponibilidad, rendimiento, escalabilidad, seguridad, usabilidad y mantenibilidad) con los bounded contexts definidos (IAM, Profiles, Reports, Alerts y Locations), así como con las tácticas arquitectónicas adoptadas (microservicios, JWT, cacheo, balanceo de carga, entre otros).
+
+A continuación, se presentan los escenarios refinados priorizados, los cuales guían las decisiones de diseño del sistema.
+
+SCENARIO 1 – DISPONIBILIDAD
+<table style="border-collapse: collapse; width: 100%; font-family: Arial, sans-serif;">
+  <thead>
+    <tr>
+      <th colspan="3" style="border: 1px solid #ccc; padding: 10px; text-align: left;">
+        Scenario Refinement for Scenario 1
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Scenario(s):</td>
+      <td colspan="2" style="border: 1px solid #ccc; padding: 8px;">US06, US09, US13</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Business Goals:</td>
+      <td colspan="2" style="border: 1px solid #ccc; padding: 8px;">Garantizar que los ciudadanos puedan reportar incidentes y recibir alertas en cualquier momento.</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Relevant Quality Attributes:</td>
+      <td colspan="2" style="border: 1px solid #ccc; padding: 8px;">Disponibilidad, Confiabilidad</td>
+    </tr>
+    <!-- Scenario Components -->
+    <tr>
+      <td rowspan="5" style="border: 1px solid #ccc; padding: 8px; font-weight: bold; vertical-align: top;">
+        Scenario Components
+      </td>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Stimulus:</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Usuario intenta enviar un reporte o recibir una alerta</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Stimulus Source:</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Usuario</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Artifact:</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">API Gateway, Reports Service, Alerts Service</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Response:</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">El sistema procesa la solicitud sin interrupciones</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Response Measure:</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Disponibilidad ≥ 80.0%, sin caídas en operaciones críticas</td>
+    </tr>
+    <!-- Questions -->
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Questions & Issues</td>
+      <td colspan="2" style="border: 1px solid #ccc; padding: 8px;">
+        <p>¿Se implementará failover entre microservicios?</p>
+        <p>¿Cómo se manejará caída del API Gateway?</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+SCENARIO 2 – RENDIMIENTO
+<table style="border-collapse: collapse; width: 100%; font-family: Arial, sans-serif;">
+  <thead>
+    <tr>
+      <th colspan="3" style="border: 1px solid #ccc; padding: 10px; text-align: left;">
+        Scenario Refinement for Scenario 2
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Scenario(s):</td>
+      <td colspan="2" style="border: 1px solid #ccc; padding: 8px;">US06, US07, TS04</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Business Goals:</td>
+      <td colspan="2" style="border: 1px solid #ccc; padding: 8px;">Procesar reportes de incidentes de manera eficiente, garantizando tiempos de respuesta adecuados incluso bajo carga.</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Relevant Quality Attributes:</td>
+      <td colspan="2" style="border: 1px solid #ccc; padding: 8px;">Rendimiento</td>
+    </tr>
+    <!-- Scenario Components -->
+    <tr>
+      <td rowspan="5" style="border: 1px solid #ccc; padding: 8px; font-weight: bold; vertical-align: top;">
+        Scenario Components
+      </td>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Stimulus:</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Envío de reporte con imagen y geolocalización</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Stimulus Source:</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Usuario</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Artifact:</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Reports Service, Locations Service, Base de datos</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Response:</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">El sistema procesa y almacena el reporte correctamente</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Response Measure:</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Tiempo de respuesta ≤ 5 segundos bajo carga moderada (≈1000 usuarios concurrentes)</td>
+    </tr>
+    <!-- Questions -->
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Questions & Issues</td>
+      <td colspan="2" style="border: 1px solid #ccc; padding: 8px;">
+        <p>¿Las imágenes se almacenan directamente o vía servicio externo (ej. cloud storage)?</p>
+        <p>¿Se requiere optimización de consultas para el mapa?</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+SCENARIO 3 – SEGURIDAD
+<table style="border-collapse: collapse; width: 100%; font-family: Arial, sans-serif;">
+  <thead>
+    <tr>
+      <th colspan="3" style="border: 1px solid #ccc; padding: 10px; text-align: left;">
+        Scenario Refinement for Scenario 3
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Scenario(s):</td>
+      <td colspan="2" style="border: 1px solid #ccc; padding: 8px;">US04, US05, TS01</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Business Goals:</td>
+      <td colspan="2" style="border: 1px solid #ccc; padding: 8px;">Proteger datos de usuarios y accesos</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Relevant Quality Attributes:</td>
+      <td colspan="2" style="border: 1px solid #ccc; padding: 8px;">Seguridad</td>
+    </tr>
+    <!-- Scenario Components -->
+    <tr>
+      <td rowspan="5" style="border: 1px solid #ccc; padding: 8px; font-weight: bold; vertical-align: top;">
+        Scenario Components
+      </td>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Stimulus:</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Intento de acceso con credenciales inválidas</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Stimulus Source:</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Atacante externo</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Artifact:</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">IAM Service</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Response:</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">Se bloquea acceso y se registra intento</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Response Measure:</td>
+      <td style="border: 1px solid #ccc; padding: 8px;">100% accesos no autorizados bloqueados</td>
+    </tr>
+    <!-- Questions -->
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px; font-weight: bold;">Questions & Issues</td>
+      <td colspan="2" style="border: 1px solid #ccc; padding: 8px;">
+        <p>¿Se implementará rate limiting?</p>
+        <p>¿Se usará refresh token?</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ## 4.2. Strategic-Level Domain-Driven Design
 

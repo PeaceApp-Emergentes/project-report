@@ -319,9 +319,64 @@ En resumen, la experiencia de Adriana está fuertemente orientada hacia la **pre
 ![EmpathyMapping](assets/EmpathyMapping.jpg)
 
 #### 2.3.4. As-is Scenario Mapping
+Sector Ciudadano
 
-![AsIs](assets/AsIs.png)
+![As-is-ScenarioMapping-Ciudadano](assets/AsIs.png?raw=true)
 
-Enlace del As-Is Scenario Mapping: https://lucid.app/lucidchart/c1cb9ad8-c701-42db-9a14-30617f7dbc29/edit?viewport_loc=-495%2C43%2C2351%2C1078%2C0_0&invitationId=inv_26bc4b6e-dc17-4979-8706-54483829b3f9
+Sector Municipalidad
+
+![As-is-ScenarioMapping-Municipalidad](assets/As-Is%20Scenario%20Mapping-Municipalidad.png?raw=true)
+
+Identificación de oportunidades
+
+Pain Points (aspectos negativos)
+1. Información fragmentada y no centralizada  
+2. Falta de datos en tiempo real  
+3. Procesos manuales y lentos  
+4. Baja interacción directa con ciudadanos  
+5. Decisiones reactivas, no predictivas  
+
+Áreas positivas
+1. Existencia de equipos de serenazgo y monitoreo  
+2. Voluntad institucional de mejorar la seguridad  
+3. Uso básico de tecnología (cámaras, reportes)  
+
+Blank Areas (oportunidades de aprendizaje)
+1. ¿Qué tan rápido responde la PNP ante alertas municipales?  
+2. ¿Qué sistemas usan actualmente (software interno)?  
+3. ¿Qué nivel de interoperabilidad tienen con otras entidades?  
+4. ¿Cómo miden realmente el impacto de sus acciones?  
 
 #### 2.4. Ubiquitous Language 
+1. **Zone (Zona)**  
+Área geográfica específica dentro de una ciudad donde se evalúa la seguridad en función de los incidentes reportados.
+
+2. **Risk Level (Nivel de Riesgo)**  
+Nivel de peligrosidad asignado a una zona según la frecuencia y gravedad de los incidentes registrados.
+
+3. **Incident (Incidente)**  
+Evento relacionado con la seguridad ciudadana que ocurre en una zona y afecta a uno o más ciudadanos.
+
+4. **Report (Reporte)**  
+Registro de un incidente realizado por un usuario, que puede incluir una descripción detallada y evidencia.
+
+5. **Evidence (Evidencia)**  
+Contenido que respalda un reporte, como imágenes, audios o videos.
+
+6. **Alert (Alerta)**  
+Notificación generada ante la ocurrencia o posible riesgo de un incidente en una zona.
+
+7. **Emergency Alert (Alerta de Emergencia)**  
+Notificación emitida ante una situación de peligro inmediato que requiere atención urgente.
+
+8. **Safe Route (Ruta Segura)**  
+Trayecto recomendado que minimiza la exposición a zonas con alto nivel de riesgo.
+
+9. **Community (Comunidad)**  
+Conjunto de usuarios que colaboran reportando incidentes y compartiendo información sobre seguridad.
+
+10. **Administrator or Municipality (Administrador o Municipalidad)**  
+Entidad responsable de validar los reportes y supervisar la información del sistema.
+
+11. **Coverage Area (Área de Cobertura)**  
+Región geográfica donde se gestionan y monitorean los incidentes.

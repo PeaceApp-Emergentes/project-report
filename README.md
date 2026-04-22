@@ -2,7 +2,13 @@
 # Capítulo III: Requirements Specification
 ## 3.1. To-be Scenario Mapping
 
+### Segmento 1: Ciudadano
+
 ![ToBe](assets/ToBe.png)
+
+### Segmento 2: Municipalidad
+
+![ToBe2](assets/ToBe2.png)
 
 Enlace del To-Be Scenario Mapping: https://lucid.app/lucidchart/9c2329c4-fd90-4760-9ce3-d2e30cbe1b86/edit?viewport_loc=-433%2C56%2C1791%2C836%2C0_0&invitationId=inv_3a88d771-9c52-4f43-8aef-2c234eea78d6
 

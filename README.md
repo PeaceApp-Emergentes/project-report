@@ -94,7 +94,13 @@ Enlace del To-Be Scenario Mapping: https://lucid.app/lucidchart/9c2329c4-fd90-47
 
 ## 3.3. Impact Mapping
 
+### Segmento 1: Ciudadano
+
 ![ImpactMapping](assets/ImpactMapping.jpg)
+
+### Segmento 2: Municipalidad
+
+![ImpactMapping2](assets/ImpactMapping2.png)
 
 ## 3.4. Product Backlog
 

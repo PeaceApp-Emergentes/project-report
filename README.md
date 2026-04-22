@@ -96,7 +96,7 @@ Enlace del To-Be Scenario Mapping: https://lucid.app/lucidchart/9c2329c4-fd90-47
 
 ### Segmento 1: Ciudadano
 
-![ImpactMapping](assets/ImpactMapping.jpg)
+![ImpactMapping](assets/ImpactMapping.png)
 
 ### Segmento 2: Municipalidad
 

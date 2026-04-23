@@ -507,6 +507,50 @@ A su vez, PeaceApp consume los servicios externos del Map System, para obtener d
 
 ### 4.3.3. Software Architecture Container Level Diagrams
 
+El diagrama de contenedores de PeaceApp ilustra cómo los usuarios del sistema, representados por los roles de Ciudadano y Administrador, interactúan con las diferentes interfaces y componentes de la solución. Los ciudadanos acceden a la Landing Page para obtener información general sobre la aplicación y utilizan tanto la Aplicación Web como la Aplicación Móvil y la Single Page Application (SPA) para gestionar reportes, recibir alertas y compartir su ubicación. Estas interfaces se comunican con un API Gateway RESTful, que centraliza las solicitudes y distribuye el tráfico hacia los distintos microservicios. En el backend se encuentran servicios especializados para la gestión de reportes, perfiles de usuario, autenticación, alertas, localización, además de nuevos servicios de inteligencia artificial como el ChatBot Service y el Image Recognizer Service. La información se almacena en una Base de Datos Relacional, mientras que para funciones críticas como la mensajería, geolocalización e inteligencia artificial se integran servicios externos como el SMS Gateway, la API de WhatsApp, un Map System y la OpenAI API.
 
+# API Gateway RESTful
+- Es el componente encargado de recibir todas las solicitudes provenientes de las aplicaciones cliente (Web, Móvil y SPA) y redirigirlas a los distintos microservicios. Implementado sobre JSON/HTTPS, el gateway administra rutas, seguridad y balance de peticiones, garantizando una capa de control centralizado.
+
+# Bounded Contexts (Microservicios)
+
+## Authentication Service
+- Gestiona el inicio de sesión, registro de usuarios y autenticación mediante validación de credenciales.
+
+## Profiles Service
+- Maneja los datos personales y las preferencias de los usuarios, permitiendo consultar y actualizar información de perfil.
+
+## Reports Service
+- Administra la creación, edición, visualización y eliminación de reportes de incidentes, además de exponerlos en el mapa.
+
+## Alerts Service
+- Genera y distribuye notificaciones a los usuarios cuando se encuentran en zonas cercanas a reportes activos.
+
+## Location Service
+- Gestiona el registro y consulta de coordenadas de ubicación, permitiendo el envío de la ubicación en tiempo real y la integración con mapas.
+
+## ChatBot Service
+- Permite la interacción conversacional con los usuarios dentro de la aplicación, brindando asistencia, resolviendo dudas y guiando en el uso de funcionalidades mediante inteligencia artificial.
+
+## Image Recognizer Service
+- Procesa y analiza imágenes enviadas por los usuarios en los reportes, permitiendo identificar elementos relevantes (como incidentes, objetos o situaciones de riesgo) mediante técnicas de reconocimiento de imágenes.
+
+Cada uno de estos microservicios expone su propia API y se comunica directamente con la base de datos relacional para almacenar y consultar información.
+
+# Servicios Externos
+
+## SMS Gateway
+- Servicio externo para enviar mensajes de texto con alertas y notificaciones a los contactos registrados.
+
+## WhatsApp API
+- Servicio externo utilizado para compartir la ubicación en tiempo real mediante la plataforma de mensajería WhatsApp.
+
+## Map System
+- Proveedor externo de información geográfica que permite mostrar mapas, ubicar incidentes y destacar zonas críticas en la aplicación.
+
+## OpenAI API
+- Servicio externo utilizado por el ChatBot Service y el Image Recognizer Service para implementar capacidades de inteligencia artificial, como procesamiento de lenguaje natural y reconocimiento de imágenes.
+
+![structurizr-109662-Containers.png](assets/structurizr-109662-Containers.png)
 
 ### 4.3.4. Software Architecture Deployment Diagrams

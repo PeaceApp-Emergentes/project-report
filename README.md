@@ -499,6 +499,14 @@ Por ello, no requieren un diseño altamente especializado.
 
 ### 4.3.2. Software Architecture Context Level Diagrams
 
+El diagrama de contexto representa a PeaceApp, una aplicación móvil y web orientada a la seguridad ciudadana que permite a los usuarios reportar incidentes, visualizar zonas de riesgo y compartir su ubicación en tiempo real. Los actores que interactúan con el sistema son el Citizen, quien utiliza la aplicación para mantenerse informado y enviar reportes, y el Admin, encargado de gestionar cuentas, reportes y alertas dentro de la plataforma.
+
+A su vez, PeaceApp consume los servicios externos del Map System, para obtener datos de geolocalización y mapas, así como del SMS Gateway y la WhatsApp API, utilizados para enviar alertas y compartir ubicaciones con contactos de confianza fuera de la aplicación. Además, integra la OpenAI API, la cual se utiliza para implementar un chatbot dentro de la aplicación y para el reconocimiento de imágenes en los reportes generados por los usuarios.
+
+![structurizr-109662-SystemContext.png](assets/structurizr-109662-SystemContext.png)
+
 ### 4.3.3. Software Architecture Container Level Diagrams
+
+
 
 ### 4.3.4. Software Architecture Deployment Diagrams

@@ -286,12 +286,14 @@ El segmento entrevistado muestra un patrón homogéneo: **jóvenes universitario
 
 En esta sección se presenta el User Persona que representa el segmento del proyecto. Este perfil permite comprender en profundidad las necesidades, motivaciones, frustraciones y comportamientos del usuario potencial del sistema, el cual busca mejorar la seguridad en la vía pública del país.
 
+Usuario
 ![UserPersona](assets/AdrianaGutierrez.png)
-
+Usuario-Municipalidad
+![UserPersona](assets/EliotLopez.png)
 ### 2.3.2. User Task Matrix
 
 **Ciudadanos preocupados por su seguridad en espacios públicos**  
-
+¿
 | **Tarea** | **Frecuencia / Importancia** |
 |-----------|-------------------------------|
 | Consultar a familiares o amigos sobre la seguridad de una zona antes de visitarla | Siempre / Alta |
@@ -315,8 +317,13 @@ En resumen, la experiencia de Adriana está fuertemente orientada hacia la **pre
 
 
 ### 2.3.3. Empathy Mapping
+Sector Ciudadano
 
 ![EmpathyMapping](assets/EmpathyMapping.jpg)
+
+Sector Municipalidad
+
+![EmpathyMapping](assets/Persona.png)
 
 #### 2.3.4. As-is Scenario Mapping
 Sector Ciudadano

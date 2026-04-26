@@ -384,7 +384,33 @@ SCENARIO 3 – SEGURIDAD
 ## 4.2. Strategic-Level Domain-Driven Design
 
 ### 4.2.1. EventStorming
+La sesión de EventStorming se llevó a cabo con una duración aproximada de 4 horas, utilizando la herramienta **Miro** para visualizar de manera colaborativa todos los elementos involucrados. El objetivo fue modelar de forma exploratoria el dominio general del sistema de reporte de incidencias, localización y alertas, partiendo de una línea de tiempo horizontal organizada por bounded contexts.
 
+Para estructurar el tablero se utilizaron etiquetas de colores según el tipo de elemento:
+
+- **Domain Events** (naranja)
+- **Commands** (azul)
+- **Roles / Actors** (verde)
+- **Read Models / Views** (celeste)
+- **Policies** (lila)
+- **External Systems** (rojo)
+
+![](assets/EventStorming-PeaceApp.jpg?raw=true)
+
+**Link de Miro:**  
+[https://miro.com/app/board/uXjVGhYm-w0=/?share_link_id=873283021495]
+
+El equipo comenzó identificando eventos clave como “Solicitud de reporte iniciada”, “Tipo de reporte seleccionado”, “Dirección de la zona obtenida”, “Evidencia adjuntada”, “Reporte de zona publicado”, “Alerta emitida” y “Visualización de reportes en el mapa”. A partir de estos, se mapearon los comandos que los originan, las políticas de automatización, los agregados implicados, los actores y los sistemas externos colaboradores (Mapbox, pasarela de notificaciones WhatsApp/SMS).
+
+La disposición en el tablero quedó organizada de la siguiente forma:
+
+- **Contexto Reporte**: desde que el ciudadano inicia un reporte hasta que el administrador lo aprueba o rechaza. Incluye eventos como “Solicitud de reporte pendiente”, comandos como “Enviar solicitud”, y el agregado *Solicitud*.
+
+- **Contexto Localización**: desde la consulta de mapa para obtener dirección hasta la actualización asíncrona del mapa cuando un reporte es publicado. Incluye el read model “Mapa interactivo”, la política “Al publicarse un reporte el mapa debe actualizarse”, y el comando “Actualizar mapa con nuevo reporte”.
+
+- **Contexto Alertas**: desde la autorización de compartir ubicación hasta la emisión de alertas por proximidad a zonas peligrosas. Incluye “Evaluar generación de alerta”, “Emitir Alerta”, y la integración con sistemas externos como WhatsApp/SMS.
+
+Cada sección incluye las relaciones visuales completas entre eventos, comandos, agregados, políticas, sistemas externos, vistas y actores, lo cual permitió identificar comunicaciones desacopladas mediante eventos (Reporte → Localización) y consultas síncronas a read models (Reporte ← Localización; Alertas ← Localización), fundamentales para la siguiente etapa de delimitación de contextos y diseño de la arquitectura.
 ### 4.2.2. Candidate Context Discovery
 
 ### 4.2.3. Domain Message Flows Modeling

@@ -413,6 +413,25 @@ La disposición en el tablero quedó organizada de la siguiente forma:
 Cada sección incluye las relaciones visuales completas entre eventos, comandos, agregados, políticas, sistemas externos, vistas y actores, lo cual permitió identificar comunicaciones desacopladas mediante eventos (Reporte → Localización) y consultas síncronas a read models (Reporte ← Localización; Alertas ← Localización), fundamentales para la siguiente etapa de delimitación de contextos y diseño de la arquitectura.
 ### 4.2.2. Candidate Context Discovery
 
+Para identificar los bounded contexts del sistema PeaceApp, se llevó a cabo una sesión de Candidate Context Discovery aplicando la técnica **Start-with-Value**. Esta técnica fue seleccionada debido a que permite priorizar aquellas capacidades de negocio que generan mayor valor para la propuesta de la startup y que constituyen el núcleo funcional de la solución.
+
+El análisis inició a partir del Event Storming desarrollado en Miro, donde se modelaron los procesos principales relacionados con el reporte de incidencias, la geolocalización y la generación de alertas de seguridad. Durante la sesión, se analizaron los eventos de dominio, comandos, actores, políticas y sistemas externos, identificando las áreas funcionales que concentran la mayor parte de la lógica de negocio.
+
+Como resultado de esta primera iteración, se delimitaron tres bounded contexts directamente derivados del Event Storming:
+
+- **Reports**, responsable del registro, validación y publicación de incidencias reportadas por los ciudadanos.
+- **Locations**, encargado de la geolocalización, consulta cartográfica y visualización de zonas de riesgo.
+- **Alerts**, orientado a la evaluación, generación y envío de alertas preventivas y notificaciones de emergencia.
+
+Posteriormente, durante el diseño estratégico del dominio, se identificaron dos capacidades adicionales necesarias para gestionar los distintos tipos de usuarios del sistema y sus respectivas funcionalidades:
+
+- **IAM**, responsable de la autenticación, autorización y gestión de credenciales.
+- **Profiles**, encargado de la administración de la información personal, preferencias y roles de los usuarios.
+
+Estos dos contextos fueron incorporados posteriormente durante el diseño estratégico del dominio, ya que permiten gestionar la identidad, autenticación y la información de los distintos tipos de usuarios del sistema, incluyendo ciudadanos y representantes de municipalidades. Aunque no forman parte del flujo principal modelado en el Event Storming, resultan fundamentales para habilitar el acceso seguro, la personalización de la experiencia y la administración de funcionalidades específicas según el rol de cada usuario.
+
+La aplicación de la técnica Start-with-Value permitió identificar a **Reports** como el Core Domain, dado que concentra la funcionalidad principal y genera el mayor valor para la solución. Asimismo, **Locations** y **Alerts** fueron clasificados como Supporting Domains, mientras que **IAM** y **Profiles** se categorizaron como Generic Domains.
+
 ### 4.2.3. Domain Message Flows Modeling
 
 ### 4.2.4. Bounded Context Canvases

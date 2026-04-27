@@ -534,6 +534,18 @@ Finalmente, el usuario observa la **visualización de reportes en el mapa**, per
 
 ### 4.2.4. Bounded Context Canvases
 
+#### Report Bounded Context:
+
+![ReportsManagement](assets/ReportsManagement.png)
+
+#### Location Bounded Context:
+
+![LocationsManagement](assets/LocationsManagement.png)
+
+#### Alert Bounded Context:
+
+![AlertsManagement](assets/AlertsManagement.png)
+
 ### 4.2.5. Context Mapping
 El sistema PeaceApp se estructura en cinco bounded contexts principales: IAM, Profiles, Reports, Alerts y Locations, los cuales colaboran entre sí para cumplir los objetivos del dominio. A continuación, se describen sus relaciones y las decisiones de diseño adoptadas.
 

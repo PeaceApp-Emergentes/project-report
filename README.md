@@ -10,33 +10,257 @@
 
 ### 5.1.4. Infrastructure Layer
 
-### 5.1.6. Bounded Context Software Architecture Component Level Diagrams
+### 5.1.5. Bounded Context Software Architecture Component Level Diagrams
 
-### 5.1.7. Bounded Context Software Architecture Code Level Diagrams
+### 5.1.6. Bounded Context Software Architecture Code Level Diagrams
 
-#### 5.1.7.1. Bounded Context Domain Layer Class Diagrams
+#### 5.1.6.1. Bounded Context Domain Layer Class Diagrams
 
-#### 5.1.7.2. Bounded Context Database Design Diagram
+#### 5.1.6.2. Bounded Context Database Design Diagram
 
 
 
 ## 5.2. Bounded Context: Profile
 
+El Bounded Context de **Profile** es responsable de la gestión de perfiles de los usuarios que interactúan con el sistema PeaceApp. En particular, maneja los perfiles de **Ciudadanos (Citizens)** y **Municipalidades (Municipalities)**. Este contexto permite registrar nuevos perfiles y obtener información de los mismos mediante su userId. Las entidades principales son Citizen y Municipality, y su estructura está diseñada para asegurar la unicidad de identificadores clave como DNI, correo electrónico institucional y número de teléfono.
+
 ### 5.2.1. Domain Layer
+
+La capa de dominio encapsula las entidades centrales del sistema de perfiles y contiene la lógica de validación de atributos mediante objetos de valor. Las entidades principales son Citizen y Municipality, las cuales heredan de un agregado raíz auditable. Se utilizan objetos de valor como Phone, Dni y InstitutionalEmail para encapsular lógica específica y validación.
+
+**Aggregate:** Citizen
+
+**Descripción:** Representa el perfil de un ciudadano registrado en PeaceApp.
+
+|**Atributo**|**Descripción**|**Tipo**|
+| :-: | :-: | :-: |
+|fullName|Nombre completo del ciudadano|String|
+|city|Ciudad de residencia|String|
+|district|Distrito de residencia|String|
+|userId|ID del usuario (referencia a IAM)|Long|
+|dni|Documento nacional de identidad|Dni|
+|phone|Número de teléfono del ciudadano|Phone|
+
+**Método**
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|Citizen(CreateCitizenCommand command, Long userId)|Constructor que crea un perfil de ciudadano.|
+|String getDni()|Devuelve el número de DNI del ciudadano.|
+|String getPhone()|Devuelve el número telefónico del ciudadano.|
+
+**Aggregate:** Municipality
+
+**Descripción:** Representa el perfil de una municipalidad registrada en PeaceApp.
+
+|**Atributo**|**Descripción**|**Tipo**|
+| :-: | :-: | :-: |
+|municipalityName|Nombre de la municipalidad|String|
+|city|Ciudad donde opera la municipalidad|String|
+|district|Distrito de operación|String|
+|institutionalEmail|Correo institucional de la municipalidad|InstitutionalEmail|
+|userId|ID del usuario (referencia a IAM)|Long|
+|phone|Número telefónico institucional|Phone|
+
+**Método**
+
+|**Clase**|**Método**|**Descripción**|
+| :-: | :-: | :-: |
+|Municipality|Municipality(CreateMunicipalityCommand command, Long userId)|Constructor que crea un perfil de municipalidad.|
+|Municipality|String getPhone()|Devuelve el número telefónico institucional.|
+|Municipality|String getInstitutionalEmail()|Devuelve el correo institucional de la municipalidad.|
+
+**Value Objects**
+
+**Dni**
+
+**Descripción:**
+Representa el Documento Nacional de Identidad (DNI) de un ciudadano. Asegura que el valor sea un número positivo de exactamente 8 dígitos.
+
+**Atributos:**
+
+|**Nombre**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+|dni|String|Número de DNI con exactamente 8 dígitos|
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|Dni(String dni)|Constructor que valida que el valor tenga exactamente 8 dígitos.|
+|Dni()|Constructor por defecto que asigna "00000000".|
+
+**Phone**
+
+**Descripción:**
+Representa un número de teléfono válido, de exactamente 9 dígitos.
+
+**Atributos:**
+
+|**Nombre**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+|phone|String|Número telefónico con exactamente 9 dígitos|
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|Phone(String phone)|Constructor que valida que el valor tenga exactamente 9 dígitos.|
+|Phone()|Constructor por defecto que asigna "000000000".|
+
+**InstitutionalEmail**
+
+**Descripción:**
+Representa un correo electrónico institucional válido perteneciente a una municipalidad.
+
+**Atributos:**
+
+|**Nombre**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+|email|String|Correo institucional válido de la municipalidad|
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|InstitutionalEmail(String email)|Constructor que valida el formato correcto del correo institucional.|
+|InstitutionalEmail()|Constructor por defecto que asigna "municipality@peaceapp.com".|
+
+**Domain Services**
+
+Los Domain Services en este contexto son interfaces que definen operaciones de negocio relacionadas con los aggregates Citizen y Municipality. Permiten separar las reglas de negocio que no pertenecen directamente a una entidad o value object.
+
+**CitizenCommandService**
+
+**Descripción:**
+Interfaz que define operaciones de negocio relacionadas con la creación de un Citizen.
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|Optional<Citizen> handle(CreateCitizenCommand command, Long userId)|Procesa el comando de creación de un ciudadano, asociándolo a un User existente mediante su userId.|
+
+**CitizenQueryService**
+
+**Descripción:**
+Interfaz que permite consultar información relacionada con un Citizen.
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|Optional<Citizen> handle(GetCitizenByUserIdQuery query)|Obtiene un Citizen asociado a un User mediante su userId.|
+
+**MunicipalityCommandService**
+
+**Descripción:**
+Interfaz que define operaciones de negocio relacionadas con la creación de una Municipality.
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|Optional<Municipality> handle(CreateMunicipalityCommand command, Long userId)|Procesa el comando de creación de una municipalidad, asociándola a un User existente mediante su userId.|
+
+**MunicipalityQueryService**
+
+**Descripción:**
+Interfaz que permite consultar información relacionada con una Municipality.
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|Optional<Municipality> handle(GetMunicipalityByUserIdQuery query)|Obtiene una Municipality asociada a un User mediante su userId.|
 
 ### 5.2.2. Interface Layer
 
+Esta capa actúa como punto de entrada para consultas externas relacionadas con los perfiles. A través de los controladores REST, los clientes pueden consultar el perfil de un ciudadano o una municipalidad por su userId.
+
+**Controlador: ProfilesController**
+
+**Descripción:** Gestiona las consultas de perfiles de usuarios.
+
+|**Método**|**Descripción**|**HTTP**|**Respuesta**|
+| :-: | :-: | :-: | :-: |
+|getCitizenProfile(Long userId)|Devuelve el perfil de un ciudadano por su userId|GET /profiles/citizen/{userId}|Recurso del ciudadano|
+|getMunicipalityProfile(Long userId)|Devuelve el perfil de una municipalidad por su userId|GET /profiles/municipality/{userId}|Recurso de la municipalidad|
+
 ### 5.2.3. Application Layer
+
+Esta capa contiene la lógica de aplicación, incluyendo la validación de unicidad para campos clave y el manejo de comandos y consultas. Coordina la creación y recuperación de perfiles utilizando servicios específicos para cada tipo de usuario.
+
+**Clase: CitizenCommandServiceImpl**
+
+**Descripción:** Gestiona los comandos para la creación de ciudadanos.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|handle(CreateCitizenCommand)|Crea un nuevo perfil de ciudadano, validando unicidad de dni, phone y userId.|
+
+**Clase: MunicipalityCommandServiceImpl**
+
+**Descripción:** Gestiona los comandos para la creación de municipalidades.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|handle(CreateMunicipalityCommand)|Crea un nuevo perfil de municipalidad, validando institutionalEmail, phone y userId.|
+
+**Clase: CitizenQueryServiceImpl**
+
+**Descripción:** Gestiona consultas sobre ciudadanos.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|handle(GetCitizenByUserIdQuery)|Recupera un ciudadano a partir de su userId.|
+
+**Clase: MunicipalityQueryServiceImpl**
+
+**Descripción:** Gestiona consultas sobre municipalidades.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|handle(GetMunicipalityByUserIdQuery)|Recupera una municipalidad por su userId.|
 
 ### 5.2.4. Infrastructure Layer
 
-### 5.2.6. Bounded Context Software Architecture Component Level Diagrams
+La capa de infraestructura proporciona la implementación de persistencia para los perfiles, permitiendo operaciones CRUD y búsquedas específicas. Los repositorios se basan en Spring Data JPA.
 
-### 5.2.7. Bounded Context Software Architecture Code Level Diagrams
+**Repositorio: CitizenRepository**
 
-#### 5.2.7.1. Bounded Context Domain Layer Class Diagrams
+**Descripción:** Administra la persistencia de la entidad Citizen.
 
-#### 5.2.7.2. Bounded Context Database Design Diagram
+|**Método**|**Descripción**|
+| :-: | :-: |
+|findCitizenByUserId(Long)|Recupera un ciudadano por su userId.|
+|existsByDni_Dni(String)|Verifica si existe un ciudadano con un DNI dado.|
+|existsByPhone_Phone(String)|Verifica si existe un ciudadano con un teléfono dado.|
+|existsByUserId(Long)|Verifica si existe un ciudadano con un userId dado.|
+
+**Repositorio: MunicipalityRepository**
+
+**Descripción:** Administra la persistencia de la entidad Municipality.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|findMunicipalityByUserId(Long)|Recupera una municipalidad por su userId.|
+|existsByInstitutionalEmail_Email(String)|Verifica si existe una municipalidad con un correo institucional dado.|
+|existsByPhone_Phone(String)|Verifica si existe una municipalidad con un teléfono dado.|
+|existsByUserId(Long)|Verifica si existe una municipalidad con un userId dado.|
+
+<div style="page-break-after: always;"></div>
+
+
+
+
+### 5.2.5. Bounded Context Software Architecture Component Level Diagrams
+
+### 5.2.6. Bounded Context Software Architecture Code Level Diagrams
+
+#### 5.2.6.1. Bounded Context Domain Layer Class Diagrams
+
+#### 5.2.6.2. Bounded Context Database Design Diagram
 
 
 
@@ -50,13 +274,13 @@
 
 ### 5.3.4. Infrastructure Layer
 
-### 5.3.6. Bounded Context Software Architecture Component Level Diagrams
+### 5.3.5. Bounded Context Software Architecture Component Level Diagrams
 
-### 5.3.7. Bounded Context Software Architecture Code Level Diagrams
+### 5.3.6. Bounded Context Software Architecture Code Level Diagrams
 
-#### 5.3.7.1. Bounded Context Domain Layer Class Diagrams
+#### 5.3.6.1. Bounded Context Domain Layer Class Diagrams
 
-#### 5.3.7.2. Bounded Context Database Design Diagram
+#### 5.3.6.2. Bounded Context Database Design Diagram
 
 
 
@@ -70,13 +294,13 @@
 
 ### 5.4.4. Infrastructure Layer
 
-### 5.4.6. Bounded Context Software Architecture Component Level Diagrams
+### 5.4.5. Bounded Context Software Architecture Component Level Diagrams
 
-### 5.4.7. Bounded Context Software Architecture Code Level Diagrams
+### 5.4.6. Bounded Context Software Architecture Code Level Diagrams
 
-#### 5.4.7.1. Bounded Context Domain Layer Class Diagrams
+#### 5.4.6.1. Bounded Context Domain Layer Class Diagrams
 
-#### 5.4.7.2. Bounded Context Database Design Diagram
+#### 5.4.6.2. Bounded Context Database Design Diagram
 
 
 
@@ -90,10 +314,10 @@
 
 ### 5.5.4. Infrastructure Layer
 
-### 5.5.6. Bounded Context Software Architecture Component Level Diagrams
+### 5.5.5. Bounded Context Software Architecture Component Level Diagrams
 
-### 5.5.7. Bounded Context Software Architecture Code Level Diagrams
+### 5.5.6. Bounded Context Software Architecture Code Level Diagrams
 
-#### 5.5.7.1. Bounded Context Domain Layer Class Diagrams
+#### 5.5.6.1. Bounded Context Domain Layer Class Diagrams
 
-#### 5.5.7.2. Bounded Context Database Design Diagram
+#### 5.5.6.2. Bounded Context Database Design Diagram

@@ -283,9 +283,15 @@ El diagrama de componentes del bounded context Profile muestra los componentes e
 
 #### 5.2.6.1. Bounded Context Domain Layer Class Diagrams
 
+El diagrama de clases muestra la relación entre las entidades Citizen y Municipality, así como los objetos de valor asociados a ellas.
+
+!["Profile Management Class Diagram"](assets/PeaceApp-Profile-ClassDiagram.png?raw=true)
+
 #### 5.2.6.2. Bounded Context Database Design Diagram
 
+El diagrama de base muestra las tablas citizens y municipalities, así como la relación entre estas.
 
+!["Profile Management Database Diagram"](assets/PeaceApp-DatabaseDiagram-Profile.png?raw=true)
 
 ## 5.3. Bounded Context: Location
 

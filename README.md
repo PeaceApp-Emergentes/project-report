@@ -201,16 +201,156 @@ Teniendo el wireframe, realizamos una representación más realista de la Landin
 
 Enlace al Landing Page Mock-up: <https://tinyurl.com/ymunn2vn>
 
-> ![](assets/LandingPageMock-up.png)
+> ![](assets/LandingPageMock-up.png?raw=true)
 
 
 ## 6.4. Applications UX/UI Design
 
 ### 6.4.1. Applications Wireframes
 
+Los wireframes de las aplicaciones, tanto para la versión web como móvil, son diagramas
+estructurales que muestran la disposición de los elementos de interfaz y funcionalidades
+clave. Esta etapa temprana del diseño UX permite evaluar la organización de la
+información, los puntos de interacción del usuario y la lógica de navegación dentro del
+sistema.
+
+#### 6.4.1.1 Web Application Wireframes
+
+Creamos la estructura de la aplicación web de PeaceApp utilizando Figma.
+
+Enlace a los Web Applications Wireframes:
+<https://www.figma.com/design/KFB2co2shH7aJF2UIXTOrL/Untitled--Copy-?node-id=0-1&t=k2uYPScq5bHnEsDH-1>
+
+![WebApplicationsWireframes](assets/WebApplicationsWireframes.png?raw=true)
+
+#### 6.4.1.2 Mobile Application Wireframes
+
+Creamos la estructura de PeaceApp utilizando Figma.
+
+Enlace a los Mobile Applications Wireframes:
+<https://www.figma.com/design/qDvXC6SO5sIKnEyGcgiHhe/Peace-App-Web-Applications-UX%2FUI-Design?node-id=0-1&node-type=canvas&t=8M5eo45jFkAsIaiW-0>
+
+![](assets/MobileApplicationsWireframes.png?raw=true)
+
+IOS Application Wireframes:
+
+![](assets/IOSApplicationWireframes1.png?raw=true)
+
+![](assets/IOSApplicationWireframes2.png?raw=true)
+
 ### 6.4.2. Applications Wireflow Diagrams
 
+#### 6.4.2.1 Web Applications Wireflow Diagrams
+
+**User Flow**: User Goal: Iniciar sesión en la aplicación web como usuario registrado. Para este objetivo, el usuario ingresa directamente desde la página principal de la web, donde encuentra el formulario de inicio de sesión. Completa su correo y contraseña y presiona el botón "Ingresar". Si los datos son correctos, será redirigido al mapa. En caso contrario, se le avisará que hay campos vacíos o que los datos ingresados son incorrectos. US07
+
+> ![](assets/WireFlowW1.png?raw=true)
+
+**User Flow**: User Goal: Registrarse en la aplicación web como nuevo usuario. El usuario selecciona el botón "Registro", que lo redirige a un formulario donde debe ingresar su nombre, apellido, número de teléfono, correo electrónico y contraseña. Si completa todo correctamente, la cuenta se crea exitosamente. En caso de errores de formato, campos vacíos o datos inválidos, se le notificará y no se registrará. US06
+
+> ![](assets/WireFlowW2.png?raw=true)
+
+**User Flow**: User Goal: Generar un reporte de incidente en la aplicación web. El usuario accede a la sección "Reportes" y selecciona la opción para crear un nuevo reporte. Redacta el tipo de incidente libremente y selecciona la ubicación en el mapa arrastrando un marcador. Adjuntar evidencia es opcional. Si decide cancelar, podrá eliminar el reporte. Si completa correctamente los datos requeridos, el reporte se publica. Si hay errores o campos vacíos, no se enviará. US08
+
+> ![](assets/WireFlowW3.png?raw=true)
+
+**User Flow:** User Goal: Visualizar reportes en la aplicación web. Desde la sección "Reportes", el usuario podrá ver una lista general de todos los reportes. Si no existen reportes, se mostrará la vista vacía. Actualmente, no hay visualización de alertas, íconos en el mapa ni opción para ver detalles de reportes individuales. US11
+
+> ![](assets/WireFlowW4.png?raw=true)
+
+**User Flow:** User Goal: Editar la información del perfil en la aplicación web. Al ingresar, el usuario puede acceder al ícono de perfil y desde ahí editar sus datos personales. Si todos los campos obligatorios se completan, los cambios se guardan correctamente. Si deja algún campo vacío, se le notificará. US15
+
+> ![](assets/WireFlowW5.png?raw=true)
+
+**User Flow**: User Goal: Visualizar rutas seguras dentro del mapa en la aplicación web. El usuario accede a la sección "Mapa" e ingresa la ubicación a la que desea llegar. Si deja el campo vacío o ingresa una dirección inválida, no se mostrará nada. Si la dirección es válida, se generará una ruta segura en el mapa desde su ubicación actual hasta el destino ingresado. US10
+
+> ![](assets/WireFlowW6.png?raw=true)
+
+#### 6.4.2.2 Mobile Applications Wireflow Diagrams 
+
+**Wire Flow**: User Goal: Ingresar a la aplicación móvil como usuario registrado. Para este objetivo, el usuario accede a la pantalla inicial, selecciona el botón “Iniciar sesión” e ingresa su correo y contraseña. Si los datos ingresados son correctos, se redirige automáticamente al mapa de la aplicación. En caso de error (credenciales incorrectas o campos vacíos), se muestra un mensaje de advertencia solicitando revisar la información. US07
+
+> ![](assets/Wireflow1.png?raw=true)
+
+**Wire Flow**: User Goal: Registrarse en la aplicación móvil como nuevo usuario. Para lograr este objetivo, el usuario presiona el botón “Comenzar ahora” en la pantalla inicial y accede al formulario de registro. Allí deberá ingresar su nombre, apellido, número de teléfono, correo electrónico y contraseña. Si toda la información es válida, se muestra un mensaje confirmando la creación exitosa de la cuenta. Si hay errores en el formato del correo, la contraseña es demasiado corta o el número es inválido, se informará al usuario y no se completará el registro. US06
+
+> ![](assets/Wireflow2.png?raw=true)
+
+**Wire Flow**: User Goal: Visualizar los reportes disponibles en la aplicación. Una vez dentro de la app, el usuario puede acceder a la sección “Alertas” para ver los reportes en su zona. Si no existen alertas, no se mostrará contenido. Desde el mapa también puede acceder directamente al detalle de un reporte tocando un ícono. En la pestaña “Reportes”, puede revisar tanto los reportes generales como los propios. Si aún no se han generado reportes, esas secciones estarán vacías. US11
+
+> ![](assets/Wireflow3.png?raw=true)
+
+**Wire Flow:** User Goal: Editar la información del perfil del usuario. Al ingresar a la aplicación, el usuario puede acceder a su perfil mediante el ícono correspondiente. Desde allí puede modificar sus datos personales. Si todos los campos requeridos son completados correctamente, la información se actualiza exitosamente. Si algún campo queda vacío, se notificará al usuario para que complete todos los datos. US15
+
+> ![](assets/Wireflow4.png?raw=true)
+
+**Wire Flow:** Acceder al mapa de calor desde cualquier sección de la app. Al iniciar sesión correctamente, la aplicación redirige automáticamente al mapa donde se visualizan los reportes. Adicionalmente, desde cualquier otra sección, el usuario puede acceder al mapa mediante el ícono de navegación inferior. US17
+
+> ![](assets/Wireflow5.png?raw=true)
+
+**Wire Flow**: Generar un nuevo reporte de incidente y adjuntar evidencia. Para cumplir este objetivo, el usuario accede a la sección “Mis reportes” y selecciona el botón para crear uno nuevo. Luego elige el tipo de incidente (robo, accidente, etc.) y completa el formulario incluyendo una descripción y la evidencia correspondiente. Puede cancelar el proceso, lo que le permitirá eliminar el reporte. Si completa correctamente todos los campos y adjunta evidencia, el reporte se publica exitosamente y se visualizará en el mapa de calor. Si hay errores o campos vacíos, el reporte no será enviado. US08 y US09
+
+> ![](assets/Wireflow6.png?raw=true)
+
+**Wire Flow**: Recibir notificaciones sobre reportes y alertas de riesgo. Al abrir la aplicación, el usuario puede seleccionar el ícono de alertas para ver los reportes cercanos. Si no existen alertas en la zona, se muestra una vista vacía. Si hay reportes disponibles, el usuario podrá ver los detalles tocando alguno de ellos. US13 y US12
+
+![](assets/Wireflow7.png?raw=true)
+
+**Wire Flow**: Compartir ubicación con contactos. El usuario accede a la sección “Compartir ubicación” desde el ícono correspondiente en la parte inferior de la app. Desde ahí puede ver una lista de contactos y seleccionar a quién desea enviar su ubicación. Al presionar el botón “Guardar cambios”, la ubicación será compartida con los contactos elegidos. US14
+
+![](assets/Wireflow8.png?raw=true)
+
 ### 6.4.3. Applications Mock-ups
+
+#### 6.4.3.1 Web Applications Mock-ups 
+
+Creamos un boceto más realista de cómo se verá PeaceApp en la aplicación Web.
+
+Enlace a los Web Application Mock-ups: <https://www.figma.com/design/4ddpaCLGMU2orrZG7Y3GyH/Sin-t%C3%ADtulo?node-id=0-1&t=k2uYPScq5bHnEsDH-1>
+
+![](assets/WebApplicationMock-ups.png?raw=true)
+
+**Sección log in y sign up:**
+
+![](assets/InicioSesionMockUp.png?raw=true)
+
+**Sección del mapa:**
+
+![](assets/MapaMockUp.png?raw=true)
+
+**Sección de Reportes y alerta:**
+
+![](assets/ReportesMockUp.png?raw=true)
+
+**Sección perfil:**
+
+![](assets/PerfilMockUp.png?raw=true)
+
+#### 6.4.3.2 Mobile Applications Mock-ups
+
+Creamos un boceto más realista de cómo se verá PeaceApp.
+
+Enlace a los Mobile Application Mock-ups: <https://tinyurl.com/dyb2ex8u>
+
+![](assets/MobileApplicationMock-ups.png?raw=true)
+
+**Sección log in y sign up:**
+
+![](assets/SignIn.png?raw=true)
+
+![](assets/SignUp.png?raw=true)
+
+**Sección del mapa, alerta y reportes:**
+
+![](assets/MapaAlertasReportes.png?raw=true)
+
+**Sección compartir ubicación:**
+
+![](assets/Ubicacion.png?raw=true)
+
+**Sección perfil:**
+
+![](assets/Perfil.png?raw=true)
 
 ### 6.4.4. Applications User Flow Diagrams
 

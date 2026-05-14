@@ -239,6 +239,8 @@ Objetivo: Conocer las restricciones legales y técnicas obligatorias en el secto
 
 ### 2.2.2. Registro de entrevistas
 
+**Segmento: Ciudadano**
+
 **URL de todas las entrevistas:** <>
 
 **Entrevista N°1:**
@@ -290,6 +292,24 @@ El entrevistado se siente inseguro en espacios públicos, especialmente cerca de
 **Ocupación:** Estudiante universitaria (Educacion Infantil)
 
 Maria Paula Rojas, una joven de 19 años que estudia Educación Infantil y disfruta de dibujar, ver series animadas, cantar y aprender sobre educación especial, participó en una conversación centrada en la seguridad y el uso de aplicaciones móviles. Durante la entrevista, se discutió la importancia de implementar herramientas tecnológicas para mejorar la seguridad en espacios públicos, incluyendo el desarrollo de una app que permita reportar y rastrear incidentes. También se habló sobre el potencial uso de tecnología para detectar y localizar robots, y se compararon algunas funciones con las que ofrecen dispositivos como los de Apple. La charla reflejó un claro interés en crear soluciones innovadoras que contribuyan a la protección de las personas en su entorno cotidiano.
+
+**Segmento: Municipalidad**
+
+**Entrevista N°1:**
+
+![Entrevista1](assets/Entrevista1-Municipalidad.png?raw=true)
+
+**Timing:** 7:42
+
+**Nombre:** Mauricio Paucar
+
+**Edad:** 27 años
+
+**Pasatiempos:** Salir con amigos y con mascotas.
+
+**Ocupación:** Coordinador de Operaciones de Seguridad Ciudadana Municipal
+
+Mauricio trabaja como Coordinador de Operaciones de Seguridad Ciudadana Municipal. Actualmente, la gestión de emergencias en la municipalidad depende de llamadas telefónicas, WhatsApp, radios y registros manuales, lo que genera retrasos cuando la información llega incompleta o poco clara. Utilizan cámaras CCTV, teléfonos y grupos de comunicación, pero los sistemas no están integrados ni automatizados. Uno de los principales problemas son las falsas alarmas, ya que no cuentan con mecanismos automáticos de validación, ocasionando pérdida de recursos y tiempo operativo. Considera muy útil una plataforma que permita recibir evidencia multimedia en tiempo real para validar incidentes y priorizar emergencias. Los mapas del delito se elaboran manualmente y la coordinación con la PNP y municipalidades vecinas se realiza principalmente mediante llamadas y WhatsApp. Considera importante que un nuevo sistema genere KPIs automáticos, mapas de calor y reportes operativos en tiempo real. También cree que la plataforma podría servir para informar rápidamente a los vecinos mediante alertas segmentadas. Identifica como principales barreras la resistencia al cambio y el bajo nivel de experiencia tecnológica de algunos operadores, por lo que el sistema debería ser intuitivo, rápido y fácil de usar. Además, considera indispensable garantizar privacidad, cifrado y control de accesos en la información de los ciudadanos.
 
 ### 2.2.3. Análisis de entrevistas
 

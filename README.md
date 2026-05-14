@@ -255,7 +255,7 @@ La capa de infraestructura proporciona la implementación de persistencia para l
 
 
 ### 5.2.5. Bounded Context Software Architecture Component Level Diagrams
--**Backend**
+**Backend**
 
 El Profile Bounded Context centraliza la gestión de la información de perfil de los usuarios, incluyendo su estructura de dominio, lógica de aplicación, almacenamiento persistente e interfaces expuestas vía HTTP. Su arquitectura facilita tanto el acceso directo desde aplicaciones cliente como la colaboración con otros contextos a través de su fachada de contexto, permitiendo así la reutilización controlada de funciones relacionadas con los perfiles sin romper la encapsulación.
 
@@ -263,7 +263,7 @@ El Profile Bounded Context centraliza la gestión de la información de perfil d
 
 <div style="page-break-after: always;"></div>
 
--**WebApp**
+**WebApp**
 
 El diagrama de componentes del Profile Bounded Context describe la estructura de componentes dedicados a la gestión de perfiles de ciudadanos y municipalidades dentro de PeaceApp. En este contexto, el Citizen Profile Component permite a los ciudadanos visualizar y editar su información personal, mientras que el Municipality Profile Component permite a las municipalidades gestionar su información institucional. Ambos componentes se apoyan en los servicios Citizen Profile Service y Municipality Profile Service, encargados de coordinar las operaciones de negocio y la comunicación con la API RESTful. Asimismo, el componente Profile Assembler se encarga de transformar y mapear los datos entre los modelos del frontend y los DTOs utilizados por la API, estableciendo una arquitectura desacoplada, mantenible y escalable que facilita la evolución de las funcionalidades relacionadas con la gestión de perfiles.
 
@@ -271,7 +271,7 @@ El diagrama de componentes del Profile Bounded Context describe la estructura de
 
 <div style="page-break-after: always;"></div>
 
--**MobileApp**
+**MobileApp**
 
 El diagrama de componentes del bounded context Profile muestra los componentes encargados de la gestión de perfiles de ciudadanos y municipalidades dentro de la aplicación móvil PeaceApp. El contexto incluye los componentes Citizen Profile Widget y Municipality Profile Widget, responsables de permitir la visualización y edición de la información personal e institucional de los usuarios desde la aplicación móvil. Asimismo, los servicios Citizen Profile Service y Municipality Profile Service centralizan la lógica de negocio relacionada con la gestión de perfiles, coordinando las operaciones de validación, recuperación y actualización de datos. El componente Profile Assembler se encarga de transformar y adaptar los datos entre las estructuras provenientes del backend y los modelos utilizados en la aplicación móvil. El flujo principal inicia desde los widgets de perfil hacia los servicios correspondientes, los cuales utilizan el ensamblador para procesar la información y gestionar las solicitudes hacia la API RESTful, permitiendo una administración de perfiles eficiente, desacoplada y mantenible.
 
@@ -604,23 +604,266 @@ El bounded context Location utiliza una tabla principal llamada locations. Esta 
 
 ## 5.4. Bounded Context: Report
 
+El Bounded Context de **Report** es el núcleo principal del negocio en PeaceApp, ya que gestiona la información ingresada por los ciudadanos al reportar incidentes. Este contexto contiene los datos clave del sistema, como el tipo de reporte, descripción, evidencia, ubicación, estado y usuario asociado. Además, otros contextos dependen de él: **Location** utiliza sus coordenadas para mostrar reportes en el mapa, mientras que **Alert** genera avisos a partir de reportes cercanos. Por ello, Report es la fuente principal de información operativa del sistema.
+
 ### 5.4.1. Domain Layer
+
+
+La capa de dominio del bounded context Report encapsula la lógica principal del negocio relacionada con la gestión de reportes de incidentes. La entidad principal es Report, la cual representa la información registrada por un ciudadano, incluyendo su descripción, tipo, ubicación, evidencia y estado dentro del flujo de revisión.
+
+**Aggregate:** Report
+
+**Descripción:** Representa un reporte de incidente creado por un usuario dentro de PeaceApp.
+
+|**Atributo**|**Descripción**|**Tipo**|
+| :-: | :-: | :-: |
+|id|Identificador único del reporte|Long|
+|title|Título breve del reporte|String|
+|description|Descripción detallada del incidente|String|
+|location|Descripción textual de la ubicación del incidente|String|
+|type|Tipo de incidente reportado|ReportType|
+|userId|ID del usuario que creó el reporte|Long|
+|imageUrl|URL de la imagen o evidencia asociada al reporte|String|
+|latitude|Latitud donde ocurrió el incidente|String|
+|longitude|Longitud donde ocurrió el incidente|String|
+|state|Estado actual del reporte|ReportState|
+|rejectionReason|Motivo de rechazo del reporte, en caso corresponda|String|
+
+**Método**
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|Report(String title, String description, String location, ReportType type, Long userId, String imageUrl, String latitude, String longitude)|Constructor que crea un nuevo reporte e inicializa su estado como PENDING.|
+|void markInReview()|Cambia el estado del reporte de PENDING a IN_REVIEW.|
+|void approve()|Aprueba un reporte que se encuentra en revisión y cambia su estado a APPROVED.|
+|void reject(String reason)|Rechaza un reporte que se encuentra en revisión y registra el motivo del rechazo.|
+
+**Value Objects**
+
+**ReportState**
+
+**Descripción:**
+Representa el estado actual de un reporte dentro del proceso de revisión.
+
+|**Valor**|**Descripción**|
+| :- | :- |
+|PENDING|El reporte fue creado y está pendiente de revisión.|
+|IN_REVIEW|El reporte está siendo revisado.|
+|APPROVED|El reporte fue aprobado y puede ser utilizado por otros contextos del sistema.|
+|REJECTED|El reporte fue rechazado y no será considerado como válido.|
+
+**ReportType**
+
+**Descripción:**  
+Representa el tipo de incidente registrado en el reporte.
+
+|**Valor**|**Descripción**|
+| :- | :- |
+|ROBBERY|Reporte relacionado con robo o intento de robo.|
+|ACCIDENT|Reporte relacionado con un accidente.|
+|DARK_AREA|Reporte relacionado con una zona oscura o con baja iluminación.|
+|HARASSMENT|Reporte relacionado con acoso.|
+|OTHER|Reporte relacionado con otro tipo de incidente.|
+
+**Domain Services**
+
+Los Domain Services en este contexto son interfaces que definen operaciones de negocio relacionadas con el aggregate **Report**. Permiten separar las operaciones de comando y consulta, manteniendo organizada la lógica del bounded context.
+
+**ReportCommandService**
+
+**Descripción:**  
+Interfaz que define las operaciones de escritura relacionadas con la gestión de reportes.
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|Optional<Report> handle(CreateReportCommand command)|Procesa la creación de un nuevo reporte.|
+|void handle(DeleteReportByIdCommand command)|Procesa la eliminación de un reporte mediante su identificador.|
+|void handle(MarkReportInReviewCommand command)|Cambia el estado de un reporte a IN_REVIEW.|
+|void handle(ApproveReportCommand command)|Aprueba un reporte que se encuentra en revisión.|
+|void handle(RejectReportCommand command)|Rechaza un reporte y registra el motivo correspondiente.|
+
+**ReportQueryService**
+
+**Descripción:**  
+Interfaz que define las operaciones de lectura relacionadas con los reportes.
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|Optional<Report> handle(GetReportByIdQuery query)|Obtiene un reporte mediante su identificador.|
+|List<Report> handle(GetReportsByUserIdQuery query)|Obtiene los reportes asociados a un usuario específico.|
+|List<Report> handle(GetAllReportsQuery query)|Obtiene todos los reportes registrados en el sistema.|
+|List<Report> handle(GetPublicReportsQuery query)|Obtiene los reportes públicos disponibles para consulta.|
+
+**Domain Events**
+
+Los eventos de dominio permiten comunicar cambios importantes ocurridos en el bounded context **Report** hacia otros contextos del sistema, como **Location** y **Alert**.
+
+|**Evento**|**Descripción**|
+| :- | :- |
+|ReportCreatedEvent|Se genera cuando un nuevo reporte es creado.|
+|ReportApprovedEvent|Se genera cuando un reporte es aprobado.|
+|ReportRejectedEvent|Se genera cuando un reporte es rechazado.|
+|ReportDeletedEvent|Se genera cuando un reporte es eliminado.|
 
 ### 5.4.2. Interface Layer
 
+Esta capa actúa como punto de entrada para las operaciones externas relacionadas con los reportes de incidentes. A través del controlador REST, los clientes pueden crear reportes, consultar reportes existentes, cambiar su estado dentro del flujo de revisión y eliminar reportes cuando corresponda.
+
+**Controlador: ReportController**
+
+**Descripción:** Gestiona las operaciones REST relacionadas con la creación, consulta, revisión, aprobación, rechazo y eliminación de reportes.
+
+|**Método**|**Descripción**|**HTTP**|**Respuesta**|
+| :-: | :-: | :-: | :-: |
+|reportExists(Long id)|Verifica si existe un reporte mediante su identificador.|GET /api/v1/reports/{id}/exists|Boolean|
+|getPublicReports()|Devuelve los reportes públicos aprobados.|GET /api/v1/reports/public|Lista de ReportResource o 204 No Content|
+|createReport(CreateReportResource resource)|Crea un nuevo reporte de incidente.|POST /api/v1/reports|201 Created con ReportResource o error|
+|getReportById(Long id)|Devuelve un reporte específico mediante su identificador.|GET /api/v1/reports/{id}|ReportResource o 404 Not Found|
+|markReportInReview(Long id)|Cambia el estado de un reporte a IN_REVIEW.|PUT /api/v1/reports/{id}/review|ReportResource actualizado o error|
+|approveReport(Long id)|Aprueba un reporte que se encuentra en revisión.|PUT /api/v1/reports/{id}/approve|ReportResource actualizado o error|
+|rejectReport(Long id, RejectReportResource resource)|Rechaza un reporte e incluye el motivo del rechazo.|PUT /api/v1/reports/{id}/reject|ReportResource actualizado o error|
+|getReportsByUserId(Long userId)|Devuelve los reportes creados por un usuario específico.|GET /api/v1/reports/user/{userId}|Lista de ReportResource o 404 Not Found|
+|getAllReports()|Devuelve todos los reportes registrados en el sistema.|GET /api/v1/reports|Lista de ReportResource o 204 No Content|
+|deleteReportById(Long id)|Elimina un reporte mediante su identificador.|DELETE /api/v1/reports/{id}|Mensaje de confirmación o error|
+
 ### 5.4.3. Application Layer
+
+Esta capa contiene la lógica de aplicación del bounded context **Report**. Se encarga de coordinar la creación, consulta, eliminación y actualización de estados de los reportes, utilizando los repositorios, servicios externos y publicación de eventos hacia otros bounded contexts del sistema.
+
+**Clase: ReportCommandServiceImpl**
+
+**Descripción:** Gestiona los comandos relacionados con la creación, eliminación y cambio de estado de los reportes. Además, valida la existencia del usuario antes de crear un reporte y publica eventos cuando ocurren cambios importantes.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|handle(CreateReportCommand)|Crea un nuevo reporte, valida que el usuario exista, inicializa el estado como PENDING, guarda el reporte y publica un ReportCreatedEvent.|
+|handle(DeleteReportByIdCommand)|Elimina un reporte mediante su identificador y publica un ReportDeletedEvent.|
+|handle(MarkReportInReviewCommand)|Cambia el estado de un reporte de PENDING a IN_REVIEW.|
+|handle(ApproveReportCommand)|Actualiza el estado de un reporte a APPROVED y publica un ReportApprovedEvent.|
+|handle(RejectReportCommand)|Rechaza un reporte, registra el motivo del rechazo y publica un ReportRejectedEvent.|
+
+**Clase: ReportQueryServiceImpl**
+
+**Descripción:** Gestiona las consultas relacionadas con los reportes registrados en el sistema.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|handle(GetReportByIdQuery)|Recupera un reporte mediante su identificador.|
+|handle(GetReportsByUserIdQuery)|Recupera todos los reportes asociados a un usuario específico.|
+|handle(GetAllReportsQuery)|Recupera todos los reportes registrados en el sistema.|
+|handle(GetPublicReportsQuery)|Recupera los reportes públicos aprobados, filtrando aquellos con estado APPROVED.|
+
+**Clase: ExternalUserService**
+
+**Descripción:** Servicio de aplicación encargado de comunicarse con el bounded context de IAM para validar y obtener información de usuarios antes de crear reportes.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|existsById(Long userId)|Verifica si existe un usuario con el identificador indicado.|
+|fetchById(Long userId)|Obtiene la información de un usuario específico desde el servicio externo de usuarios.|
 
 ### 5.4.4. Infrastructure Layer
 
+La capa de infraestructura proporciona la implementación de persistencia, comunicación externa y mensajería para el bounded context **Report**. En este contexto se utiliza Spring Data JPA para la gestión de reportes, OpenFeign para la comunicación con el servicio de usuarios y RabbitMQ para la publicación de eventos hacia otros bounded contexts.
+
+**Repositorio: ReportRepository**
+
+**Descripción:** Administra la persistencia de la entidad Report.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|findAllByUserId(Long userId)|Recupera todos los reportes creados por un usuario específico.|
+|findById(long reportId)|Recupera un reporte mediante su identificador.|
+|findAllByState(ReportState state)|Recupera todos los reportes que coinciden con un estado determinado.|
+
+**External Client: UserServiceClient**
+
+**Descripción:** Cliente Feign utilizado para comunicarse con el bounded context de IAM. Permite validar la existencia de un usuario y obtener su información antes de crear un reporte.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|getUserById(Long id)|Obtiene la información de un usuario mediante su identificador.|
+|userExists(Long id)|Verifica si existe un usuario con el identificador indicado.|
+
+**DTO: UserDto**
+
+**Descripción:** Representa la información recibida desde el servicio externo de usuarios.
+
+|**Atributo**|**Descripción**|**Tipo**|
+| :-: | :-: | :-: |
+|id|Identificador del usuario|Long|
+|name|Nombre del usuario|String|
+|lastname|Apellido del usuario|String|
+|email|Correo electrónico del usuario|String|
+|phonenumber|Número telefónico del usuario|String|
+|userId|Identificador adicional del usuario|String|
+|profileImage|Imagen de perfil del usuario|String|
+
+**Fallback: UserServiceClientFallback**
+
+**Descripción:** Clase de respaldo utilizada cuando el servicio de usuarios no se encuentra disponible. Permite evitar fallos directos en la comunicación entre microservicios.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|getUserById(Long id)|Retorna información por defecto cuando no se puede obtener el usuario.|
+|userExists(Long id)|Retorna false cuando no se puede verificar la existencia del usuario.|
+
+**Messaging: ReportEventPublisher**
+
+**Descripción:** Servicio encargado de publicar eventos relacionados con los reportes mediante RabbitMQ. Estos eventos permiten que otros bounded contexts reaccionen ante la creación, aprobación, rechazo o eliminación de reportes.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|publishReportCreated(ReportCreatedEvent event)|Publica un evento cuando un reporte es creado.|
+|publishReportApproved(ReportApprovedEvent event)|Publica un evento cuando un reporte es aprobado.|
+|publishReportRejected(ReportRejectedEvent event)|Publica un evento cuando un reporte es rechazado.|
+|publishReportDeleted(ReportDeletedEvent event)|Publica un evento cuando un reporte es eliminado.|
+
+<div style="page-break-after: always;"></div>
+
 ### 5.4.5. Bounded Context Software Architecture Component Level Diagrams
+
+**Backend**
+
+El Report Bounded Context centraliza la gestión de los reportes de incidentes dentro de PeaceApp, incluyendo su creación, consulta, revisión, aprobación, rechazo y eliminación. Este contexto contiene la información principal del negocio, ya que los reportes generados por los ciudadanos sirven como base para otros bounded contexts. Su arquitectura separa las responsabilidades entre la capa de interfaz, aplicación, dominio e infraestructura, permitiendo una gestión ordenada de la lógica de negocio y la persistencia de datos. Además, mediante el Report Event Publisher, este contexto publica eventos en RabbitMQ para que otros contextos, como Location y Alert, puedan reaccionar ante cambios importantes en los reportes.
+
+!["Report Management Component Diagram"](assets/component-backend-report.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+**WebApp**
+
+El diagrama de componentes del Report Bounded Context en la WebApp muestra los componentes encargados de la visualización y gestión de reportes desde la aplicación web de PeaceApp. El Report Management Component permite listar y administrar los reportes registrados, mientras que el Report Detail Component permite revisar la información detallada de un incidente, incluyendo su ubicación, evidencia, estado y motivo de rechazo si corresponde. Asimismo, el Report Review Component permite realizar acciones de revisión, aprobación o rechazo de reportes. Estos componentes se apoyan en el Report Service, encargado de coordinar la comunicación con la API RESTful, y en el Report Assembler, responsable de transformar los datos entre los modelos del frontend y los DTOs del backend.
+
+!["Report Management WebApp Component Diagram"](assets/component-webApp-report.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+**MobileApp**
+
+El diagrama de componentes del Report Bounded Context en la MobileApp muestra los componentes utilizados por los ciudadanos para interactuar con los reportes desde la aplicación móvil. El Create Report Widget permite registrar nuevos incidentes mediante un formulario con información como título, descripción, tipo de reporte, evidencia y ubicación. El Report List Widget y el Report Detail Widget permiten visualizar los reportes creados por el usuario y consultar su estado dentro del flujo de revisión. Además, el Public Reports Widget permite visualizar reportes aprobados disponibles para la comunidad. Todos estos componentes se comunican con el Report Service, el cual gestiona las operaciones de reporte y utiliza el Report Assembler para transformar los datos recibidos o enviados hacia la API RESTful.
+
+!["Report Management MobileApp Component Diagram"](assets/component-backend-mobileApp-report.png?raw=true)
+
+<div style="page-break-after: always;"></div>
 
 ### 5.4.6. Bounded Context Software Architecture Code Level Diagrams
 
 #### 5.4.6.1. Bounded Context Domain Layer Class Diagrams
 
+El siguiente diagrama representa las clases principales de la capa de dominio del bounded context **Report**. Se muestra el aggregate **Report**, el cual hereda de **AuditableAbstractAggregateRoot** e incorpora los atributos y comportamientos necesarios para la gestión de reportes de incidentes. Asimismo, se incluyen las enumeraciones **ReportState** y **ReportType**, que permiten modelar el estado del reporte y la clasificación del incidente dentro del dominio.
+
+![class-diagram-report.png](assets/class-diagram-report.png)
+
 #### 5.4.6.2. Bounded Context Database Design Diagram
 
+El bounded context **Report** utiliza una tabla principal llamada **reports**. Esta tabla almacena la información central de los reportes de incidentes, incluyendo título, descripción, tipo, ubicación, coordenadas, evidencia, estado y motivo de rechazo. Además, incluye campos de auditoría como **created_at** y **updated_at**. El campo **id_user** representa una referencia lógica al usuario que creó el reporte, perteneciente a otro bounded context del sistema.
 
+![database-diagram-report.png](assets/database-diagram-report.png)
 
 ## 5.5. Bounded Context: Alert
 

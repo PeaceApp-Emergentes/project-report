@@ -2,21 +2,135 @@
 
 ## 5.1. Bounded Context: IAM
 
+El bounded context **IAM** tiene como propósito gestionar la identidad, autenticación y autorización de los usuarios dentro de PeaceApp. Este contexto permite registrar usuarios, iniciar sesión y validar el acceso a funcionalidades protegidas según el rol asignado a cada cuenta.
+
+En la versión actual del sistema, tanto la **Mobile App** como la **Web App** pueden ser utilizadas por usuarios ciudadanos y usuarios municipales. Ambas aplicaciones consumen el mismo backend IAM, el cual centraliza la lógica de autenticación, autorización y control de roles.
+
+Este bounded context se organiza a partir de tres estructuras principales de base de datos: `iam_users`, `role` y `user_roles`. Por ello, el contexto se enfoca en la gestión de usuarios, roles y asignación de roles.
+Las funcionalidades consideradas se relacionan con el registro de usuarios, inicio de sesión, acceso municipal, manejo de roles y autenticación mediante JWT.
+
+---
+
 ### 5.1.1. Domain Layer
+
+| Componente | Tipo | Descripción |
+|---|---|---|
+| User | Aggregate Root | Representa la identidad principal del usuario dentro del sistema IAM. Gestiona su nombre de usuario, contraseña cifrada y roles asociados. |
+| Role | Entity | Representa un rol del sistema utilizado para diferenciar permisos de acceso, como `ROLE_USER` o `ROLE_ADMIN`. |
+| UserRole | Entity | Representa la asignación de un rol a un usuario dentro del sistema. |
+| Username | Value Object | Encapsula el nombre de usuario utilizado como identificador para el inicio de sesión. |
+| PasswordHash | Value Object | Representa la contraseña del usuario almacenada de forma cifrada. |
+| RoleName | Value Object | Define los nombres de rol permitidos dentro del sistema IAM. |
+| AuthenticationService | Domain Service | Define las reglas de autenticación necesarias para validar las credenciales del usuario. |
+| AuthorizationService | Domain Service | Define las reglas de autorización para verificar si un usuario cuenta con el rol requerido. |
+| UserRepository | Repository | Define el contrato de persistencia para consultar y registrar usuarios. |
+| RoleRepository | Repository | Define el contrato de persistencia para consultar roles. |
+| UserRoleRepository | Repository | Define el contrato de persistencia para consultar y asignar roles a usuarios. |
+| UserRegisteredEvent | Domain Event | Se publica cuando un nuevo usuario es registrado correctamente. |
+| UserLoggedInEvent | Domain Event | Se publica cuando un usuario inicia sesión de forma exitosa. |
+| UserRoleAssignedEvent | Domain Event | Se publica cuando se asigna un rol a un usuario. |
+
+---
 
 ### 5.1.2. Interface Layer
 
+| Componente | Tipo | Descripción |
+|---|---|---|
+| AuthController | REST Controller | Expone los endpoints necesarios para el registro, inicio de sesión y validación de acceso de los usuarios. |
+| RegisterRequestDTO | DTO | Transporta los datos enviados desde las aplicaciones cliente para registrar un nuevo usuario. |
+| LoginRequestDTO | DTO | Transporta las credenciales enviadas por el usuario para iniciar sesión. |
+| AuthResponseDTO | DTO | Devuelve la respuesta del proceso de autenticación, incluyendo la información básica del usuario, sus roles y el token de acceso. |
+| UserResponseDTO | DTO | Transfiere información básica del usuario autenticado hacia las aplicaciones cliente. |
+| RoleResponseDTO | DTO | Transfiere la información de los roles asignados al usuario. |
+
+---
+
 ### 5.1.3. Application Layer
+
+| Componente | Tipo | Descripción |
+|---|---|---|
+| RegisterUserCommand | Command | Solicita el registro de un nuevo usuario en el sistema IAM. |
+| LoginUserCommand | Command | Solicita la autenticación de un usuario mediante sus credenciales. |
+| ValidateUserRoleQuery | Query | Consulta si un usuario posee el rol necesario para acceder a una funcionalidad protegida. |
+| RegisterUserHandler | Command Handler | Procesa el registro del usuario y coordina la asignación de su rol correspondiente. |
+| LoginUserHandler | Command Handler | Procesa el inicio de sesión, valida las credenciales ingresadas y genera la respuesta de autenticación. |
+| ValidateUserRoleHandler | Query Handler | Procesa la validación de permisos según los roles asociados al usuario. |
+| AuthService | Application Service | Coordina los casos de uso relacionados con registro, inicio de sesión y validación de roles. |
+| UserDTO | DTO | Transfiere información básica del usuario entre la capa de aplicación y otras capas. |
+| RoleDTO | DTO | Transfiere información relacionada con los roles del usuario. |
+
+---
 
 ### 5.1.4. Infrastructure Layer
 
+| Componente | Tipo | Descripción |
+|---|---|---|
+| UserRepositoryImpl | Repository Implementation | Implementa la persistencia de usuarios utilizando la tabla `iam_users`. |
+| RoleRepositoryImpl | Repository Implementation | Implementa la persistencia de roles utilizando la tabla `role`. |
+| UserRoleRepositoryImpl | Repository Implementation | Implementa la persistencia de la relación entre usuarios y roles utilizando la tabla `user_roles`. |
+| UserDao | DAO | Proporciona operaciones de acceso a datos para la tabla `iam_users`. |
+| RoleDao | DAO | Proporciona operaciones de acceso a datos para la tabla `role`. |
+| UserRoleDao | DAO | Proporciona operaciones de acceso a datos para la tabla `user_roles`. |
+| UserEntity | Persistence Entity | Representa la estructura persistente de la tabla `iam_users`. |
+| RoleEntity | Persistence Entity | Representa la estructura persistente de la tabla `role`. |
+| UserRoleEntity | Persistence Entity | Representa la estructura persistente de la tabla `user_roles`. |
+| PasswordEncoder | Security Component | Permite cifrar y verificar las contraseñas de los usuarios. |
+| JwtTokenProvider | Security Component | Genera y valida tokens JWT para autenticar solicitudes protegidas. |
+| AuthMapper | Mapper | Convierte objetos entre las capas de dominio, aplicación y persistencia. |
+
+---
+
 ### 5.1.5. Bounded Context Software Architecture Component Level Diagrams
+
+#### Backend
+
+El diagrama de componentes del backend del **IAM Bounded Context** representa la estructura encargada de centralizar la autenticación y autorización de PeaceApp. Este backend es consumido tanto por la Mobile App como por la Web App, permitiendo que ciudadanos y usuarios municipales accedan desde cualquiera de las dos aplicaciones cliente.
+
+La capa de interfaz expone los endpoints REST relacionados con registro, inicio de sesión y validación de acceso. La capa de aplicación coordina los casos de uso de autenticación y autorización. La capa de dominio contiene los conceptos principales del contexto, como usuarios y roles, mientras que la capa de infraestructura gestiona la persistencia en la base de datos `iam_db`.
+
+!["IAM Backend Component Diagram"](assets/component-backend-iam.png)
+
+#### WebApp
+
+El diagrama de componentes de la **Web App** dentro del **IAM Bounded Context** representa los elementos encargados de permitir que ciudadanos y usuarios municipales puedan autenticarse desde la aplicación web. La validación de permisos no depende del cliente, sino del rol asignado al usuario en el backend.
+
+El componente principal es el **Web Auth Component**, encargado de presentar las interfaces de registro e inicio de sesión. Este componente utiliza el **Web Auth Service**, que coordina la lógica de autenticación desde el cliente web y envía las credenciales a la API RESTful. El **Auth Assembler** transforma los datos del formulario web en DTOs compatibles con el backend IAM.
+
+!["IAM WebApp Component Diagram"](assets/component-webapp-iam.png)
+
+#### MobileApp
+
+El diagrama de componentes de la **Mobile App** dentro del **IAM Bounded Context** representa los componentes encargados de permitir que ciudadanos y usuarios municipales puedan registrarse o iniciar sesión desde la aplicación móvil. La autorización se determina según los roles asociados a cada usuario en el backend.
+
+El **Mobile Auth Component** permite al usuario interactuar con las interfaces de registro e inicio de sesión. Este componente utiliza el **Mobile Auth Service**, que centraliza la lógica de autenticación del cliente móvil y envía los datos hacia la API RESTful. El **Auth Assembler** transforma los datos ingresados por el usuario en estructuras compatibles con los DTOs requeridos por el backend IAM.
+
+!["IAM MobileApp Component Diagram"](assets/component-mobileapp-iam.png)
+
+---
 
 ### 5.1.6. Bounded Context Software Architecture Code Level Diagrams
 
+Esta sección presenta los diagramas de nivel de código correspondientes al bounded context **IAM**. Los diagramas se enfocan únicamente en los elementos existentes en el backend actual: usuarios, roles y asignaciones de roles.
+
+---
+
 #### 5.1.6.1. Bounded Context Domain Layer Class Diagrams
 
+El diagrama de clases del dominio representa los principales elementos conceptuales del bounded context IAM. En este nivel se consideran las entidades `User`, `Role` y `UserRole`, además de los value objects relacionados con el nombre de usuario, contraseña cifrada y nombre del rol.
+
+Asimismo, se incluyen los servicios de dominio responsables de las reglas de autenticación y autorización. Estos servicios permiten validar las credenciales del usuario y verificar si cuenta con el rol requerido para acceder a una funcionalidad protegida.
+
+!["IAM Domain Layer Class Diagram"](assets/class-domain-iam.png)
+
+---
+
 #### 5.1.6.2. Bounded Context Database Design Diagram
+
+El diagrama de base de datos del bounded context **IAM** representa la estructura persistente utilizada para gestionar usuarios y roles dentro del sistema. La tabla `iam_users` almacena los datos principales del usuario, la tabla `role` contiene los roles disponibles y la tabla `user_roles` permite asociar uno o más roles a cada usuario.
+
+Esta estructura permite diferenciar el acceso entre usuarios ciudadanos y usuarios municipales o administrativos, manteniendo una relación clara entre cuentas registradas y permisos asignados.
+
+!["IAM Database Design Diagram"](assets/database-iam.png)
 
 
 

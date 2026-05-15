@@ -955,6 +955,58 @@ Eventos clave que permiten al Bounded Context de Alert comunicar acciones releva
 
 ### 5.5.2. Interface Layer
 
+Esta capa actúa como el punto de entrada para las operaciones externas relacionadas con la seguridad preventiva y la respuesta ante emergencias. A través del controlador REST, los ciudadanos pueden emitir señales de auxilio desde la aplicación móvil, mientras que los operadores municipales pueden monitorear emergencias activas y gestionar su estado de atención en tiempo real.
+
+**Controlador: AlertController**
+
+**Descripción:** Gestiona las operaciones REST relacionadas con la creación, consulta y actualización del estado de alertas y emergencias.
+
+|**Método**|**Descripción**|**HTTP**|**Respuesta**|
+| :-: | :-: | :-: | :-: |
+|createEmergencyAlert(CreateEmergencyAlertResource resource)|Registra una señal de auxilio inmediata enviada por un ciudadano.|POST /api/v1/alerts/emergency|201 Created con AlertResource|
+|createPreventiveAlert(CreatePreventiveAlertResource resource)|Registra una alerta preventiva generada por el sistema ante una zona de riesgo.|POST /api/v1/alerts/preventive|201 Created con AlertResource|
+|getAlertById(Long id)|Devuelve los detalles de una alerta específica mediante su identificador.|GET /api/v1/alerts/{id}|AlertResource o 404 Not Found|
+|getAlertsByUserId(Long userId)|Devuelve el historial de alertas recibidas o generadas por un usuario específico.|GET /api/v1/alerts/user/{userId}|Lista de AlertResource o 204 No Content|
+|getActiveEmergencies()|Devuelve todas las emergencias que requieren atención municipal inmediata.|GET /api/v1/alerts/emergencies/active|Lista de AlertResource o 204 No Content|
+|markAlertAsAttended(Long id)|Actualiza el estado de una emergencia a ATTENDED.|PATCH /api/v1/alerts/{id}/attended|AlertResource actualizado|
+|markAlertAsResolved(Long id)|Actualiza el estado de una emergencia a RESOLVED.|PATCH /api/v1/alerts/{id}/resolved|AlertResource actualizado|
+
+**Resources**
+
+**CreateEmergencyAlertResource**
+
+**Descripción:** Recurso utilizado para recibir los datos de una señal de auxilio desde el botón de pánico móvil.
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+|userId|Long|Identificador del usuario que solicita ayuda.|
+|latitude|String|Latitud de la ubicación de la emergencia.|
+|longitude|String|Longitud de la ubicación de la emergencia.|
+|description|String|Breve descripción opcional del suceso.|
+
+**AlertResource**
+
+**Descripción:** Recurso utilizado para devolver la información detallada de una alerta al cliente.
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+|id|Long|Identificador único de la alerta.|
+|type|String|Tipo de alerta (EMERGENCY o PREVENTIVE).|
+|description|String|Descripción de la situación de riesgo.|
+|latitude|String|Latitud registrada.|
+|longitude|String|Longitud registrada.|
+|state|String|Estado de la alerta (ACTIVE, ATTENDED, RESOLVED).|
+|userId|Long|Identificador del usuario asociado.|
+|reportId|Long|ID del reporte relacionado (si aplica).|
+
+**Assemblers**
+
+|**Clase**|**Descripción**|
+| :- | :- |
+|CreateEmergencyAlertCommandFromResourceAssembler|Convierte un `CreateEmergencyAlertResource` en un `CreateEmergencyAlertCommand`.|
+|CreatePreventiveAlertCommandFromResourceAssembler|Convierte un `CreatePreventiveAlertResource` en un `CreatePreventiveAlertCommand`.|
+|AlertResourceFromEntityAssembler|Convierte la entidad de dominio `Alert` en un `AlertResource` para la respuesta API.|
+
 ### 5.5.3. Application Layer
 
 ### 5.5.4. Infrastructure Layer

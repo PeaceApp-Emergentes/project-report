@@ -877,6 +877,27 @@ El bounded context **Report** utiliza una tabla principal llamada **reports**. E
 
 ### 5.5.5. Bounded Context Software Architecture Component Level Diagrams
 
+**Backend**
+
+Es el motor transaccional y analítico de las alertas. Se encarga de procesar las señales de auxilio, evaluar reglas de negocio (como calcular la proximidad del usuario a zonas de riesgo apoyándose en el servicio de Locations y Reports), y gestionar los cambios de estado de las emergencias. Además, actúa como orquestador para despachar notificaciones hacia el exterior mediante pasarelas como WhatsApp y SMS.
+
+![AlertBackendComponents.png](assets/AlertBackendComponents.png)
+
+<div style="page-break-after: always;"></div>
+
+**WebApp**
+
+Proporciona a los gestores de seguridad municipal un dashboard interactivo donde pueden monitorear las emergencias activas sobre un mapa en tiempo real. Desde aquí, las autoridades pueden gestionar el ciclo de vida de cada alerta (por ejemplo, marcarla como "en proceso" o "atendida"), asegurando un seguimiento adecuado.
+
+![AlertWebComponents.png](assets/AlertWebComponents.png)
+
+<div style="page-break-after: always;"></div>
+
+**MobileApp**
+Su objetivo principal es brindar al ciudadano una interfaz rápida y accesible para enviar alertas de emergencia inmediatas junto con su geolocalización. Adicionalmente, funciona como un receptor activo que muestra notificaciones preventivas en tiempo real cuando el usuario ingresa a una zona catalogada como peligrosa.
+![AlertMobileComponents.png](assets/AlertMobileComponents.png)
+
+<div style="page-break-after: always;"></div>
 ### 5.5.6. Bounded Context Software Architecture Code Level Diagrams
 
 #### 5.5.6.1. Bounded Context Domain Layer Class Diagrams

@@ -868,6 +868,90 @@ El bounded context **Report** utiliza una tabla principal llamada **reports**. E
 ## 5.5. Bounded Context: Alert
 
 ### 5.5.1. Domain Layer
+La capa de dominio encapsula la lógica central relacionada con la gestión de advertencias preventivas y señales de auxilio dentro de PeaceApp. La entidad principal es el aggregate `Alert`, que representa tanto las notificaciones generadas por el sistema (cuando un ciudadano entra a una zona de riesgo) como las emergencias emitidas voluntariamente por los usuarios a través del botón de pánico. Se utilizan enumeraciones (Value Objects) como `AlertType` y `AlertState` para definir la naturaleza y el ciclo de vida de la alerta.
+
+**Aggregate:** Alert
+
+**Descripción:** Representa una alerta preventiva o de emergencia registrada en el sistema.
+
+|**Atributo**|**Descripción**|**Tipo**|
+| :-: | :-: | :-: |
+|id|Identificador único de la alerta|Long|
+|type|Clasificación de la alerta (preventiva o emergencia)|AlertType|
+|description|Descripción contextual de la alerta o emergencia|String|
+|latitude|Latitud de la ubicación del usuario al momento de la alerta|String|
+|longitude|Longitud de la ubicación del usuario al momento de la alerta|String|
+|state|Estado actual de la atención de la alerta|AlertState|
+|userId|ID del usuario ciudadano involucrado (referencia a IAM)|Long|
+|reportId|ID del reporte asociado que originó la alerta (opcional, solo para preventivas)|Long|
+
+**Método**
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|Alert(AlertType type, String description, String latitude, String longitude, Long userId, Long reportId)|Constructor para inicializar una nueva alerta, estableciendo su estado inicial en ACTIVE.|
+|void markAsAttended()|Cambia el estado de la alerta de ACTIVE a ATTENDED cuando la municipalidad toma el caso.|
+|void markAsResolved()|Actualiza el estado a RESOLVED una vez que la situación de riesgo o emergencia ha concluido.|
+
+**Value Objects**
+
+**AlertState**
+
+**Descripción:**
+Representa el estado actual de la alerta dentro del flujo de atención de la municipalidad.
+
+|**Valor**|**Descripción**|
+| :- | :- |
+|ACTIVE|La alerta ha sido generada y requiere atención o visibilidad inmediata.|
+|ATTENDED|Un operador de la municipalidad ha visto la emergencia y está en proceso de gestionarla.|
+|RESOLVED|La situación de emergencia o riesgo ha sido neutralizada o el evento ha concluido.|
+
+**AlertType**
+
+**Descripción:** Clasifica la naturaleza de la alerta generada en el sistema.
+
+|**Valor**|**Descripción**|
+| :- | :- |
+|PREVENTIVE|Alerta generada automáticamente por el sistema cuando un usuario se acerca a un reporte peligroso.|
+|EMERGENCY|Señal de auxilio enviada explícitamente por el ciudadano mediante el botón de emergencia.|
+
+**Domain Services**
+
+Los Domain Services en este contexto definen las operaciones de negocio que no pertenecen estrictamente a una sola entidad, dividiendo claramente la escritura (Commands) y la lectura (Queries) del sistema de alertas.
+
+**AlertCommandService**
+
+**Descripción:** Interfaz que define las operaciones de escritura relacionadas con la generación y gestión del ciclo de vida de las alertas.
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|Optional<Alert> handle(CreatePreventiveAlertCommand command)|Procesa la creación de una advertencia automática por proximidad a una zona de riesgo.|
+|Optional<Alert> handle(CreateEmergencyAlertCommand command)|Procesa la recepción de una señal de auxilio emitida por el botón de pánico de un ciudadano.|
+|void handle(MarkAlertAsAttendedCommand command)|Actualiza el estado de una alerta a ATTENDED por parte de la municipalidad.|
+|void handle(MarkAlertAsResolvedCommand command)|Finaliza el ciclo de vida de la alerta cambiándola a RESOLVED.|
+
+**AlertQueryService**
+
+**Descripción:** Interfaz que define las operaciones de lectura para consultar el historial o el estado en vivo de las alertas.
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|Optional<Alert> handle(GetAlertByIdQuery query)|Recupera los detalles de una alerta específica mediante su identificador.|
+|List<Alert> handle(GetAlertsByUserIdQuery query)|Obtiene el historial de alertas asociadas a un ciudadano específico.|
+|List<Alert> handle(GetActiveEmergenciesQuery query)|Recupera todas las emergencias activas para mostrarlas en el dashboard municipal en tiempo real.|
+
+**Domain Events**
+
+Eventos clave que permiten al Bounded Context de Alert comunicar acciones relevantes a otros componentes de la arquitectura de PeaceApp de forma asíncrona.
+
+|**Evento**|**Descripción**|
+| :- | :- |
+|EmergencyTriggeredEvent|Se emite cuando un ciudadano utiliza el botón de emergencia. Puede ser escuchado por el Notification Gateway para enviar SMS/WhatsApp.|
+|AlertStateChangedEvent|Se genera cuando una municipalidad actualiza el estado de una alerta (ej. de ACTIVE a ATTENDED).|
 
 ### 5.5.2. Interface Layer
 
@@ -898,6 +982,7 @@ Su objetivo principal es brindar al ciudadano una interfaz rápida y accesible p
 ![AlertMobileComponents.png](assets/AlertMobileComponents.png)
 
 <div style="page-break-after: always;"></div>
+
 ### 5.5.6. Bounded Context Software Architecture Code Level Diagrams
 
 #### 5.5.6.1. Bounded Context Domain Layer Class Diagrams

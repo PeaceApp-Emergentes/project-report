@@ -1009,7 +1009,134 @@ Esta capa actúa como el punto de entrada para las operaciones externas relacion
 
 ### 5.5.3. Application Layer
 
+Esta capa contiene la lógica de aplicación del bounded context **Alert**. Su función principal es coordinar la ejecución de comandos y consultas, orquestando la comunicación con los repositorios, los servicios externos (Locations y Reports) y la pasarela de notificaciones (SMS/WhatsApp). Además, maneja la recepción de eventos asíncronos para generar alertas preventivas automatizadas.
+
+**Command Services Implementation**
+
+**Clase: AlertCommandServiceImpl**
+
+**Descripción:** Implementa las operaciones de escritura. Se encarga de procesar las señales de auxilio, coordinar la evaluación de zonas de riesgo y despachar notificaciones al exterior.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|handle(CreatePreventiveAlertCommand)|Crea una alerta de tipo PREVENTIVE y utiliza el `NotificationGateway` para advertir al ciudadano. Se activa usualmente mediante la escucha de eventos.|
+|handle(CreateEmergencyAlertCommand)|Crea una alerta de tipo EMERGENCY (estado ACTIVE), la persiste en la base de datos y despacha la señal a la municipalidad y contactos de emergencia.|
+|handle(MarkAlertAsAttendedCommand)|Cambia el estado de una emergencia a ATTENDED cuando un operador municipal comienza a gestionarla.|
+|handle(MarkAlertAsResolvedCommand)|Cambia el estado de una emergencia a RESOLVED una vez finalizada la atención.|
+
+**Query Services Implementation**
+
+**Clase: AlertQueryServiceImpl**
+
+**Descripción:** Implementa las operaciones de lectura, recuperando la información de las alertas y emergencias desde la base de datos.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|handle(GetAlertByIdQuery)|Retorna los detalles de una alerta específica mediante su identificador utilizando el repositorio.|
+|handle(GetAlertsByUserIdQuery)|Obtiene el historial completo de alertas preventivas y emergencias vinculadas a un usuario en particular.|
+|handle(GetActiveEmergenciesQuery)|Recupera todas las alertas de tipo EMERGENCY que se encuentren en estado ACTIVE, priorizando la visualización en el dashboard municipal.|
+
+**Outbound Services (Anti-Corruption Layers & Coordinators)**
+
+Dado que el Bounded Context de Alert depende de información externa para funcionar correctamente, la capa de aplicación implementa servicios que actúan como fachada para comunicarse con otros contextos o APIs de terceros.
+
+**Clase: ExternalReportService**
+
+**Descripción:** Servicio encargado de comunicarse con el bounded context de **Reports**. Se utiliza para validar si el incidente que detona una alerta preventiva sigue activo.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|fetchReportDetails(Long reportId)|Obtiene la información relevante de un reporte específico utilizando el `ReportServiceClient`.|
+
+**Clase: ExternalLocationService**
+
+**Descripción:** Servicio que interactúa con el bounded context de **Location** para validar la proximidad de los usuarios respecto a las zonas de riesgo.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|validateUserProximity(Long userId, String latitude, String longitude)|Verifica si las coordenadas actuales del usuario se cruzan con el radio de peligro de un incidente reportado.|
+
+**Clase: NotificationGatewayImpl**
+
+**Descripción:** Implementación de la capa anticorrupción (ACL) encargada de orquestar el envío de mensajes hacia los sistemas externos de mensajería (WhatsApp y SMS). Aísla la lógica de las APIs de terceros del dominio de la aplicación.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|dispatchEmergencyNotification(Alert alert)|Formatea y envía la señal de auxilio a los contactos de emergencia del ciudadano vía WhatsApp API y SMS Gateway.|
+|dispatchPreventiveNotification(Alert alert)|Envía una notificación preventiva (push notification o mensaje) al usuario indicando que ha ingresado a una zona de riesgo.|
+
+**Event Listeners**
+
+El Bounded Context **Alert** debe reaccionar en tiempo real a los sucesos del sistema para poder cumplir su objetivo preventivo.
+
+|**Listener**|**Evento**|**Descripción**|
+| :- | :- | :- |
+|ReportApprovedEventListener|ReportApprovedEvent|Cuando se aprueba un nuevo reporte, este listener evalúa qué usuarios se encuentran en las proximidades y desencadena la creación de alertas preventivas.|
+
 ### 5.5.4. Infrastructure Layer
+
+La capa de infraestructura proporciona las implementaciones necesarias para la persistencia de datos, la comunicación síncrona entre microservicios y la integración con servicios de mensajería externos. En este contexto, se utiliza **Spring Data JPA** para la gestión de alertas, **OpenFeign** para interactuar con los contextos de Reports y Locations, y **RabbitMQ** para la recepción de eventos que disparan alertas preventivas.
+
+**Repositorio: AlertRepository**
+
+**Descripción:** Repositorio basado en Spring Data JPA encargado de realizar las operaciones CRUD sobre la entidad `Alert`. Permite gestionar el historial de avisos preventivos y el estado de las emergencias municipales.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|save(Alert alert)|Guarda una nueva alerta o actualiza el estado de una existente.|
+|findById(Long id)|Busca una alerta específica por su identificador único.|
+|findAllByUserId(Long userId)|Recupera todas las alertas y emergencias vinculadas a un ciudadano.|
+|findAllByTypeAndState(AlertType, AlertState)|Busca emergencias activas para el monitoreo municipal.|
+
+**External Clients: Feign Clients**
+
+Para asegurar la integridad de la información y la validación de proximidad, el servicio de alertas consume datos de otros microservicios de la plataforma.
+
+**ReportServiceClient**
+
+**Descripción:** Cliente utilizado para obtener información detallada sobre los incidentes reportados en el sistema.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|getReportById(Long id)|Recupera los datos de un incidente para generar el contexto de una alerta preventiva.|
+
+**LocationServiceClient**
+
+**Descripción:** Cliente encargado de interactuar con el microservicio de Location para obtener o validar coordenadas.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|getUserCoordinates(Long userId)|Obtiene la última ubicación conocida de un ciudadano para evaluar riesgos por proximidad.|
+
+**Messaging & Events: RabbitMQ Infrastructure**
+
+El sistema de alertas es reactivo y depende de los eventos generados por otros contextos para funcionar de manera preventiva sin intervención humana directa.
+
+**AlertEventListener**
+
+**Descripción:** Componente encargado de escuchar los mensajes publicados en el exchange de reportes.
+
+|**Evento escuchado**|**Acción realizada**|
+| :-: | :-: |
+|ReportApprovedEvent|Al recibir este evento, el servicio activa el proceso de evaluación de proximidad para notificar a los ciudadanos cercanos al nuevo punto de riesgo.|
+
+**Resiliency & Fallbacks**
+
+Para garantizar que el sistema no falle ante caídas de servicios externos, se implementan clases de respaldo para los clientes Feign.
+
+|**Clase**|**Descripción**|
+| :-: | :-: |
+|ReportServiceFallback|Retorna una respuesta segura o cacheada cuando el servicio de reportes no está disponible.|
+|LocationServiceFallback|Proporciona una respuesta por defecto si no se puede validar la ubicación del usuario en tiempo real.|
+
+**API Integration: Notification Adapters**
+
+Implementación técnica de la capa anticorrupción (ACL) para servicios de terceros.
+
+|**Componente**|**Descripción**|
+| :-: | :-: |
+|WhatsAppApiAdapter|Encapsula la lógica de autenticación y envío de plantillas de mensajes a través de la API oficial de WhatsApp.|
+|SmsGatewayAdapter|Gestiona la conexión con el proveedor de SMS para el envío de alertas de emergencia críticas sin dependencia de datos móviles.|
 
 ### 5.5.5. Bounded Context Software Architecture Component Level Diagrams
 

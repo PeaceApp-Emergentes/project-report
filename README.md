@@ -13,24 +13,118 @@ Las funcionalidades consideradas se relacionan con el registro de usuarios, inic
 
 ### 5.1.1. Domain Layer
 
-| Componente | Tipo | Descripción |
-|---|---|---|
-| User | Aggregate Root | Representa la identidad principal del usuario dentro del sistema IAM. Gestiona su nombre de usuario, contraseña cifrada y roles asociados. |
-| Role | Entity | Representa un rol del sistema utilizado para diferenciar permisos de acceso, como `ROLE_USER` o `ROLE_ADMIN`. |
-| UserRole | Entity | Representa la asignación de un rol a un usuario dentro del sistema. |
-| Username | Value Object | Encapsula el nombre de usuario utilizado como identificador para el inicio de sesión. |
-| PasswordHash | Value Object | Representa la contraseña del usuario almacenada de forma cifrada. |
-| RoleName | Value Object | Define los nombres de rol permitidos dentro del sistema IAM. |
-| AuthenticationService | Domain Service | Define las reglas de autenticación necesarias para validar las credenciales del usuario. |
-| AuthorizationService | Domain Service | Define las reglas de autorización para verificar si un usuario cuenta con el rol requerido. |
-| UserRepository | Repository | Define el contrato de persistencia para consultar y registrar usuarios. |
-| RoleRepository | Repository | Define el contrato de persistencia para consultar roles. |
-| UserRoleRepository | Repository | Define el contrato de persistencia para consultar y asignar roles a usuarios. |
-| UserRegisteredEvent | Domain Event | Se publica cuando un nuevo usuario es registrado correctamente. |
-| UserLoggedInEvent | Domain Event | Se publica cuando un usuario inicia sesión de forma exitosa. |
-| UserRoleAssignedEvent | Domain Event | Se publica cuando se asigna un rol a un usuario. |
+La capa de dominio encapsula las entidades centrales del sistema de gestión de identidades y accesos (IAM) y contiene la lógica de validación de credenciales y asignación de privilegios mediante objetos de valor. Las entidades y agregados principales garantizan el aislamiento completo de las reglas de autenticación y autorización.
 
----
+**Aggregate:** User
+
+**Descripción:** Representa la identidad principal e invariable de un sujeto con acceso al ecosistema de PeaceApp.
+
+|**Atributo**|**Descripción**|**Tipo**|
+| :-: | :-: | :-: |
+|id|Identificador único de la cuenta de usuario|Long|
+|username|Nombre de usuario e identificador de inicio de sesión|Username|
+|passwordHash|Contraseña del usuario almacenada de forma cifrada|PasswordHash|
+|roles|Colección de roles asignados para el control de accesos|List<UserRole>|
+|activeSession|Rastreo del estado de la sesión activa del usuario|Session|
+
+**Método**
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|User(Username username, PasswordHash passwordHash)|Constructor que inicializa un nuevo usuario con credenciales seguras.|
+|void assignRole(Role role)|Valida y asocia un nuevo rol al usuario si no lo posee previamente.|
+|void removeRole(Role role)|Remueve un rol específico, validando que la cuenta no quede huérfana de permisos.|
+|void startSession(String token, Long expiration)|Inicia una sesión aplicando la regla de Single Session Enforcement.|
+|boolean isCurrentSessionValid()|Evalúa si la sesión activa del usuario no ha expirado en tiempo real.|
+
+**Entity:** Role
+
+**Descripción:** Define un comportamiento o nivel de acceso parametrizado dentro del sistema.
+
+|**Atributo**|**Descripción**|**Tipo**|
+| :-: | :-: | :-: |
+|id|Identificador único del rol|Long|
+|name|Nombre del rol asignado en el ecosistema|RoleName|
+|permissions|Colección de capacidades granulares del rol|List<Permission>|
+
+**Entity:** Permission
+
+**Descripción:** Representa una capacidad atómica de ejecución dentro de las APIs protegidas.
+
+|**Atributo**|**Descripción**|**Tipo**|
+| :-: | :-: | :-: |
+|id|Identificador único del permiso granular|Long|
+|authority|Nombre técnico de la capacidad (Ej: WRITE_REPORT)|String|
+
+**Entity:** Session
+
+**Descripción:** Controla de forma temporal el ciclo de vida y la expiración del token JWT emitido.
+
+|**Atributo**|**Descripción**|**Tipo**|
+| :-: | :-: | :-: |
+|sessionId|Identificador único de la sesión activa|UUID|
+|tokenValue|Cadena de firma del token JWT transaccional|String|
+|createdAt|Fecha y hora de inicio de la sesión|LocalDateTime|
+|expiresAt|Fecha y hora límite de validez del token|LocalDateTime|
+
+**Método**
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|boolean isExpired()|Compara la hora de expiración con la del sistema para validar el token.|
+
+**Value Objects**
+
+**Username**
+
+**Descripción:** Encapsula el identificador alfanumérico. Asegura mediante expresiones regulares un formato de correo institucional o civil válido.
+
+|**Nombre**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+|username|String|Cadena que representa el correo electrónico de acceso validado|
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|Username(String username)|Constructor que aplica Regex para validar la estructura de correo.|
+
+**PasswordHash**
+
+**Descripción:** Representa la contraseña del usuario almacenada tras pasar por un algoritmo asimétrico de hashing (BCrypt), prohibiendo el texto plano.
+
+|**Nombre**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+|passwordHash|String|Cadena de hash inmutable de longitud estándar|
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|PasswordHash(String hash)|Constructor que verifica que la cadena cumpla con la longitud del cifrado.|
+
+**RoleName**
+
+**Descripción:** Enumeración estricta que parametriza los tipos de roles permitidos en el ecosistema.
+
+|**Nombre**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+|name|Enum|Restringe los valores a ROLE_CITIZEN, ROLE_MUNICIPALITY o ROLE_ADMIN|
+
+**Domain Services**
+
+**AuthenticationService**
+
+**Descripción:** Interfaz que define las reglas puras de negocio para validar la correspondencia de credenciales de usuario.
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|boolean authenticate(Username username, String password)|Valida las credenciales de un usuario contra su registro cifrado.|
+
+**AuthorizationService**
+
+**Descripción:** Interfaz encargada de evaluar las jerarquías de permisos según las identidades.
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|boolean isAuthorized(Long userId, String requiredAuthority)|Verifica si un usuario autenticado posee los permisos para una funcionalidad.|
+
 
 ### 5.1.2. Interface Layer
 
@@ -303,39 +397,40 @@ Esta capa actúa como punto de entrada para consultas externas relacionadas con 
 
 ### 5.2.3. Application Layer
 
-Esta capa contiene la lógica de aplicación, incluyendo la validación de unicidad para campos clave y el manejo de comandos y consultas. Coordina la creación y recuperación de perfiles utilizando servicios específicos para cada tipo de usuario.
+Esta capa contiene la lógica de aplicación, incluyendo la validación de unicidad para campos clave y el manejo de comandos y consultas bajo el patrón CQRS (Command Query Responsibility Segregation). Coordina la creación y recuperación de perfiles utilizando servicios específicos para cada tipo de usuario, aislando el backend transaccional.
 
 **Clase: CitizenCommandServiceImpl**
 
-**Descripción:** Gestiona los comandos para la creación de ciudadanos.
+**Descripción:** Gestiona los comandos de escritura para la creación y mutación de ciudadanos.
 
 |**Método**|**Descripción**|
 | :-: | :-: |
-|handle(CreateCitizenCommand)|Crea un nuevo perfil de ciudadano, validando unicidad de dni, phone y userId.|
+|handle(CreateCitizenCommand command)|Crea un nuevo perfil de ciudadano, invocando `existsByDni_Dni` y `existsByPhone_Phone` para validar la unicidad estricta de las reglas de dominio.|
 
 **Clase: MunicipalityCommandServiceImpl**
 
-**Descripción:** Gestiona los comandos para la creación de municipalidades.
+**Descripción:** Gestiona los comandos de escritura para la creación y configuración de municipalidades.
 
 |**Método**|**Descripción**|
 | :-: | :-: |
-|handle(CreateMunicipalityCommand)|Crea un nuevo perfil de municipalidad, validando institutionalEmail, phone y userId.|
+|handle(CreateMunicipalityCommand command)|Crea una municipalidad, validando la exclusividad del correo con `existsByInstitutionalEmail_Email` y la disponibilidad del teléfono corporativo.|
+|handle(UpdateMunicipalityProfileCommand command)|Actualiza la información de contacto y geocercas operativas de una central de serenazgo.|
 
 **Clase: CitizenQueryServiceImpl**
 
-**Descripción:** Gestiona consultas sobre ciudadanos.
+**Descripción:** Gestiona las consultas de lectura optimizadas sobre ciudadanos.
 
 |**Método**|**Descripción**|
 | :-: | :-: |
-|handle(GetCitizenByUserIdQuery)|Recupera un ciudadano a partir de su userId.|
+|handle(GetCitizenByUserIdQuery query)|Recupera un ciudadano a partir de su userId, controlando excepciones mediante contenedores opcionales para evitar fugas de trazas.|
 
 **Clase: MunicipalityQueryServiceImpl**
 
-**Descripción:** Gestiona consultas sobre municipalidades.
+**Descripción:** Gestiona las consultas de lectura optimizadas sobre municipalidades.
 
 |**Método**|**Descripción**|
 | :-: | :-: |
-|handle(GetMunicipalityByUserIdQuery)|Recupera una municipalidad por su userId.|
+|handle(GetMunicipalityByUserIdQuery query)|Actúa como bypass directo para recuperar de forma rápida el perfil de una municipalidad por su userId para los Dashboards de la central web.|
 
 ### 5.2.4. Infrastructure Layer
 
@@ -1193,64 +1288,64 @@ La capa de infraestructura proporciona las implementaciones necesarias para la p
 
 **Repositorio: AlertRepository**
 
-**Descripción:** Repositorio basado en Spring Data JPA encargado de realizar las operaciones CRUD sobre la entidad `Alert`. Permite gestionar el historial de avisos preventivos y el estado de las emergencias municipales.
+**Descripción:** Repositorio basado en Spring Data JPA encargado de realizar las operaciones CRUD sobre la entidad `Alert`. Permite gestionar el historial de avisos preventivos y el estado de las emergencias municipales mapeando el Agregado de dominio directamente con la base de datos física `alerts_db` mediante consultas SQL indexadas y optimizadas para responder en tiempos sub-segundos.
 
 |**Método**|**Descripción**|
 | :-: | :-: |
-|save(Alert alert)|Guarda una nueva alerta o actualiza el estado de una existente.|
-|findById(Long id)|Busca una alerta específica por su identificador único.|
-|findAllByUserId(Long userId)|Recupera todas las alertas y emergencias vinculadas a un ciudadano.|
-|findAllByTypeAndState(AlertType, AlertState)|Busca emergencias activas para el monitoreo municipal.|
+|save(Alert alert)|Guarda una nueva alerta o actualiza el estado de una existente de forma transaccional.|
+|findById(Long id)|Busca una alerta específica por su identificador único dentro del almacén persistente.|
+|findAllByUserId(Long userId)|Recupera todas las alertas y emergencias vinculadas a un ciudadano para su historial móvil.|
+|findAllByTypeAndState(AlertType, AlertState)|Busca emergencias activas para el monitoreo en tiempo real del dashboard municipal.|
 
 **External Clients: Feign Clients**
 
-Para asegurar la integridad de la información y la validación de proximidad, el servicio de alertas consume datos de otros microservicios de la plataforma.
+Para asegurar la integridad de la información y la validación de proximidad sin acoplar código de red ni protocolos HTTP dentro de la lógica de la aplicación, el servicio de alertas consume datos de otros microservicios de la plataforma de forma declarativa utilizando OpenFeign.
 
 **ReportServiceClient**
 
-**Descripción:** Cliente utilizado para obtener información detallada sobre los incidentes reportados en el sistema.
+**Descripción:** Cliente utilizado para obtener información detallada sobre los incidentes reportados en el sistema, comunicándose de manera síncrona con las APIs del microservicio externo de reportes.
 
 |**Método**|**Descripción**|
 | :-: | :-: |
-|getReportById(Long id)|Recupera los datos de un incidente para generar el contexto de una alerta preventiva.|
+|getReportById(Long id)|Recupera los datos de un incidente (tipo, criticidad) para generar el contexto de una alerta preventiva.|
 
 **LocationServiceClient**
 
-**Descripción:** Cliente encargado de interactuar con el microservicio de Location para obtener o validar coordenadas.
+**Descripción:** Cliente encargado de interactuar con las APIs del microservicio de Location para obtener de forma fluida las últimas coordenadas registradas por los dispositivos móviles de los ciudadanos.
 
 |**Método**|**Descripción**|
 | :-: | :-: |
-|getUserCoordinates(Long userId)|Obtiene la última ubicación conocida de un ciudadano para evaluar riesgos por proximidad.|
+|getUserCoordinates(Long userId)|Obtiene la última ubicación conocida de un ciudadano para evaluar riesgos por proximidad geoespacial.|
 
 **Messaging & Events: RabbitMQ Infrastructure**
 
-El sistema de alertas es reactivo y depende de los eventos generados por otros contextos para funcionar de manera preventiva sin intervención humana directa.
+El sistema de alertas es reactivo y depende de los eventos publicados en el broker de mensajería para funcionar de manera preventiva y no bloqueante. El componente de infraestructura escucha los mensajes de forma asíncrona garantizando desacoplamiento absoluto entre contextos.
 
 **AlertEventListener**
 
-**Descripción:** Componente encargado de escuchar los mensajes publicados en el exchange de reportes.
+**Descripción:** Componente encargado de escuchar de forma activa los mensajes publicados en el Topic Exchange del sistema de reportes, estando enlazado a una cola persistente exclusiva para el procesamiento de proximidad.
 
 |**Evento escuchado**|**Acción realizada**|
 | :-: | :-: |
-|ReportApprovedEvent|Al recibir este evento, el servicio activa el proceso de evaluación de proximidad para notificar a los ciudadanos cercanos al nuevo punto de riesgo.|
+|ReportApprovedEvent|Al recibir este evento, el servicio deserializa el payload JSON y activa el proceso asíncrono de evaluación de geocercas para notificar a los ciudadanos cercanos al nuevo punto de riesgo.|
 
 **Resiliency & Fallbacks**
 
-Para garantizar que el sistema no falle ante caídas de servicios externos, se implementan clases de respaldo para los clientes Feign.
+Para garantizar la tolerancia a fallos de la arquitectura distribuida ante caídas o latencias altas de servicios externos, se implementa el patrón Circuit Breaker mediante Resilience4j acoplado a los componentes de respaldo de Feign.
 
 |**Clase**|**Descripción**|
 | :-: | :-: |
-|ReportServiceFallback|Retorna una respuesta segura o cacheada cuando el servicio de reportes no está disponible.|
-|LocationServiceFallback|Proporciona una respuesta por defecto si no se puede validar la ubicación del usuario en tiempo real.|
+|ReportServiceFallback|Retorna una respuesta segura o cacheada localmente cuando el microservicio de reportes no está disponible, evitando la propagación de errores en cascada.|
+|LocationServiceFallback|Proporciona una última coordenada por defecto o de respaldo si el sistema experimenta indisponibilidad técnica, manteniendo el motor operativo.|
 
 **API Integration: Notification Adapters**
 
-Implementación técnica de la capa anticorrupción (ACL) para servicios de terceros.
+Esta sección representa la implementación técnica de la capa anticorrupción (ACL) para servicios de comunicación masiva de terceros. Su objetivo es aislar el dominio de PeaceApp de las firmas de métodos, payloads estructurados y autenticaciones propias de APIs externas.
 
 |**Componente**|**Descripción**|
 | :-: | :-: |
-|WhatsAppApiAdapter|Encapsula la lógica de autenticación y envío de plantillas de mensajes a través de la API oficial de WhatsApp.|
-|SmsGatewayAdapter|Gestiona la conexión con el proveedor de SMS para el envío de alertas de emergencia críticas sin dependencia de datos móviles.|
+|WhatsAppApiAdapter|Encapsula la lógica de autenticación (Tokens, Account SID) y envío de datos formateados hacia la API oficial de WhatsApp (Twilio), transformando los datos de la alerta en plantillas multimedia de auxilio aprobadas por Meta.|
+|SmsGatewayAdapter|Gestiona la conexión por protocolos seguros con el proveedor de SMS local para el despacho de alertas críticas limitadas a los 160 caracteres estándar (GSM), garantizando redundancia operativa e inmediata incluso si el ciudadano carece de datos móviles.|
 
 ### 5.5.5. Bounded Context Software Architecture Component Level Diagrams
 

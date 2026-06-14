@@ -43,7 +43,15 @@ Con PeaceApp, construimos un Perú más seguro, paso a paso.
 
 **How (Cómo):** PeaceApp se mantiene actualizada gracias al constante aporte de los usuarios, quienes reportan incidentes y colaboran con la comunidad. Además, la aplicación utiliza tecnología avanzada de geolocalización y análisis de datos para ofrecer información precisa en tiempo real.
 
-**How Much (Cuánto):** PeaceApp estará disponible de forma gratuita para todos los usuarios. Sin embargo, para sostener el desarrollo y mantenimiento de la plataforma, la aplicación incluirá anuncios integrados.
+**How Much (Cuánto):** PeaceApp implementa un modelo de negocio híbrido o de monetización mixta para equilibrar el impacto social masivo con la sostenibilidad financiera de nivel empresarial:
+
+* **Segmento Ciudadano (B2C - Modelo Freemium/Ad-Supported):** La aplicación móvil es 100% gratuita para todos los ciudadanos de Lima Metropolitana. Esto garantiza un rápido efecto de red para acumular la masa crítica de reportes en tiempo real. Para financiar los servidores, se integra publicidad geolocalizada no intrusiva, promocionando exclusivamente "Negocios Locales Seguros" (establecimientos comerciales auditados positivamente por la comunidad) en zonas específicas del mapa, salvaguardando la UX.
+* **Segmento Gubernamental/Corporativo (B2G/B2B - Modelo SaaS + Setup Fee):** El acceso al módulo web avanzado de monitoreo táctico y analítica predictiva para las Municipalidades y centrales de serenazgo se comercializa mediante contratos de Software as a Service (SaaS). Este esquema se desglosa en una tarifa única inicial de implementación (*Setup, Onboarding & Training Fee*) y una suscripción mensual escalonada según el tamaño operativo del distrito (*SaaS Tiers*), detallados a continuación:
+
+| Componente de Cobro | Plan Municipio Estándar (Hasta 100,000 hab.) | Plan Municipio Enterprise (Más de 100,000 hab.) |
+| :--- | :--- | :--- |
+| **Tarifa Única Inicial (Setup & Training Fee)** | **$3,000 USD** <br>• Configuración de geocercas operativas del distrito.<br>• Proceso *Batch* de migración e ingesta masiva de data histórica criminal (Excel/CSV de serenazgo legado) hacia el *Location & Report Context*.<br>• Programa de Capacitación Técnica y Adopción Operativa de hasta 20 serenos y despachadores con emisión de la **Certificación "Operador PeaceApp"**. | **$7,000 USD** <br>• Todo lo del plan Estándar.<br>• Desarrollo e implementación de una Capa de Anticorrupción (**ACL**) a medida en el *Report Context* para integrarse con sistemas de videovigilancia *legacy* o cámaras de seguridad municipales.<br>• Capacitación certificada extendida para hasta 100 operadores y unidades de campo de Serenazgo. |
+| **Suscripción Mensual (SaaS Fee)** | **$400 USD / mes** <br>• Licenciamiento de la Web App de Monitoreo para Central de Serenazgo.<br>• Actualizaciones continuas de software.<br>• Soporte Estándar. | **$1,200 USD / mes** <br>• Licenciamiento ilimitado de la Web App de Monitoreo.<br>• Acceso al motor predictivo de incidentes por IA.<br>• Soporte de Misión Crítica con Acuerdo de Nivel de Servicio (**SLA**) policial. |
 
 ### 1.2.2. Lean UX Process
 

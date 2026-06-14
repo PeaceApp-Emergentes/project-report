@@ -132,9 +132,10 @@ En base al análisis competitivo (SWOT) realizado, se definen las siguientes est
    - **Estrategia:** Contrarrestar la dependencia de competidores como Waze y SafeCity en el volumen de usuarios, incentivando la participación activa en la plataforma.  
    - **Táctica:** Implementar un sistema de recompensas (insignias digitales, beneficios o reconocimientos) para usuarios frecuentes que reporten incidentes o validen información.  
 
-3. **Alianzas Estratégicas para Credibilidad**  
-   - **Estrategia:** Responder a las fortalezas de SafeCity (ONGs) y Nextdoor (comunidad) estableciendo convenios con ONGs, organizaciones locales y fuerzas del orden que refuercen la confianza en la app.  
-   - **Táctica:** Integrar PeaceApp en programas de seguridad ciudadana y firmar acuerdos que garanticen flujo de datos bidireccional con autoridades y comunidades.  
+3. **Estrategia de Venta Consultiva B2G y Viabilidad Contractual**  
+   - **Estrategia:** Mitigar los ciclos de venta prolongados y las barreras burocráticas del Estado peruano mediante un enfoque de contratación ágil y cumplimiento normativo estricto.
+   - **Táctica:** * **Estrategia de Entrada Inmediata (< 8 UIT):** Diseñar paquetes de adquisición inicial (Setup Fee + Suscripción piloto por los primeros meses) cuyo valor total sea menor a las 8 Unidades Impositivas Tributarias (UIT) vigentes. Bajo el marco de la **Ley de Contrataciones del Estado (Ley N° 30225)**, esto faculta a las municipalidades a realizar una contratación directa, rápida e inapelable, evitando los concursos públicos prolongados y permitiendo validar la efectividad de PeaceApp en el distrito a modo de plan piloto.
+     * **Licitaciones Corporativas:** Para contratos de gran envergadura (SaaS anual extendido Enterprise en municipios grandes), PeaceApp se posicionará en los procesos de Adjudicación Simplificada o Concursos Públicos estructurando expedientes técnicos idóneos que cumplan con la interoperabilidad gubernamental exigida por la SeGDI (Secretaría de Gobierno y Transformación Digital de la PCM) y las normativas de seguridad de datos de la Ley N° 29733.
 
 4. **Expansión Geográfica Controlada**  
    - **Estrategia:** Frente a la amenaza de apps internacionales (Waze, Nextdoor), planificar una expansión progresiva hacia ciudades peruanas con mayor incidencia delictiva, consolidando primero el éxito en Lima.  
@@ -143,6 +144,28 @@ En base al análisis competitivo (SWOT) realizado, se definen las siguientes est
 5. **Innovación en Funcionalidades Diferenciadas**  
    - **Estrategia:** Superar la falta de enfoque en seguridad de Waze y Nextdoor incorporando funciones exclusivas que aumenten el valor para los usuarios.  
    - **Táctica:** Desarrollar características como alertas personalizadas, integración con transporte público, mapas predictivos de riesgo y un botón de pánico conectado directamente con las autoridades.  
+
+## 2.1.3 Modelo de Soporte al Cliente Municipal y Acuerdo de Nivel de Servicio (SLA)
+
+Dado que PeaceApp opera como una plataforma crítica encargada de la canalización de emergencias y gestión de la seguridad ciudadana, se establece un modelo de soporte técnico riguroso diseñado para garantizar la continuidad operativa de las centrales de serenazgo municipal.
+
+### A. Canales de Soporte y Escalabilidad
+Las municipalidades clientes contarán con acceso dedicado 24/7/365 gestionado por el equipo de ingeniería de PeaceApp a través de los siguientes canales:
+1. **Portal de Help Desk Municipal:** Un sistema de *Ticketing* integrado y autenticado mediante el *Generic Bounded Context de IAM*, donde el personal administrativo puede registrar fallos técnicos y hacer seguimiento a sus solicitudes.
+2. **Línea Telefónica de Emergencia (Hotline 24/7):** Canal de comunicación síncrono y prioritario de uso exclusivo para el supervisor de la central de monitoreo municipal ante caídas críticas de la plataforma.
+
+### B. Matriz de Criticidad y Acuerdo de Nivel de Servicio (SLA)
+Los tiempos de respuesta técnico-operativos ante cualquier incidencia se regirán contractualmente bajo la siguiente estructura de SLA:
+
+| Nivel de Severidad | Definición Técnica / Operativa | Tiempo Máximo de Respuesta | Tiempo Máximo de Resolución | Compromiso de Continuidad |
+| :--- | :--- | :--- | :--- | :--- |
+| **Severidad 1 - Crítica** | Incidencia que inhabilita por completo las funciones de la plataforma de cara al municipio. Ej: Caída absoluta del *Bounded Context de Alert* o el botón de pánico, impidiendo la recepción de alertas de los ciudadanos en la central. | **$\le$ 15 minutos** | **$\le$ 2 horas** | **99.9% Uptime** mensual garantizado para el componente de alertas. |
+| **Severidad 2 - Alta** | Degradación parcial significativa del rendimiento del sistema. Ej: Lentitud severa en la renderización del Mapa de Calor en la Web App (*Location Context*) o retraso en la carga de archivos multimedia de las evidencias. | **$\le$ 1 hora** | **$\le$ 6 horas** | Penalizaciones contractuales con descuentos en la mensualidad del SaaS en caso de incumplimiento. |
+| **Severidad 3 - Baja** | Consultas operativas, fallos estéticos en la interfaz web o reportes de errores menores que no afectan la monitorización ni la seguridad del distrito. | **$\le$ 4 horas** | **$\le$ 24 horas** | Despachado durante horario de oficina estándar. |
+
+### C. Proceso de Soporte Evolutivo
+El pago mensual de la suscripción SaaS faculta a los municipios a recibir de forma automática parches de seguridad semanales, optimizaciones de los algoritmos de geolocalización y reportes mensuales detallados de rendimiento técnico del clúster de servidores AWS, asegurando un sistema robusto, moderno y auditable frente al Estado.
+
 ## 2.2. Entrevistas
 
 El objetivo realizar las entrevistas es para poder comprender las preocupaciones, necesidades y expectativas de nuestro segmento objetivo, en este caso los ciudadanos preocupados por su seguridad en espacios públicos, en relación con su seguridad en espacios públicos. La información recolectada guiará el desarrollo de funcionalidades clave en la aplicación móvil, buscando mejorar la seguridad y tranquilidad de los usuarios en su entorno.

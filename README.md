@@ -223,6 +223,13 @@ Enlace a los Web Applications Wireframes:
 
 ![WebApplicationsWireframes](assets/WebApplicationsWireframes.png?raw=true)
 
+La interfaz web de PeaceApp está diseñada para un entorno administrativo y operativo de escritorio, priorizando la densidad de datos y la visualización geográfica. La maquetación se divide en tres regiones estructurales fijas:
+1. **Barra de Navegación Lateral (Sidebar):** Ubicada a la izquierda, centraliza los accesos directos al Dashboard del mapa, Historial de Reportes, Control de Alertas e Información de Perfil Administrativo.
+2. **Contenedor Principal Dinámico:** Región central dedicada a renderizar componentes de alta prioridad, como el mapa interactivo de Mapbox o las tablas transaccionales de incidentes.
+3. **Barra de Estado Superior:** Muestra el perfil del usuario autenticado y los contadores de notificaciones críticas en tiempo real.
+
+---
+
 #### 6.4.1.2 Mobile Application Wireframes
 
 Creamos la estructura de PeaceApp utilizando Figma.
@@ -238,6 +245,13 @@ IOS Application Wireframes:
 
 ![](assets/IOSApplicationWireframes2.png?raw=true)
 
+La versión móvil optimiza el espacio de pantalla para interacciones rápidas con una sola mano mediante patrones de diseño móviles estándar (*Material Design* y *Human Interface Guidelines*):
+* **Sistema de Pestañas Inferior (Bottom Navigation Bar):** Proporciona accesos con el pulgar para cambiar entre Mapa de Calor, Registro de Reportes, Alertas Inmediatas y Configuración de Contactos de Confianza.
+* **Componente de Acción Flotante (Floating Action Button):** Ubicado en el cuadrante inferior derecho del mapa para gatillar la publicación de un reporte instantáneo.
+* **Botón de Emergencia Síncrono:** Posicionado estratégicamente en una sección de fácil acceso táctil (botón de pánico) para garantizar el envío inmediato de coordenadas.
+
+---
+
 ### 6.4.2. Applications Wireflow Diagrams
 
 #### 6.4.2.1 Web Applications Wireflow Diagrams
@@ -246,25 +260,76 @@ IOS Application Wireframes:
 
 > ![](assets/WireFlowW1.png?raw=true)
 
+| Paso del Flujo | Elemento Visual de Interfaz | Acción del Usuario / Disparador Técnico | Impacto y Redirección |
+| :---: | :--- | :--- | :--- |
+| **1** | Formulario Web centralizado. | Ingresa credenciales (`Email`, `Password`) en campos de texto y presiona el botón *"Ingresar"*. | Desencadena validación en la capa `IAM` contra el endpoint de autenticación. |
+| **2a** | Alerta de validación (Toast/Banner). | El sistema detecta campos vacíos o error de credenciales HTTP 401. | Mantiene al usuario en la vista actual resaltando las cajas de texto inválidas en rojo. |
+| **2b** | Transición de Pantalla. | Autenticación exitosa (HTTP 200 OK) y recepción de token JWT. | Redirige de manera automática al Dashboard Principal con el Mapa de Calor cargado. |
+
+Conexión con el Backlog: Cumple el criterio de aceptación de la **US07 (Autenticación de Usuarios)**, aislando las rutas protegidas a través de la interfaz web.
+
 **User Flow**: User Goal: Registrarse en la aplicación web como nuevo usuario. El usuario selecciona el botón "Registro", que lo redirige a un formulario donde debe ingresar su nombre, apellido, número de teléfono, correo electrónico y contraseña. Si completa todo correctamente, la cuenta se crea exitosamente. En caso de errores de formato, campos vacíos o datos inválidos, se le notificará y no se registrará. US06
 
 > ![](assets/WireFlowW2.png?raw=true)
+
+| Paso del Flujo | Elemento Visual de Interfaz | Acción del Usuario / Disparador Técnico | Impacto y Redirección |
+| :---: | :--- | :--- | :--- |
+| **1** | Pantalla de bienvenida / Enlace inferior. | El usuario hace clic sobre el enlace interactivo *"Regístrate aquí"*. | Modifica el estado de la interfaz web mostrando el formulario completo de inscripción. |
+| **2** | Formulario de datos personales. | Rellena campos obligatorios y presiona el botón de acción principal *"Crear cuenta"*. | Ejecuta validación de formato de correo y longitud del número telefónico en el cliente. |
+| **3a** | Modal informativo / Tooltip. | Error de validación de unicidad o campos obligatorios vacíos. | El sistema suspende el registro y renderiza un mensaje explícito indicando el error de entrada. |
+| **3b** | Redirección de Pantalla. | Datos validados. El backend crea exitosamente las entidades de IAM y Profile. | Muestra un modal de éxito y redirige al usuario a la pantalla de inicio de sesión. |
+
+Conexión con el Backlog: Satisface la **US06 (Registro de Cuentas)** al proveer las cajas de captura necesarias para poblar el modelo transaccional.
+
 
 **User Flow**: User Goal: Generar un reporte de incidente en la aplicación web. El usuario accede a la sección "Reportes" y selecciona la opción para crear un nuevo reporte. Redacta el tipo de incidente libremente y selecciona la ubicación en el mapa arrastrando un marcador. Adjuntar evidencia es opcional. Si decide cancelar, podrá eliminar el reporte. Si completa correctamente los datos requeridos, el reporte se publica. Si hay errores o campos vacíos, no se enviará. US08
 
 > ![](assets/WireFlowW3.png?raw=true)
 
+| Paso del Flujo | Elemento Visual de Interfaz | Acción del Usuario / Disparador Técnico | Impacto y Redirección |
+| :---: | :--- | :--- | :--- |
+| **1** | Sección "Reportes" / Botón superior. | El usuario hace clic en el botón con etiqueta *"Nuevo Reporte"*. | Abre un panel lateral deslizante conteniendo el formulario de creación de incidentes. |
+| **2** | Formulario con mapa integrado. | Selecciona el tipo de incidente (Robo, Zona Oscura), arrastra el marcador geoespacial y redacta la descripción. | Captura coordenadas dinámicas desde el componente del mapa interactivo. |
+| **3a** | Botón secundario *"Cancelar"*. | El usuario desiste de la publicación y presiona el botón. | Cierra el panel limpiando los datos en caché y restaurando la vista general de la tabla. |
+| **3b** | Botón de confirmación *"Publicar"*. | Envía el payload con las coordenadas, descripción y evidencias multimedia adjuntas. | Despacha la solicitud POST a las APIs. El reporte entra en estado `PENDING` para revisión. |
+
+Conexión con el Backlog: Enlaza directamente con la **US08 (Envío de Reportes de Incidentes)**, permitiendo capturar datos estructurados de geolocalización de riesgo.
+
 **User Flow:** User Goal: Visualizar reportes en la aplicación web. Desde la sección "Reportes", el usuario podrá ver una lista general de todos los reportes. Si no existen reportes, se mostrará la vista vacía. Actualmente, no hay visualización de alertas, íconos en el mapa ni opción para ver detalles de reportes individuales. US11
 
 > ![](assets/WireFlowW4.png?raw=true)
+
+| Paso del Flujo | Elemento Visual de Interfaz | Acción del Usuario / Disparador Técnico | Impacto y Redirección |
+| :---: | :--- | :--- | :--- |
+| **1** | Menú lateral / Opción "Reportes". | El usuario hace clic en la sección correspondiente en la barra lateral fija. | Solicita al backend el listado completo de incidencias mediante una query. |
+| **2a** | Vista de Estado Vacío (*Empty State*). | El backend responde con un arreglo vacío de datos. | Renderiza una ilustración e indicación textual indicando que no se registran incidentes. |
+| **2b** | Tabla de datos paginada. | El backend responde con la colección de datos de incidentes existentes. | Despliega columnas estructuradas con ID, Categoría, Distrito y Fecha del incidente. |
+
+Conexión con el Backlog: Diseñado bajo los requerimientos de la **US11 (Visualización e Historial de Reportes)** para permitir auditoría tabular de la información.
 
 **User Flow:** User Goal: Editar la información del perfil en la aplicación web. Al ingresar, el usuario puede acceder al ícono de perfil y desde ahí editar sus datos personales. Si todos los campos obligatorios se completan, los cambios se guardan correctamente. Si deja algún campo vacío, se le notificará. US15
 
 > ![](assets/WireFlowW5.png?raw=true)
 
+| Paso del Flujo | Elemento Visual de Interfaz | Acción del Usuario / Disparador Técnico | Impacto y Redirección |
+| :---: | :--- | :--- | :--- |
+| **1** | Encabezado superior / Ícono de avatar. | El usuario pulsa sobre la opción de configuración de cuenta o perfil. | Redirige al contenedor de ajustes cargando los campos con la información actual de la base de datos. |
+| **2** | Formulario de datos modificables. | Altera campos permitidos (ej. teléfono corporativo) y presiona el botón *"Guardar Cambios"*. | El sistema evalúa localmente que ninguna caja de texto requerida permanezca vacía. |
+| **3** | Notificación emergente flotante. | Confirmación de actualización del estado o alerta por datos obligatorios faltantes. | Persiste los cambios en la capa física si pasa la validación; de lo contrario, muestra una advertencia. |
+
+Conexión con el Backlog: Se alinea con la **US15 (Modificación de Perfiles de Usuario)** en la capa de aplicación.
+
 **User Flow**: User Goal: Visualizar rutas seguras dentro del mapa en la aplicación web. El usuario accede a la sección "Mapa" e ingresa la ubicación a la que desea llegar. Si deja el campo vacío o ingresa una dirección inválida, no se mostrará nada. Si la dirección es válida, se generará una ruta segura en el mapa desde su ubicación actual hasta el destino ingresado. US10
 
 > ![](assets/WireFlowW6.png?raw=true)
+
+| Paso del Flujo | Elemento Visual de Interfaz | Acción del Usuario / Disparador Técnico | Impacto y Redirección |
+| :---: | :--- | :--- | :--- |
+| **1** | Panel flotante sobre el mapa principal. | El usuario escribe la dirección de destino dentro del cuadro de búsqueda de direcciones. | Invoca de forma síncrona las sugerencias de la API de geocodificación de Mapbox. |
+| **2** | Mapa interactivo de calor central. | El usuario selecciona un destino válido y confirma la acción de enrutamiento. | El microservicio evalúa los cuadrantes de riesgo activos y calcula vectores seguros alternativos. |
+| **3** | Capa visual superpuesta (*Overlay*). | Renderizado de polilíneas de color azul sobre el lienzo del mapa. | Traza de forma interactiva el trayecto seguro, omitiendo las geocercas con alto índice de criminalidad. |
+
+Conexión con el Backlog: Representa el flujo de interfaz de la **US10 (Generación Automática de Rutas Seguras)**.
 
 #### 6.4.2.2 Mobile Applications Wireflow Diagrams 
 
@@ -272,33 +337,57 @@ IOS Application Wireframes:
 
 > ![](assets/Wireflow1.png?raw=true)
 
+* **Análisis del Flujo Paso a Paso:** El usuario inicia en la vista de bienvenida. Al presionar el componente interactivo de autenticación, el teclado nativo del dispositivo emerge para permitir la captura del correo y la clave cifrada en las cajas de texto correspondientes. El botón con etiqueta *"Ingresar"* gatilla la llamada de red hacia la pasarela del backend de IAM. Si el servidor retorna un token de sesión válido, el flujo ejecuta una animación de transición hacia la pantalla principal con la geolocalización activa; en caso de fallo, la interfaz móvil utiliza un cuadro de diálogo flotante (*Alert Dialog*) para notificar el error de credenciales, impidiendo el paso.
+* **Conexión con el Backlog:** Valida visualmente los criterios de la **US07 (Autenticación de Usuarios)** en entornos móviles.
+
 **Wire Flow**: User Goal: Registrarse en la aplicación móvil como nuevo usuario. Para lograr este objetivo, el usuario presiona el botón “Comenzar ahora” en la pantalla inicial y accede al formulario de registro. Allí deberá ingresar su nombre, apellido, número de teléfono, correo electrónico y contraseña. Si toda la información es válida, se muestra un mensaje confirmando la creación exitosa de la cuenta. Si hay errores en el formato del correo, la contraseña es demasiado corta o el número es inválido, se informará al usuario y no se completará el registro. US06
 
 > ![](assets/Wireflow2.png?raw=true)
+
+* **Análisis del Flujo Paso a Paso:** El usuario inicia desde el botón de acción principal de la pantalla de bienvenida. Al activarlo, el wireflow despliega de manera lineal un formulario móvil vertical optimizado para la pantalla del dispositivo. El ciudadano captura sus datos demográficos básicos de contacto. Al presionar *"Registrar"*, la interfaz realiza una validación local sobre los formatos y la longitud del número telefónico. Si los datos son inconsistentes con el esquema, la app muestra textos de error inferiores en rojo debajo de cada caja; si son válidos, se despacha el comando de creación y se le presenta al usuario un modal gráfico de éxito antes de regresarlo al Login.
+* **Conexión con el Backlog:** Implementación visual directa para la **US06 (Registro de Cuentas Ciudadanas)**.
 
 **Wire Flow**: User Goal: Visualizar los reportes disponibles en la aplicación. Una vez dentro de la app, el usuario puede acceder a la sección “Alertas” para ver los reportes en su zona. Si no existen alertas, no se mostrará contenido. Desde el mapa también puede acceder directamente al detalle de un reporte tocando un ícono. En la pestaña “Reportes”, puede revisar tanto los reportes generales como los propios. Si aún no se han generado reportes, esas secciones estarán vacías. US11
 
 > ![](assets/Wireflow3.png?raw=true)
 
+* **Análisis del Flujo Paso a Paso:** Con la sesión activa, el ciudadano visualiza por defecto el mapa de calor centrado en su ubicación geográfica actual. El flujo visual demuestra que el usuario puede realizar dos interacciones de exploración: tocar un marcador iconográfico directamente en el mapa para desplegar una tarjeta informativa inferior (*Bottom Sheet*) con los detalles de ese incidente de peligro específico, o alternar mediante la barra de navegación inferior hacia la vista de pestañas para auditar un listado con scroll vertical de incidentes recientes en la zona.
+* **Conexión con el Backlog:** Resuelve las especificaciones de interacción de la **US11 (Visualización de Reportes e Incidentes)**.
+
 **Wire Flow:** User Goal: Editar la información del perfil del usuario. Al ingresar a la aplicación, el usuario puede acceder a su perfil mediante el ícono correspondiente. Desde allí puede modificar sus datos personales. Si todos los campos requeridos son completados correctamente, la información se actualiza exitosamente. Si algún campo queda vacío, se notificará al usuario para que complete todos los datos. US15
 
 > ![](assets/Wireflow4.png?raw=true)
+
+* **Análisis del Flujo Paso a Paso:** Desde cualquier pantalla base, el usuario pulsa el ícono de perfil del menú inferior. La aplicación cambia de vista cargando las tarjetas de configuración de datos. Al pulsar sobre el campo correspondiente, el elemento se vuelve editable habilitando la edición en línea. Tras completar las modificaciones, la interfaz obliga al usuario a tocar el botón *"Guardar Cambios"* para invocar el servicio de actualización. Si el cliente detecta una caja obligatoria en blanco, inhabilita el flujo enviando un mensaje emergente (*Snackbar*) de alerta.
+* **Conexión con el Backlog:** Provee el soporte visual para la **US15 (Modificación de Perfiles de Usuario)**.
 
 **Wire Flow:** Acceder al mapa de calor desde cualquier sección de la app. Al iniciar sesión correctamente, la aplicación redirige automáticamente al mapa donde se visualizan los reportes. Adicionalmente, desde cualquier otra sección, el usuario puede acceder al mapa mediante el ícono de navegación inferior. US17
 
 > ![](assets/Wireflow5.png?raw=true)
 
+* **Análisis del Flujo Paso a Paso:** Este flujo ilustra el comportamiento global del enrutamiento de la aplicación móvil. El wireflow resalta con flechas conectivas cómo, sin importar si el usuario se encuentra navegando dentro de la sección profunda de configuración de perfil o revisando su historial secundario, la pulsación del ícono central de geolocalización en la barra de navegación inferior interrumpe de inmediato la pila de pantallas para reposicionar al usuario en la pantalla base del mapa con las capas del gradiente de riesgo en tiempo real.
+* **Conexión con el Backlog:** Asegura la consistencia de navegación global descrita en la **US17 (Consistencia de Visualización del Mapa de Calor)**.
+
 **Wire Flow**: Generar un nuevo reporte de incidente y adjuntar evidencia. Para cumplir este objetivo, el usuario accede a la sección “Mis reportes” y selecciona el botón para crear uno nuevo. Luego elige el tipo de incidente (robo, accidente, etc.) y completa el formulario incluyendo una descripción y la evidencia correspondiente. Puede cancelar el proceso, lo que le permitirá eliminar el reporte. Si completa correctamente todos los campos y adjunta evidencia, el reporte se publica exitosamente y se visualizará en el mapa de calor. Si hay errores o campos vacíos, el reporte no será enviado. US08 y US09
 
 > ![](assets/Wireflow6.png?raw=true)
+
+* **Análisis del Flujo Paso a Paso:** El flujo visual se inicia al accionar el botón flotante de adición en la pantalla del mapa o desde la pestaña *"Mis Reportes"*. Se abre un flujo estructurado secuencial que guía al usuario en tres etapas diferenciadas: selección del tipo de delito mediante un componente desplegable, redacción textual de los acontecimientos en una caja de texto con scroll interno, y activación de la cámara nativa mediante un botón para adjuntar evidencias multimedia (fotos/video). Cuenta con un botón de cancelación destacado que destruye la instancia actual; al presionar *"Publicar"*, el flujo procesa el contenido adjunto en la infraestructura y añade el nuevo marcador visual interactivo al mapa.
+* **Conexión con el Backlog:** Implementa de forma integral la secuencia requerida por la **US08 (Envío de Reportes de Incidentes)** y la **US09 (Adjuntar Evidencias Multimedia)**.
 
 **Wire Flow**: Recibir notificaciones sobre reportes y alertas de riesgo. Al abrir la aplicación, el usuario puede seleccionar el ícono de alertas para ver los reportes cercanos. Si no existen alertas en la zona, se muestra una vista vacía. Si hay reportes disponibles, el usuario podrá ver los detalles tocando alguno de ellos. US13 y US12
 
 ![](assets/Wireflow7.png?raw=true)
 
+* **Análisis del Flujo Paso a Paso:** Este wireflow modela la respuesta ante notificaciones push e interacciones del módulo preventivo de la aplicación móvil. Cuando el microservicio de alertas detecta el cruce de geocercas, empuja una notificación push al sistema móvil del dispositivo. Si el ciudadano pulsa sobre la notificación, la aplicación ejecuta un inicio profundo (*Deep Linking*) que salta directamente hacia la pantalla de detalle crítico de la alerta de riesgo, renderizando la descripción del incidente, nivel de peligro y la distancia aproximada del punto de peligro para permitirle cambiar de ruta inmediatamente.
+* **Conexión con el Backlog:** Diseña la experiencia requerida por la **US12 (Recepción de Alertas por Proximidad)** y la **US13 (Notificaciones Push de Riesgo)**.
+
 **Wire Flow**: Compartir ubicación con contactos. El usuario accede a la sección “Compartir ubicación” desde el ícono correspondiente en la parte inferior de la app. Desde ahí puede ver una lista de contactos y seleccionar a quién desea enviar su ubicación. Al presionar el botón “Guardar cambios”, la ubicación será compartida con los contactos elegidos. US14
 
 ![](assets/Wireflow8.png?raw=true)
+
+* **Análisis del Flujo Paso a Paso:** El usuario navega hacia el componente móvil especializado de *"Contactos de Confianza"*. La interfaz despliega un listado con interruptores tipo switch al lado de cada número o contacto registrado en su libreta interna. Al activar los interruptores deseados y presionar el botón de confirmación de guardado, la aplicación activa un servicio persistente en segundo plano que sincroniza las coordenadas de su ubicación actual con las pasarelas externas de WhatsApp API y SMS Gateway, transmitiendo de manera asíncrona enlaces web interactivos para el seguimiento en tiempo real de su trayecto.
+* **Conexión con el Backlog:** Cumple íntegramente con los criterios de aceptación técnicos y visuales de la **US14 (Compartir Ubicación en Tiempo Real)**.
 
 ### 6.4.3. Applications Mock-ups
 

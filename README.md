@@ -1,14 +1,74 @@
 # Capítulo VII: Product Implementation, Validation & Deployment
 
 ## 7.1. Software Configuration Management.
+En esta sección se resume toda la información recopilada, analizando que pasos que se realizaran y como se siente.
 
 ### 7.1.1. Software Development Environment Configuration.
+En la siguiente sección se describe la ruta de referencia de cada uno de los productos de software para que cualquier miembro del equipo pueda desarrollar cada punto del trabajo:
+
+**Figma:** Herramienta colaborativa que nos permitirá desarrollar wireframes y mockups.
+
+**Vertabelo:** Plataforma colaborativa que nos permitirá crear nuestro diagrama de base de datos.
+
+**GitHub:** Repositorio colaborativo en la nube
+
+**IntelliJ:** es un entorno de desarrollo para trabajar con Java y otros lenguajes que se ejecutan en JVM, como Kotlin.
 
 ### 7.1.2. Source Code Management.
+Trabajamos con 3 ramas principales:
+
+**Main:** nuestra rama principal donde presentaremos nuestras publicaciones oficiales.
+
+**Development:** Es nuestra rama de desarrollo, en donde probaremos e integraremos las funcionalidades trabajadas.
+
+**Feature:** Se descompone en ramas por cada feature trabajado.
 
 ### 7.1.3. Source Code Style Guide & Conventions.
+Para desarrollar nuestro proyecto hemos requerido de algunas nomenclaturas, referencias y lenguajes para esta solución.
+
+Tecnologías: Utilizamos algunas de estas tecnologías para el desarrollo de nuestra aplicación como: HTML5, CSS, JS, Java.
+
+Herramientas: Nos apoyamos de las tecnologías más utilizadas y recomendadas para el desarrollo de nuestra aplicación como: GitHub, Figma, IntelliJ
+
+Convenciones de idioma: Uso del idioma inglés para elaborar nuestro código
+
 
 ### 7.1.4. Software Deployment Configuration.
+Para desplegar nuestra landing page en la plataforma de GitHub, seguimos los siguientes pasos:
+
+**Creación del Repositorio Remoto en GitHub:**
+
+- Creamos un nuevo repositorio en GitHub de nuestro proyecto, el cual se utilizará para el desarrollo y deployment.
+
+**Inicialización del Repositorio:**
+
+- Se utiliza el comando git init para inicializar el repositorio.
+
+**Subida de Archivos al Repositorio Remoto:**
+
+- Añadimos los archivos de nuestra landing page al repositorio local.
+
+- Subimos los archivos al repositorio de GitHub con el comando git push -u origin master o utilizando GitHub Desktop.
+
+**Configuración de Netlify:**
+
+- Nos dirigimos a Netlify y creamos una nueva cuenta o iniciamos sesión.
+
+- En Netlify, seleccionamos la opción de importar el proyecto desde GitHub.
+
+- Autorizamos a Netlify para acceder a nuestro repositorio de GitHub.
+
+- Elegimos el repositorio que contiene nuestra landing page y configuramos las opciones de despliegue.
+
+**Despliegue:**
+
+- Netlify se encargará de desplegar automáticamente nuestra landing page.
+
+- Accedemos a la URL proporcionada por Vercel para verificar que nuestra landing page se haya desplegado correctamente.
+
+De este modo, nuestra landing page estará disponible utilizando Vercel y podrá ser visible para cualquier usuario que tenga el enlace. 
+
+**Enlace del landing page:** <https://peaceapp-landingpage.netlify.app/>
 
 ## 7.2. Solution Implementation.
 

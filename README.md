@@ -511,7 +511,19 @@ Se trabajó en el despliegue del núcleo transaccional, los servicios distribuid
 | **AI: Chatbot safety assistance** | POST | body: `message`, `context`, `userId` | `/api/v1/ai/chatbot` |
 | **AI: Analyze evidence metadata** | POST | body: `evidenceUrl`, `evidenceType`, `description` | `/api/v1/ai/analyze-evidence` |
 
-#### 7.2.1.7. Software Deployment Evidence for Sprint Review.
+#### 7.2.1.7. Software Deployment Evidence for Sprint Review
+
+**Landing Page:**
+
+- Ingresamos a la plataforma de [Netlify](https://www.netlify.com/), seleccionamos la opción de importar un proyecto existente y vinculamos el repositorio oficial donde se encuentra alojada la Landing Page institucional de PeaceApp.
+!["Proceso de despliegue en Sprint 1 - Landing Page Netlify"](assets/sprint1-deployed-landingPage-netlify.png)
+
+<div style="page-break-after: always;"></div>
+
+**Web Services (Microservicios):**
+
+- Los microservicios del ecosistema distribuido junto con los componentes de infraestructura compartidos fueron empaquetados en imágenes independientes y desplegados de forma exitosa mediante contenedores Docker, garantizando el aislamiento de contextos, alta disponibilidad y la correcta orquestación de red en el clúster local y de nube.
+!["Proceso de despliegue en Sprint 1 - Microservicios Docker Containers"](assets/sprint1-deployed-microServices-docker.png)
 
 #### 7.2.1.8. Team Collaboration Insights during Sprint.
 

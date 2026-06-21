@@ -111,7 +111,84 @@ Los avances específicos son:
 | EurekaServer | main | a48415bb921918604d8733857689fddeea973def | feat: add initial service implementation | | 13/05/2026 |
 
 #### 7.2.1.4. Testing Suite Evidence for Sprint Review.
-No aplica para esta entrega
+Para esta sección del proyecto se hizo uso de la herramienta Visual Studio Code empleando el lenguaje Gherkin.
+Se mostrarán a continuación los Acceptance Test según el enfoque de DDD (Domain Driven Desgin)
+
+- Registro de Usuarios
+
+![](assets/Gherkin1Sprint1.png?raw=true)
+
+- Iniciar Sesión
+
+![](assets/Gherkin2Sprint1.png?raw=true)
+
+- Generar Reporte de Incidentes
+
+![](assets/Gherkin3Sprint1.png?raw=true)
+
+- Subir Evidencia Multimedia
+
+![](assets/Gherkin4Sprint1.png?raw=true)
+
+- Visualización de Reportes
+
+![](assets/Gherkin6Sprint1.png?raw=true)
+
+- Monitoreo de Proximidad a Zonas de Riesgo
+
+![](assets/Gherkin7Sprint1.png?raw=true)
+
+- Notificación de Alerta de Riesgo
+
+![](assets/Gherkin8Sprint1.png?raw=true)
+
+- Selección de Contactos de Monitoreo
+
+![](assets/Gherkin9Sprint1.png?raw=true)
+
+- Compartición de Ubicación en Tiempo Real
+
+![](assets/Gherkin10Sprint1.png?raw=true)
+
+- Editar Perfil
+
+![](assets/Gherkin11Sprint1.png?raw=true)
+
+- Recuperar Contraseña
+
+![](assets/Gherkin12Sprint1.png?raw=true)
+
+- Acceder a Mapa con Reportes
+
+![](assets/Gherkin13Sprint1.png?raw=true)
+
+- Acceder al Perfil
+
+![](assets/Gherkin14Sprint1.png?raw=true)
+
+- Filtrar Reportes
+
+![](assets/Gherkin15Sprint1.png?raw=true)
+
+- Buscar Ubicación en el Mapa
+
+![](assets/Gherkin16Sprint1.png?raw=true)
+
+- Formulario de Reporte
+
+![](assets/Gherkin17Sprint1.png?raw=true)
+
+- Validación y errores
+
+![](assets/Gherkin19Sprint1.png?raw=true)
+
+- Actualización del mapa/heatmap
+
+![](assets/Gherkin20Sprint1.png?raw=true)
+
+- Footer Informativo
+
+![](assets/Gherkin21Sprint1.png?raw=true)
 
 #### 7.2.1.5. Execution Evidence for Sprint Review.
 Se trabajó en el despliegue del núcleo transaccional, los servicios distribuidos y las interfaces interactivas para este primer sprint. En la aplicación web se completó la maquetación y lógica de los formularios de registro municipal, inicio de sesión, recuperación de contraseña, componentes cartográficos y el dashboard analítico de control distrital. Por su parte, la aplicación móvil consolidó la experiencia del ciudadano común, integrando el asistente chatbot, el sistema de reportes comunitarios con IA, la gestión de alertas, la sincronización de contactos de confianza y los flujos críticos de emergencia SOS. Finalmente, la infraestructura de backend validó de forma exitosa el registro y descubrimiento de los microservicios mediante Eureka Server, garantizando una operación integral y conectada de todo el ecosistema distribuido.
@@ -119,151 +196,180 @@ Se trabajó en el despliegue del núcleo transaccional, los servicios distribuid
 **Web Application:**
 
 - **Crear Cuenta Municipalidad:** Formulario estructurado para el alta e inscripción de gobiernos locales en la plataforma web, solicitando datos de contacto institucionales, el distrito de operaciones de serenazgo y los identificadores requeridos para su correcta asignación jurisdiccional.
-!["Vista implementada en Sprint 1 - Crear Cuenta Municipalidad"](assets/sprint1-web-crearCuentaMunicipalidad.png)
+
+!["Vista implementada en Sprint 1 - Crear Cuenta Municipalidad"](assets/sprint1-web-crearCuentaMunicipalidad.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Inicio de Sesión (Login):** Pantalla de acceso seguro al sistema web mediante el ingreso de correo electrónico y contraseña corporativa, protegida con interceptores de seguridad basados en roles.
-!["Vista implementada en Sprint 1 - Login Web"](assets/sprint1-web-login.png)
+
+!["Vista implementada en Sprint 1 - Login Web"](assets/sprint1-web-login.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Recuperar Cuenta (Email):** Primer paso del flujo de recuperación de contraseña en la web, donde el usuario ingresa su correo electrónico registrado para solicitar el envío del token o enlace de validación.
-!["Vista implementada en Sprint 1 - Recuperar Cuenta Email"](assets/sprint1-web-recuperarCuentaEmail.png)
+
+!["Vista implementada en Sprint 1 - Recuperar Cuenta Email"](assets/sprint1-web-recuperarCuentaEmail.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Recuperar Cuenta (Nueva Contraseña):** Formulario final del flujo de recuperación que permite al usuario establecer y confirmar su nueva clave de acceso de forma segura.
-!["Vista implementada en Sprint 1 - Recuperar Cuenta Nueva Contraseña"](assets/sprint1-web-recuperarCuentaNuevaContraseña.png)
+
+!["Vista implementada en Sprint 1 - Recuperar Cuenta Nueva Contraseña"](assets/sprint1-web-recuperarCuentaNuevaContraseña.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Dashboard Municipal:** Panel principal de analítica visual que recopila gráficos estadísticos, métricas e indicadores clave de rendimiento sobre los incidentes reportados en el distrito para optimizar la toma de decisiones del serenazgo.
-!["Vista implementada en Sprint 1 - Dashboard"](assets/sprint1-web-dashboard.png)
+
+!["Vista implementada en Sprint 1 - Dashboard"](assets/sprint1-web-dashboard.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Mapa con Reportes:** Interfaz cartográfica interactiva central que renderiza en tiempo real los marcadores geolocalizados de los incidentes ciudadanos y las zonas identificadas con gradientes de peligro dentro del distrito.
-!["Vista implementada en Sprint 1 - Mapa con Reportes"](assets/sprint1-web-mapaConReportes.jpg)
+
+!["Vista implementada en Sprint 1 - Mapa con Reportes"](assets/sprint1-web-mapaConReportes.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Buscador en el Mapa:** Barra de herramientas de geocodificación que permite a los operadores municipales realizar búsquedas directas de direcciones o intersecciones específicas para centrar el lienzo del mapa de forma ágil.
-!["Vista implementada en Sprint 1 - Buscador Mapa"](assets/sprint1-web-buscadorMapa.jpg)
+
+!["Vista implementada en Sprint 1 - Buscador Mapa"](assets/sprint1-web-buscadorMapa.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Detalle de Reporte:** Modal informativo desplegable que presenta la descripción minuciosa del delito, los datos del usuario emisor, la fecha exacta del suceso y el estado actual del ciclo de vida del reporte.
-!["Vista implementada en Sprint 1 - Detalle Reporte"](assets/sprint1-web-detalleReporte.jpg)
+
+!["Vista implementada en Sprint 1 - Detalle Reporte"](assets/sprint1-web-detalleReporte.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Reporte de Emergencia:** Consola integrada para la visualización y alerta de señales síncronas de auxilio de alta prioridad despachadas de forma asíncrona hacia la central de serenazgo distrital.
-!["Vista implementada en Sprint 1 - Reporte Emergencia"](assets/sprint1-web-reporteEmergencia.png)
+
+!["Vista implementada en Sprint 1 - Reporte Emergencia"](assets/sprint1-web-reporteEmergencia.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Perfil Municipalidad:** Sección dedicada a la gestión de datos institucionales de la municipalidad federada, permitiendo auditar y actualizar los teléfonos de contacto de las unidades de campo.
-!["Vista implementada en Sprint 1 - Perfil Municipalidad"](assets/sprint1-web-perfilMunicipalidad.png)
+
+!["Vista implementada en Sprint 1 - Perfil Municipalidad"](assets/sprint1-web-perfilMunicipalidad.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Términos y Condiciones:** Vista informativa legal integrada en la plataforma web que detalla las políticas de privacidad y el tratamiento de datos alineado estrictamente a la legislación peruana vigente.
-!["Vista implementada en Sprint 1 - Términos y Condiciones"](assets/sprint1-web-terminosYCondiciones.png)
+
+!["Vista implementada en Sprint 1 - Términos y Condiciones"](assets/sprint1-web-terminosYCondiciones.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Preguntas Frecuentes:** Módulo de autoayuda dinámico con respuestas estructuradas orientadas a facilitar la inducción y el manejo operativo inicial de la consola web por parte de los operadores.
-!["Vista implementada en Sprint 1 - Preguntas Frecuentes"](assets/sprint1-web-preguntasFrecuentes.png)
+
+!["Vista implementada en Sprint 1 - Preguntas Frecuentes"](assets/sprint1-web-preguntasFrecuentes.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 **Mobile Application:**
 
 - **Perfil Ciudadano:** Interfaz donde el usuario civil puede visualizar sus datos personales de cuenta, credenciales de contacto y gestionar la personalización o cierre de su sesión móvil actual.
-!["Vista implementada en Sprint 1 - Perfil Ciudadano"](assets/sprint1-mobile-perfilCiudadano.png)
+
+!["Vista implementada en Sprint 1 - Perfil Ciudadano"](assets/sprint1-mobile-perfilCiudadano.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Editar Perfil Ciudadano:** Pantalla interna de edición que faculta al ciudadano a modificar y poner al día sus datos de contacto (teléfono, distrito, residencia), validando en el cliente campos obligatorios vacíos.
-!["Vista implementada en Sprint 1 - Editar Perfil Ciudadano"](assets/sprint1-mobile-editarPerfilCiudadano.png)
+
+!["Vista implementada en Sprint 1 - Editar Perfil Ciudadano"](assets/sprint1-mobile-editarPerfilCiudadano.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Chatbot - Indicaciones de Reporte:** Pantalla inicial de bienvenida del asistente inteligente interactivo, ofreciendo pautas de orientación contextuales al ciudadano sobre el estado de la seguridad.
-!["Vista implementada en Sprint 1 - Mobile Chatbot Indicaciones"](assets/sprint1-mobile-chatbot-indicacionesReporte.png)
+
+!["Vista implementada en Sprint 1 - Mobile Chatbot Indicaciones"](assets/sprint1-mobile-chatbot-indicacionesReporte.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Chatbot - Apoyo para Crear Reporte:** Interfaz del flujo conversacional guiado donde el chatbot asiste activamente al ciudadano recopilando la descripción del incidente para estructurar un borrador de reporte de forma rápida.
-!["Vista implementada en Sprint 1 - Mobile Chatbot Apoyo Reporte"](assets/sprint1-mobile-chatbot-apoyoCrearReporte.png)
+
+!["Vista implementada en Sprint 1 - Mobile Chatbot Apoyo Reporte"](assets/sprint1-mobile-chatbot-apoyoCrearReporte.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Indicar Dirección en Reporte:** Componente interactivo que asiste al ciudadano en la captura y geolocalización exacta del incidente mediante un cuadro de texto predictivo de direcciones.
-!["Vista implementada en Sprint 1 - Indicar Direccion Mobile"](assets/sprint1-mobile-indicarDireccion.png)
+
+!["Vista implementada en Sprint 1 - Indicar Direccion Mobile"](assets/sprint1-mobile-indicarDireccion.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Formulario de Reporte:** Pantalla estructurada para registrar incidentes manuales, permitiendo al ciudadano ingresar el título del suceso, la descripción contextual y adjuntar las evidencias requeridas.
-!["Vista implementada en Sprint 1 - Formulario Reporte Mobile"](assets/sprint1-mobile-formularioReporte.png)
+
+!["Vista implementada en Sprint 1 - Formulario Reporte Mobile"](assets/sprint1-mobile-formularioReporte.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Autocompletado de Tipo por IA:** Pantalla del flujo de creación de reportes donde el microservicio de IA analiza la descripción de los hechos para sugerir y autocompletar de forma predictiva la categoría del delito (ej. Hurto).
-!["Vista implementada en Sprint 1 - Autocompletado Tipo por IA"](assets/sprint1-mobile-tipoIncidenteParaInforme.png)
+
+!["Vista implementada en Sprint 1 - Autocompletado Tipo por IA"](assets/sprint1-mobile-tipoIncidenteParaInforme.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Notificación de Éxito al Reportar:** Cuadro de diálogo modal e ilustrativo que confirma al ciudadano que el reporte de incidente fue registrado en las bases de datos de forma satisfactoria.
-!["Vista implementada en Sprint 1 - Reporte Creado Exitosamente"](assets/sprint1-mobile-reporteCreadoExitosamente.png)
+
+!["Vista implementada en Sprint 1 - Reporte Creado Exitosamente"](assets/sprint1-mobile-reporteCreadoExitosamente.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Visualización de Reporte Creado:** Pantalla de auditoría individual que permite al ciudadano revisar los datos finales estructurados de su reporte antes o después de la aprobación de la jurisdicción.
-!["Vista implementada en Sprint 1 - Visualizacion de Reporte Creado"](assets/sprint1-mobile-visualizacionDeReporteCreado.png)
+
+!["Vista implementada en Sprint 1 - Visualizacion de Reporte Creado"](assets/sprint1-mobile-visualizacionDeReporteCreado.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Mis Reportes:** Sección personalizada que compila de forma tabular e individual el historial histórico de todos los incidentes que el propio usuario ha aportado a la comunidad.
-!["Vista implementada en Sprint 1 - Mis Reportes Mobile"](assets/sprint1-mobile-todosMisReportes.png)
+
+!["Vista implementada en Sprint 1 - Mis Reportes Mobile"](assets/sprint1-mobile-todosMisReportes.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Todos los Reportes de Usuarios:** Vista de exploración comunitaria en formato de lista secuencial cronológica que permite al ciudadano revisar los incidentes generales alertados por otros usuarios de la plataforma.
-!["Vista implementada en Sprint 1 - Todos los Reportes de Usuarios"](assets/sprint1-mobile-todosReportesDeUsuariosDeTodasZonas.png)
+
+!["Vista implementada en Sprint 1 - Todos los Reportes de Usuarios"](assets/sprint1-mobile-todosReportesDeUsuariosDeTodasZonas.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Todas las Alertas de Zona:** Interfaz dedicada que compila las alertas preventivas vigentes de su entorno actual de acuerdo con el radio de proximidad geoespacial.
-!["Vista implementada en Sprint 1 - Todas las Alertas de Zona"](assets/sprint1-mobile-todasAlertaDeZona.png)
+
+!["Vista implementada en Sprint 1 - Todas las Alertas de Zona"](assets/sprint1-mobile-todasAlertaDeZona.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Alerta Detectada:** Pantalla de aviso inmediato que irrumpe en la pantalla de la aplicación móvil para advertir de forma visual que el ciudadano se encuentra dentro del radio de influencia de un incidente de peligro.
-!["Vista implementada en Sprint 1 - Alerta Detectada Mobile"](assets/sprint1-mobile-alertaDetectada.png)
+
+!["Vista implementada en Sprint 1 - Alerta Detectada Mobile"](assets/sprint1-mobile-alertaDetectada.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **Compartir Ubicación con Contactos:** Interfaz dedicada para enlazar, encender o apagar la transmisión geoespacial síncrona con los contactos de confianza agregados a la libreta personal.
-!["Vista implementada en Sprint 1 - Compartir Ubicacion Mobile"](assets/sprint1-mobile-compartirUbicacion.png)
+
+!["Vista implementada en Sprint 1 - Compartir Ubicacion Mobile"](assets/sprint1-mobile-compartirUbicacion.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **SOS - Alerta de Emergencia Enviada:** Pantalla interactiva crítica que confirma al ciudadano el envío y recepción exitosa de su señal de auxilio geoespacial hacia la central de serenazgo (Escenario exitoso de la US39).
-!["Vista implementada en Sprint 1 - SOS Enviado Correctamente"](assets/sprint1-mobile-SOSEnviadoCorrectamente.png)
+
+!["Vista implementada en Sprint 1 - SOS Enviado Correctamente"](assets/sprint1-mobile-SOSEnviadoCorrectamente.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 - **SOS - Fuera de Cobertura de Datos:** Interfaz de resiliencia del sistema de pánico que se activa de forma automática ante la ausencia de internet móvil, desplegando el mecanismo alternativo para enrutar el auxilio mediante llamadas directas y pasarelas SMS (Capa de Infraestructura ACL).
-!["Vista implementada en Sprint 1 - SOS Fuera de Cobertura"](assets/sprint1-mobile-SOSFueraCobertura.png)
+
+!["Vista implementada en Sprint 1 - SOS Fuera de Cobertura"](assets/sprint1-mobile-SOSFueraCobertura.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 **Web Services & Infrastructure:**
 
 - **Servidor de Descubrimiento Eureka:** Consola de administración de Netflix Eureka Server que evidencia el registro exitoso, el estado de salud (UP) y el mapeo dinámico de red de las instancias de los microservicios core del sistema distribuido.
-!["Vista implementada en Sprint 1 - Eureka Service Discovery"](assets/sprint1-eurekaService.png)
+
+!["Vista implementada en Sprint 1 - Eureka Service Discovery"](assets/sprint1-eurekaService.png?raw=true)
 
 #### 7.2.1.6. Services Documentation Evidence for Sprint Review.
 

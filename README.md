@@ -536,13 +536,10 @@ Se trabajó en el despliegue del núcleo transaccional, los servicios distribuid
 ### 7.3.3. Evaluaciones según heurísticas.
 
 ## 7.4. Video About-the-Product.
-**Nombre del archivo:**
-`upc-pre-202601-si728-11806-PeaceApp-about-the-product-sprint-1.mp4`
 
 **Duración:** 55 s  **Formato:** MP4
 
 Se presenta de manera concisa la propuesta de valor y las principales funcionalidades logradas para el MVP de **PeaceApp**. El video expone las interfaces interactivas de la aplicación web destinadas al control y visualización de incidentes por parte de las municipalidades, así como el flujo en la aplicación móvil que permite a los ciudadanos interactuar de forma intuitiva con el chatbot de asistencia inteligente y las alertas de seguridad distritales.
 
-![Screenshot del video](assets/sprint1-web-dashboard.png)
 
 **Enlaces:** https://www.youtube.com/watch?v=oqUSiRLa8lI

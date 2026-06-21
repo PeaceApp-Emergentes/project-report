@@ -85,6 +85,86 @@ Los avances específicos son:
 No aplica para esta entrega
 
 #### 7.2.1.5. Execution Evidence for Sprint Review.
+Se trabajó en el despliegue del núcleo transaccional, los servicios distribuidos y las interfaces interactivas para este primer sprint. En la aplicación web se completó la maquetación y lógica de los formularios de registro municipal, inicio de sesión, recuperación de contraseña, componentes cartográficos y el dashboard analítico de control distrital. Por su parte, la aplicación móvil avanzó en la implementación e integración del asistente inteligente mediante un chatbot conversacional nativo. Finalmente, la infraestructura de backend validó de forma exitosa el registro y descubrimiento de los microservicios mediante Eureka Server, garantizando una operación integral y conectada de todo el ecosistema.
+
+**Web Application:**
+
+- **Crear Cuenta Municipalidad:** Formulario estructurado para el alta e inscripción de gobiernos locales en la plataforma web, solicitando datos de contacto institucionales, el distrito de operaciones de serenazgo y los identificadores requeridos para su correcta asignación jurisdiccional.
+!["Vista implementada en Sprint 1 - Crear Cuenta Municipalidad"](assets/sprint1-web-crearCuentaMunicipalidad.png)
+
+<div style="page-break-after: always;"></div>
+
+- **Inicio de Sesión (Login):** Pantalla de acceso seguro al sistema web mediante el ingreso de correo electrónico y contraseña corporativa, protegida con interceptores de seguridad basados en roles.
+!["Vista implementada en Sprint 1 - Login Web"](assets/sprint1-web-login.png)
+
+<div style="page-break-after: always;"></div>
+
+- **Recuperar Cuenta (Email):** Primer paso del flujo de recuperación de contraseña en la web, donde el usuario ingresa su correo electrónico registrado para solicitar el envío del token o enlace de validación.
+!["Vista implementada en Sprint 1 - Recuperar Cuenta Email"](assets/sprint1-web-recuperarCuentaEmail.png)
+
+<div style="page-break-after: always;"></div>
+
+- **Recuperar Cuenta (Nueva Contraseña):** Formulario final del flujo de recuperación que permite al usuario establecer y confirmar su nueva clave de acceso de forma segura.
+!["Vista implementada en Sprint 1 - Recuperar Cuenta Nueva Contraseña"](assets/sprint1-web-recuperarCuentaNuevaContraseña.png)
+
+<div style="page-break-after: always;"></div>
+
+- **Dashboard Municipal:** Panel principal de analítica visual que recopila gráficos estadísticos, métricas e indicadores clave de rendimiento sobre los incidentes reportados en el distrito para optimizar la toma de decisiones del serenazgo.
+!["Vista implementada en Sprint 1 - Dashboard"](assets/sprint1-web-dashboard.png)
+
+<div style="page-break-after: always;"></div>
+
+- **Mapa con Reportes:** Interfaz cartográfica interactiva central que renderiza en tiempo real los marcadores geolocalizados de los incidentes ciudadanos y las zonas identificadas con gradientes de peligro dentro del distrito.
+!["Vista implementada en Sprint 1 - Mapa con Reportes"](assets/sprint1-web-mapaConReportes.jpg)
+
+<div style="page-break-after: always;"></div>
+
+- **Buscador en el Mapa:** Barra de herramientas de geocodificación que permite a los operadores municipales realizar búsquedas directas de direcciones o intersecciones específicas para centrar el lienzo del mapa de forma ágil.
+!["Vista implementada en Sprint 1 - Buscador Mapa"](assets/sprint1-web-buscadorMapa.jpg)
+
+<div style="page-break-after: always;"></div>
+
+- **Detalle de Reporte:** Modal informativo desplegable que presenta la descripción minuciosa del delito, los datos del usuario emisor, la fecha exacta del suceso y el estado actual del ciclo de vida del reporte.
+!["Vista implementada en Sprint 1 - Detalle Reporte"](assets/sprint1-web-detalleReporte.jpg)
+
+<div style="page-break-after: always;"></div>
+
+- **Reporte de Emergencia:** Consola integrada para la visualización y alerta de señales síncronas de auxilio de alta prioridad despachadas de forma asíncrona hacia la central de serenazgo distrital.
+!["Vista implementada en Sprint 1 - Reporte Emergencia"](assets/sprint1-web-reporteEmergencia.png)
+
+<div style="page-break-after: always;"></div>
+
+- **Perfil Municipalidad:** Sección dedicada a la gestión de datos institucionales de la municipalidad federada, permitiendo auditar y actualizar los teléfonos de contacto de las unidades de campo.
+!["Vista implementada en Sprint 1 - Perfil Municipalidad"](assets/sprint1-web-perfilMunicipalidad.png)
+
+<div style="page-break-after: always;"></div>
+
+- **Términos y Condiciones:** Vista informativa legal integrada en la plataforma web que detalla las políticas de privacidad y el tratamiento de datos alineado estrictamente a la legislación peruana vigente.
+!["Vista implementada en Sprint 1 - Términos y Condiciones"](assets/sprint1-web-terminosYCondiciones.png)
+
+<div style="page-break-after: always;"></div>
+
+- **Preguntas Frecuentes:** Módulo de autoayuda dinámico con respuestas estructuradas orientadas a facilitar la inducción y el manejo operativo inicial de la consola web por parte de los operadores.
+!["Vista implementada en Sprint 1 - Preguntas Frecuentes"](assets/sprint1-web-preguntasFrecuentes.png)
+
+<div style="page-break-after: always;"></div>
+
+**Mobile Application:**
+
+- **Chatbot - Indicaciones de Reporte:** Pantalla inicial de bienvenida del asistente inteligente interactivo, ofreciendo pautas de orientación contextuales al ciudadano sobre el estado de la seguridad.
+!["Vista implementada en Sprint 1 - Mobile Chatbot Indicaciones"](assets/sprint1-mobile-chatbot-indicacionesReporte.png)
+
+<div style="page-break-after: always;"></div>
+
+- **Chatbot - Apoyo para Crear Reporte:** Interfaz del flujo conversacional guiado donde el chatbot asiste activamente al ciudadano recopilando la descripción del incidente para estructurar un borrador de reporte de forma rápida.
+!["Vista implementada en Sprint 1 - Mobile Chatbot Apoyo Reporte"](assets/sprint1-mobile-chatbot-apoyoCrearReporte.png)
+
+<div style="page-break-after: always;"></div>
+
+**Web Services & Infrastructure:**
+
+- **Servidor de Descubrimiento Eureka:** Consola de administración de Netflix Eureka Server que evidencia el registro exitoso, el estado de salud (UP) y el mapeo dinámico de red de las instancias de los microservicios core del sistema distribuido.
+!["Vista implementada en Sprint 1 - Eureka Service Discovery"](assets/sprint1-eurekaService.png)
 
 #### 7.2.1.6. Services Documentation Evidence for Sprint Review.
 

@@ -309,7 +309,15 @@ Con PeaceApp, construimos un Perú más seguro, paso a paso.
 
 **How (Cómo):** PeaceApp se mantiene actualizada gracias al constante aporte de los usuarios, quienes reportan incidentes y colaboran con la comunidad. Además, la aplicación utiliza tecnología avanzada de geolocalización y análisis de datos para ofrecer información precisa en tiempo real.
 
-**How Much (Cuánto):** PeaceApp estará disponible de forma gratuita para todos los usuarios. Sin embargo, para sostener el desarrollo y mantenimiento de la plataforma, la aplicación incluirá anuncios integrados.
+**How Much (Cuánto):** PeaceApp implementa un modelo de negocio híbrido o de monetización mixta para equilibrar el impacto social masivo con la sostenibilidad financiera de nivel empresarial:
+
+* **Segmento Ciudadano (B2C - Modelo Freemium/Ad-Supported):** La aplicación móvil es 100% gratuita para todos los ciudadanos de Lima Metropolitana. Esto garantiza un rápido efecto de red para acumular la masa crítica de reportes en tiempo real. Para financiar los servidores, se integra publicidad geolocalizada no intrusiva, promocionando exclusivamente "Negocios Locales Seguros" (establecimientos comerciales auditados positivamente por la comunidad) en zonas específicas del mapa, salvaguardando la UX.
+* **Segmento Gubernamental/Corporativo (B2G/B2B - Modelo SaaS + Setup Fee):** El acceso al módulo web avanzado de monitoreo táctico y analítica predictiva para las Municipalidades y centrales de serenazgo se comercializa mediante contratos de Software as a Service (SaaS). Este esquema se desglosa en una tarifa única inicial de implementación (*Setup, Onboarding & Training Fee*) y una suscripción mensual escalonada según el tamaño operativo del distrito (*SaaS Tiers*), detallados a continuación:
+
+| Componente de Cobro | Plan Municipio Estándar (Hasta 100,000 hab.) | Plan Municipio Enterprise (Más de 100,000 hab.) |
+| :--- | :--- | :--- |
+| **Tarifa Única Inicial (Setup & Training Fee)** | **$3,000 USD** <br>• Configuración de geocercas operativas del distrito.<br>• Proceso *Batch* de migración e ingesta masiva de data histórica criminal (Excel/CSV de serenazgo legado) hacia el *Location & Report Context*.<br>• Programa de Capacitación Técnica y Adopción Operativa de hasta 20 serenos y despachadores con emisión de la **Certificación "Operador PeaceApp"**. | **$7,000 USD** <br>• Todo lo del plan Estándar.<br>• Desarrollo e implementación de una Capa de Anticorrupción (**ACL**) a medida en el *Report Context* para integrarse con sistemas de videovigilancia *legacy* o cámaras de seguridad municipales.<br>• Capacitación certificada extendida para hasta 100 operadores y unidades de campo de Serenazgo. |
+| **Suscripción Mensual (SaaS Fee)** | **$400 USD / mes** <br>• Licenciamiento de la Web App de Monitoreo para Central de Serenazgo.<br>• Actualizaciones continuas de software.<br>• Soporte Estándar. | **$1,200 USD / mes** <br>• Licenciamiento ilimitado de la Web App de Monitoreo.<br>• Acceso al motor predictivo de incidentes por IA.<br>• Soporte de Misión Crítica con Acuerdo de Nivel de Servicio (**SLA**) policial. |
 
 ### 1.2.2. Lean UX Process
 
@@ -334,18 +342,18 @@ Ahora que hemos analizado la problemática y contamos con una visión clara de c
 
 **Business Outcomes:**
 
-- Generar ingresos sostenibles a través de la venta de la aplicación a entidades públicas y privadas.
-- Mejorar la calidad de vida de los ciudadanos del Perú al reducir su exposición a riesgos en las calles.
-- Contribuir a la disminución de la delincuencia en el país al facilitar la detección de zonas peligrosas y la respuesta oportuna.
+- Generar flujos de ingresos sostenibles y predecibles mediante contratos de licenciamiento SaaS a largo plazo y tarifas de implementación integral con municipalidades distritales (B2G).
+- Lograr la adopción operativa del software por parte del personal de serenazgo (tasa de uso >90%), mitigando la resistencia al cambio en el sector público mediante programas de capacitación técnica y certificación auditables.
+- Contribuir a la disminución medible de la delincuencia e índices de criminalidad en el país al optimizar la capacidad de respuesta y distribución de patrullas municipales basadas en analítica en tiempo real.
 
 **User Outcomes:**
 
-1. **¿Quién es el usuario?** Cualquier ciudadano que viva o trabaje en zonas donde las entidades están asociadas con nuestra plataforma.
-2. **¿Dónde encaja nuestro producto en su vida diaria?** Nuestra aplicación se convierte en una herramienta indispensable para planificar trayectos seguros y reportar incidentes, brindando tranquilidad en su rutina diaria.
-3. **¿Qué desafíos enfrenta nuestro producto?** Un desafío importante es que nuestra generación de ingresos depende de la capacidad de atraer y mantener asociaciones con entidades públicas y privadas.
-4. **¿Cuándo y cómo es usado nuestro producto?** Los usuarios utilizan la aplicación al desplazarse por áreas desconocidas o al desear reportar incidentes para proteger a otros. La aplicación se convierte en una herramienta diaria para asegurar trayectos más seguros.
-5. **¿Qué características son importantes?** La aplicación debe ser intuitiva y fácil de usar, con acceso rápido a la información relevante y una navegación clara. La actualización en tiempo real es fundamental para su efectividad.
-6. **¿Cómo debe verse y comportarse nuestro producto?** La aplicación debe ser visualmente atractiva, con una paleta de colores que sea agradable y fácil de leer. El proceso de registro debe ser simple y accesible para todos los usuarios, maximizando la usabilidad.
+1. **¿Quién es el usuario?** Por un lado, el ciudadano común que transita en Lima Metropolitana; por otro lado, el operador de la central de monitoreo municipal y el sereno de campo encargados de la respuesta táctica ante incidentes.
+2. **¿Dónde encaja nuestro producto en su vida diaria?** Para el ciudadano, es la herramienta diaria para planificar rutas seguras. Para el operador municipal, es su plataforma principal de despacho e inteligencia para gestionar incidentes, alertas y coordinar patrullajes eficientes en sus respectivas geocercas.
+3. **¿Qué desafíos enfrenta nuestro producto?** El principal desafío de negocio radica en los ciclos de venta largos inherentes al sector público (B2G) debido a las regulaciones burocráticas y requisitos contractuales del Estado. Técnicamente, el reto es garantizar un Uptime del 99.9% en el *Alert Service* para no comprometer vidas humanas y diseñar Capas de Anticorrupción (ACL) estables para convivir con la infraestructura tecnológica obsoleta (*legacy*) de los municipios.
+4. **¿Cuándo y cómo es usado nuestro producto?** Los ciudadanos lo usan de forma preventiva al desplazarse. Las municipalidades operan la consola web de manera ininterrumpida (24/7), procesando flujos asíncronos de datos provenientes de alertas ciudadanas validadas para el despliegue del serenazgo.
+5. **¿Qué características son importantes?** Alta disponibilidad de los microservicios, aislamiento de datos personales cumpliendo de forma estricta la **Ley N° 29733 (Protección de Datos Personales en Perú)**, ingesta fluida de datos de ubicación por Mapbox y despacho inmediato de alertas mediante WhatsApp API y SMS Gateway sin fallos.
+6. **¿Cómo debe verse y comportarse nuestro producto?** Interfaces limpias y accesibles. Para la municipalidad, debe proveer un Dashboard Web corporativo optimizado para la toma de decisiones rápidas bajo estrés operativo, mapeando incidentes clasificados por niveles de criticidad de forma visual y jerárquica.
 
 **User Benefits:**
 

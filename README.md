@@ -267,6 +267,69 @@ Se trabajó en el despliegue del núcleo transaccional, los servicios distribuid
 
 #### 7.2.1.6. Services Documentation Evidence for Sprint Review.
 
+- **Links de repositorios (Ecosistema Microservicios):**
+  - **AIService:** https://github.com/PeaceApp-Emergentes/AIService
+  - **UserService:** https://github.com/PeaceApp-Emergentes/UserService
+  - **ReportService:** https://github.com/PeaceApp-Emergentes/ReportService
+  - **IAMService:** https://github.com/PeaceApp-Emergentes/IAMService
+  - **AlertService:** https://github.com/PeaceApp-Emergentes/AlertService
+  - **LocationService:** https://github.com/PeaceApp-Emergentes/LocationService
+
+| Endpoint | Details |
+| :---: | :--- |
+| **IAM** | Registro de nuevos usuarios y aprovisionamiento del ciclo de inicio de sesión con emisión de tokens JWT. |
+| **Profiles (Municipalities)** | Administración de la información detallada e imágenes de perfil institucionales para los municipios distritales. |
+| **Users** | Gestión CRUD básica y verificación de existencia de los datos de cuentas asociadas a ciudadanos y personal operativo. |
+| **Reports** | Creación, gestión del estado de revisión (Aprobado, Atendido, Rechazado) e historial de incidentes distritales. |
+| **Locations** | Gestión y persistencia geográfica de ubicaciones y coordenadas ligadas a reportes de zonas peligrosas. |
+| **Alerts** | Generación y consulta de avisos preventivos geolocalizados y señales críticas SOS por usuario o reporte. |
+| **AI** | Características de asistencia inteligente que integran la clasificación automática de incidentes, análisis conversacional del chatbot y validación de evidencias. |
+
+<div style="page-break-after: always;"></div>
+
+| Endpoint | Operaciones | Parámetros | URL |
+| :--- | :---: | :--- | :--- |
+| **Authentication: Change Password** | PUT | body: `username`, `password` | `/api/v1/authentication/change-password` |
+| **Authentication: Sign Up** | POST | body: `username`, `password`, `roles` (List<String>) | `/api/v1/authentication/sign-up` |
+| **Authentication: Sign In** | POST | body: `username`, `password` | `/api/v1/authentication/sign-in` |
+| **Profiles: Update municipality profile** | PUT | `id` (path), body: `municipalityName`, `city`, `district`, `institutionalEmail`, `phone`, `userId`, `profileImage` | `/api/v1/profiles/municipalities/{id}` |
+| **Profiles: Create municipality profile** | POST | body: `municipalityName`, `city`, `district`, `institutionalEmail`, `phone`, `userId`, `profileImage` | `/api/v1/profiles/municipalities` |
+| **Profiles: Get municipality by user ID** | GET | `userId` (path) | `/api/v1/profiles/municipalities/{userId}` |
+| **Profiles: Check if municipality profile exists** | GET | `userId` (path) | `/api/v1/profiles/municipalities/{userId}/exists` |
+| **Profiles: Get municipalities by district** | GET | `district` (path) | `/api/v1/profiles/municipalities/district/{district}` |
+| **Users: Get user by ID** | GET | `id` (path) | `/api/v1/users/{id}` |
+| **Users: Update user data** | PUT | `id` (path), body: `name`, `lastname`, `email`, `phonenumber`, `userId`, `profileImage` | `/api/v1/users/{id}` |
+| **Users: Delete user by ID** | DELETE | `id` (path) | `/api/v1/users/{id}` |
+| **Users: Create a new user account** | POST | body: `name`, `email`, `lastname`, `phonenumber`, `userId`, `profileImage` | `/api/v1/users` |
+| **Users: Check if user exists** | GET | `id` (path) | `/api/v1/users/{id}/exists` |
+| **Users: Get user data by email** | GET | `email` (path) | `/api/v1/users/email/{email}` |
+| **Reports: Mark as In Review** | PUT | `id` (path) | `/api/v1/reports/{id}/review` |
+| **Reports: Reject a report** | PUT | `id` (path), body: `reason` | `/api/v1/reports/{id}/reject` |
+| **Reports: Flag as emergency** | PUT | `id` (path), body: `isEmergency` (boolean) | `/api/v1/reports/{id}/emergency` |
+| **Reports: Mark as attended** | PUT | `id` (path) | `/api/v1/reports/{id}/attend` |
+| **Reports: Approve a report** | PUT | `id` (path) | `/api/v1/reports/{id}/approve` |
+| **Reports: Get all reports** | GET | – | `/api/v1/reports` |
+| **Reports: Create a new report** | POST | body: `title`, `description`, `location`, `district`, `type`, `userId`, `imageUrl`, `videoUrl`, `audioUrl`, `latitude`, `longitude`, `isEmergency` | `/api/v1/reports` |
+| **Reports: Get report by ID** | GET | `id` (path) | `/api/v1/reports/{id}` |
+| **Reports: Delete report by ID** | DELETE | `id` (path) | `/api/v1/reports/{id}` |
+| **Reports: Check if report exists** | GET | `id` (path) | `/api/v1/reports/{id}/exists` |
+| **Reports: Get reports by user ID** | GET | `userId` (path) | `/api/v1/reports/user/{userId}` |
+| **Reports: Get all public reports** | GET | – | `/api/v1/reports/public` |
+| **Reports: Get reports by district** | GET | `district` (path) | `/api/v1/reports/district/{district}` |
+| **Locations: Get all locations** | GET | – | `/api/v1/locations` |
+| **Locations: Create a new location** | POST | body: `latitude`, `longitude`, `idReport` | `/api/v1/locations` |
+| **Locations: Get dangerous locations** | GET | query: `quantityReports` (default: 5) | `/api/v1/locations/dangerous` |
+| **Locations: Delete locations by report ID** | DELETE | `reportId` (path) | `/api/v1/locations/report/{reportId}` |
+| **Alerts: Get all alerts** | GET | – | `/api/v1/alerts` |
+| **Alerts: Create a new alert** | POST | body: `location`, `district`, `type`, `description`, `userId`, `imageUrl`, `reportId` | `/api/v1/alerts` |
+| **Alerts: Get alert by ID** | GET | `id` (path) | `/api/v1/alerts/{id}` |
+| **Alerts: Get alerts by user ID** | GET | `userId` (path) | `/api/v1/alerts/user/{userId}` |
+| **Alerts: Delete alerts by user ID** | DELETE | `userId` (path) | `/api/v1/alerts/user/{userId}` |
+| **Alerts: Delete alerts by report ID** | DELETE | `reportId` (path) | `/api/v1/alerts/report/{reportId}` |
+| **AI: Classify incident report** | POST | body: `description`, `location`, `district` | `/api/v1/ai/classify-incident` |
+| **AI: Chatbot safety assistance** | POST | body: `message`, `context`, `userId` | `/api/v1/ai/chatbot` |
+| **AI: Analyze evidence metadata** | POST | body: `evidenceUrl`, `evidenceType`, `description` | `/api/v1/ai/analyze-evidence` |
+
 #### 7.2.1.7. Software Deployment Evidence for Sprint Review.
 
 #### 7.2.1.8. Team Collaboration Insights during Sprint.

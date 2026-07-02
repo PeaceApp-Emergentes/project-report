@@ -70,6 +70,9 @@
 | 1.5     | 16/04/2026 | Arroyo Ormeño, André Alonso     | Actualizacion de user stories y product backlog **feature/capitulo3**                 |
 | 1.6     | 26/04/2026 | Noriega Suschenko, Anatoly Andrey     | Actualizacion de to-be scenario e impact mapping **feature/capitulo3**                 |
 | 1.7     | 26/04/2026 | Guia Carrasco, Pedro André, Noriega Suschenko, Anatoly Andrey, Santillan Alvarado, Melina Liz, Reyes Trujillano, Fabian Alonso y Arroyo Ormeño, André Alonso   | Creación del Event Storming **feature/capitulo4**                 |
+| 1.8     | 14/05/2026 | Guia Carrasco, Pedro André, Noriega Suschenko, Anatoly Andrey, Santillan Alvarado, Melina Liz, Reyes Trujillano, Fabian Alonso y Arroyo Ormeño, André Alonso   | Documentación de los Bounded Contexts IAM, Profile, Location, Report y Alert con sus capas de dominio, aplicación, infraestructura y diagramas **feature/capitulo5** |
+| 1.9     | 15/05/2026 | Guia Carrasco, Pedro André, Noriega Suschenko, Anatoly Andrey, Santillan Alvarado, Melina Liz, Reyes Trujillano, Fabian Alonso y Arroyo Ormeño, André Alonso   | Elaboración de style guidelines, wireframes, mock-ups y prototipos de Landing Page y aplicaciones móviles **feature/capitulo6** |
+| 2.0     | 20/06/2026 | Guia Carrasco, Pedro André, Noriega Suschenko, Anatoly Andrey, Santillan Alvarado, Melina Liz, Reyes Trujillano, Fabian Alonso y Arroyo Ormeño, André Alonso   | Elaboración del Primer Sprint del proyecto **feature/capitulo7** |
 
 ---
 
@@ -152,6 +155,97 @@
     - [4.3.3. Software Architecture Container Level Diagrams](#433-software-architecture-container-level-diagrams)
     - [4.3.4. Software Architecture System Deployment Diagram](#434-software-architecture-system-deployment-diagram)
 
+### [Capítulo V: Tactical-Level Software Design](#capítulo-v-tactical-level-software-design)
+
+- [5.1. Bounded Context: IAM](#51-bounded-context-iam)
+    - [5.1.1. Domain Layer](#511-domain-layer)
+    - [5.1.2. Interface Layer](#512-interface-layer)
+    - [5.1.3. Application Layer](#513-application-layer)
+    - [5.1.4. Infrastructure Layer](#514-infrastructure-layer)
+    - [5.1.5. Bounded Context Software Architecture Component Level Diagrams](#515-bounded-context-software-architecture-component-level-diagrams)
+    - [5.1.6. Bounded Context Software Architecture Code Level Diagrams](#516-bounded-context-software-architecture-code-level-diagrams)
+        - [5.1.6.1. Bounded Context Domain Layer Class Diagrams](#5161-bounded-context-domain-layer-class-diagrams)
+        - [5.1.6.2. Bounded Context Database Design Diagram](#5162-bounded-context-database-design-diagram)
+
+- [5.2. Bounded Context: Profile](#52-bounded-context-profile)
+    - [5.2.1. Domain Layer](#521-domain-layer)
+    - [5.2.2. Interface Layer](#522-interface-layer)
+    - [5.2.3. Application Layer](#523-application-layer)
+    - [5.2.4. Infrastructure Layer](#524-infrastructure-layer)
+    - [5.2.5. Bounded Context Software Architecture Component Level Diagrams](#525-bounded-context-software-architecture-component-level-diagrams)
+    - [5.2.6. Bounded Context Software Architecture Code Level Diagrams](#526-bounded-context-software-architecture-code-level-diagrams)
+        - [5.2.6.1. Bounded Context Domain Layer Class Diagrams](#5261-bounded-context-domain-layer-class-diagrams)
+        - [5.2.6.2. Bounded Context Database Design Diagram](#5262-bounded-context-database-design-diagram)
+
+- [5.3. Bounded Context: Location](#53-bounded-context-location)
+    - [5.3.1. Domain Layer](#531-domain-layer)
+    - [5.3.2. Interface Layer](#532-interface-layer)
+    - [5.3.3. Application Layer](#533-application-layer)
+    - [5.3.4. Infrastructure Layer](#534-infrastructure-layer)
+    - [5.3.5. Bounded Context Software Architecture Component Level Diagrams](#535-bounded-context-software-architecture-component-level-diagrams)
+    - [5.3.6. Bounded Context Software Architecture Code Level Diagrams](#536-bounded-context-software-architecture-code-level-diagrams)
+        - [5.3.6.1. Bounded Context Domain Layer Class Diagrams](#5361-bounded-context-domain-layer-class-diagrams)
+        - [5.3.6.2. Bounded Context Database Design Diagram](#5362-bounded-context-database-design-diagram)
+
+- [5.4. Bounded Context: Report](#54-bounded-context-report)
+    - [5.4.1. Domain Layer](#541-domain-layer)
+    - [5.4.2. Interface Layer](#542-interface-layer)
+    - [5.4.3. Application Layer](#543-application-layer)
+    - [5.4.4. Infrastructure Layer](#544-infrastructure-layer)
+    - [5.4.5. Bounded Context Software Architecture Component Level Diagrams](#545-bounded-context-software-architecture-component-level-diagrams)
+    - [5.4.6. Bounded Context Software Architecture Code Level Diagrams](#546-bounded-context-software-architecture-code-level-diagrams)
+        - [5.4.6.1. Bounded Context Domain Layer Class Diagrams](#5461-bounded-context-domain-layer-class-diagrams)
+        - [5.4.6.2. Bounded Context Database Design Diagram](#5462-bounded-context-database-design-diagram)
+
+- [5.5. Bounded Context: Alert](#55-bounded-context-alert)
+    - [5.5.1. Domain Layer](#551-domain-layer)
+    - [5.5.2. Interface Layer](#552-interface-layer)
+    - [5.5.3. Application Layer](#553-application-layer)
+    - [5.5.4. Infrastructure Layer](#554-infrastructure-layer)
+    - [5.5.5. Bounded Context Software Architecture Component Level Diagrams](#555-bounded-context-software-architecture-component-level-diagrams)
+    - [5.5.6. Bounded Context Software Architecture Code Level Diagrams](#556-bounded-context-software-architecture-code-level-diagrams)
+        - [5.5.6.1. Bounded Context Domain Layer Class Diagrams](#5561-bounded-context-domain-layer-class-diagrams)
+        - [5.5.6.2. Bounded Context Database Design Diagram](#5562-bounded-context-database-design-diagram)
+
+
+
+### [Capítulo VI: Solution UX Design](#capítulo-vi-solution-ux-design)
+
+- [6.1. Style Guidelines](#61-style-guidelines)
+    - [6.1.1. General Style Guidelines](#611-general-style-guidelines)
+    - [6.1.2. Web, Mobile & Devices Style Guidelines](#612-web-mobile--devices-style-guidelines)
+
+- [6.2. Information Architecture](#62-information-architecture)
+    - [6.2.1. Organization Systems](#621-organization-systems)
+    - [6.2.2. Labeling Systems](#622-labeling-systems)
+    - [6.2.3. Searching Systems](#623-searching-systems)
+    - [6.2.4. SEO Tags and Meta Tags](#624-seo-tags-and-meta-tags)
+    - [6.2.5. Navigation Systems](#625-navigation-systems)
+
+- [6.3. Landing Page UI Design](#63-landing-page-ui-design)
+    - [6.3.1. Landing Page Wireframe](#631-landing-page-wireframe)
+    - [6.3.2. Landing Page Mock-up](#632-landing-page-mock-up)
+
+- [6.4. Applications UX/UI Design](#64-applications-uxui-design)
+    - [6.4.1. Applications Wireframes](#641-applications-wireframes)
+        - [6.4.1.1. Web Application Wireframes](#6411-web-application-wireframes)
+        - [6.4.1.2. Mobile Application Wireframes](#6412-mobile-application-wireframes)
+    - [6.4.2. Applications Wireflow Diagrams](#642-applications-wireflow-diagrams)
+        - [6.4.2.1. Web Applications Wireflow Diagrams](#6421-web-applications-wireflow-diagrams)
+        - [6.4.2.2. Mobile Applications Wireflow Diagrams](#6422-mobile-applications-wireflow-diagrams)
+    - [6.4.3. Applications Mock-ups](#643-applications-mock-ups)
+        - [6.4.3.1. Web Applications Mock-ups](#6431-web-applications-mock-ups)
+        - [6.4.3.2. Mobile Applications Mock-ups](#6432-mobile-applications-mock-ups)
+    - [6.4.4. Applications User Flow Diagrams](#644-applications-user-flow-diagrams)
+        - [6.4.4.1. Web Applications User Flow Diagrams](#6441-web-applications-user-flow-diagrams)
+        - [6.4.4.2. Mobile Applications User Flow Diagrams](#6442-mobile-applications-user-flow-diagrams)
+
+- [6.5. Applications Prototyping](#65-applications-prototyping)
+    - [6.5.1. Web Applications Prototyping](#651-web-applications-prototyping)
+    - [6.5.2. Mobile Applications Prototyping](#652-mobile-applications-prototyping)
+
+
+
 # Student Outcome
 
 ABET - EAC - Student Outcome 3
@@ -161,10 +255,12 @@ En el siguiente cuadro se describe las acciones realizadas y enunciados de
 conclusiones por parte del grupo, que permiten sustentar el haber alcanzado el logro
 del ABET – EAC - Student Outcome 3.
 
+
 | Criterio específico                                                     | Acciones realizadas                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Conclusiones                                                                                                                                                                                                                                                                                                                               |
 |-------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Comunica oralmente con efectividad a diferentes rangos de audiencia.    | **TB1:** <br><br/> **Arroyo, Andre:** Lideró la organización de reuniones del equipo, moderando las intervenciones y asegurando que todos los integrantes pudieran expresar sus ideas de forma clara. Facilitó la comunicación adaptando el nivel técnico según el contexto de la discusión. <br><br/> **Guia, Pedro:** Participó activamente en las reuniones virtuales, explicando conceptos técnicos del proyecto y proponiendo mejoras en la estructura de las ideas para que sean entendidas por todo el equipo. <br><br/> **Noriega, Anatoly:** Aportó claridad técnica durante las discusiones, asegurando que los conceptos fueran correctamente interpretados y comunicados entre los miembros del equipo. <br><br/> **Reyes, Fabian:** Contribuyó con ejemplos prácticos durante las reuniones, facilitando la comprensión de ideas complejas y apoyando la comunicación efectiva. <br><br/> **Santillan, Melina:** Brindó retroalimentación constante a sus compañeros, ayudando a mejorar la fluidez, coherencia y claridad en la comunicación oral del equipo.   | TB1: Como equipo, logramos adaptar nuestra comunicación oral según el tipo de audiencia, utilizando un lenguaje claro y preciso durante las reuniones. La participación activa de todos los integrantes permitió fortalecer la comprensión de los temas y mejorar la transmisión de ideas, fomentando un ambiente colaborativo y efectivo. |
-| Comunica por escrito con efectividad a diferentes rangos de audiencia   | **TB1:** <br><br/> **Arroyo, Andre:** Se encargó de estructurar el documento, organizando las secciones principales para asegurar una correcta presentación de la información. <br><br/> **Guia, Pedro:** Redactó partes clave del informe, cuidando la claridad, coherencia y adaptación del lenguaje para distintos tipos de lectores. <br><br/> **Noriega, Anatoly:** Revisó la precisión técnica del contenido, asegurando que la información presentada sea correcta y consistente. <br><br/> **Reyes, Fabian:** Apoyó en la mejora de la redacción y en la inclusión de ejemplos que faciliten la comprensión del contenido. <br><br/> **Santillan, Melina:** Realizó la revisión final del documento, corrigiendo aspectos ortográficos, gramaticales y asegurando un lenguaje formal adecuado.                                                                                                                                                                                                                                                                        | TB1: El equipo logró elaborar un documento claro, estructurado y comprensible, adaptando el lenguaje según el público objetivo. La colaboración en la redacción y revisión permitió mantener coherencia, precisión y calidad en el informe final, cumpliendo con los estándares académicos requeridos.                                     |
+| Comunica oralmente con efectividad a diferentes rangos de audiencia.    | **TB1:** <br><br/> **Arroyo, Andre:** Lideró la organización de reuniones del equipo, moderando las intervenciones y asegurando que todos los integrantes pudieran expresar sus ideas de forma clara. Facilitó la comunicación adaptando el nivel técnico según el contexto de la discusión. <br><br/> **Guia, Pedro:** Participó activamente en las reuniones virtuales, explicando conceptos técnicos del proyecto y proponiendo mejoras en la estructura de las ideas para que sean entendidas por todo el equipo. <br><br/> **Noriega, Anatoly:** Aportó claridad técnica durante las discusiones, asegurando que los conceptos fueran correctamente interpretados y comunicados entre los miembros del equipo. <br><br/> **Reyes, Fabian:** Contribuyó con ejemplos prácticos durante las reuniones, facilitando la comprensión de ideas complejas y apoyando la comunicación efectiva. <br><br/> **Santillan, Melina:** Brindó retroalimentación constante a sus compañeros, ayudando a mejorar la fluidez, coherencia y claridad en la comunicación oral del equipo. <br><br/> **TP:** <br><br/> **Santillan, Melina:** Explicó el desarrollo del bounded context IAM, detallando su rol dentro del sistema como módulo encargado de la autenticación, autorización, gestión de usuarios y control de accesos. Durante las reuniones, comunicó de forma clara cómo este contexto permite que los ciudadanos y municipalidades accedan al sistema de manera segura. <br><br/> **Guia, Pedro:** Presentó el bounded context Location, explicando cómo se relaciona con los reportes aprobados y cómo permite registrar coordenadas, consultar ubicaciones y apoyar la identificación de zonas peligrosas. Su intervención ayudó a conectar la parte geográfica del sistema con el valor de negocio de PeaceApp. <br><br/> **Arroyo, André:** Expuso el bounded context Profile, describiendo la gestión de perfiles de ciudadanos y municipalidades. Comunicó la importancia de diferenciar ambos tipos de usuarios, especialmente porque las municipalidades cumplen un rol institucional dentro del modelo de negocio y la validación de información. <br><br/> **Reyes, Fabian:** Explicó el bounded context Alerts, enfocándose en cómo las alertas permiten notificar a los usuarios sobre zonas de riesgo o situaciones críticas. Su participación permitió aclarar que este contexto funciona como soporte del flujo de reportes y mejora la capacidad preventiva de la aplicación. <br><br/> **Noriega, Anatoly:** Sustentó el bounded context Reports, explicándolo como el núcleo principal del dominio, ya que concentra la creación, gestión, validación y estado de los reportes ciudadanos. También explicó cómo este contexto alimenta a otros módulos como Location y Alerts, reforzando la lógica del negocio. <br><br/> **TB2:** <br><br/> **Arroyo, Andre:** Dirigió las reuniones de coordinación para la revisión de las observaciones del Trabajo Parcial, explicando al equipo de forma clara los puntos a mejorar y cómo estructurar el plan de trabajo del Capítulo 7. <br><br/> **Guia, Pedro:** Participó en las sesiones de alineamiento del equipo, discutiendo las estrategias de validación y despliegue del producto para el Sprint 1 y asegurando que todos comprendieran los objetivos técnicos. <br><br/> **Noriega, Anatoly:** Expuso al equipo los cambios arquitectónicos en el backend, explicando el funcionamiento y las reglas de acceso del nuevo rol de municipalidad para que el frontend pudiera consumirlo correctamente. <br><br/> **Reyes, Fabian:** Facilitó la comunicación de las métricas y configuraciones del entorno de desarrollo del Capítulo 7, transmitiendo al equipo las convenciones de código y metodologías de trabajo necesarias para iniciar el Sprint 1. <br><br/> **Santillan, Melina:** Presentó los avances del servicio de IA y el microservicio del chatbot, traduciendo conceptos de procesamiento de lenguaje natural a términos prácticos para la integración con el resto de los servicios. | **TB1:** Como equipo, logramos adaptar nuestra comunicación oral según el tipo de audiencia, utilizando un lenguaje claro y preciso durante las reuniones. La participación activa de todos los integrantes permitió fortalecer la comprensión de los temas y mejorar la transmisión de ideas, fomentando un ambiente colaborativo y efectivo. <br><br/> **TP:** Como equipo, logramos comunicar oralmente la responsabilidad de cada bounded context de manera clara y ordenada, relacionando cada módulo con el dominio de seguridad ciudadana. La exposición individual de IAM, Location, Profile, Alerts y Reports permitió demostrar una comprensión integral del sistema, destacando cómo cada contexto aporta al funcionamiento de PeaceApp y a su propuesta de valor para ciudadanos y municipalidades. <br><br/> **TB2:** Como equipo, logramos sostener reuniones técnicas efectivas donde se explicaron conceptos complejos, como la integración de IA, los cambios arquitectónicos del backend, el nuevo rol de municipalidad, la configuración del entorno de desarrollo y la planificación del Sprint 1. La comunicación oral fluida permitió levantar las observaciones del Trabajo Parcial y organizar el arranque del Sprint 1 con claridad, alineando los objetivos técnicos y funcionales del equipo. |
+| Comunica por escrito con efectividad a diferentes rangos de audiencia   | **TB1:** <br><br/> **Arroyo, Andre:** Se encargó de estructurar el documento, organizando las secciones principales para asegurar una correcta presentación de la información. <br><br/> **Guia, Pedro:** Redactó partes clave del informe, cuidando la claridad, coherencia y adaptación del lenguaje para distintos tipos de lectores. <br><br/> **Noriega, Anatoly:** Revisó la precisión técnica del contenido, asegurando que la información presentada sea correcta y consistente. <br><br/> **Reyes, Fabian:** Apoyó en la mejora de la redacción y en la inclusión de ejemplos que faciliten la comprensión del contenido. <br><br/> **Santillan, Melina:** Realizó la revisión final del documento, corrigiendo aspectos ortográficos, gramaticales y asegurando un lenguaje formal adecuado. <br><br/> **TP:** <br><br/> **Santillan, Melina:** Redactó y estructuró la documentación correspondiente al bounded context IAM, describiendo sus capas, responsabilidades, entidades, servicios y relación con la seguridad del sistema. Su trabajo permitió documentar de forma comprensible el manejo de autenticación y permisos. <br><br/> **Guia, Pedro:** Elaboró la documentación del bounded context Location, incluyendo su capa de dominio, interfaz, aplicación, infraestructura y diagramas relacionados. Su aporte permitió explicar cómo el sistema gestiona ubicaciones asociadas a reportes y zonas de riesgo. <br><br/> **Arroyo, André:** Desarrolló la documentación del bounded context Profile, detallando los perfiles de ciudadanos y municipalidades, sus atributos, servicios, repositorios y diagramas. Su redacción ayudó a diferenciar claramente los tipos de usuarios del sistema. <br><br/> **Reyes, Fabian:** Preparó la documentación del bounded context Alerts, explicando la generación, consulta y gestión de alertas dentro del sistema. Su aporte permitió evidenciar cómo PeaceApp notifica situaciones de riesgo a partir de información generada por otros contextos. <br><br/> **Noriega, Anatoly:** Redactó la documentación del bounded context Reports, definiéndolo como el contexto central del negocio. Documentó la creación, validación, aprobación, rechazo y eliminación de reportes, así como su relación con eventos, ubicaciones y alertas. <br><br/> **TB2:** <br><br/> **Arroyo, Andre:** Colaboró en la redacción técnica del Capítulo 7, documentando la gestión de la configuración del software y asegurando que el lenguaje empleado cumpliera con los estándares académicos y técnicos exigidos. <br><br/> **Guia, Pedro:** Apoyó en la reestructuración del documento final, detallando por escrito el levantamiento de las observaciones del Trabajo Parcial de manera formal y coherente. <br><br/> **Noriega, Anatoly:** Documentó las nuevas especificaciones del IAM Bounded Context y los endpoints de la API relacionados con el rol de municipalidad, utilizando un formato claro para facilitar el trabajo de los desarrolladores frontend. <br><br/> **Reyes, Fabian:** Redactó la sección de planificación del Sprint 1, especificando claramente los asistentes, objetivos y el alcance inicial del MVP para dejar constancia escrita de las decisiones tomadas por el equipo. <br><br/> **Santillan, Melina:** Escribió la documentación técnica correspondiente a los flujos conversacionales y la orquestación de servicios del Chatbot de IA, estructurando la información para que sea entendible tanto a nivel de desarrollo como a nivel de usuario final. | **TB1:** El equipo logró elaborar un documento claro, estructurado y comprensible, adaptando el lenguaje según el público objetivo. La colaboración en la redacción y revisión permitió mantener coherencia, precisión y calidad en el informe final, cumpliendo con los estándares académicos requeridos. <br><br/> **TP:** El equipo logró elaborar una documentación escrita clara, estructurada y coherente para el Capítulo V, distribuyendo responsabilidades por bounded context. Cada integrante documentó su módulo respetando una estructura común basada en capas de dominio, interfaz, aplicación e infraestructura, lo que permitió mantener consistencia técnica y facilitar la comprensión del diseño táctico del sistema para distintos tipos de audiencia. <br><br/> **TB2:** El equipo demostró una alta capacidad para plasmar cambios técnicos avanzados en la documentación del proyecto. Se logró un documento cohesivo que integra el levantamiento de observaciones del Trabajo Parcial, la gestión de configuración del software, las nuevas especificaciones del rol de municipalidad, la planificación del Sprint 1, el despliegue del producto y la integración del chatbot de IA. Esto permitió presentar información técnica de manera clara y comprensible para distintas audiencias evaluadoras. |
+
 
 ---
 
@@ -213,7 +309,15 @@ Con PeaceApp, construimos un Perú más seguro, paso a paso.
 
 **How (Cómo):** PeaceApp se mantiene actualizada gracias al constante aporte de los usuarios, quienes reportan incidentes y colaboran con la comunidad. Además, la aplicación utiliza tecnología avanzada de geolocalización y análisis de datos para ofrecer información precisa en tiempo real.
 
-**How Much (Cuánto):** PeaceApp estará disponible de forma gratuita para todos los usuarios. Sin embargo, para sostener el desarrollo y mantenimiento de la plataforma, la aplicación incluirá anuncios integrados.
+**How Much (Cuánto):** PeaceApp implementa un modelo de negocio híbrido o de monetización mixta para equilibrar el impacto social masivo con la sostenibilidad financiera de nivel empresarial:
+
+* **Segmento Ciudadano (B2C - Modelo Freemium/Ad-Supported):** La aplicación móvil es 100% gratuita para todos los ciudadanos de Lima Metropolitana. Esto garantiza un rápido efecto de red para acumular la masa crítica de reportes en tiempo real. Para financiar los servidores, se integra publicidad geolocalizada no intrusiva, promocionando exclusivamente "Negocios Locales Seguros" (establecimientos comerciales auditados positivamente por la comunidad) en zonas específicas del mapa, salvaguardando la UX.
+* **Segmento Gubernamental/Corporativo (B2G/B2B - Modelo SaaS + Setup Fee):** El acceso al módulo web avanzado de monitoreo táctico y analítica predictiva para las Municipalidades y centrales de serenazgo se comercializa mediante contratos de Software as a Service (SaaS). Este esquema se desglosa en una tarifa única inicial de implementación (*Setup, Onboarding & Training Fee*) y una suscripción mensual escalonada según el tamaño operativo del distrito (*SaaS Tiers*), detallados a continuación:
+
+| Componente de Cobro | Plan Municipio Estándar (Hasta 100,000 hab.) | Plan Municipio Enterprise (Más de 100,000 hab.) |
+| :--- | :--- | :--- |
+| **Tarifa Única Inicial (Setup & Training Fee)** | **$3,000 USD** <br>• Configuración de geocercas operativas del distrito.<br>• Proceso *Batch* de migración e ingesta masiva de data histórica criminal (Excel/CSV de serenazgo legado) hacia el *Location & Report Context*.<br>• Programa de Capacitación Técnica y Adopción Operativa de hasta 20 serenos y despachadores con emisión de la **Certificación "Operador PeaceApp"**. | **$7,000 USD** <br>• Todo lo del plan Estándar.<br>• Desarrollo e implementación de una Capa de Anticorrupción (**ACL**) a medida en el *Report Context* para integrarse con sistemas de videovigilancia *legacy* o cámaras de seguridad municipales.<br>• Capacitación certificada extendida para hasta 100 operadores y unidades de campo de Serenazgo. |
+| **Suscripción Mensual (SaaS Fee)** | **$400 USD / mes** <br>• Licenciamiento de la Web App de Monitoreo para Central de Serenazgo.<br>• Actualizaciones continuas de software.<br>• Soporte Estándar. | **$1,200 USD / mes** <br>• Licenciamiento ilimitado de la Web App de Monitoreo.<br>• Acceso al motor predictivo de incidentes por IA.<br>• Soporte de Misión Crítica con Acuerdo de Nivel de Servicio (**SLA**) policial. |
 
 ### 1.2.2. Lean UX Process
 
@@ -238,18 +342,18 @@ Ahora que hemos analizado la problemática y contamos con una visión clara de c
 
 **Business Outcomes:**
 
-- Generar ingresos sostenibles a través de la venta de la aplicación a entidades públicas y privadas.
-- Mejorar la calidad de vida de los ciudadanos del Perú al reducir su exposición a riesgos en las calles.
-- Contribuir a la disminución de la delincuencia en el país al facilitar la detección de zonas peligrosas y la respuesta oportuna.
+- Generar flujos de ingresos sostenibles y predecibles mediante contratos de licenciamiento SaaS a largo plazo y tarifas de implementación integral con municipalidades distritales (B2G).
+- Lograr la adopción operativa del software por parte del personal de serenazgo (tasa de uso >90%), mitigando la resistencia al cambio en el sector público mediante programas de capacitación técnica y certificación auditables.
+- Contribuir a la disminución medible de la delincuencia e índices de criminalidad en el país al optimizar la capacidad de respuesta y distribución de patrullas municipales basadas en analítica en tiempo real.
 
 **User Outcomes:**
 
-1. **¿Quién es el usuario?** Cualquier ciudadano que viva o trabaje en zonas donde las entidades están asociadas con nuestra plataforma.
-2. **¿Dónde encaja nuestro producto en su vida diaria?** Nuestra aplicación se convierte en una herramienta indispensable para planificar trayectos seguros y reportar incidentes, brindando tranquilidad en su rutina diaria.
-3. **¿Qué desafíos enfrenta nuestro producto?** Un desafío importante es que nuestra generación de ingresos depende de la capacidad de atraer y mantener asociaciones con entidades públicas y privadas.
-4. **¿Cuándo y cómo es usado nuestro producto?** Los usuarios utilizan la aplicación al desplazarse por áreas desconocidas o al desear reportar incidentes para proteger a otros. La aplicación se convierte en una herramienta diaria para asegurar trayectos más seguros.
-5. **¿Qué características son importantes?** La aplicación debe ser intuitiva y fácil de usar, con acceso rápido a la información relevante y una navegación clara. La actualización en tiempo real es fundamental para su efectividad.
-6. **¿Cómo debe verse y comportarse nuestro producto?** La aplicación debe ser visualmente atractiva, con una paleta de colores que sea agradable y fácil de leer. El proceso de registro debe ser simple y accesible para todos los usuarios, maximizando la usabilidad.
+1. **¿Quién es el usuario?** Por un lado, el ciudadano común que transita en Lima Metropolitana; por otro lado, el operador de la central de monitoreo municipal y el sereno de campo encargados de la respuesta táctica ante incidentes.
+2. **¿Dónde encaja nuestro producto en su vida diaria?** Para el ciudadano, es la herramienta diaria para planificar rutas seguras. Para el operador municipal, es su plataforma principal de despacho e inteligencia para gestionar incidentes, alertas y coordinar patrullajes eficientes en sus respectivas geocercas.
+3. **¿Qué desafíos enfrenta nuestro producto?** El principal desafío de negocio radica en los ciclos de venta largos inherentes al sector público (B2G) debido a las regulaciones burocráticas y requisitos contractuales del Estado. Técnicamente, el reto es garantizar un Uptime del 99.9% en el *Alert Service* para no comprometer vidas humanas y diseñar Capas de Anticorrupción (ACL) estables para convivir con la infraestructura tecnológica obsoleta (*legacy*) de los municipios.
+4. **¿Cuándo y cómo es usado nuestro producto?** Los ciudadanos lo usan de forma preventiva al desplazarse. Las municipalidades operan la consola web de manera ininterrumpida (24/7), procesando flujos asíncronos de datos provenientes de alertas ciudadanas validadas para el despliegue del serenazgo.
+5. **¿Qué características son importantes?** Alta disponibilidad de los microservicios, aislamiento de datos personales cumpliendo de forma estricta la **Ley N° 29733 (Protección de Datos Personales en Perú)**, ingesta fluida de datos de ubicación por Mapbox y despacho inmediato de alertas mediante WhatsApp API y SMS Gateway sin fallos.
+6. **¿Cómo debe verse y comportarse nuestro producto?** Interfaces limpias y accesibles. Para la municipalidad, debe proveer un Dashboard Web corporativo optimizado para la toma de decisiones rápidas bajo estrés operativo, mapeando incidentes clasificados por niveles de criticidad de forma visual y jerárquica.
 
 **User Benefits:**
 
@@ -559,6 +663,8 @@ Objetivo: Conocer las restricciones legales y técnicas obligatorias en el secto
 
 ### 2.2.2. Registro de entrevistas
 
+**Segmento: Ciudadano**
+
 **URL de las entrevistas:** https://drive.google.com/drive/folders/1FgvKursJUJVBZ7pQd1PT35ZcSaMzPoaR?usp=sharing
 
 **Entrevista N°1:**
@@ -610,6 +716,24 @@ El entrevistado se siente inseguro en espacios públicos, especialmente cerca de
 **Ocupación:** Estudiante universitaria (Educacion Infantil)
 
 Maria Paula Rojas, una joven de 19 años que estudia Educación Infantil y disfruta de dibujar, ver series animadas, cantar y aprender sobre educación especial, participó en una conversación centrada en la seguridad y el uso de aplicaciones móviles. Durante la entrevista, se discutió la importancia de implementar herramientas tecnológicas para mejorar la seguridad en espacios públicos, incluyendo el desarrollo de una app que permita reportar y rastrear incidentes. También se habló sobre el potencial uso de tecnología para detectar y localizar robots, y se compararon algunas funciones con las que ofrecen dispositivos como los de Apple. La charla reflejó un claro interés en crear soluciones innovadoras que contribuyan a la protección de las personas en su entorno cotidiano.
+
+**Segmento: Municipalidad**
+
+**Entrevista N°1:**
+
+![Entrevista1](assets/Entrevista1-Municipalidad.png?raw=true)
+
+**Timing:** 7:42
+
+**Nombre:** Mauricio Paucar
+
+**Edad:** 27 años
+
+**Pasatiempos:** Salir con amigos y con mascotas.
+
+**Ocupación:** Coordinador de Operaciones de Seguridad Ciudadana Municipal
+
+Mauricio trabaja como Coordinador de Operaciones de Seguridad Ciudadana Municipal. Actualmente, la gestión de emergencias en la municipalidad depende de llamadas telefónicas, WhatsApp, radios y registros manuales, lo que genera retrasos cuando la información llega incompleta o poco clara. Utilizan cámaras CCTV, teléfonos y grupos de comunicación, pero los sistemas no están integrados ni automatizados. Uno de los principales problemas son las falsas alarmas, ya que no cuentan con mecanismos automáticos de validación, ocasionando pérdida de recursos y tiempo operativo. Considera muy útil una plataforma que permita recibir evidencia multimedia en tiempo real para validar incidentes y priorizar emergencias. Los mapas del delito se elaboran manualmente y la coordinación con la PNP y municipalidades vecinas se realiza principalmente mediante llamadas y WhatsApp. Considera importante que un nuevo sistema genere KPIs automáticos, mapas de calor y reportes operativos en tiempo real. También cree que la plataforma podría servir para informar rápidamente a los vecinos mediante alertas segmentadas. Identifica como principales barreras la resistencia al cambio y el bajo nivel de experiencia tecnológica de algunos operadores, por lo que el sistema debería ser intuitivo, rápido y fácil de usar. Además, considera indispensable garantizar privacidad, cifrado y control de accesos en la información de los ciudadanos.
 
 ### 2.2.3. Análisis de entrevistas
 
@@ -1651,3 +1775,2284 @@ Cada uno de estos microservicios expone su propia API y se comunica directamente
 PeaceApp se despliega íntegramente en AWS. Los usuarios acceden desde dispositivos Android (app en Kotlin) o navegadores web (SPA en Vue+Vite). El Landing Page se sirve vía CloudFront + S3, los seis microservicios corren en pods Docker dentro de un clúster EKS (Kubernetes), y cada uno tiene su propia instancia MySQL en Amazon RDS para garantizar aislamiento de datos por bounded context.
 
 ![peaceapp_deployment.png](assets/peaceapp_deployment.png)
+
+---
+
+# Capítulo V: Tactical-Level Software Design
+
+## 5.1. Bounded Context: IAM
+
+El bounded context **IAM** tiene como propósito gestionar la identidad, autenticación y autorización de los usuarios dentro de PeaceApp. Este contexto permite registrar usuarios, iniciar sesión y validar el acceso a funcionalidades protegidas según el rol asignado a cada cuenta.
+
+En la versión actual del sistema, tanto la **Mobile App** como la **Web App** pueden ser utilizadas por usuarios ciudadanos y usuarios municipales. Ambas aplicaciones consumen el mismo backend IAM, el cual centraliza la lógica de autenticación, autorización y control de roles.
+
+Este bounded context se organiza a partir de tres estructuras principales de base de datos: `iam_users`, `role` y `user_roles`. Por ello, el contexto se enfoca en la gestión de usuarios, roles y asignación de roles.
+Las funcionalidades consideradas se relacionan con el registro de usuarios, inicio de sesión, acceso municipal, manejo de roles y autenticación mediante JWT.
+
+---
+
+### 5.1.1. Domain Layer
+
+| Componente | Tipo | Descripción |
+|---|---|---|
+| User | Aggregate Root | Representa la identidad principal del usuario dentro del sistema IAM. Gestiona su nombre de usuario, contraseña cifrada y roles asociados. |
+| Role | Entity | Representa un rol del sistema utilizado para diferenciar permisos de acceso, como `ROLE_USER` o `ROLE_ADMIN`. |
+| UserRole | Entity | Representa la asignación de un rol a un usuario dentro del sistema. |
+| Username | Value Object | Encapsula el nombre de usuario utilizado como identificador para el inicio de sesión. |
+| PasswordHash | Value Object | Representa la contraseña del usuario almacenada de forma cifrada. |
+| RoleName | Value Object | Define los nombres de rol permitidos dentro del sistema IAM. |
+| AuthenticationService | Domain Service | Define las reglas de autenticación necesarias para validar las credenciales del usuario. |
+| AuthorizationService | Domain Service | Define las reglas de autorización para verificar si un usuario cuenta con el rol requerido. |
+| UserRepository | Repository | Define el contrato de persistencia para consultar y registrar usuarios. |
+| RoleRepository | Repository | Define el contrato de persistencia para consultar roles. |
+| UserRoleRepository | Repository | Define el contrato de persistencia para consultar y asignar roles a usuarios. |
+| UserRegisteredEvent | Domain Event | Se publica cuando un nuevo usuario es registrado correctamente. |
+| UserLoggedInEvent | Domain Event | Se publica cuando un usuario inicia sesión de forma exitosa. |
+| UserRoleAssignedEvent | Domain Event | Se publica cuando se asigna un rol a un usuario. |
+
+---
+
+### 5.1.2. Interface Layer
+
+| Componente | Tipo | Descripción |
+|---|---|---|
+| AuthController | REST Controller | Expone los endpoints necesarios para el registro, inicio de sesión y validación de acceso de los usuarios. |
+| RegisterRequestDTO | DTO | Transporta los datos enviados desde las aplicaciones cliente para registrar un nuevo usuario. |
+| LoginRequestDTO | DTO | Transporta las credenciales enviadas por el usuario para iniciar sesión. |
+| AuthResponseDTO | DTO | Devuelve la respuesta del proceso de autenticación, incluyendo la información básica del usuario, sus roles y el token de acceso. |
+| UserResponseDTO | DTO | Transfiere información básica del usuario autenticado hacia las aplicaciones cliente. |
+| RoleResponseDTO | DTO | Transfiere la información de los roles asignados al usuario. |
+
+---
+
+### 5.1.3. Application Layer
+
+| Componente | Tipo | Descripción |
+|---|---|---|
+| RegisterUserCommand | Command | Solicita el registro de un nuevo usuario en el sistema IAM. |
+| LoginUserCommand | Command | Solicita la autenticación de un usuario mediante sus credenciales. |
+| ValidateUserRoleQuery | Query | Consulta si un usuario posee el rol necesario para acceder a una funcionalidad protegida. |
+| RegisterUserHandler | Command Handler | Procesa el registro del usuario y coordina la asignación de su rol correspondiente. |
+| LoginUserHandler | Command Handler | Procesa el inicio de sesión, valida las credenciales ingresadas y genera la respuesta de autenticación. |
+| ValidateUserRoleHandler | Query Handler | Procesa la validación de permisos según los roles asociados al usuario. |
+| AuthService | Application Service | Coordina los casos de uso relacionados con registro, inicio de sesión y validación de roles. |
+| UserDTO | DTO | Transfiere información básica del usuario entre la capa de aplicación y otras capas. |
+| RoleDTO | DTO | Transfiere información relacionada con los roles del usuario. |
+
+---
+
+### 5.1.4. Infrastructure Layer
+
+| Componente | Tipo | Descripción |
+|---|---|---|
+| UserRepositoryImpl | Repository Implementation | Implementa la persistencia de usuarios utilizando la tabla `iam_users`. |
+| RoleRepositoryImpl | Repository Implementation | Implementa la persistencia de roles utilizando la tabla `role`. |
+| UserRoleRepositoryImpl | Repository Implementation | Implementa la persistencia de la relación entre usuarios y roles utilizando la tabla `user_roles`. |
+| UserDao | DAO | Proporciona operaciones de acceso a datos para la tabla `iam_users`. |
+| RoleDao | DAO | Proporciona operaciones de acceso a datos para la tabla `role`. |
+| UserRoleDao | DAO | Proporciona operaciones de acceso a datos para la tabla `user_roles`. |
+| UserEntity | Persistence Entity | Representa la estructura persistente de la tabla `iam_users`. |
+| RoleEntity | Persistence Entity | Representa la estructura persistente de la tabla `role`. |
+| UserRoleEntity | Persistence Entity | Representa la estructura persistente de la tabla `user_roles`. |
+| PasswordEncoder | Security Component | Permite cifrar y verificar las contraseñas de los usuarios. |
+| JwtTokenProvider | Security Component | Genera y valida tokens JWT para autenticar solicitudes protegidas. |
+| AuthMapper | Mapper | Convierte objetos entre las capas de dominio, aplicación y persistencia. |
+
+---
+
+### 5.1.5. Bounded Context Software Architecture Component Level Diagrams
+
+#### Backend
+
+El diagrama de componentes del backend del **IAM Bounded Context** representa la estructura encargada de centralizar la autenticación y autorización de PeaceApp. Este backend es consumido tanto por la Mobile App como por la Web App, permitiendo que ciudadanos y usuarios municipales accedan desde cualquiera de las dos aplicaciones cliente.
+
+La capa de interfaz expone los endpoints REST relacionados con registro, inicio de sesión y validación de acceso. La capa de aplicación coordina los casos de uso de autenticación y autorización. La capa de dominio contiene los conceptos principales del contexto, como usuarios y roles, mientras que la capa de infraestructura gestiona la persistencia en la base de datos `iam_db`.
+
+!["IAM Backend Component Diagram"](assets/component-backend-iam.png)
+
+#### WebApp
+
+El diagrama de componentes de la **Web App** dentro del **IAM Bounded Context** representa los elementos encargados de permitir que ciudadanos y usuarios municipales puedan autenticarse desde la aplicación web. La validación de permisos no depende del cliente, sino del rol asignado al usuario en el backend.
+
+El componente principal es el **Web Auth Component**, encargado de presentar las interfaces de registro e inicio de sesión. Este componente utiliza el **Web Auth Service**, que coordina la lógica de autenticación desde el cliente web y envía las credenciales a la API RESTful. El **Auth Assembler** transforma los datos del formulario web en DTOs compatibles con el backend IAM.
+
+!["IAM WebApp Component Diagram"](assets/component-webapp-iam.png)
+
+#### MobileApp
+
+El diagrama de componentes de la **Mobile App** dentro del **IAM Bounded Context** representa los componentes encargados de permitir que ciudadanos y usuarios municipales puedan registrarse o iniciar sesión desde la aplicación móvil. La autorización se determina según los roles asociados a cada usuario en el backend.
+
+El **Mobile Auth Component** permite al usuario interactuar con las interfaces de registro e inicio de sesión. Este componente utiliza el **Mobile Auth Service**, que centraliza la lógica de autenticación del cliente móvil y envía los datos hacia la API RESTful. El **Auth Assembler** transforma los datos ingresados por el usuario en estructuras compatibles con los DTOs requeridos por el backend IAM.
+
+!["IAM MobileApp Component Diagram"](assets/component-mobileapp-iam.png)
+
+---
+
+### 5.1.6. Bounded Context Software Architecture Code Level Diagrams
+
+Esta sección presenta los diagramas de nivel de código correspondientes al bounded context **IAM**. Los diagramas se enfocan únicamente en los elementos existentes en el backend actual: usuarios, roles y asignaciones de roles.
+
+---
+
+#### 5.1.6.1. Bounded Context Domain Layer Class Diagrams
+
+El diagrama de clases del dominio representa los principales elementos conceptuales del bounded context IAM. En este nivel se consideran las entidades `User`, `Role` y `UserRole`, además de los value objects relacionados con el nombre de usuario, contraseña cifrada y nombre del rol.
+
+Asimismo, se incluyen los servicios de dominio responsables de las reglas de autenticación y autorización. Estos servicios permiten validar las credenciales del usuario y verificar si cuenta con el rol requerido para acceder a una funcionalidad protegida.
+
+!["IAM Domain Layer Class Diagram"](assets/class-domain-iam.png)
+
+---
+
+#### 5.1.6.2. Bounded Context Database Design Diagram
+
+El diagrama de base de datos del bounded context **IAM** representa la estructura persistente utilizada para gestionar usuarios y roles dentro del sistema. La tabla `iam_users` almacena los datos principales del usuario, la tabla `role` contiene los roles disponibles y la tabla `user_roles` permite asociar uno o más roles a cada usuario.
+
+Esta estructura permite diferenciar el acceso entre usuarios ciudadanos y usuarios municipales o administrativos, manteniendo una relación clara entre cuentas registradas y permisos asignados.
+
+!["IAM Database Design Diagram"](assets/database-iam.png)
+
+
+
+## 5.2. Bounded Context: Profile
+
+El Bounded Context de **Profile** es responsable de la gestión de perfiles de los usuarios que interactúan con el sistema PeaceApp. En particular, maneja los perfiles de **Ciudadanos (Citizens)** y **Municipalidades (Municipalities)**. Este contexto permite registrar nuevos perfiles y obtener información de los mismos mediante su userId. Las entidades principales son Citizen y Municipality, y su estructura está diseñada para asegurar la unicidad de identificadores clave como DNI, correo electrónico institucional y número de teléfono.
+
+### 5.2.1. Domain Layer
+
+La capa de dominio encapsula las entidades centrales del sistema de perfiles y contiene la lógica de validación de atributos mediante objetos de valor. Las entidades principales son Citizen y Municipality, las cuales heredan de un agregado raíz auditable. Se utilizan objetos de valor como Phone, Dni y InstitutionalEmail para encapsular lógica específica y validación.
+
+**Aggregate:** Citizen
+
+**Descripción:** Representa el perfil de un ciudadano registrado en PeaceApp.
+
+|**Atributo**|**Descripción**|**Tipo**|
+| :-: | :-: | :-: |
+|fullName|Nombre completo del ciudadano|String|
+|city|Ciudad de residencia|String|
+|district|Distrito de residencia|String|
+|userId|ID del usuario (referencia a IAM)|Long|
+|dni|Documento nacional de identidad|Dni|
+|phone|Número de teléfono del ciudadano|Phone|
+
+**Método**
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|Citizen(CreateCitizenCommand command, Long userId)|Constructor que crea un perfil de ciudadano.|
+|String getDni()|Devuelve el número de DNI del ciudadano.|
+|String getPhone()|Devuelve el número telefónico del ciudadano.|
+
+**Aggregate:** Municipality
+
+**Descripción:** Representa el perfil de una municipalidad registrada en PeaceApp.
+
+|**Atributo**|**Descripción**|**Tipo**|
+| :-: | :-: | :-: |
+|municipalityName|Nombre de la municipalidad|String|
+|city|Ciudad donde opera la municipalidad|String|
+|district|Distrito de operación|String|
+|institutionalEmail|Correo institucional de la municipalidad|InstitutionalEmail|
+|userId|ID del usuario (referencia a IAM)|Long|
+|phone|Número telefónico institucional|Phone|
+
+**Método**
+
+|**Clase**|**Método**|**Descripción**|
+| :-: | :-: | :-: |
+|Municipality|Municipality(CreateMunicipalityCommand command, Long userId)|Constructor que crea un perfil de municipalidad.|
+|Municipality|String getPhone()|Devuelve el número telefónico institucional.|
+|Municipality|String getInstitutionalEmail()|Devuelve el correo institucional de la municipalidad.|
+
+**Value Objects**
+
+**Dni**
+
+**Descripción:**
+Representa el Documento Nacional de Identidad (DNI) de un ciudadano. Asegura que el valor sea un número positivo de exactamente 8 dígitos.
+
+**Atributos:**
+
+|**Nombre**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+|dni|String|Número de DNI con exactamente 8 dígitos|
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|Dni(String dni)|Constructor que valida que el valor tenga exactamente 8 dígitos.|
+|Dni()|Constructor por defecto que asigna "00000000".|
+
+**Phone**
+
+**Descripción:**
+Representa un número de teléfono válido, de exactamente 9 dígitos.
+
+**Atributos:**
+
+|**Nombre**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+|phone|String|Número telefónico con exactamente 9 dígitos|
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|Phone(String phone)|Constructor que valida que el valor tenga exactamente 9 dígitos.|
+|Phone()|Constructor por defecto que asigna "000000000".|
+
+**InstitutionalEmail**
+
+**Descripción:**
+Representa un correo electrónico institucional válido perteneciente a una municipalidad.
+
+**Atributos:**
+
+|**Nombre**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+|email|String|Correo institucional válido de la municipalidad|
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|InstitutionalEmail(String email)|Constructor que valida el formato correcto del correo institucional.|
+|InstitutionalEmail()|Constructor por defecto que asigna "municipality@peaceapp.com".|
+
+**Domain Services**
+
+Los Domain Services en este contexto son interfaces que definen operaciones de negocio relacionadas con los aggregates Citizen y Municipality. Permiten separar las reglas de negocio que no pertenecen directamente a una entidad o value object.
+
+**CitizenCommandService**
+
+**Descripción:**
+Interfaz que define operaciones de negocio relacionadas con la creación de un Citizen.
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|Optional<Citizen> handle(CreateCitizenCommand command, Long userId)|Procesa el comando de creación de un ciudadano, asociándolo a un User existente mediante su userId.|
+
+**CitizenQueryService**
+
+**Descripción:**
+Interfaz que permite consultar información relacionada con un Citizen.
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|Optional<Citizen> handle(GetCitizenByUserIdQuery query)|Obtiene un Citizen asociado a un User mediante su userId.|
+
+**MunicipalityCommandService**
+
+**Descripción:**
+Interfaz que define operaciones de negocio relacionadas con la creación de una Municipality.
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|Optional<Municipality> handle(CreateMunicipalityCommand command, Long userId)|Procesa el comando de creación de una municipalidad, asociándola a un User existente mediante su userId.|
+
+**MunicipalityQueryService**
+
+**Descripción:**
+Interfaz que permite consultar información relacionada con una Municipality.
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|Optional<Municipality> handle(GetMunicipalityByUserIdQuery query)|Obtiene una Municipality asociada a un User mediante su userId.|
+
+### 5.2.2. Interface Layer
+
+Esta capa actúa como punto de entrada para consultas externas relacionadas con los perfiles. A través de los controladores REST, los clientes pueden consultar el perfil de un ciudadano o una municipalidad por su userId.
+
+**Controlador: ProfilesController**
+
+**Descripción:** Gestiona las consultas de perfiles de usuarios.
+
+|**Método**|**Descripción**|**HTTP**|**Respuesta**|
+| :-: | :-: | :-: | :-: |
+|getCitizenProfile(Long userId)|Devuelve el perfil de un ciudadano por su userId|GET /profiles/citizen/{userId}|Recurso del ciudadano|
+|getMunicipalityProfile(Long userId)|Devuelve el perfil de una municipalidad por su userId|GET /profiles/municipality/{userId}|Recurso de la municipalidad|
+
+### 5.2.3. Application Layer
+
+Esta capa contiene la lógica de aplicación, incluyendo la validación de unicidad para campos clave y el manejo de comandos y consultas. Coordina la creación y recuperación de perfiles utilizando servicios específicos para cada tipo de usuario.
+
+**Clase: CitizenCommandServiceImpl**
+
+**Descripción:** Gestiona los comandos para la creación de ciudadanos.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|handle(CreateCitizenCommand)|Crea un nuevo perfil de ciudadano, validando unicidad de dni, phone y userId.|
+
+**Clase: MunicipalityCommandServiceImpl**
+
+**Descripción:** Gestiona los comandos para la creación de municipalidades.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|handle(CreateMunicipalityCommand)|Crea un nuevo perfil de municipalidad, validando institutionalEmail, phone y userId.|
+
+**Clase: CitizenQueryServiceImpl**
+
+**Descripción:** Gestiona consultas sobre ciudadanos.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|handle(GetCitizenByUserIdQuery)|Recupera un ciudadano a partir de su userId.|
+
+**Clase: MunicipalityQueryServiceImpl**
+
+**Descripción:** Gestiona consultas sobre municipalidades.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|handle(GetMunicipalityByUserIdQuery)|Recupera una municipalidad por su userId.|
+
+### 5.2.4. Infrastructure Layer
+
+La capa de infraestructura proporciona la implementación de persistencia para los perfiles, permitiendo operaciones CRUD y búsquedas específicas. Los repositorios se basan en Spring Data JPA.
+
+**Repositorio: CitizenRepository**
+
+**Descripción:** Administra la persistencia de la entidad Citizen.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|findCitizenByUserId(Long)|Recupera un ciudadano por su userId.|
+|existsByDni_Dni(String)|Verifica si existe un ciudadano con un DNI dado.|
+|existsByPhone_Phone(String)|Verifica si existe un ciudadano con un teléfono dado.|
+|existsByUserId(Long)|Verifica si existe un ciudadano con un userId dado.|
+
+**Repositorio: MunicipalityRepository**
+
+**Descripción:** Administra la persistencia de la entidad Municipality.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|findMunicipalityByUserId(Long)|Recupera una municipalidad por su userId.|
+|existsByInstitutionalEmail_Email(String)|Verifica si existe una municipalidad con un correo institucional dado.|
+|existsByPhone_Phone(String)|Verifica si existe una municipalidad con un teléfono dado.|
+|existsByUserId(Long)|Verifica si existe una municipalidad con un userId dado.|
+
+<div style="page-break-after: always;"></div>
+
+
+
+
+### 5.2.5. Bounded Context Software Architecture Component Level Diagrams
+**Backend**
+
+El Profile Bounded Context centraliza la gestión de la información de perfil de los usuarios, incluyendo su estructura de dominio, lógica de aplicación, almacenamiento persistente e interfaces expuestas vía HTTP. Su arquitectura facilita tanto el acceso directo desde aplicaciones cliente como la colaboración con otros contextos a través de su fachada de contexto, permitiendo así la reutilización controlada de funciones relacionadas con los perfiles sin romper la encapsulación.
+
+!["Profile Management Component Diagram"](assets/component-backend-profile.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+**WebApp**
+
+El diagrama de componentes del Profile Bounded Context describe la estructura de componentes dedicados a la gestión de perfiles de ciudadanos y municipalidades dentro de PeaceApp. En este contexto, el Citizen Profile Component permite a los ciudadanos visualizar y editar su información personal, mientras que el Municipality Profile Component permite a las municipalidades gestionar su información institucional. Ambos componentes se apoyan en los servicios Citizen Profile Service y Municipality Profile Service, encargados de coordinar las operaciones de negocio y la comunicación con la API RESTful. Asimismo, el componente Profile Assembler se encarga de transformar y mapear los datos entre los modelos del frontend y los DTOs utilizados por la API, estableciendo una arquitectura desacoplada, mantenible y escalable que facilita la evolución de las funcionalidades relacionadas con la gestión de perfiles.
+
+!["Profile Management WebApp Component Diagram"](assets/component-webApp-profile.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+**MobileApp**
+
+El diagrama de componentes del bounded context Profile muestra los componentes encargados de la gestión de perfiles de ciudadanos y municipalidades dentro de la aplicación móvil PeaceApp. El contexto incluye los componentes Citizen Profile Widget y Municipality Profile Widget, responsables de permitir la visualización y edición de la información personal e institucional de los usuarios desde la aplicación móvil. Asimismo, los servicios Citizen Profile Service y Municipality Profile Service centralizan la lógica de negocio relacionada con la gestión de perfiles, coordinando las operaciones de validación, recuperación y actualización de datos. El componente Profile Assembler se encarga de transformar y adaptar los datos entre las estructuras provenientes del backend y los modelos utilizados en la aplicación móvil. El flujo principal inicia desde los widgets de perfil hacia los servicios correspondientes, los cuales utilizan el ensamblador para procesar la información y gestionar las solicitudes hacia la API RESTful, permitiendo una administración de perfiles eficiente, desacoplada y mantenible.
+
+!["Profile Management MobileApp Component Diagram"](assets/component-backend-mobileApp-profile.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+### 5.2.6. Bounded Context Software Architecture Code Level Diagrams
+
+#### 5.2.6.1. Bounded Context Domain Layer Class Diagrams
+
+El diagrama de clases muestra la relación entre las entidades Citizen y Municipality, así como los objetos de valor asociados a ellas.
+
+!["Profile Management Class Diagram"](assets/PeaceApp-Profile-ClassDiagram.png?raw=true)
+
+#### 5.2.6.2. Bounded Context Database Design Diagram
+
+El diagrama de base muestra las tablas citizens y municipalities, así como la relación entre estas.
+
+!["Profile Management Database Diagram"](assets/PeaceApp-DatabaseDiagram-Profile.png?raw=true)
+
+## 5.3. Bounded Context: Location
+El bounded context **Location** pertenece al sistema PeaceApp y se encarga de gestionar las ubicaciones relacionadas con los reportes. Su función principal es registrar la latitud y longitud de los reportes aprobados, listar las ubicaciones guardadas, detectar zonas peligrosas y eliminar ubicaciones cuando un reporte es rechazado o eliminado.
+
+### 5.3.1. Domain Layer
+La capa de dominio contiene la lógica central del bounded context Location. En este caso, el aggregate principal es Location, el cual representa una coordenada geográfica asociada a un reporte. Esta entidad hereda de AuditableAbstractAggregateRoot, por lo que también cuenta con atributos comunes como id, createdAt y updatedAt.
+
+**Aggregate:** Location
+**Descripciòn:** Representa una ubicación geográfica almacenada por el sistema.
+
+| Atributo  | Descripcion                                                                            | Tipo   |
+|-----------|----------------------------------------------------------------------------------------|--------|
+| id        | Identificador único de la ubicación. Es heredado desde AuditableAbstractAggregateRoot. | Long   |
+| latitude  | Latitud de la ubicación registrada.                                                    | String |
+| longitude | Longitud de la ubicación registrada.                                                   | String |
+| idReport  | Identificador del reporte asociado a la ubicación.                                     | Long   |
+| createdAt | Fecha de creación del registro. Es heredado desde la clase auditable.                  | Date   |
+| updatedAt | Fecha de última modificación del registro. Es heredado desde la clase auditable.       | Date   |
+
+| Atributo                                                     | Descripcion                                                                                   |
+|--------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| Location()                                                   | Constructor vacío requerido por JPA para crear instancias de la entidad.                      |
+| Location(String aLatitude, String aLongitude, Long idReport) | Constructor que permite crear una ubicación con latitud, longitud e identificador de reporte. |
+| Location(String aLatitude, String aLongitude, Long idReport) | Constructor vacío requerido por JPA para crear instancias de la entidad.                      |
+| getLatitude()                                                | Obtiene la latitud registrada.                                                                |
+| setLatitude(String latitude)                                 | Actualiza la latitud de la ubicación.                                                         |
+| getLongitude()                                               | Obtiene la longitud registrada.                                                               |
+| setLongitude(String longitude)                               | Actualiza la longitud de la ubicación.                                                        |
+| getIdReport()                                                | Obtiene el identificador del reporte asociado.                                                |
+| setIdReport(Long idReport)                                   | Actualiza el identificador del reporte asociado .                                             |
+| getId()                                                      | Obtiene el identificador único heredado.                                                      |
+| setId(Long id)                                               | Asigna el identificador único heredado.                                                       |
+
+---
+**Domain Services**
+
+**Commands**
+Los comandos representan intenciones de cambio dentro del bounded context. En este caso, se usan para crear ubicaciones y eliminar ubicaciones asociadas a un reporte.
+
+### CreateLocationCommand
+
+| Atributo  | Descripción                            | Tipo   |
+|-----------|----------------------------------------|--------|
+| latitude  | Latitud de la ubicación a registrar.   | String |
+| longitude | Longitud de la ubicación a registrar.  | String |
+| idReport  | Identificador del reporte relacionado. | Long   |
+
+| Método                | Descripción                                          |
+|-----------------------|------------------------------------------------------|
+| CreateLocationCommand | Valida que `latitude` no sea nula o vacía.           |
+| CreateLocationCommand | Valida que `longitude` no sea nula o vacía.          |
+| CreateLocationCommand | Valida que `idReport` no sea nulo y sea mayor que 0. |
+
+### DeleteAllLocationsByIdReportCommand
+
+| Atributo | Descripción                                                   | Tipo |
+|----------|---------------------------------------------------------------|------|
+| idReport | Identificador del reporte cuyas ubicaciones serán eliminadas. | Long |
+
+| Método                              | Descripción                                          |
+|-------------------------------------|------------------------------------------------------|
+| DeleteAllLocationsByIdReportCommand | Valida que `idReport` no sea nulo y sea mayor que 0. |
+
+---
+
+## Queries
+
+Las queries representan solicitudes de lectura de información dentro del bounded context.
+
+### GetAllLocationsQuery
+
+| Query                | Descripción                                                          |
+|----------------------|----------------------------------------------------------------------|
+| GetAllLocationsQuery | Solicita la lista completa de ubicaciones almacenadas en el sistema. |
+
+### GetDangerousLocationsQuery
+
+| Atributo   | Descripción                                                               | Tipo   |
+|------------|---------------------------------------------------------------------------|--------|
+| minReports | Cantidad mínima de reportes para considerar una ubicación como peligrosa. | int    |
+
+| Método                     | Descripción                                    |
+|----------------------------|------------------------------------------------|
+| GetDangerousLocationsQuery | Valida que `minReports` sea mayor o igual a 1. |
+
+**Observación:** En el código actual, el parámetro `minReports` se valida en la query, pero no se utiliza directamente en el método del repositorio. Actualmente, el repositorio agrupa las ubicaciones por latitud y longitud y las ordena por cantidad de reportes, pero no aplica un filtro mínimo.
+
+---
+
+## Value Objects
+
+En el código fuente revisado no se identifican Value Objects implementados explícitamente. Actualmente, la latitud y longitud se manejan como atributos `String` dentro del aggregate `Location`.
+
+Sin embargo, a nivel de diseño táctico, se podría considerar el siguiente Value Object para mejorar la expresividad del dominio.
+
+**Nombre:** `Coordinates`
+
+**Descripción:** Representa las coordenadas geográficas de una ubicación. Este Value Object permitiría agrupar la latitud y longitud en un solo concepto del dominio, evitando que se manejen como valores separados sin semántica propia.
+
+| Nombre    | Tipo   | Descripción               |
+|-----------|--------|---------------------------|
+| latitude  | String | Latitud de la ubicación.  |
+| longitude | String | Longitud de la ubicación. |
+
+| Nombre                                         | Descripción                                             |
+|------------------------------------------------|---------------------------------------------------------|
+| Coordinates(String latitude, String longitude) | Constructor que valida y crea un objeto de coordenadas. |
+| latitude()                                     | Retorna la latitud.                                     |
+| longitude()                                    | Retorna la longitud.                                    |
+
+---
+
+## Domain Services
+
+Los servicios de dominio definen las operaciones principales del bounded context. En el proyecto se identifican dos interfaces principales: `LocationCommandService` y `LocationQueryService`.
+
+### LocationCommandService
+
+**Descripción:** Servicio de dominio encargado de definir las operaciones de escritura para las ubicaciones.
+
+| Método                                              | Descripción                                                             |
+|-----------------------------------------------------|-------------------------------------------------------------------------|
+| handle(CreateLocationCommand command)               | Procesa la creación de una nueva ubicación a partir de un comando.      |
+| handle(DeleteAllLocationsByIdReportCommand command) | Procesa la eliminación de todas las ubicaciones asociadas a un reporte. |
+
+### LocationQueryService
+
+**Descripción:** Servicio de dominio encargado de definir las operaciones de consulta sobre las ubicaciones.
+
+| Método                                   | Descripción                                                                       |
+|------------------------------------------|-----------------------------------------------------------------------------------|
+| handle(GetAllLocationsQuery query)       | Obtiene todas las ubicaciones registradas.                                        |
+| handle(GetDangerousLocationsQuery query) | Obtiene las ubicaciones agrupadas y ordenadas por cantidad de reportes asociados. |
+
+---
+
+### 5.3.2. Interface Layer
+
+La capa de interfaz expone los endpoints REST del bounded context **Location**. Esta capa recibe solicitudes HTTP, transforma los recursos recibidos en comandos o queries y delega la lógica a los servicios correspondientes.
+
+## Controller: LocationController
+
+**Descripción:** El controlador `LocationController` expone las operaciones REST para crear, consultar y eliminar ubicaciones. Se encuentra bajo la ruta base:
+
+| Método | Descripción | HTTP | Respuesta |
+|--------|-------------|------|-----------|
+| create(CreateLocationResource body) | Crea una nueva ubicación asociada a un reporte. | POST `/api/v1/locations` | 201 Created con `LocationResource` o 400 Bad Request |
+| getAll() | Obtiene todas las ubicaciones registradas. | GET `/api/v1/locations` | 200 OK con lista de ubicaciones o 204 No Content |
+| getDangerousLocations(int quantityReports) | Obtiene ubicaciones consideradas peligrosas según la cantidad de reportes. | GET `/api/v1/locations/dangerous?quantityReports=5` | 200 OK con lista de ubicaciones o 204 No Content |
+| deleteAllByReportId(Long reportId) | Elimina todas las ubicaciones asociadas a un reporte específico. | DELETE `/api/v1/locations/report/{reportId}` | 200 OK, 400 Bad Request o 500 Internal Server Error |
+
+---
+
+## Resources
+
+### CreateLocationResource
+
+**Descripción:** Recurso utilizado para recibir los datos necesarios al crear una ubicación.
+
+| Atributo   | Tipo   | Descripción                         |
+|------------|--------|-------------------------------------|
+| latitude   | String | Latitud de la ubicación.            |
+| longitude  | String | Longitud de la ubicación.           |
+| idReport   | Long   | Identificador del reporte asociado. |
+
+### LocationResource
+
+**Descripción:** Recurso utilizado para devolver información de una ubicación al cliente.
+
+| Atributo   | Tipo   | Descripción                         |
+|------------|--------|-------------------------------------|
+| id         | Long   | Identificador de la ubicación.      |
+| latitude   | String | Latitud registrada.                 |
+| longitude  | String | Longitud registrada.                |
+| idReport   | Long   | Identificador del reporte asociado. |
+
+---
+
+## Assemblers
+
+| Clase                                      | Descripción                                                          |
+|--------------------------------------------|----------------------------------------------------------------------|
+| CreateLocationCommandFromResourceAssembler | Convierte un `CreateLocationResource` en un `CreateLocationCommand`. |
+| LocationResourceFromEntityAssembler        | Convierte una entidad `Location` en un `LocationResource`.           |
+
+---
+
+### 5.3.3. Application Layer
+
+La capa de aplicación contiene la lógica de aplicación del bounded context. En este caso, coordina el uso de repositorios, comandos, consultas y servicios externos. También se encarga de ejecutar operaciones transaccionales y conectar la lógica de dominio con la infraestructura.
+
+## Command Services Implementation
+
+### Clase: LocationCommandServiceImpl
+
+**Descripción:** Implementa las operaciones de escritura definidas por `LocationCommandService`. Utiliza `LocationRepository` para persistir nuevas ubicaciones o eliminar ubicaciones asociadas a un reporte.
+
+| Método                                              | Descripción                                                                                                                                                                 |
+|-----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| handle(CreateLocationCommand command)               | Crea una nueva instancia de `Location` usando la latitud, longitud e `idReport` recibidos en el comando. Luego la guarda en la base de datos mediante `LocationRepository`. |
+| handle(DeleteAllLocationsByIdReportCommand command) | Elimina todas las ubicaciones asociadas al `idReport` recibido en el comando.                                                                                               |
+
+---
+
+## Query Services Implementation
+
+### Clase: LocationQueryServiceImpl
+
+**Descripción:** Implementa las operaciones de lectura definidas por `LocationQueryService`. Utiliza el repositorio para consultar ubicaciones y transformar resultados agrupados en objetos `Location`.
+
+| Método                                   | Descripción                                                                                                                                               |
+|------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| handle(GetAllLocationsQuery query)       | Retorna todas las ubicaciones almacenadas usando `locationRepository.findAll()`.                                                                          |
+| handle(GetDangerousLocationsQuery query) | Obtiene ubicaciones agrupadas por latitud y longitud, ordenadas por cantidad de reportes. Luego transforma cada resultado en una instancia de `Location`. |
+
+---
+
+## Outbound Service
+
+### Clase: ExternalReportService
+
+**Descripción:** Servicio de aplicación encargado de comunicarse con el bounded context de Reports mediante `ReportServiceClient`. Se utiliza principalmente cuando el microservicio recibe un evento de reporte aprobado y necesita consultar los datos completos del reporte.
+
+| Método                    | Descripción                                                                         |
+|---------------------------|-------------------------------------------------------------------------------------|
+| existsById(Long reportId) | Verifica si existe un reporte con el identificador indicado.                        |
+| fetchById(Long reportId)  | Obtiene la información completa de un reporte desde el servicio externo de Reports. |
+
+---
+
+## Event Listeners
+
+El bounded context **Location** también consume eventos mediante RabbitMQ. Esto permite que reaccione de forma asíncrona ante cambios ocurridos en el bounded context de Reports.
+
+| Listener                    | Evento              | Descripción                                                                                                                              |
+|-----------------------------|---------------------|------------------------------------------------------------------------------------------------------------------------------------------|
+| ReportApprovedEventListener | ReportApprovedEvent | Cuando un reporte es aprobado, consulta el reporte mediante `ExternalReportService` y crea una ubicación si existen coordenadas válidas. |
+| ReportDeletedEventListener  | ReportDeletedEvent  | Cuando un reporte es eliminado, elimina todas las ubicaciones asociadas a ese reporte.                                                   |
+| ReportRejectedEventListener | ReportRejectedEvent | Cuando un reporte es rechazado, elimina todas las ubicaciones asociadas a ese reporte.                                                   |
+
+---
+
+### 5.3.4. Infrastructure Layer
+
+La capa de infraestructura proporciona la implementación de persistencia y comunicación externa. En este bounded context, se utiliza **Spring Data JPA** para la persistencia de ubicaciones en MySQL, **OpenFeign** para la comunicación con Reports y **RabbitMQ** para la recepción de eventos.
+
+## Repositorio: LocationRepository
+
+**Descripción:** Repositorio basado en Spring Data JPA encargado de realizar operaciones CRUD sobre la entidad `Location`. Extiende de `JpaRepository<Location, Long>`, por lo que hereda métodos como `save`, `findAll`, `findById`, `deleteById`, entre otros.
+
+| Método                             | Descripción                                                                                                                 |
+|------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| save(Location location)            | Guarda una nueva ubicación o actualiza una existente. Método heredado de `JpaRepository`.                                   |
+| findAll()                          | Obtiene todas las ubicaciones almacenadas. Método heredado de `JpaRepository`.                                              |
+| findById(Long id)                  | Busca una ubicación por su identificador. Método heredado de `JpaRepository`.                                               |
+| deleteById(Long id)                | Elimina una ubicación por su identificador. Método heredado de `JpaRepository`.                                             |
+| findDangerousLocations()           | Agrupa ubicaciones por latitud y longitud, cuenta la cantidad de reportes asociados y ordena el resultado de mayor a menor. |
+| deleteAllByIdReport(Long idReport) | Elimina todas las ubicaciones asociadas a un reporte específico.                                                            |
+
+---
+
+## External Client: ReportServiceClient
+
+**Descripción:** Cliente Feign utilizado para comunicarse con el bounded context de Reports. Permite consultar la existencia de un reporte y obtener sus datos.
+
+| Método                       | Descripción                                              |
+|------------------------------|----------------------------------------------------------|
+| reportExists(Long reportId)  | Verifica si un reporte existe en el servicio de Reports. |
+| getReportById(Long reportId) | Obtiene la información de un reporte específico.         |
+
+---
+
+## Fallback: ReportServiceClientFallback
+
+**Descripción:** Clase de respaldo usada cuando el servicio de Reports no está disponible. Permite evitar fallos directos en la comunicación entre microservicios.
+
+| Método                       | Descripción                                                                               |
+|------------------------------|-------------------------------------------------------------------------------------------|
+| reportExists(Long reportId)  | Retorna una respuesta alternativa cuando no se puede verificar la existencia del reporte. |
+| getReportById(Long reportId) | Retorna una respuesta alternativa cuando no se puede obtener el reporte.                  |
+
+### 5.3.5. Bounded Context Software Architecture Component Level Diagrams
+
+**Backend**
+
+Este diagrama muestra la arquitectura interna del microservicio Location Service. Se observa cómo el controlador REST recibe solicitudes, cómo los listeners consumen eventos desde RabbitMQ, cómo los servicios de aplicación coordinan comandos y consultas, y cómo el repositorio persiste información en la base de datos MySQL.
+
+![backend-locationLocationBackendComponents-dark.png](assets/backend-locationLocationBackendComponents-dark.png)
+
+**Web App**
+Este diagrama representa cómo una aplicación web consume las funcionalidades del bounded context Location. La Web App no accede directamente a la base de datos, sino que utiliza el API Gateway para consultar ubicaciones o zonas peligrosas expuestas por el microservicio Location.
+
+![web-app-locationLocationWebAppComponents-dark.png](assets/web-app-locationLocationWebAppComponents-dark.png)
+
+**Mobile App**
+Este diagrama muestra cómo una aplicación móvil consume el bounded context Location. La Mobile App puede mostrar ubicaciones en un mapa y consultar zonas peligrosas mediante peticiones HTTP hacia el API Gateway.
+
+![mobile-c4-locationLocationMobileAppComponents-dark.png](assets/mobile-c4-locationLocationMobileAppComponents-dark.png)
+
+### 5.3.6. Bounded Context Software Architecture Code Level Diagrams
+
+#### 5.3.6.1. Bounded Context Domain Layer Class Diagrams
+El siguiente diagrama representa las clases principales de la capa de dominio del bounded context Location. Se muestra el aggregate Location, los comandos, las queries y los servicios de dominio que definen las operaciones de escritura y lectura.
+
+![class-diagram-location.png](assets/class-diagram-location.png)
+#### 5.3.6.2. Bounded Context Database Design Diagram
+El bounded context Location utiliza una tabla principal llamada locations. Esta tabla almacena las coordenadas geográficas asociadas a reportes. Además, incluye campos de auditoría heredados desde **AuditableAbstractAggregateRoot**.
+
+![database-diagram.png](assets/database-diagram.png)
+
+## 5.4. Bounded Context: Report
+
+El Bounded Context de **Report** es el núcleo principal del negocio en PeaceApp, ya que gestiona la información ingresada por los ciudadanos al reportar incidentes. Este contexto contiene los datos clave del sistema, como el tipo de reporte, descripción, evidencia, ubicación, estado y usuario asociado. Además, otros contextos dependen de él: **Location** utiliza sus coordenadas para mostrar reportes en el mapa, mientras que **Alert** genera avisos a partir de reportes cercanos. Por ello, Report es la fuente principal de información operativa del sistema.
+
+### 5.4.1. Domain Layer
+
+
+La capa de dominio del bounded context Report encapsula la lógica principal del negocio relacionada con la gestión de reportes de incidentes. La entidad principal es Report, la cual representa la información registrada por un ciudadano, incluyendo su descripción, tipo, ubicación, evidencia y estado dentro del flujo de revisión.
+
+**Aggregate:** Report
+
+**Descripción:** Representa un reporte de incidente creado por un usuario dentro de PeaceApp.
+
+|**Atributo**|**Descripción**|**Tipo**|
+| :-: | :-: | :-: |
+|id|Identificador único del reporte|Long|
+|title|Título breve del reporte|String|
+|description|Descripción detallada del incidente|String|
+|location|Descripción textual de la ubicación del incidente|String|
+|type|Tipo de incidente reportado|ReportType|
+|userId|ID del usuario que creó el reporte|Long|
+|imageUrl|URL de la imagen o evidencia asociada al reporte|String|
+|latitude|Latitud donde ocurrió el incidente|String|
+|longitude|Longitud donde ocurrió el incidente|String|
+|state|Estado actual del reporte|ReportState|
+|rejectionReason|Motivo de rechazo del reporte, en caso corresponda|String|
+
+**Método**
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|Report(String title, String description, String location, ReportType type, Long userId, String imageUrl, String latitude, String longitude)|Constructor que crea un nuevo reporte e inicializa su estado como PENDING.|
+|void markInReview()|Cambia el estado del reporte de PENDING a IN_REVIEW.|
+|void approve()|Aprueba un reporte que se encuentra en revisión y cambia su estado a APPROVED.|
+|void reject(String reason)|Rechaza un reporte que se encuentra en revisión y registra el motivo del rechazo.|
+
+**Value Objects**
+
+**ReportState**
+
+**Descripción:**
+Representa el estado actual de un reporte dentro del proceso de revisión.
+
+|**Valor**|**Descripción**|
+| :- | :- |
+|PENDING|El reporte fue creado y está pendiente de revisión.|
+|IN_REVIEW|El reporte está siendo revisado.|
+|APPROVED|El reporte fue aprobado y puede ser utilizado por otros contextos del sistema.|
+|REJECTED|El reporte fue rechazado y no será considerado como válido.|
+
+**ReportType**
+
+**Descripción:**  
+Representa el tipo de incidente registrado en el reporte.
+
+|**Valor**|**Descripción**|
+| :- | :- |
+|ROBBERY|Reporte relacionado con robo o intento de robo.|
+|ACCIDENT|Reporte relacionado con un accidente.|
+|DARK_AREA|Reporte relacionado con una zona oscura o con baja iluminación.|
+|HARASSMENT|Reporte relacionado con acoso.|
+|OTHER|Reporte relacionado con otro tipo de incidente.|
+
+**Domain Services**
+
+Los Domain Services en este contexto son interfaces que definen operaciones de negocio relacionadas con el aggregate **Report**. Permiten separar las operaciones de comando y consulta, manteniendo organizada la lógica del bounded context.
+
+**ReportCommandService**
+
+**Descripción:**  
+Interfaz que define las operaciones de escritura relacionadas con la gestión de reportes.
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|Optional<Report> handle(CreateReportCommand command)|Procesa la creación de un nuevo reporte.|
+|void handle(DeleteReportByIdCommand command)|Procesa la eliminación de un reporte mediante su identificador.|
+|void handle(MarkReportInReviewCommand command)|Cambia el estado de un reporte a IN_REVIEW.|
+|void handle(ApproveReportCommand command)|Aprueba un reporte que se encuentra en revisión.|
+|void handle(RejectReportCommand command)|Rechaza un reporte y registra el motivo correspondiente.|
+
+**ReportQueryService**
+
+**Descripción:**  
+Interfaz que define las operaciones de lectura relacionadas con los reportes.
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|Optional<Report> handle(GetReportByIdQuery query)|Obtiene un reporte mediante su identificador.|
+|List<Report> handle(GetReportsByUserIdQuery query)|Obtiene los reportes asociados a un usuario específico.|
+|List<Report> handle(GetAllReportsQuery query)|Obtiene todos los reportes registrados en el sistema.|
+|List<Report> handle(GetPublicReportsQuery query)|Obtiene los reportes públicos disponibles para consulta.|
+
+**Domain Events**
+
+Los eventos de dominio permiten comunicar cambios importantes ocurridos en el bounded context **Report** hacia otros contextos del sistema, como **Location** y **Alert**.
+
+|**Evento**|**Descripción**|
+| :- | :- |
+|ReportCreatedEvent|Se genera cuando un nuevo reporte es creado.|
+|ReportApprovedEvent|Se genera cuando un reporte es aprobado.|
+|ReportRejectedEvent|Se genera cuando un reporte es rechazado.|
+|ReportDeletedEvent|Se genera cuando un reporte es eliminado.|
+
+### 5.4.2. Interface Layer
+
+Esta capa actúa como punto de entrada para las operaciones externas relacionadas con los reportes de incidentes. A través del controlador REST, los clientes pueden crear reportes, consultar reportes existentes, cambiar su estado dentro del flujo de revisión y eliminar reportes cuando corresponda.
+
+**Controlador: ReportController**
+
+**Descripción:** Gestiona las operaciones REST relacionadas con la creación, consulta, revisión, aprobación, rechazo y eliminación de reportes.
+
+|**Método**|**Descripción**|**HTTP**|**Respuesta**|
+| :-: | :-: | :-: | :-: |
+|reportExists(Long id)|Verifica si existe un reporte mediante su identificador.|GET /api/v1/reports/{id}/exists|Boolean|
+|getPublicReports()|Devuelve los reportes públicos aprobados.|GET /api/v1/reports/public|Lista de ReportResource o 204 No Content|
+|createReport(CreateReportResource resource)|Crea un nuevo reporte de incidente.|POST /api/v1/reports|201 Created con ReportResource o error|
+|getReportById(Long id)|Devuelve un reporte específico mediante su identificador.|GET /api/v1/reports/{id}|ReportResource o 404 Not Found|
+|markReportInReview(Long id)|Cambia el estado de un reporte a IN_REVIEW.|PUT /api/v1/reports/{id}/review|ReportResource actualizado o error|
+|approveReport(Long id)|Aprueba un reporte que se encuentra en revisión.|PUT /api/v1/reports/{id}/approve|ReportResource actualizado o error|
+|rejectReport(Long id, RejectReportResource resource)|Rechaza un reporte e incluye el motivo del rechazo.|PUT /api/v1/reports/{id}/reject|ReportResource actualizado o error|
+|getReportsByUserId(Long userId)|Devuelve los reportes creados por un usuario específico.|GET /api/v1/reports/user/{userId}|Lista de ReportResource o 404 Not Found|
+|getAllReports()|Devuelve todos los reportes registrados en el sistema.|GET /api/v1/reports|Lista de ReportResource o 204 No Content|
+|deleteReportById(Long id)|Elimina un reporte mediante su identificador.|DELETE /api/v1/reports/{id}|Mensaje de confirmación o error|
+
+### 5.4.3. Application Layer
+
+Esta capa contiene la lógica de aplicación del bounded context **Report**. Se encarga de coordinar la creación, consulta, eliminación y actualización de estados de los reportes, utilizando los repositorios, servicios externos y publicación de eventos hacia otros bounded contexts del sistema.
+
+**Clase: ReportCommandServiceImpl**
+
+**Descripción:** Gestiona los comandos relacionados con la creación, eliminación y cambio de estado de los reportes. Además, valida la existencia del usuario antes de crear un reporte y publica eventos cuando ocurren cambios importantes.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|handle(CreateReportCommand)|Crea un nuevo reporte, valida que el usuario exista, inicializa el estado como PENDING, guarda el reporte y publica un ReportCreatedEvent.|
+|handle(DeleteReportByIdCommand)|Elimina un reporte mediante su identificador y publica un ReportDeletedEvent.|
+|handle(MarkReportInReviewCommand)|Cambia el estado de un reporte de PENDING a IN_REVIEW.|
+|handle(ApproveReportCommand)|Actualiza el estado de un reporte a APPROVED y publica un ReportApprovedEvent.|
+|handle(RejectReportCommand)|Rechaza un reporte, registra el motivo del rechazo y publica un ReportRejectedEvent.|
+
+**Clase: ReportQueryServiceImpl**
+
+**Descripción:** Gestiona las consultas relacionadas con los reportes registrados en el sistema.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|handle(GetReportByIdQuery)|Recupera un reporte mediante su identificador.|
+|handle(GetReportsByUserIdQuery)|Recupera todos los reportes asociados a un usuario específico.|
+|handle(GetAllReportsQuery)|Recupera todos los reportes registrados en el sistema.|
+|handle(GetPublicReportsQuery)|Recupera los reportes públicos aprobados, filtrando aquellos con estado APPROVED.|
+
+**Clase: ExternalUserService**
+
+**Descripción:** Servicio de aplicación encargado de comunicarse con el bounded context de IAM para validar y obtener información de usuarios antes de crear reportes.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|existsById(Long userId)|Verifica si existe un usuario con el identificador indicado.|
+|fetchById(Long userId)|Obtiene la información de un usuario específico desde el servicio externo de usuarios.|
+
+### 5.4.4. Infrastructure Layer
+
+La capa de infraestructura proporciona la implementación de persistencia, comunicación externa y mensajería para el bounded context **Report**. En este contexto se utiliza Spring Data JPA para la gestión de reportes, OpenFeign para la comunicación con el servicio de usuarios y RabbitMQ para la publicación de eventos hacia otros bounded contexts.
+
+**Repositorio: ReportRepository**
+
+**Descripción:** Administra la persistencia de la entidad Report.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|findAllByUserId(Long userId)|Recupera todos los reportes creados por un usuario específico.|
+|findById(long reportId)|Recupera un reporte mediante su identificador.|
+|findAllByState(ReportState state)|Recupera todos los reportes que coinciden con un estado determinado.|
+
+**External Client: UserServiceClient**
+
+**Descripción:** Cliente Feign utilizado para comunicarse con el bounded context de IAM. Permite validar la existencia de un usuario y obtener su información antes de crear un reporte.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|getUserById(Long id)|Obtiene la información de un usuario mediante su identificador.|
+|userExists(Long id)|Verifica si existe un usuario con el identificador indicado.|
+
+**DTO: UserDto**
+
+**Descripción:** Representa la información recibida desde el servicio externo de usuarios.
+
+|**Atributo**|**Descripción**|**Tipo**|
+| :-: | :-: | :-: |
+|id|Identificador del usuario|Long|
+|name|Nombre del usuario|String|
+|lastname|Apellido del usuario|String|
+|email|Correo electrónico del usuario|String|
+|phonenumber|Número telefónico del usuario|String|
+|userId|Identificador adicional del usuario|String|
+|profileImage|Imagen de perfil del usuario|String|
+
+**Fallback: UserServiceClientFallback**
+
+**Descripción:** Clase de respaldo utilizada cuando el servicio de usuarios no se encuentra disponible. Permite evitar fallos directos en la comunicación entre microservicios.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|getUserById(Long id)|Retorna información por defecto cuando no se puede obtener el usuario.|
+|userExists(Long id)|Retorna false cuando no se puede verificar la existencia del usuario.|
+
+**Messaging: ReportEventPublisher**
+
+**Descripción:** Servicio encargado de publicar eventos relacionados con los reportes mediante RabbitMQ. Estos eventos permiten que otros bounded contexts reaccionen ante la creación, aprobación, rechazo o eliminación de reportes.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|publishReportCreated(ReportCreatedEvent event)|Publica un evento cuando un reporte es creado.|
+|publishReportApproved(ReportApprovedEvent event)|Publica un evento cuando un reporte es aprobado.|
+|publishReportRejected(ReportRejectedEvent event)|Publica un evento cuando un reporte es rechazado.|
+|publishReportDeleted(ReportDeletedEvent event)|Publica un evento cuando un reporte es eliminado.|
+
+<div style="page-break-after: always;"></div>
+
+### 5.4.5. Bounded Context Software Architecture Component Level Diagrams
+
+**Backend**
+
+El Report Bounded Context centraliza la gestión de los reportes de incidentes dentro de PeaceApp, incluyendo su creación, consulta, revisión, aprobación, rechazo y eliminación. Este contexto contiene la información principal del negocio, ya que los reportes generados por los ciudadanos sirven como base para otros bounded contexts. Su arquitectura separa las responsabilidades entre la capa de interfaz, aplicación, dominio e infraestructura, permitiendo una gestión ordenada de la lógica de negocio y la persistencia de datos. Además, mediante el Report Event Publisher, este contexto publica eventos en RabbitMQ para que otros contextos, como Location y Alert, puedan reaccionar ante cambios importantes en los reportes.
+
+!["Report Management Component Diagram"](assets/component-backend-report.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+**WebApp**
+
+El diagrama de componentes del Report Bounded Context en la WebApp muestra los componentes encargados de la visualización y gestión de reportes desde la aplicación web de PeaceApp. El Report Management Component permite listar y administrar los reportes registrados, mientras que el Report Detail Component permite revisar la información detallada de un incidente, incluyendo su ubicación, evidencia, estado y motivo de rechazo si corresponde. Asimismo, el Report Review Component permite realizar acciones de revisión, aprobación o rechazo de reportes. Estos componentes se apoyan en el Report Service, encargado de coordinar la comunicación con la API RESTful, y en el Report Assembler, responsable de transformar los datos entre los modelos del frontend y los DTOs del backend.
+
+!["Report Management WebApp Component Diagram"](assets/component-webApp-report.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+**MobileApp**
+
+El diagrama de componentes del Report Bounded Context en la MobileApp muestra los componentes utilizados por los ciudadanos para interactuar con los reportes desde la aplicación móvil. El Create Report Widget permite registrar nuevos incidentes mediante un formulario con información como título, descripción, tipo de reporte, evidencia y ubicación. El Report List Widget y el Report Detail Widget permiten visualizar los reportes creados por el usuario y consultar su estado dentro del flujo de revisión. Además, el Public Reports Widget permite visualizar reportes aprobados disponibles para la comunidad. Todos estos componentes se comunican con el Report Service, el cual gestiona las operaciones de reporte y utiliza el Report Assembler para transformar los datos recibidos o enviados hacia la API RESTful.
+
+!["Report Management MobileApp Component Diagram"](assets/component-backend-mobileApp-report.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+### 5.4.6. Bounded Context Software Architecture Code Level Diagrams
+
+#### 5.4.6.1. Bounded Context Domain Layer Class Diagrams
+
+El siguiente diagrama representa las clases principales de la capa de dominio del bounded context **Report**. Se muestra el aggregate **Report**, el cual hereda de **AuditableAbstractAggregateRoot** e incorpora los atributos y comportamientos necesarios para la gestión de reportes de incidentes. Asimismo, se incluyen las enumeraciones **ReportState** y **ReportType**, que permiten modelar el estado del reporte y la clasificación del incidente dentro del dominio.
+
+![class-diagram-report.png](assets/class-diagram-report.png)
+
+#### 5.4.6.2. Bounded Context Database Design Diagram
+
+El bounded context **Report** utiliza una tabla principal llamada **reports**. Esta tabla almacena la información central de los reportes de incidentes, incluyendo título, descripción, tipo, ubicación, coordenadas, evidencia, estado y motivo de rechazo. Además, incluye campos de auditoría como **created_at** y **updated_at**. El campo **id_user** representa una referencia lógica al usuario que creó el reporte, perteneciente a otro bounded context del sistema.
+
+![database-diagram-report.png](assets/database-diagram-report.png)
+
+## 5.5. Bounded Context: Alert
+
+### 5.5.1. Domain Layer
+La capa de dominio encapsula la lógica central relacionada con la gestión de advertencias preventivas y señales de auxilio dentro de PeaceApp. La entidad principal es el aggregate `Alert`, que representa tanto las notificaciones generadas por el sistema (cuando un ciudadano entra a una zona de riesgo) como las emergencias emitidas voluntariamente por los usuarios a través del botón de pánico. Se utilizan enumeraciones (Value Objects) como `AlertType` y `AlertState` para definir la naturaleza y el ciclo de vida de la alerta.
+
+**Aggregate:** Alert
+
+**Descripción:** Representa una alerta preventiva o de emergencia registrada en el sistema.
+
+|**Atributo**|**Descripción**|**Tipo**|
+| :-: | :-: | :-: |
+|id|Identificador único de la alerta|Long|
+|type|Clasificación de la alerta (preventiva o emergencia)|AlertType|
+|description|Descripción contextual de la alerta o emergencia|String|
+|latitude|Latitud de la ubicación del usuario al momento de la alerta|String|
+|longitude|Longitud de la ubicación del usuario al momento de la alerta|String|
+|state|Estado actual de la atención de la alerta|AlertState|
+|userId|ID del usuario ciudadano involucrado (referencia a IAM)|Long|
+|reportId|ID del reporte asociado que originó la alerta (opcional, solo para preventivas)|Long|
+
+**Método**
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|Alert(AlertType type, String description, String latitude, String longitude, Long userId, Long reportId)|Constructor para inicializar una nueva alerta, estableciendo su estado inicial en ACTIVE.|
+|void markAsAttended()|Cambia el estado de la alerta de ACTIVE a ATTENDED cuando la municipalidad toma el caso.|
+|void markAsResolved()|Actualiza el estado a RESOLVED una vez que la situación de riesgo o emergencia ha concluido.|
+
+**Value Objects**
+
+**AlertState**
+
+**Descripción:**
+Representa el estado actual de la alerta dentro del flujo de atención de la municipalidad.
+
+|**Valor**|**Descripción**|
+| :- | :- |
+|ACTIVE|La alerta ha sido generada y requiere atención o visibilidad inmediata.|
+|ATTENDED|Un operador de la municipalidad ha visto la emergencia y está en proceso de gestionarla.|
+|RESOLVED|La situación de emergencia o riesgo ha sido neutralizada o el evento ha concluido.|
+
+**AlertType**
+
+**Descripción:** Clasifica la naturaleza de la alerta generada en el sistema.
+
+|**Valor**|**Descripción**|
+| :- | :- |
+|PREVENTIVE|Alerta generada automáticamente por el sistema cuando un usuario se acerca a un reporte peligroso.|
+|EMERGENCY|Señal de auxilio enviada explícitamente por el ciudadano mediante el botón de emergencia.|
+
+**Domain Services**
+
+Los Domain Services en este contexto definen las operaciones de negocio que no pertenecen estrictamente a una sola entidad, dividiendo claramente la escritura (Commands) y la lectura (Queries) del sistema de alertas.
+
+**AlertCommandService**
+
+**Descripción:** Interfaz que define las operaciones de escritura relacionadas con la generación y gestión del ciclo de vida de las alertas.
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|Optional<Alert> handle(CreatePreventiveAlertCommand command)|Procesa la creación de una advertencia automática por proximidad a una zona de riesgo.|
+|Optional<Alert> handle(CreateEmergencyAlertCommand command)|Procesa la recepción de una señal de auxilio emitida por el botón de pánico de un ciudadano.|
+|void handle(MarkAlertAsAttendedCommand command)|Actualiza el estado de una alerta a ATTENDED por parte de la municipalidad.|
+|void handle(MarkAlertAsResolvedCommand command)|Finaliza el ciclo de vida de la alerta cambiándola a RESOLVED.|
+
+**AlertQueryService**
+
+**Descripción:** Interfaz que define las operaciones de lectura para consultar el historial o el estado en vivo de las alertas.
+
+**Métodos:**
+
+|**Nombre**|**Descripción**|
+| :- | :- |
+|Optional<Alert> handle(GetAlertByIdQuery query)|Recupera los detalles de una alerta específica mediante su identificador.|
+|List<Alert> handle(GetAlertsByUserIdQuery query)|Obtiene el historial de alertas asociadas a un ciudadano específico.|
+|List<Alert> handle(GetActiveEmergenciesQuery query)|Recupera todas las emergencias activas para mostrarlas en el dashboard municipal en tiempo real.|
+
+**Domain Events**
+
+Eventos clave que permiten al Bounded Context de Alert comunicar acciones relevantes a otros componentes de la arquitectura de PeaceApp de forma asíncrona.
+
+|**Evento**|**Descripción**|
+| :- | :- |
+|EmergencyTriggeredEvent|Se emite cuando un ciudadano utiliza el botón de emergencia. Puede ser escuchado por el Notification Gateway para enviar SMS/WhatsApp.|
+|AlertStateChangedEvent|Se genera cuando una municipalidad actualiza el estado de una alerta (ej. de ACTIVE a ATTENDED).|
+
+### 5.5.2. Interface Layer
+
+Esta capa actúa como el punto de entrada para las operaciones externas relacionadas con la seguridad preventiva y la respuesta ante emergencias. A través del controlador REST, los ciudadanos pueden emitir señales de auxilio desde la aplicación móvil, mientras que los operadores municipales pueden monitorear emergencias activas y gestionar su estado de atención en tiempo real.
+
+**Controlador: AlertController**
+
+**Descripción:** Gestiona las operaciones REST relacionadas con la creación, consulta y actualización del estado de alertas y emergencias.
+
+|**Método**|**Descripción**|**HTTP**|**Respuesta**|
+| :-: | :-: | :-: | :-: |
+|createEmergencyAlert(CreateEmergencyAlertResource resource)|Registra una señal de auxilio inmediata enviada por un ciudadano.|POST /api/v1/alerts/emergency|201 Created con AlertResource|
+|createPreventiveAlert(CreatePreventiveAlertResource resource)|Registra una alerta preventiva generada por el sistema ante una zona de riesgo.|POST /api/v1/alerts/preventive|201 Created con AlertResource|
+|getAlertById(Long id)|Devuelve los detalles de una alerta específica mediante su identificador.|GET /api/v1/alerts/{id}|AlertResource o 404 Not Found|
+|getAlertsByUserId(Long userId)|Devuelve el historial de alertas recibidas o generadas por un usuario específico.|GET /api/v1/alerts/user/{userId}|Lista de AlertResource o 204 No Content|
+|getActiveEmergencies()|Devuelve todas las emergencias que requieren atención municipal inmediata.|GET /api/v1/alerts/emergencies/active|Lista de AlertResource o 204 No Content|
+|markAlertAsAttended(Long id)|Actualiza el estado de una emergencia a ATTENDED.|PATCH /api/v1/alerts/{id}/attended|AlertResource actualizado|
+|markAlertAsResolved(Long id)|Actualiza el estado de una emergencia a RESOLVED.|PATCH /api/v1/alerts/{id}/resolved|AlertResource actualizado|
+
+**Resources**
+
+**CreateEmergencyAlertResource**
+
+**Descripción:** Recurso utilizado para recibir los datos de una señal de auxilio desde el botón de pánico móvil.
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+|userId|Long|Identificador del usuario que solicita ayuda.|
+|latitude|String|Latitud de la ubicación de la emergencia.|
+|longitude|String|Longitud de la ubicación de la emergencia.|
+|description|String|Breve descripción opcional del suceso.|
+
+**AlertResource**
+
+**Descripción:** Recurso utilizado para devolver la información detallada de una alerta al cliente.
+
+|**Atributo**|**Tipo**|**Descripción**|
+| :- | :- | :- |
+|id|Long|Identificador único de la alerta.|
+|type|String|Tipo de alerta (EMERGENCY o PREVENTIVE).|
+|description|String|Descripción de la situación de riesgo.|
+|latitude|String|Latitud registrada.|
+|longitude|String|Longitud registrada.|
+|state|String|Estado de la alerta (ACTIVE, ATTENDED, RESOLVED).|
+|userId|Long|Identificador del usuario asociado.|
+|reportId|Long|ID del reporte relacionado (si aplica).|
+
+**Assemblers**
+
+|**Clase**|**Descripción**|
+| :- | :- |
+|CreateEmergencyAlertCommandFromResourceAssembler|Convierte un `CreateEmergencyAlertResource` en un `CreateEmergencyAlertCommand`.|
+|CreatePreventiveAlertCommandFromResourceAssembler|Convierte un `CreatePreventiveAlertResource` en un `CreatePreventiveAlertCommand`.|
+|AlertResourceFromEntityAssembler|Convierte la entidad de dominio `Alert` en un `AlertResource` para la respuesta API.|
+
+### 5.5.3. Application Layer
+
+Esta capa contiene la lógica de aplicación del bounded context **Alert**. Su función principal es coordinar la ejecución de comandos y consultas, orquestando la comunicación con los repositorios, los servicios externos (Locations y Reports) y la pasarela de notificaciones (SMS/WhatsApp). Además, maneja la recepción de eventos asíncronos para generar alertas preventivas automatizadas.
+
+**Command Services Implementation**
+
+**Clase: AlertCommandServiceImpl**
+
+**Descripción:** Implementa las operaciones de escritura. Se encarga de procesar las señales de auxilio, coordinar la evaluación de zonas de riesgo y despachar notificaciones al exterior.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|handle(CreatePreventiveAlertCommand)|Crea una alerta de tipo PREVENTIVE y utiliza el `NotificationGateway` para advertir al ciudadano. Se activa usualmente mediante la escucha de eventos.|
+|handle(CreateEmergencyAlertCommand)|Crea una alerta de tipo EMERGENCY (estado ACTIVE), la persiste en la base de datos y despacha la señal a la municipalidad y contactos de emergencia.|
+|handle(MarkAlertAsAttendedCommand)|Cambia el estado de una emergencia a ATTENDED cuando un operador municipal comienza a gestionarla.|
+|handle(MarkAlertAsResolvedCommand)|Cambia el estado de una emergencia a RESOLVED una vez finalizada la atención.|
+
+**Query Services Implementation**
+
+**Clase: AlertQueryServiceImpl**
+
+**Descripción:** Implementa las operaciones de lectura, recuperando la información de las alertas y emergencias desde la base de datos.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|handle(GetAlertByIdQuery)|Retorna los detalles de una alerta específica mediante su identificador utilizando el repositorio.|
+|handle(GetAlertsByUserIdQuery)|Obtiene el historial completo de alertas preventivas y emergencias vinculadas a un usuario en particular.|
+|handle(GetActiveEmergenciesQuery)|Recupera todas las alertas de tipo EMERGENCY que se encuentren en estado ACTIVE, priorizando la visualización en el dashboard municipal.|
+
+**Outbound Services (Anti-Corruption Layers & Coordinators)**
+
+Dado que el Bounded Context de Alert depende de información externa para funcionar correctamente, la capa de aplicación implementa servicios que actúan como fachada para comunicarse con otros contextos o APIs de terceros.
+
+**Clase: ExternalReportService**
+
+**Descripción:** Servicio encargado de comunicarse con el bounded context de **Reports**. Se utiliza para validar si el incidente que detona una alerta preventiva sigue activo.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|fetchReportDetails(Long reportId)|Obtiene la información relevante de un reporte específico utilizando el `ReportServiceClient`.|
+
+**Clase: ExternalLocationService**
+
+**Descripción:** Servicio que interactúa con el bounded context de **Location** para validar la proximidad de los usuarios respecto a las zonas de riesgo.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|validateUserProximity(Long userId, String latitude, String longitude)|Verifica si las coordenadas actuales del usuario se cruzan con el radio de peligro de un incidente reportado.|
+
+**Clase: NotificationGatewayImpl**
+
+**Descripción:** Implementación de la capa anticorrupción (ACL) encargada de orquestar el envío de mensajes hacia los sistemas externos de mensajería (WhatsApp y SMS). Aísla la lógica de las APIs de terceros del dominio de la aplicación.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|dispatchEmergencyNotification(Alert alert)|Formatea y envía la señal de auxilio a los contactos de emergencia del ciudadano vía WhatsApp API y SMS Gateway.|
+|dispatchPreventiveNotification(Alert alert)|Envía una notificación preventiva (push notification o mensaje) al usuario indicando que ha ingresado a una zona de riesgo.|
+
+**Event Listeners**
+
+El Bounded Context **Alert** debe reaccionar en tiempo real a los sucesos del sistema para poder cumplir su objetivo preventivo.
+
+|**Listener**|**Evento**|**Descripción**|
+| :- | :- | :- |
+|ReportApprovedEventListener|ReportApprovedEvent|Cuando se aprueba un nuevo reporte, este listener evalúa qué usuarios se encuentran en las proximidades y desencadena la creación de alertas preventivas.|
+
+### 5.5.4. Infrastructure Layer
+
+La capa de infraestructura proporciona las implementaciones necesarias para la persistencia de datos, la comunicación síncrona entre microservicios y la integración con servicios de mensajería externos. En este contexto, se utiliza **Spring Data JPA** para la gestión de alertas, **OpenFeign** para interactuar con los contextos de Reports y Locations, y **RabbitMQ** para la recepción de eventos que disparan alertas preventivas.
+
+**Repositorio: AlertRepository**
+
+**Descripción:** Repositorio basado en Spring Data JPA encargado de realizar las operaciones CRUD sobre la entidad `Alert`. Permite gestionar el historial de avisos preventivos y el estado de las emergencias municipales.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|save(Alert alert)|Guarda una nueva alerta o actualiza el estado de una existente.|
+|findById(Long id)|Busca una alerta específica por su identificador único.|
+|findAllByUserId(Long userId)|Recupera todas las alertas y emergencias vinculadas a un ciudadano.|
+|findAllByTypeAndState(AlertType, AlertState)|Busca emergencias activas para el monitoreo municipal.|
+
+**External Clients: Feign Clients**
+
+Para asegurar la integridad de la información y la validación de proximidad, el servicio de alertas consume datos de otros microservicios de la plataforma.
+
+**ReportServiceClient**
+
+**Descripción:** Cliente utilizado para obtener información detallada sobre los incidentes reportados en el sistema.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|getReportById(Long id)|Recupera los datos de un incidente para generar el contexto de una alerta preventiva.|
+
+**LocationServiceClient**
+
+**Descripción:** Cliente encargado de interactuar con el microservicio de Location para obtener o validar coordenadas.
+
+|**Método**|**Descripción**|
+| :-: | :-: |
+|getUserCoordinates(Long userId)|Obtiene la última ubicación conocida de un ciudadano para evaluar riesgos por proximidad.|
+
+**Messaging & Events: RabbitMQ Infrastructure**
+
+El sistema de alertas es reactivo y depende de los eventos generados por otros contextos para funcionar de manera preventiva sin intervención humana directa.
+
+**AlertEventListener**
+
+**Descripción:** Componente encargado de escuchar los mensajes publicados en el exchange de reportes.
+
+|**Evento escuchado**|**Acción realizada**|
+| :-: | :-: |
+|ReportApprovedEvent|Al recibir este evento, el servicio activa el proceso de evaluación de proximidad para notificar a los ciudadanos cercanos al nuevo punto de riesgo.|
+
+**Resiliency & Fallbacks**
+
+Para garantizar que el sistema no falle ante caídas de servicios externos, se implementan clases de respaldo para los clientes Feign.
+
+|**Clase**|**Descripción**|
+| :-: | :-: |
+|ReportServiceFallback|Retorna una respuesta segura o cacheada cuando el servicio de reportes no está disponible.|
+|LocationServiceFallback|Proporciona una respuesta por defecto si no se puede validar la ubicación del usuario en tiempo real.|
+
+**API Integration: Notification Adapters**
+
+Implementación técnica de la capa anticorrupción (ACL) para servicios de terceros.
+
+|**Componente**|**Descripción**|
+| :-: | :-: |
+|WhatsAppApiAdapter|Encapsula la lógica de autenticación y envío de plantillas de mensajes a través de la API oficial de WhatsApp.|
+|SmsGatewayAdapter|Gestiona la conexión con el proveedor de SMS para el envío de alertas de emergencia críticas sin dependencia de datos móviles.|
+
+### 5.5.5. Bounded Context Software Architecture Component Level Diagrams
+
+**Backend**
+
+Es el motor transaccional y analítico de las alertas. Se encarga de procesar las señales de auxilio, evaluar reglas de negocio (como calcular la proximidad del usuario a zonas de riesgo apoyándose en el servicio de Locations y Reports), y gestionar los cambios de estado de las emergencias. Además, actúa como orquestador para despachar notificaciones hacia el exterior mediante pasarelas como WhatsApp y SMS.
+
+![AlertBackendComponents.png](assets/AlertBackendComponents.png)
+
+<div style="page-break-after: always;"></div>
+
+**WebApp**
+
+Proporciona a los gestores de seguridad municipal un dashboard interactivo donde pueden monitorear las emergencias activas sobre un mapa en tiempo real. Desde aquí, las autoridades pueden gestionar el ciclo de vida de cada alerta (por ejemplo, marcarla como "en proceso" o "atendida"), asegurando un seguimiento adecuado.
+
+![AlertWebComponents.png](assets/AlertWebComponents.png)
+
+<div style="page-break-after: always;"></div>
+
+**MobileApp**
+Su objetivo principal es brindar al ciudadano una interfaz rápida y accesible para enviar alertas de emergencia inmediatas junto con su geolocalización. Adicionalmente, funciona como un receptor activo que muestra notificaciones preventivas en tiempo real cuando el usuario ingresa a una zona catalogada como peligrosa.
+![AlertMobileComponents.png](assets/AlertMobileComponents.png)
+
+<div style="page-break-after: always;"></div>
+
+### 5.5.6. Bounded Context Software Architecture Code Level Diagrams
+
+#### 5.5.6.1. Bounded Context Domain Layer Class Diagrams
+
+El siguiente diagrama representa las clases principales de la capa de dominio del bounded context **Alert**. La entidad principal es el aggregate `Alert`, el cual hereda de `AuditableAbstractAggregateRoot` para incorporar automáticamente los atributos de auditoría (`createdAt` y `updatedAt`). 
+
+La clase encapsula la información de la alerta, incluyendo su descripción, ubicación (location), la URL de la evidencia visual (`imageUrl`), el identificador del reporte que la originó (`idReport`), y el usuario asociado (`idUser`). Asimismo, incluye la enumeración `AlertType`, la cual categoriza la alerta según el tipo de riesgo detectado o reportado (ACCIDENT, DARK_AREA, HARASSMENT, OTHER, ROBBERY).
+
+![AlertsDomainLayerDiagram.png](assets/AlertsDomainLayerDiagram.png)
+
+#### 5.5.6.2. Bounded Context Database Design Diagram
+
+El bounded context **Alert** utiliza una base de datos independiente llamada `alerts_db`, asegurando el desacoplamiento dictado por la arquitectura de microservicios. Dentro de esta, la información se almacena en la tabla principal `alerts`. 
+
+Esta tabla contiene los registros históricos y activos de las advertencias generadas en el sistema. Los campos `id_user` e `id_report` actúan como referencias lógicas hacia los bounded contexts de IAM y Reports, respectivamente, sin crear restricciones de clave foránea duras, lo que favorece la resiliencia del sistema. El campo `type` está restringido mediante un ENUM a nivel de base de datos para garantizar la integridad del tipo de incidente.
+
+![db-alerts.png](assets/db-alerts.png)
+
+---
+
+# Capítulo VI: Solution UX Design
+
+## 6.1. Style Guidelines
+
+En esta sección se definen las normas de estilo que servirán como base para el desarrollo del
+producto desde cero. Estas directrices establecerán un marco común para la elección de tipografías,
+tamaños y la paleta de colores, facilitando así el diseño de PeaceApp desde las primeras etapas
+del prototipado. Serán una herramienta clave para todo el equipo, ya que proporcionarán una guía
+clara sobre cómo aplicar los distintos componentes del diseño en cada área y sección de la
+plataforma. Esto permitirá optimizar el tiempo de trabajo y asegurar una imagen visual coherente
+en todo PeaceApp.
+
+### 6.1.1. General Style Guidelines
+
+**Branding:** Nuestro logo refleja de manera sencilla y memorable el
+espíritu de PeaceApp. Con el nombre de la aplicación acompañado por un
+símbolo que evoca un camino seguro y la inicial de \"PeaceApp\",
+buscamos que los usuarios asocien rápidamente nuestra marca con su
+propósito: guiarlos hacia un entorno más seguro. Queremos que nuestro
+logo sea fácil de recordar, al igual que la seguridad que ofrecemos en
+cada trayecto.
+
+![](assets/PeaceAPP.jpg?raw=true)
+
+**Tipografía:** Nuestro logotipo posee la fuente "Lora", el cual refleja
+un estilo simple y moderno. Buscando promover un ambiente innovador e
+interactivo de nuestra aplicación. En adición, y con respecto a nuestra
+aplicación tanto la palabra "Peace" como "App", gozan de las mismas
+características de formato. Se usa Poppins en el resto de la aplicación.
+
+![](assets/Tipografia.png?raw=true)
+
+**Colores:** Continuando con el objetivo de brindar una imagen que
+influya principalmente la confianza y seguridad. Hemos decidido optar
+por una paleta de colores que transmiten calma, seguridad, estabilidad y
+profesionalismo. Por lo que serán tonos de azules hasta llegar a blanco.
+Esta combinación no solo manifiesta el objetivo de nuestro proyecto,
+sino también una atmosfera de serenidad y sofisticación. A continuación,
+se muestra la paleta de colores que se usarán para desarrollar nuestra
+aplicación.
+
+<img src="assets/Colores.png?raw=true" width="300" height="400" />
+
+### 6.1.2. Web, Mobile & Devices Style Guidelines
+
+Para la versión web, se sigue un enfoque de diseño responsivo, adoptando el patrón visual en forma de “Z” para guiar la atención del usuario. Se prioriza la simplicidad, con fondos de color único y uso puntual de imágenes representativas por sección. Los botones utilizan tonos contrastantes dentro de la paleta azul para diferenciar acciones clave. Las pantallas emergentes oscurecen el fondo y emplean variantes de azul con mayor intensidad para destacar acciones importantes y asegurar la atención del usuario antes de continuar con la navegación.
+
+Para dispositivos Android, adoptamos las recomendaciones de Material Design de Google. Este enfoque promueve una interfaz adaptable y visualmente clara, con especial énfasis en la jerarquía de elementos, animaciones suaves y uso eficiente del color. Se implementan componentes nativos como floating action buttons, snackbars y cards para asegurar familiaridad y coherencia. También se aprovechan las capacidades del sistema como servicios de ubicación, notificaciones push y navegación por gestos, garantizando una experiencia moderna, consistente y funcional en toda la plataforma.
+
+Para dispositivos iOS, seguimos las recomendaciones de la Human Interface Guidelines (HIG) de Apple. El diseño se enfoca en la simplicidad, la legibilidad y la eficiencia del espacio. Se prioriza el uso de componentes nativos como tab bars, modals y gestos multitáctiles, garantizando una experiencia fluida y coherente con el ecosistema Apple. Además, se cuida el uso del safe area para asegurar una visualización óptima en dispositivos con diferentes tamaños de pantalla y elementos como el notch. Se promueve una navegación intuitiva, con transiciones suaves y retroalimentación clara para cada acción.
+
+
+## 6.2. Information Architecture
+
+### 6.2.1. Organization Systems
+
+El sistema de organización se centrará en proporcionar la mejor experiencia al usuario en cuanto a la navegación y uso de las funcionalidades de seguridad. Nuestra plataforma está diseñada para que los usuarios puedan navegar, reportar incidentes y monitorear la seguridad de manera segura y cómoda.
+
+> **Categorización de la Información:**
+
+- Mapa de Seguridad: Categorizado por niveles de seguridad (alto, medio, bajo) y tipos de incidentes (robos, agresiones, etc.).
+
+- Denuncias y Reportes: Categorizado por tipo de crimen y nivel de urgencia para facilitar la gestión y respuesta rápida.
+
+> **Filtros y Búsqueda:**
+
+- Filtros en el Mapa: Permiten a los usuarios filtrar incidentes por tipo de crimen, fecha y hora, y nivel de riesgo.
+
+- Búsqueda Avanzada: Opción de búsqueda avanzada en el mapa y en los reportes para encontrar información específica o zonas críticas.
+
+> **Interfaz de Usuario Intuitiva:**
+
+- Menú Principal: Navegación clara con acceso rápido a las secciones principales como Mapa, Denuncia, Registro, y Contacto.
+
+- Submenús Contextuales: Dentro de las secciones principales, submenús contextuales que guían a los usuarios a funcionalidades específicas, como diferentes tipos de incidentes en el Mapa o herramientas de denuncia.
+
+> **Funcionalidades Específicas:**
+
+- Información Detallada de Incidentes: Páginas individuales de incidentes que muestran descripciones completas, ubicación precisa y opciones de seguimiento.
+
+### 6.2.2. Labeling Systems
+
+Consideramos que la mejor opción para el desarrollo de nuestra plataforma será a través de un sistema de etiquetado. Utilizaremos etiquetas claras para describir cada funcionalidad y característica.
+
+Ejemplos de etiquetas incluirán:
+
+- Mapa de calor (Interactivo y a tiempo real)
+
+- Denunciar (Denuncias a crímenes o incidentes)
+
+- Información de Incidentes
+
+- Registro de Usuarios
+
+- Compartir Ubicación en Tiempo Real
+
+### 6.2.3. Searching Systems
+
+El sistema de búsqueda permitirá a los usuarios encontrar y filtrar información relevante sobre incidentes de seguridad en sus áreas de interés. Emplearemos diferentes formas de búsqueda:
+
+> **Búsqueda por Incidente:**
+
+- Los usuarios pueden buscar incidentes específicos como \"robos en Miraflores\" o \"agresiones en San Isidro\".
+
+- Se proporcionan opciones de búsqueda avanzada para filtrar por fecha, hora, tipo de crimen, y nivel de riesgo.
+
+> **Búsqueda por Ubicación:**
+
+- Los usuarios pueden buscar incidentes por ubicación específica, como \"incidentes en el centro de Lima\".
+
+- Se ofrecen filtros para seleccionar múltiples ubicaciones y tipos de incidentes a la vez. (esto lo quitan si quieren, son ideas q yo saque)
+
+> **Búsqueda por Nivel de Seguridad:**
+
+- Los usuarios pueden buscar zonas según su nivel de seguridad, como \"zonas de alto riesgo\" o \"áreas seguras en Lima\".
+
+- La plataforma sugiere las zonas más seguras y permite explorar áreas con diferentes niveles de riesgo.
+
+> **Búsqueda Avanzada:**
+
+- Se ofrece una búsqueda avanzada que permite a los usuarios combinar múltiples criterios de búsqueda, como \"robos en Miraflores durante la noche\".
+
+- Los resultados de la búsqueda avanzada se presentan en una lista organizada por relevancia y se pueden refinar aún más utilizando filtros adicionales.
+
+> **Búsqueda por Fecha y Hora:**
+
+- Los usuarios pueden buscar incidentes dentro de un rango de fechas y horas específicas.
+
+- Se muestra información sobre la frecuencia de incidentes en determinados horarios, facilitando la toma de decisiones informadas.
+
+
+### 6.2.4. SEO Tags and Meta Tags
+
+Nuestros SEO Tags y Meta Tags, o, dicho de otra forma, las etiquetas clave que representarán el contenido de nuestra aplicación presentado tanto en nuestra aplicación web como en aplicación móvil serán:
+
+> Landing Page:
+
+- Title: PeaceApp
+
+- Description: PeaceApp - Oficial Landing Page
+
+- Keywords: Seguridad, Accidentes, Incidentes, Policía.
+
+- Authors: PeaceApp Team
+
+> Web application:
+
+- Title: PeaceApp
+
+- Description: PeaceApp - Oficial Web Site
+
+- Keywords: Seguridad, Accidentes, Incidentes, Policía.
+
+- Authors: PeaceApp Team
+
+### 6.2.5. Navigation Systems
+
+El sistema de navegación de PeaceApp debe proporcionar una experiencia fluida y fácil de usar para los usuarios, permitiéndoles encontrar rápidamente la información que buscan. Se describe de la siguiente forma:
+
+> **Menú Principal:**
+
+- Un menú principal ubicado en la parte superior izquierda (tanto con el logo como con solo el icono del logo), de cada página que incluye enlaces a las secciones clave como Mapa, Denuncia, Registro y Contacto.
+
+- Cada elemento del menú principal está etiquetado de manera clara y concisa para facilitar la navegación.
+
+> **Navegación Contextual:**
+
+- Dentro de cada sección principal, se proporciona una navegación contextual que muestra submenús o enlaces relacionados con la sección actual, como diferentes categorías en el Mapa o herramientas de denuncia en la sección de Denuncia.
+
+> **Botones de Acción Destacados:**
+
+- En las páginas de Inicio y Mapa, se destacan botones de acción para dirigir a los usuarios a las funcionalidades principales de la plataforma.
+
+- Estos botones de acción tienen un diseño llamativo y están estratégicamente ubicados para captar la atención de los usuarios.
+
+> **Búsqueda y Filtros Visibles:**
+
+- La barra de búsqueda y los filtros de navegación son visibles en todas las páginas para que los usuarios puedan buscar información específica o filtrar resultados según sus preferencias.
+
+- Los filtros se presentan de manera clara y se pueden ajustar fácilmente para refinar los resultados de búsqueda.
+
+> **Flujo de Navegación Intuitivo:**
+
+- Se establece un flujo de navegación intuitivo y lógico que guía a los usuarios a través de las diferentes funcionalidades, desde la exploración del mapa hasta la denuncia de crímenes y el monitoreo de seguridad.
+
+- Se utilizan llamadas a la acción claras y señales visuales para indicar el progreso y las acciones que los usuarios deben realizar en  cada paso del proceso de navegación.
+
+## 6.3. Landing Page UI Design
+
+### 6.3.1. Landing Page Wireframe
+
+Utilizando la herramienta de diseño Figma, creamos la estructura base de la Landing Page.
+
+Enlace al Landing Page Wireframe: <https://tinyurl.com/ybtsb4c6>
+
+![](assets/LandingPageWireframe.png?raw=true)
+
+### 6.3.2. Landing Page Mock-up
+
+Teniendo el wireframe, realizamos una representación más realista de la Landing Page.
+
+Enlace al Landing Page Mock-up: <https://tinyurl.com/ymunn2vn>
+
+> ![](assets/LandingPageMock-up.png?raw=true)
+
+
+## 6.4. Applications UX/UI Design
+
+### 6.4.1. Applications Wireframes
+
+Los wireframes de las aplicaciones, tanto para la versión web como móvil, son diagramas
+estructurales que muestran la disposición de los elementos de interfaz y funcionalidades
+clave. Esta etapa temprana del diseño UX permite evaluar la organización de la
+información, los puntos de interacción del usuario y la lógica de navegación dentro del
+sistema.
+
+#### 6.4.1.1 Web Application Wireframes
+
+Creamos la estructura de la aplicación web de PeaceApp utilizando Figma.
+
+Enlace a los Web Applications Wireframes:
+<https://www.figma.com/design/KFB2co2shH7aJF2UIXTOrL/Untitled--Copy-?node-id=0-1&t=k2uYPScq5bHnEsDH-1>
+
+![WebApplicationsWireframes](assets/WebApplicationsWireframes.png?raw=true)
+
+#### 6.4.1.2 Mobile Application Wireframes
+
+Creamos la estructura de PeaceApp utilizando Figma.
+
+Enlace a los Mobile Applications Wireframes:
+<https://www.figma.com/design/qDvXC6SO5sIKnEyGcgiHhe/Peace-App-Web-Applications-UX%2FUI-Design?node-id=0-1&node-type=canvas&t=8M5eo45jFkAsIaiW-0>
+
+![](assets/MobileApplicationsWireframes.png?raw=true)
+
+IOS Application Wireframes:
+
+![](assets/IOSApplicationWireframes1.png?raw=true)
+
+![](assets/IOSApplicationWireframes2.png?raw=true)
+
+### 6.4.2. Applications Wireflow Diagrams
+
+#### 6.4.2.1 Web Applications Wireflow Diagrams
+
+**User Flow**: User Goal: Iniciar sesión en la aplicación web como usuario registrado. Para este objetivo, el usuario ingresa directamente desde la página principal de la web, donde encuentra el formulario de inicio de sesión. Completa su correo y contraseña y presiona el botón "Ingresar". Si los datos son correctos, será redirigido al mapa. En caso contrario, se le avisará que hay campos vacíos o que los datos ingresados son incorrectos. US07
+
+> ![](assets/WireFlowW1.png?raw=true)
+
+**User Flow**: User Goal: Registrarse en la aplicación web como nuevo usuario. El usuario selecciona el botón "Registro", que lo redirige a un formulario donde debe ingresar su nombre, apellido, número de teléfono, correo electrónico y contraseña. Si completa todo correctamente, la cuenta se crea exitosamente. En caso de errores de formato, campos vacíos o datos inválidos, se le notificará y no se registrará. US06
+
+> ![](assets/WireFlowW2.png?raw=true)
+
+**User Flow**: User Goal: Generar un reporte de incidente en la aplicación web. El usuario accede a la sección "Reportes" y selecciona la opción para crear un nuevo reporte. Redacta el tipo de incidente libremente y selecciona la ubicación en el mapa arrastrando un marcador. Adjuntar evidencia es opcional. Si decide cancelar, podrá eliminar el reporte. Si completa correctamente los datos requeridos, el reporte se publica. Si hay errores o campos vacíos, no se enviará. US08
+
+> ![](assets/WireFlowW3.png?raw=true)
+
+**User Flow:** User Goal: Visualizar reportes en la aplicación web. Desde la sección "Reportes", el usuario podrá ver una lista general de todos los reportes. Si no existen reportes, se mostrará la vista vacía. Actualmente, no hay visualización de alertas, íconos en el mapa ni opción para ver detalles de reportes individuales. US11
+
+> ![](assets/WireFlowW4.png?raw=true)
+
+**User Flow:** User Goal: Editar la información del perfil en la aplicación web. Al ingresar, el usuario puede acceder al ícono de perfil y desde ahí editar sus datos personales. Si todos los campos obligatorios se completan, los cambios se guardan correctamente. Si deja algún campo vacío, se le notificará. US15
+
+> ![](assets/WireFlowW5.png?raw=true)
+
+**User Flow**: User Goal: Visualizar rutas seguras dentro del mapa en la aplicación web. El usuario accede a la sección "Mapa" e ingresa la ubicación a la que desea llegar. Si deja el campo vacío o ingresa una dirección inválida, no se mostrará nada. Si la dirección es válida, se generará una ruta segura en el mapa desde su ubicación actual hasta el destino ingresado. US10
+
+> ![](assets/WireFlowW6.png?raw=true)
+
+#### 6.4.2.2 Mobile Applications Wireflow Diagrams 
+
+**Wire Flow**: User Goal: Ingresar a la aplicación móvil como usuario registrado. Para este objetivo, el usuario accede a la pantalla inicial, selecciona el botón “Iniciar sesión” e ingresa su correo y contraseña. Si los datos ingresados son correctos, se redirige automáticamente al mapa de la aplicación. En caso de error (credenciales incorrectas o campos vacíos), se muestra un mensaje de advertencia solicitando revisar la información. US07
+
+> ![](assets/Wireflow1.png?raw=true)
+
+**Wire Flow**: User Goal: Registrarse en la aplicación móvil como nuevo usuario. Para lograr este objetivo, el usuario presiona el botón “Comenzar ahora” en la pantalla inicial y accede al formulario de registro. Allí deberá ingresar su nombre, apellido, número de teléfono, correo electrónico y contraseña. Si toda la información es válida, se muestra un mensaje confirmando la creación exitosa de la cuenta. Si hay errores en el formato del correo, la contraseña es demasiado corta o el número es inválido, se informará al usuario y no se completará el registro. US06
+
+> ![](assets/Wireflow2.png?raw=true)
+
+**Wire Flow**: User Goal: Visualizar los reportes disponibles en la aplicación. Una vez dentro de la app, el usuario puede acceder a la sección “Alertas” para ver los reportes en su zona. Si no existen alertas, no se mostrará contenido. Desde el mapa también puede acceder directamente al detalle de un reporte tocando un ícono. En la pestaña “Reportes”, puede revisar tanto los reportes generales como los propios. Si aún no se han generado reportes, esas secciones estarán vacías. US11
+
+> ![](assets/Wireflow3.png?raw=true)
+
+**Wire Flow:** User Goal: Editar la información del perfil del usuario. Al ingresar a la aplicación, el usuario puede acceder a su perfil mediante el ícono correspondiente. Desde allí puede modificar sus datos personales. Si todos los campos requeridos son completados correctamente, la información se actualiza exitosamente. Si algún campo queda vacío, se notificará al usuario para que complete todos los datos. US15
+
+> ![](assets/Wireflow4.png?raw=true)
+
+**Wire Flow:** Acceder al mapa de calor desde cualquier sección de la app. Al iniciar sesión correctamente, la aplicación redirige automáticamente al mapa donde se visualizan los reportes. Adicionalmente, desde cualquier otra sección, el usuario puede acceder al mapa mediante el ícono de navegación inferior. US17
+
+> ![](assets/Wireflow5.png?raw=true)
+
+**Wire Flow**: Generar un nuevo reporte de incidente y adjuntar evidencia. Para cumplir este objetivo, el usuario accede a la sección “Mis reportes” y selecciona el botón para crear uno nuevo. Luego elige el tipo de incidente (robo, accidente, etc.) y completa el formulario incluyendo una descripción y la evidencia correspondiente. Puede cancelar el proceso, lo que le permitirá eliminar el reporte. Si completa correctamente todos los campos y adjunta evidencia, el reporte se publica exitosamente y se visualizará en el mapa de calor. Si hay errores o campos vacíos, el reporte no será enviado. US08 y US09
+
+> ![](assets/Wireflow6.png?raw=true)
+
+**Wire Flow**: Recibir notificaciones sobre reportes y alertas de riesgo. Al abrir la aplicación, el usuario puede seleccionar el ícono de alertas para ver los reportes cercanos. Si no existen alertas en la zona, se muestra una vista vacía. Si hay reportes disponibles, el usuario podrá ver los detalles tocando alguno de ellos. US13 y US12
+
+![](assets/Wireflow7.png?raw=true)
+
+**Wire Flow**: Compartir ubicación con contactos. El usuario accede a la sección “Compartir ubicación” desde el ícono correspondiente en la parte inferior de la app. Desde ahí puede ver una lista de contactos y seleccionar a quién desea enviar su ubicación. Al presionar el botón “Guardar cambios”, la ubicación será compartida con los contactos elegidos. US14
+
+![](assets/Wireflow8.png?raw=true)
+
+### 6.4.3. Applications Mock-ups
+
+#### 6.4.3.1 Web Applications Mock-ups 
+
+Creamos un boceto más realista de cómo se verá PeaceApp en la aplicación Web.
+
+Enlace a los Web Application Mock-ups: <https://www.figma.com/design/4ddpaCLGMU2orrZG7Y3GyH/Sin-t%C3%ADtulo?node-id=0-1&t=k2uYPScq5bHnEsDH-1>
+
+![](assets/WebApplicationMock-ups.png?raw=true)
+
+**Sección log in y sign up:**
+
+![](assets/InicioSesionMockUp.png?raw=true)
+
+**Sección del mapa:**
+
+![](assets/MapaMockUp.png?raw=true)
+
+**Sección de Reportes y alerta:**
+
+![](assets/ReportesMockUp.png?raw=true)
+
+**Sección perfil:**
+
+![](assets/PerfilMockUp.png?raw=true)
+
+#### 6.4.3.2 Mobile Applications Mock-ups
+
+Creamos un boceto más realista de cómo se verá PeaceApp.
+
+Enlace a los Mobile Application Mock-ups: <https://tinyurl.com/dyb2ex8u>
+
+![](assets/MobileApplicationMock-ups.png?raw=true)
+
+**Sección log in y sign up:**
+
+![](assets/SignIn.png?raw=true)
+
+![](assets/SignUp.png?raw=true)
+
+**Sección del mapa, alerta y reportes:**
+
+![](assets/MapaAlertasReportes.png?raw=true)
+
+**Sección compartir ubicación:**
+
+![](assets/Ubicacion.png?raw=true)
+
+**Sección perfil:**
+
+![](assets/Perfil.png?raw=true)
+
+### 6.4.4. Applications User Flow Diagrams
+
+#### 6.4.4.1 Web Applications User Flow Diagrams 
+
+**User Flow**: User Goal: Iniciar sesión en la aplicación web como usuario registrado. Para este objetivo, el usuario ingresa directamente desde la página principal de la web, donde encuentra el formulario de inicio de sesión. Completa su correo y contraseña y presiona el botón "Ingresar". Si los datos son correctos, será redirigido al mapa. En caso contrario, se le avisará que hay campos vacíos o que los datos ingresados son incorrectos. US07
+
+> ![](assets/UserFlowW1.png?raw=true)
+
+**User Flow**: User Goal: Registrarse en la aplicación web como nuevo usuario. El usuario selecciona el botón "Registro", que lo redirige a un formulario donde debe ingresar su nombre, apellido, número de teléfono, correo electrónico y contraseña. Si completa todo correctamente, la cuenta se crea exitosamente. En caso de errores de formato, campos vacíos o datos inválidos, se le notificará y no se registrará. US06
+
+> ![](assets/UserFlowW2.png?raw=true)
+
+**User Flow**: User Goal: Generar un reporte de incidente en la aplicación web. El usuario accede a la sección "Reportes" y selecciona la opción para crear un nuevo reporte. Redacta el tipo de incidente libremente y selecciona la ubicación en el mapa arrastrando un marcador. Adjuntar evidencia es opcional. Si decide cancelar, podrá eliminar el reporte. Si completa correctamente los datos requeridos, el reporte se publica. Si hay errores o campos vacíos, no se enviará. US08
+
+> ![](assets/UserFlowW3.png?raw=true)
+
+**User Flow:** User Goal: Visualizar reportes en la aplicación web. Desde la sección "Reportes", el usuario podrá ver una lista general de todos los reportes. Si no existen reportes, se mostrará la vista vacía. Actualmente, no hay visualización de alertas, íconos en el mapa ni opción para ver detalles de reportes individuales. US11
+
+> ![](assets/UserFlowW4.png?raw=true)
+
+**User Flow:** User Goal: Editar la información del perfil en la aplicación web. Al ingresar, el usuario puede acceder al ícono de perfil y desde ahí editar sus datos personales. Si todos los campos obligatorios se completan, los cambios se guardan correctamente. Si deja algún campo vacío, se le notificará. US15
+
+> ![](assets/UserFlowW5.png?raw=true)
+
+**User Flow**: User Goal: Visualizar rutas seguras dentro del mapa en la aplicación web. El usuario accede a la sección "Mapa" e ingresa la ubicación a la que desea llegar. Si deja el campo vacío o ingresa una dirección inválida, no se mostrará nada. Si la dirección es válida, se generará una ruta segura en el mapa desde su ubicación actual hasta el destino ingresado. US10
+
+> ![](assets/UserFlowW6.png?raw=true)
+
+#### 6.4.4.2 Mobile Applications User Flow Diagrams
+
+**User Flow**: User Goal: Ingresar a la aplicación móvil como usuario registrado. Para este objetivo, el usuario accede a la pantalla inicial, selecciona el botón “Iniciar sesión” e ingresa su correo y contraseña. Si los datos ingresados son correctos, se redirige automáticamente al mapa de la aplicación. En caso de error (credenciales incorrectas o campos vacíos), se muestra un mensaje de advertencia solicitando revisar la información. US07
+
+> ![](assets/UserFlow1.png?raw=true)
+
+**User Flow**: User Goal: Registrarse en la aplicación móvil como nuevo usuario. Para lograr este objetivo, el usuario presiona el botón “Comenzar ahora” en la pantalla inicial y accede al formulario de registro. Allí deberá ingresar su nombre, apellido, número de teléfono, correo electrónico y contraseña. Si toda la información es válida, se muestra un mensaje confirmando la creación exitosa de la cuenta. Si hay errores en el formato del correo, la contraseña es demasiado corta o el número es inválido, se informará al usuario y no se completará el registro. US06
+
+> ![](assets/UserFlow2.png?raw=true)
+
+**User Flow**: User Goal: Visualizar los reportes disponibles en la aplicación. Una vez dentro de la app, el usuario puede acceder a la sección “Alertas” para ver los reportes en su zona. Si no existen alertas, no se mostrará contenido. Desde el mapa también puede acceder directamente al detalle de un reporte tocando un ícono. En la pestaña “Reportes”, puede revisar tanto los reportes generales como los propios. Si aún no se han generado reportes, esas secciones estarán vacías. US11
+
+> ![](assets/UserFlow3.png?raw=true)
+
+**User Flow:** User Goal: Editar la información del perfil del usuario. Al ingresar a la aplicación, el usuario puede acceder a su perfil mediante el ícono correspondiente. Desde allí puede modificar sus datos personales. Si todos los campos requeridos son completados correctamente, la información se actualiza exitosamente. Si algún campo queda vacío, se notificará al usuario para que complete todos los datos. US15
+
+> ![](assets/UserFlow4.png?raw=true)
+
+**User Flow:** Acceder al mapa de calor desde cualquier sección de la app. Al iniciar sesión correctamente, la aplicación redirige automáticamente al mapa donde se visualizan los reportes. Adicionalmente, desde cualquier otra sección, el usuario puede acceder al mapa mediante el ícono de navegación inferior. US17
+
+> ![](assets/UserFlow5.png?raw=true)
+
+**User Flow**: Generar un nuevo reporte de incidente y adjuntar evidencia. Para cumplir este objetivo, el usuario accede a la sección “Mis reportes” y selecciona el botón para crear uno nuevo. Luego elige el tipo de incidente (robo, accidente, etc.) y completa el formulario incluyendo una descripción y la evidencia correspondiente. Puede cancelar el proceso, lo que le permitirá eliminar el reporte. Si completa correctamente todos los campos y adjunta evidencia, el reporte se publica exitosamente y se visualizará en el mapa de calor. Si hay errores o campos vacíos, el reporte no será enviado. US08 y US09
+
+> ![](assets/UserFlow6.png?raw=true)
+
+**User Flow**: Recibir notificaciones sobre reportes y alertas de riesgo. Al abrir la aplicación, el usuario puede seleccionar el ícono de alertas para ver los reportes cercanos. Si no existen alertas en la zona, se muestra una vista vacía. Si hay reportes disponibles, el usuario podrá ver los detalles tocando alguno de ellos. US13 y US12
+
+![](assets/UserFlow7.png?raw=true)
+
+**User Flow**: Compartir ubicación con contactos. El usuario accede a la sección “Compartir ubicación” desde el ícono correspondiente en la parte inferior de la app. Desde ahí puede ver una lista de contactos y seleccionar a quién desea enviar su ubicación. Al presionar el botón “Guardar cambios”, la ubicación será compartida con los contactos elegidos. US14
+
+![](assets/UserFlow8.png?raw=true)
+
+
+## 6.5. Applications Prototyping'
+
+### 6.5.1 Web Applications Prototyping
+
+Habiendo realizado los mock-ups, creamos un prototipo de la aplicación web en Figma.
+ 
+Enlace al prototipo: https://www.figma.com/proto/g2UjaaatgDwqOfmLg1rFFW/PeaceApp-Prototype?node-id=2-2&p=f&t=xMFwVGxiDoS4zFvU-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=2%3A2
+ 
+![](assets/WebApplicationsPrototyping.png?raw=true)
+
+### 6.5.2 Mobile Applications Prototyping
+
+Habiendo realizado los mock-ups, creamos un prototipo de la app en Figma similar a el prototyping de Android.
+
+Enlace al prototipo: <https://tinyurl.com/zm8788jn>
+
+![](assets/AndroidMobileApplicationsPrototyping.png)
+
+# Capítulo VII: Product Implementation, Validation & Deployment
+
+## 7.1. Software Configuration Management.
+En esta sección se resume toda la información recopilada, analizando que pasos que se realizaran y como se siente.
+
+### 7.1.1. Software Development Environment Configuration.
+En la siguiente sección se describe la ruta de referencia de cada uno de los productos de software para que cualquier miembro del equipo pueda desarrollar cada punto del trabajo:
+
+**Figma:** Herramienta colaborativa que nos permitirá desarrollar wireframes y mockups.
+
+**Vertabelo:** Plataforma colaborativa que nos permitirá crear nuestro diagrama de base de datos.
+
+**GitHub:** Repositorio colaborativo en la nube
+
+**IntelliJ:** es un entorno de desarrollo para trabajar con Java y otros lenguajes que se ejecutan en JVM, como Kotlin.
+
+### 7.1.2. Source Code Management.
+Trabajamos con 3 ramas principales:
+
+**Main:** nuestra rama principal donde presentaremos nuestras publicaciones oficiales.
+
+**Development:** Es nuestra rama de desarrollo, en donde probaremos e integraremos las funcionalidades trabajadas.
+
+**Feature:** Se descompone en ramas por cada feature trabajado.
+
+### 7.1.3. Source Code Style Guide & Conventions.
+Para desarrollar nuestro proyecto hemos requerido de algunas nomenclaturas, referencias y lenguajes para esta solución.
+
+Tecnologías: Utilizamos algunas de estas tecnologías para el desarrollo de nuestra aplicación como: HTML5, CSS, JS, Java.
+
+Herramientas: Nos apoyamos de las tecnologías más utilizadas y recomendadas para el desarrollo de nuestra aplicación como: GitHub, Figma, IntelliJ
+
+Convenciones de idioma: Uso del idioma inglés para elaborar nuestro código
+
+
+### 7.1.4. Software Deployment Configuration.
+Para desplegar nuestra landing page en la plataforma de GitHub, seguimos los siguientes pasos:
+
+**Creación del Repositorio Remoto en GitHub:**
+
+- Creamos un nuevo repositorio en GitHub de nuestro proyecto, el cual se utilizará para el desarrollo y deployment.
+
+**Inicialización del Repositorio:**
+
+- Se utiliza el comando git init para inicializar el repositorio.
+
+**Subida de Archivos al Repositorio Remoto:**
+
+- Añadimos los archivos de nuestra landing page al repositorio local.
+
+- Subimos los archivos al repositorio de GitHub con el comando git push -u origin master o utilizando GitHub Desktop.
+
+**Configuración de Netlify:**
+
+- Nos dirigimos a Netlify y creamos una nueva cuenta o iniciamos sesión.
+
+- En Netlify, seleccionamos la opción de importar el proyecto desde GitHub.
+
+- Autorizamos a Netlify para acceder a nuestro repositorio de GitHub.
+
+- Elegimos el repositorio que contiene nuestra landing page y configuramos las opciones de despliegue.
+
+**Despliegue:**
+
+- Netlify se encargará de desplegar automáticamente nuestra landing page.
+
+- Accedemos a la URL proporcionada por Vercel para verificar que nuestra landing page se haya desplegado correctamente.
+
+De este modo, nuestra landing page estará disponible utilizando Vercel y podrá ser visible para cualquier usuario que tenga el enlace. 
+
+**Enlace del landing page:** <https://peaceapp-landingpage.netlify.app/>
+
+## 7.2. Solution Implementation.
+
+### 7.2.1. Sprint 1
+
+#### 7.2.1.1. Sprint Planning 1.
+
+El Sprint Planning 1 definió el alcance inicial de PeaceApp para sentar las bases del ecosistema web, móvil y de microservicios. En esta reunión se priorizaron las historias orientadas al acceso seguro por roles, la asistencia conversacional inicial para el ciudadano y la configuración de la infraestructura mínima para soportar autenticación, descubrimiento de servicios e integración del chatbot.
+
+| Sprint # | Sprint 1 |
+| :--- | :--- |
+| Sprint Planning Background | Reunión de arranque del primer sprint para alinear el MVP, distribuir responsabilidades y asegurar que el trabajo cubra las funciones base del sistema PeaceApp. |
+| Date | 13/05/2026 |
+| Time | 12:00 AM |
+| Location | Discord (Reunión virtual) |
+| Prepared By | Equipo de desarrollo de PeaceApp |
+| Attendees (to planning meeting) | Noriega Suschenko Anatoly, Arroyo Ormeño André, Reyes Trujillano Fabian, Santillan Alvarado Melina, Guia Carrasco Pedro |
+| Sprint Goal & User Stories | Entregar la base funcional del MVP con acceso diferenciado por rol, chatbot de apoyo al ciudadano e infraestructura backend lista para integrar los servicios del sistema. <br><br>Historias priorizadas: registro de usuarios, inicio de sesión, consulta de seguridad mediante chatbot, asistencia para crear reportes, acceso al soporte externo, autenticación JWT, alta de usuarios, control de roles, microservicio NLP y orquestación en el API Gateway. |
+| Sprint 1 Goal | Construir una primera versión operativa de PeaceApp que permita registrar y autenticar usuarios, separar correctamente los flujos web y móvil, e integrar la capa inicial de asistencia inteligente para consultas y creación guiada de reportes. |
+| Sprint 1 Velocity | Pendiente de medir |
+| Sum of Story Points | 49 |
+
+#### 7.2.1.2. Sprint Backlog 1
+
+Durante este sprint, se trabajó en las funcionalidades base de acceso al ecosistema, la capa de infraestructura distribuida y en el módulo de asistencia inteligente del MVP. Específicamente, se segmentó el flujo de registro de identidades de modo que en la aplicación web solo se permita la creación de cuentas para municipalidades y en la aplicación móvil se limite exclusivamente a ciudadanos. Asimismo, se desarrolló y desplegó el microservicio de chatbot con procesamiento de lenguaje natural (NLP) integrado en la aplicación móvil, y se consolidaron los servicios core de enrutamiento, mapas analíticos, reportes comunitarios y flujos síncronos de emergencia SOS.
+
+**Tabla de control de estado del Sprint**
+
+| Sprint # | **Sprint 1** | | | | | | |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **User Story** | | **Work-Item / Task** | | | | | |
+| **Id** | **Title** | **Id** | **Title** | **Description** | **Est. (h)** | **Assigned To** | **Status** |
+| **US04** | Registro de Usuarios | US04-MO-01 | Form registro ciudadano | UI en Flutter/Mobile; captura de datos personales obligatorios y DNI civil. | 4 | **Noriega Suschenko Anatoly** | Done |
+| | | US04-FE-01 | Form registro municipio | UI en React/Web; campos de distrito, provincia y teléfono de contacto. | 5 | **Noriega Suschenko Anatoly** | Done |
+| **US05** | Iniciar Sesión | US05-MO-01 | Login móvil ciudadano | Pantalla de inicio de sesión en Flutter; manejo de estados y persistencia local. | 3 | **Arroyo Ormeño André** | Done |
+| | | US05-FE-01 | Login web municipal | Pantalla de inicio de sesión en React para autoridades; redirección al Dashboard. | 3 | **Reyes Trujillano Fabian** | Done |
+| **US11** | Editar Información de Perfil | US11-MO-01 | Formulario editar perfil ciudadano | UI móvil para modificar datos telefónicos y residencia; validación en cliente. | 3 | **Guia Carrasco Pedro** | Done |
+| | | US11-FE-01 | Gestión perfil municipalidad | Vista web interactiva para auditar y actualizar datos institucionales del serenazgo. | 3 | **Reyes Trujillano Fabian** | Done |
+| **US12** | Recuperar Contraseña | US12-FE-01 | Interfaz recuperación email | Pantalla web para solicitar el enlace mediante el ingreso de correo electrónico. | 3 | **Arroyo Ormeño André** | Done |
+| | | US12-FE-02 | Formulario nueva contraseña | Vista web transaccional para definir y confirmar la clave de acceso de forma segura. | 3 | **Arroyo Ormeño André** | Done |
+| **US13** | Acceder a Mapa con Reportes | US13-FE-01 | Lienzo cartográfico central web | Integración del mapa de calor interactivo basado en Mapbox en el dashboard. | 5 | **Reyes Trujillano Fabian** | Done |
+| **US14** | Acceder al Perfil de Usuario | US14-MO-01 | Vista de cuenta móvil | Renderizado de datos del ciudadano autenticado y acciones de personalización. | 2 | **Guia Carrasco Pedro** | Done|
+| **US15** | Filtrar Reportes | US15-FE-01 | Controles de filtrado web | Componentes UI en consola web para clasificar incidentes por tipo, fecha y estado. | 3 | **Reyes Trujillano Fabian** | Done |
+| **US16** | Buscar Ubicación en el Mapa | US16-FE-01 | Buscador predictivo web | Caja de geocodificación en el mapa web para localizar direcciones y avenidas. | 3 | **Reyes Trujillano Fabian** | Done |
+| **US18** | Notificación de Éxito al Reportar | US18-MO-01 | Modal confirmación reporte | Cuadro de diálogo ilustrativo en Flutter tras registrar un incidente comunitario. | 2 | **Santillan Alvarado Melina** | Done |
+| **US21** | Estado Vacío en “Mis Reportes” | US21-MO-01 | UI empty state reportes | Vista condicional y amigable si el ciudadano aún no ha aportado incidentes. | 2 | **Guia Carrasco Pedro** | Done |
+| **US25** | Ver Detalles Rápidos en Mapa | US25-FE-01 | Popups informativos web | Tooltips contextuales sobre los marcadores del mapa web para ver un resumen. | 3 | **Arroyo Ormeño André** | Done |
+| **US31** | Acceso como Municipalidad | US31-FE-01 | Enrutamiento Dashboard web | Restricción y renderizado de la consola web limitado a la sesión del municipio. | 4 | **Noriega Suschenko Anatoly** | Done |
+| **US32** | Visualizar Reportes en Dashboard | US32-FE-01 | Gráficos analíticos web | Distribución de componentes visuales de incidencias tabuladas por distrito. | 4 | **Reyes Trujillano Fabian** | Done |
+| **US35** | Ver Detalle Completo del Reporte | US35-FE-01 | Modal expandido incidente | Interfaz web que muestra la descripción, evidencias y autoría completa. | 3 | **Arroyo Ormeño André** | Done |
+| **US38** | Enviar Alerta de Emergencia | US38-MO-01 | SOS Pánico síncrono móvil | Botón crítico en app móvil para gatillar el envío inmediato de coordenadas. | 4 | **Guia Carrasco Pedro** | Done |
+| | | US38-MO-02 | Pantalla SOS fuera cobertura | Interfaz adaptativa ante fallo de red móvil para derivar emergencias vía SMS. | 3 | **Guia Carrasco Pedro** | Done |
+| **US39** | Confirmación de Envío de Emergencia | US39-MO-01 | UI de confirmación SOS | Pantalla transaccional móvil de envío exitoso de auxilio hacia serenazgo. | 2 | **Guia Carrasco Pedro** | Done |
+| **US42** | Consultar Nivel de Seguridad mediante Chatbot | US42-MO-01 | Interfaz de chat móvil | Componente de chat síncrono embebido en Flutter para la interacción ciudadana. | 4 | **Santillan Alvarado Melina** | Done |
+| **US43** | Asistencia del Chatbot para Crear Reportes | US43-MO-01 | Workflow de asistencia móvil | Lógica conversacional en app móvil para recolectar datos y armar el borrador. | 4 | **Santillan Alvarado Melina** | Done |
+| **US48** | Acceder al Soporte Externo de PeaceApp | US48-MO-01 | Enrutamiento de soporte | Menú interactivo móvil para desviar consultas técnico-operativas al bot. | 2 | **Santillan Alvarado Melina** | Done |
+| **TS01** | Autenticación JWT mediante RESTful API | TS01-BE-01 | Configuración Spring Security | Filtros de seguridad, validación asimétrica y protección de endpoints privados. | 5 | **Reyes Trujillano Fabian** | Done |
+| **TS02** | Crear Nuevo Usuario mediante RESTful API | TS02-BE-01 | Sign-up REST Endpoints | Implementación de `POST /api/v1/auth/register` en `IAMService` segregado por rol. | 4 | **Noriega Suschenko Anatoly** | Done |
+| **TS03** | Editar Perfil de Usuario mediante RESTful API | TS03-BE-01 | Endpoint update profile | Desarrollo de controladores Spring PATCH en `UserService` para mutar perfiles. | 3 | **Noriega Suschenko Anatoly** | Done |
+| **TS04** | Crear Reporte de Incidente mediante RESTful API | TS04-BE-01 | Endpoint creación reportes | Endpoints en `ReportService` para registrar incidentes ciudadanos en estado pendiente. | 4 | **Arroyo Ormeño André** | Done |
+| **TS05** | Obtener Lista de Reportes mediante RESTful API | TS05-BE-01 | GET list endpoints reportes | Lógica de negocio para servir colecciones de incidentes filtradas por rol. | 4 | **Arroyo Ormeño André** | Done |
+| **TS06** | Obtener Reporte por ID mediante RESTful API | TS06-BE-01 | GET report by ID endpoint | Implementación de búsquedas controladas y seguras de un incidente específico. | 3 | **Arroyo Ormeño André** | Done |
+| **TS07** | Crear Coordenadas de Ubicación al Generar un Reporte | TS07-BE-01 | Persistencia espacial inicial | Lógica en `LocationService` para acoplar latitud y longitud a los agregados. | 3 | **Guia Carrasco Pedro** | Done |
+| **TS08** | Obtener Ubicaciones para Renderizar Reportes en el Mapa | TS08-BE-01 | Endpoint JSON marcadores | Servicio web encargado de retornar las coordenadas para el renderizado del mapa. | 3 | **Guia Carrasco Pedro** | Done |
+| **TS09** | Crear Alerta al Acercarse a una Zona de Peligro | TS09-BE-01 | Lógica proximidad de alertas | Componentes en `AlertService` para inicializar alarmas ante cruce de perímetros. | 4 | **Guia Carrasco Pedro** | Done |
+| **TS10** | Obtener Alertas por Usuario | TS10-BE-01 | GET alerts endpoint | Endpoint para servir las notificaciones históricas de peligro de una identidad. | 3 | **Guia Carrasco Pedro** | Done |
+| **TS11** | Eliminar Alertas al Recargar el Mapa | TS11-BE-01 | Limpieza caché de alertas | Lógica backend para prevenir el envío de elementos duplicados o desactualizados. | 3 | **Guia Carrasco Pedro** | Done |
+| **TS12** | Obtener Detalles de Alerta por ID | TS12-BE-01 | GET alert details API | Consulta atómica de infraestructura para recuperar el detalle de una alerta. | 3 | **Guia Carrasco Pedro** | Done |
+| **TS13** | Obtener Datos de Usuario por Email | TS13-BE-01 | Query filter by email | Método optimizado en `UserService` para validar identidades durante la autenticación. | 3 | **Noriega Suschenko Anatoly** | Done |
+| **TS14** | Manejo de Roles de Usuario | TS14-BE-01 | Interceptor de Autorización | Lógica en `IAMService` (HTTP 403) para bloquear accesos y registros cruzados. | 3 | **Noriega Suschenko Anatoly** | Done |
+| **TS15** | Crear Alerta de Emergencia mediante RESTful API | TS15-BE-01 | POST emergency endpoint | API en `AlertService` para registrar la señal inmediata de pánico ciudadana. | 4 | **Guia Carrasco Pedro** | Done |
+| **TS16** | Obtener Lista de Emergencias mediante RESTful API | TS16-BE-01 | GET emergencies list | Servicio web para recuperar incidentes activos prioritarios para el municipio. | 3 | **Guia Carrasco Pedro** | Done |
+| **TS17** | Actualizar Estado de Emergencia mediante RESTful API | TS17-BE-01 | PATCH status emergency | Endpoint transaccional para actualizar el ciclo de vida de la alerta (`ATTENDED`). | 3 | **Guia Carrasco Pedro** | Done |
+| **TS18** | Envío de Notificaciones de Emergencia | TS18-BE-01 | Orquestador eventos SOS | Despachador encargado de derivar las emergencias registradas en tiempo real. | 3 | **Guia Carrasco Pedro** | Done |
+| **TS20** | Implementar Microservicio de Chatbot mediante NLP | TS20-BE-01 | Despliegue de servicio NLP | Microservicio independiente en `AIService` para procesar y clasificar texto conversacional. | 6 | **Santillan Alvarado Melina** | Done |
+| **TS23** | Orquestación de Servicios de IA en el API Gateway | TS23-BE-01 | Enrutamiento proxy Gateway | Configuración en `GatewayService` para redirigir tráfico de IA aplicando filtros JWT. | 3 | **Guia Carrasco Pedro** | Done |
+
+#### 7.2.1.3. Development Evidence for Sprint Review.
+Los avances específicos son:
+
+- **Web Application / Mobile Application:**
+  - Segmentación y despliegue del formulario de registro móvil exclusivo para el rol de ciudadanos.
+  - Implementación de la interfaz web adaptada para la creación de cuentas de entidades municipales.
+  - Integración de la ventana de chat conversacional del asistente en la aplicación móvil.
+  - Maquetación inicial de los componentes del Frontend Web corporativo y resolución de estilos responsive.
+
+- **Web Services (Microservices & Infrastructure):**
+  - **IAMService & UserService:** Configuración de Spring Security, aprovisionamiento de endpoints para el ciclo de vida de cuentas y control estricto de roles mediante interceptores (JWT).
+  - **AIService:** Creación y despliegue del microservicio inteligente de asistencia basado en procesamiento de lenguaje natural (NLP) con soporte e integración oficial de OpenAI.
+  - **GatewayService & EurekaServer:** Implementación del servidor de descubrimiento Eureka y configuración de rutas e interceptación en el API Gateway para orquestar la comunicación del ecosistema distribuido.
+  - **ReportService, AlertService, LocationService & MessageBroker:** Cimentación de la base de datos estructural del dominio y configuraciones iniciales para soportar el flujo reactivo de mensajería, localización e incidentes.
+
+| Repository | Branch | Commit Id | Commit Message | Commit Message Body | Commited on (Date) |
+| :---: | :---: | :---: | :--- | :--- | :---: |
+| AIService | main | da5b1020d10030922d0e47a686deaa0e276b2cbf | chore: remove target folder | | 20/06/2026 |
+| AIService | main | b39aac09b46e2735b9603466d5b3be5e86390f4d | chore: add gitignore file | | 20/06/2026 |
+| AIService | main | 5d04966bdc90fa6a9c5c48c93257aad3541914a5 | feat: integrate OpenAI support in AI service | | 20/06/2026 |
+| AIService | main | 8d9e678763c389436838684dc5e8b6a51a276b88 | Initial commit | | 20/06/2026 |
+| PeaceApp-Web | main | c8ba68a4f958ef77babf250014ec83e0bc57735c | refactor: fix things | | 20/06/2026 |
+| PeaceApp-Web | main | 5ff76ff97746676ef5f56747ec794027fbc01f54 | feat: add web additions | | 16/06/2026 |
+| PeaceApp-Web | main | 578932264c740759a651659246541e5eb5948017 | feat: add initial web app implementation | | 13/05/2026 |
+| GatewayService | main | 6ef70bbdae10479cd610d12ff08bccc7a5b68896 | refactor: add missing lines | | 20/06/2026 |
+| GatewayService | main | 8471388581798deb6242752ad290aec88435fb29 | feat: add gateway additions | | 16/06/2026 |
+| GatewayService | main | d4c30a83f746424514060dacfe8010ed49d97831 | feat: add initial service implementation | | 13/05/2026 |
+| UserService | main | c7b84b080862c3fa58099f3230e0c7a8a9fbf92d | feat: add users additions | | 16/06/2026 |
+| UserService | main | cf2a207d7149a181b2a100054ee32c0ac1ab3b67 | feat: add initial service implementation | | 13/05/2026 |
+| ReportService | main | 01a44a4e8f3b1e12a21926c3156e300364281430 | feat: add report additions | | 16/06/2026 |
+| ReportService | main | 7abeb6690f97eea0292bdb352f1f4cdc903a1670 | feat: add initial service implementation | | 13/05/2026 |
+| IAMService | main | 834c538a10b5418f24b394de15f81576bb205290 | feat: add iam additions | | 16/06/2026 |
+| IAMService | main | 48a0801518770bf6c3d5da1620764ccd76312490 | feat: add initial service implementation | | 13/05/2026 |
+| AlertService | main | 618b4d2acb6a73f1bc72386d0b2d242cbe9fde79 | feat: add alert service additions | | 16/06/2026 |
+| AlertService | main | 847ec1a00e0e506c9948dfb59126a831fc3b056c | feat: add initial service implementation | | 13/05/2026 |
+| MessageBroker | main | 1bc5a7dbb7983e71af4ca865a41aaf54a8b9478c | feat: add initial service implementation | | 13/05/2026 |
+| LocationService | main | 441016116577520acfcde7e291ef7b6356e83620 | feat: add initial service implementation | | 13/05/2026 |
+| EurekaServer | main | a48415bb921918604d8733857689fddeea973def | feat: add initial service implementation | | 13/05/2026 |
+
+#### 7.2.1.4. Testing Suite Evidence for Sprint Review.
+Para esta sección del proyecto se hizo uso de la herramienta Visual Studio Code empleando el lenguaje Gherkin.
+Se mostrarán a continuación los Acceptance Test según el enfoque de DDD (Domain Driven Desgin)
+
+- Registro de Usuarios
+
+![](assets/Gherkin1Sprint1.png?raw=true)
+
+- Iniciar Sesión
+
+![](assets/Gherkin2Sprint1.png?raw=true)
+
+- Generar Reporte de Incidentes
+
+![](assets/Gherkin3Sprint1.png?raw=true)
+
+- Subir Evidencia Multimedia
+
+![](assets/Gherkin4Sprint1.png?raw=true)
+
+- Visualización de Reportes
+
+![](assets/Gherkin6Sprint1.png?raw=true)
+
+- Monitoreo de Proximidad a Zonas de Riesgo
+
+![](assets/Gherkin7Sprint1.png?raw=true)
+
+- Notificación de Alerta de Riesgo
+
+![](assets/Gherkin8Sprint1.png?raw=true)
+
+- Selección de Contactos de Monitoreo
+
+![](assets/Gherkin9Sprint1.png?raw=true)
+
+- Compartición de Ubicación en Tiempo Real
+
+![](assets/Gherkin10Sprint1.png?raw=true)
+
+- Editar Perfil
+
+![](assets/Gherkin11Sprint1.png?raw=true)
+
+- Recuperar Contraseña
+
+![](assets/Gherkin12Sprint1.png?raw=true)
+
+- Acceder a Mapa con Reportes
+
+![](assets/Gherkin13Sprint1.png?raw=true)
+
+- Acceder al Perfil
+
+![](assets/Gherkin14Sprint1.png?raw=true)
+
+- Filtrar Reportes
+
+![](assets/Gherkin15Sprint1.png?raw=true)
+
+- Buscar Ubicación en el Mapa
+
+![](assets/Gherkin16Sprint1.png?raw=true)
+
+- Formulario de Reporte
+
+![](assets/Gherkin17Sprint1.png?raw=true)
+
+- Validación y errores
+
+![](assets/Gherkin19Sprint1.png?raw=true)
+
+- Actualización del mapa/heatmap
+
+![](assets/Gherkin20Sprint1.png?raw=true)
+
+- Footer Informativo
+
+![](assets/Gherkin21Sprint1.png?raw=true)
+
+#### 7.2.1.5. Execution Evidence for Sprint Review.
+Se trabajó en el despliegue del núcleo transaccional, los servicios distribuidos y las interfaces interactivas para este primer sprint. En la aplicación web se completó la maquetación y lógica de los formularios de registro municipal, inicio de sesión, recuperación de contraseña, componentes cartográficos y el dashboard analítico de control distrital. Por su parte, la aplicación móvil consolidó la experiencia del ciudadano común, integrando el asistente chatbot, el sistema de reportes comunitarios con IA, la gestión de alertas, la sincronización de contactos de confianza y los flujos críticos de emergencia SOS. Finalmente, la infraestructura de backend validó de forma exitosa el registro y descubrimiento de los microservicios mediante Eureka Server, garantizando una operación integral y conectada de todo el ecosistema distribuido.
+
+**Web Application:**
+
+- **Crear Cuenta Municipalidad:** Formulario estructurado para el alta e inscripción de gobiernos locales en la plataforma web, solicitando datos de contacto institucionales, el distrito de operaciones de serenazgo y los identificadores requeridos para su correcta asignación jurisdiccional.
+
+!["Vista implementada en Sprint 1 - Crear Cuenta Municipalidad"](assets/sprint1-web-crearCuentaMunicipalidad.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Inicio de Sesión (Login):** Pantalla de acceso seguro al sistema web mediante el ingreso de correo electrónico y contraseña corporativa, protegida con interceptores de seguridad basados en roles.
+
+!["Vista implementada en Sprint 1 - Login Web"](assets/sprint1-web-login.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Recuperar Cuenta (Email):** Primer paso del flujo de recuperación de contraseña en la web, donde el usuario ingresa su correo electrónico registrado para solicitar el envío del token o enlace de validación.
+
+!["Vista implementada en Sprint 1 - Recuperar Cuenta Email"](assets/sprint1-web-recuperarCuentaEmail.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Recuperar Cuenta (Nueva Contraseña):** Formulario final del flujo de recuperación que permite al usuario establecer y confirmar su nueva clave de acceso de forma segura.
+
+!["Vista implementada en Sprint 1 - Recuperar Cuenta Nueva Contraseña"](assets/sprint1-web-recuperarCuentaNuevaContraseña.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Dashboard Municipal:** Panel principal de analítica visual que recopila gráficos estadísticos, métricas e indicadores clave de rendimiento sobre los incidentes reportados en el distrito para optimizar la toma de decisiones del serenazgo.
+
+!["Vista implementada en Sprint 1 - Dashboard"](assets/sprint1-web-dashboard.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Mapa con Reportes:** Interfaz cartográfica interactiva central que renderiza en tiempo real los marcadores geolocalizados de los incidentes ciudadanos y las zonas identificadas con gradientes de peligro dentro del distrito.
+
+!["Vista implementada en Sprint 1 - Mapa con Reportes"](assets/sprint1-web-mapaConReportes.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Buscador en el Mapa:** Barra de herramientas de geocodificación que permite a los operadores municipales realizar búsquedas directas de direcciones o intersecciones específicas para centrar el lienzo del mapa de forma ágil.
+
+!["Vista implementada en Sprint 1 - Buscador Mapa"](assets/sprint1-web-buscadorMapa.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Detalle de Reporte:** Modal informativo desplegable que presenta la descripción minuciosa del delito, los datos del usuario emisor, la fecha exacta del suceso y el estado actual del ciclo de vida del reporte.
+
+!["Vista implementada en Sprint 1 - Detalle Reporte"](assets/sprint1-web-detalleReporte.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Reporte de Emergencia:** Consola integrada para la visualización y alerta de señales síncronas de auxilio de alta prioridad despachadas de forma asíncrona hacia la central de serenazgo distrital.
+
+!["Vista implementada en Sprint 1 - Reporte Emergencia"](assets/sprint1-web-reporteEmergencia.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Perfil Municipalidad:** Sección dedicada a la gestión de datos institucionales de la municipalidad federada, permitiendo auditar y actualizar los teléfonos de contacto de las unidades de campo.
+
+!["Vista implementada en Sprint 1 - Perfil Municipalidad"](assets/sprint1-web-perfilMunicipalidad.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Términos y Condiciones:** Vista informativa legal integrada en la plataforma web que detalla las políticas de privacidad y el tratamiento de datos alineado estrictamente a la legislación peruana vigente.
+
+!["Vista implementada en Sprint 1 - Términos y Condiciones"](assets/sprint1-web-terminosYCondiciones.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Preguntas Frecuentes:** Módulo de autoayuda dinámico con respuestas estructuradas orientadas a facilitar la inducción y el manejo operativo inicial de la consola web por parte de los operadores.
+
+!["Vista implementada en Sprint 1 - Preguntas Frecuentes"](assets/sprint1-web-preguntasFrecuentes.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+**Mobile Application:**
+
+- **Perfil Ciudadano:** Interfaz donde el usuario civil puede visualizar sus datos personales de cuenta, credenciales de contacto y gestionar la personalización o cierre de su sesión móvil actual.
+
+!["Vista implementada en Sprint 1 - Perfil Ciudadano"](assets/sprint1-mobile-perfilCiudadano.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Editar Perfil Ciudadano:** Pantalla interna de edición que faculta al ciudadano a modificar y poner al día sus datos de contacto (teléfono, distrito, residencia), validando en el cliente campos obligatorios vacíos.
+
+!["Vista implementada en Sprint 1 - Editar Perfil Ciudadano"](assets/sprint1-mobile-editarPerfilCiudadano.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Chatbot - Indicaciones de Reporte:** Pantalla inicial de bienvenida del asistente inteligente interactivo, ofreciendo pautas de orientación contextuales al ciudadano sobre el estado de la seguridad.
+
+!["Vista implementada en Sprint 1 - Mobile Chatbot Indicaciones"](assets/sprint1-mobile-chatbot-indicacionesReporte.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Chatbot - Apoyo para Crear Reporte:** Interfaz del flujo conversacional guiado donde el chatbot asiste activamente al ciudadano recopilando la descripción del incidente para estructurar un borrador de reporte de forma rápida.
+
+!["Vista implementada en Sprint 1 - Mobile Chatbot Apoyo Reporte"](assets/sprint1-mobile-chatbot-apoyoCrearReporte.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Indicar Dirección en Reporte:** Componente interactivo que asiste al ciudadano en la captura y geolocalización exacta del incidente mediante un cuadro de texto predictivo de direcciones.
+
+!["Vista implementada en Sprint 1 - Indicar Direccion Mobile"](assets/sprint1-mobile-indicarDireccion.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Formulario de Reporte:** Pantalla estructurada para registrar incidentes manuales, permitiendo al ciudadano ingresar el título del suceso, la descripción contextual y adjuntar las evidencias requeridas.
+
+!["Vista implementada en Sprint 1 - Formulario Reporte Mobile"](assets/sprint1-mobile-formularioReporte.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Autocompletado de Tipo por IA:** Pantalla del flujo de creación de reportes donde el microservicio de IA analiza la descripción de los hechos para sugerir y autocompletar de forma predictiva la categoría del delito (ej. Hurto).
+
+!["Vista implementada en Sprint 1 - Autocompletado Tipo por IA"](assets/sprint1-mobile-tipoIncidenteParaInforme.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Notificación de Éxito al Reportar:** Cuadro de diálogo modal e ilustrativo que confirma al ciudadano que el reporte de incidente fue registrado en las bases de datos de forma satisfactoria.
+
+!["Vista implementada en Sprint 1 - Reporte Creado Exitosamente"](assets/sprint1-mobile-reporteCreadoExitosamente.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Visualización de Reporte Creado:** Pantalla de auditoría individual que permite al ciudadano revisar los datos finales estructurados de su reporte antes o después de la aprobación de la jurisdicción.
+
+!["Vista implementada en Sprint 1 - Visualizacion de Reporte Creado"](assets/sprint1-mobile-visualizacionDeReporteCreado.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Mis Reportes:** Sección personalizada que compila de forma tabular e individual el historial histórico de todos los incidentes que el propio usuario ha aportado a la comunidad.
+
+!["Vista implementada en Sprint 1 - Mis Reportes Mobile"](assets/sprint1-mobile-todosMisReportes.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Todos los Reportes de Usuarios:** Vista de exploración comunitaria en formato de lista secuencial cronológica que permite al ciudadano revisar los incidentes generales alertados por otros usuarios de la plataforma.
+
+!["Vista implementada en Sprint 1 - Todos los Reportes de Usuarios"](assets/sprint1-mobile-todosReportesDeUsuariosDeTodasZonas.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Todas las Alertas de Zona:** Interfaz dedicada que compila las alertas preventivas vigentes de su entorno actual de acuerdo con el radio de proximidad geoespacial.
+
+!["Vista implementada en Sprint 1 - Todas las Alertas de Zona"](assets/sprint1-mobile-todasAlertaDeZona.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Alerta Detectada:** Pantalla de aviso inmediato que irrumpe en la pantalla de la aplicación móvil para advertir de forma visual que el ciudadano se encuentra dentro del radio de influencia de un incidente de peligro.
+
+!["Vista implementada en Sprint 1 - Alerta Detectada Mobile"](assets/sprint1-mobile-alertaDetectada.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Compartir Ubicación con Contactos:** Interfaz dedicada para enlazar, encender o apagar la transmisión geoespacial síncrona con los contactos de confianza agregados a la libreta personal.
+
+!["Vista implementada en Sprint 1 - Compartir Ubicacion Mobile"](assets/sprint1-mobile-compartirUbicacion.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **SOS - Alerta de Emergencia Enviada:** Pantalla interactiva crítica que confirma al ciudadano el envío y recepción exitosa de su señal de auxilio geoespacial hacia la central de serenazgo (Escenario exitoso de la US39).
+
+!["Vista implementada en Sprint 1 - SOS Enviado Correctamente"](assets/sprint1-mobile-SOSEnviadoCorrectamente.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **SOS - Fuera de Cobertura de Datos:** Interfaz de resiliencia del sistema de pánico que se activa de forma automática ante la ausencia de internet móvil, desplegando el mecanismo alternativo para enrutar el auxilio mediante llamadas directas y pasarelas SMS (Capa de Infraestructura ACL).
+
+!["Vista implementada en Sprint 1 - SOS Fuera de Cobertura"](assets/sprint1-mobile-SOSFueraCobertura.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+**Web Services & Infrastructure:**
+
+- **Servidor de Descubrimiento Eureka:** Consola de administración de Netflix Eureka Server que evidencia el registro exitoso, el estado de salud (UP) y el mapeo dinámico de red de las instancias de los microservicios core del sistema distribuido.
+
+!["Vista implementada en Sprint 1 - Eureka Service Discovery"](assets/sprint1-eurekaService.png?raw=true)
+
+#### 7.2.1.6. Services Documentation Evidence for Sprint Review.
+
+- **Links de repositorios (Ecosistema Microservicios):**
+  - **AIService:** https://github.com/PeaceApp-Emergentes/AIService
+  - **UserService:** https://github.com/PeaceApp-Emergentes/UserService
+  - **ReportService:** https://github.com/PeaceApp-Emergentes/ReportService
+  - **IAMService:** https://github.com/PeaceApp-Emergentes/IAMService
+  - **AlertService:** https://github.com/PeaceApp-Emergentes/AlertService
+  - **LocationService:** https://github.com/PeaceApp-Emergentes/LocationService
+
+| Endpoint | Details |
+| :---: | :--- |
+| **IAM** | Registro de nuevos usuarios y aprovisionamiento del ciclo de inicio de sesión con emisión de tokens JWT. |
+| **Profiles (Municipalities)** | Administración de la información detallada e imágenes de perfil institucionales para los municipios distritales. |
+| **Users** | Gestión CRUD básica y verificación de existencia de los datos de cuentas asociadas a ciudadanos y personal operativo. |
+| **Reports** | Creación, gestión del estado de revisión (Aprobado, Atendido, Rechazado) e historial de incidentes distritales. |
+| **Locations** | Gestión y persistencia geográfica de ubicaciones y coordenadas ligadas a reportes de zonas peligrosas. |
+| **Alerts** | Generación y consulta de avisos preventivos geolocalizados y señales críticas SOS por usuario o reporte. |
+| **AI** | Características de asistencia inteligente que integran la clasificación automática de incidentes, análisis conversacional del chatbot y validación de evidencias. |
+
+<div style="page-break-after: always;"></div>
+
+| Endpoint | Operaciones | Parámetros | URL |
+| :--- | :---: | :--- | :--- |
+| **Authentication: Change Password** | PUT | body: `username`, `password` | `/api/v1/authentication/change-password` |
+| **Authentication: Sign Up** | POST | body: `username`, `password`, `roles` (List<String>) | `/api/v1/authentication/sign-up` |
+| **Authentication: Sign In** | POST | body: `username`, `password` | `/api/v1/authentication/sign-in` |
+| **Profiles: Update municipality profile** | PUT | `id` (path), body: `municipalityName`, `city`, `district`, `institutionalEmail`, `phone`, `userId`, `profileImage` | `/api/v1/profiles/municipalities/{id}` |
+| **Profiles: Create municipality profile** | POST | body: `municipalityName`, `city`, `district`, `institutionalEmail`, `phone`, `userId`, `profileImage` | `/api/v1/profiles/municipalities` |
+| **Profiles: Get municipality by user ID** | GET | `userId` (path) | `/api/v1/profiles/municipalities/{userId}` |
+| **Profiles: Check if municipality profile exists** | GET | `userId` (path) | `/api/v1/profiles/municipalities/{userId}/exists` |
+| **Profiles: Get municipalities by district** | GET | `district` (path) | `/api/v1/profiles/municipalities/district/{district}` |
+| **Users: Get user by ID** | GET | `id` (path) | `/api/v1/users/{id}` |
+| **Users: Update user data** | PUT | `id` (path), body: `name`, `lastname`, `email`, `phonenumber`, `userId`, `profileImage` | `/api/v1/users/{id}` |
+| **Users: Delete user by ID** | DELETE | `id` (path) | `/api/v1/users/{id}` |
+| **Users: Create a new user account** | POST | body: `name`, `email`, `lastname`, `phonenumber`, `userId`, `profileImage` | `/api/v1/users` |
+| **Users: Check if user exists** | GET | `id` (path) | `/api/v1/users/{id}/exists` |
+| **Users: Get user data by email** | GET | `email` (path) | `/api/v1/users/email/{email}` |
+| **Reports: Mark as In Review** | PUT | `id` (path) | `/api/v1/reports/{id}/review` |
+| **Reports: Reject a report** | PUT | `id` (path), body: `reason` | `/api/v1/reports/{id}/reject` |
+| **Reports: Flag as emergency** | PUT | `id` (path), body: `isEmergency` (boolean) | `/api/v1/reports/{id}/emergency` |
+| **Reports: Mark as attended** | PUT | `id` (path) | `/api/v1/reports/{id}/attend` |
+| **Reports: Approve a report** | PUT | `id` (path) | `/api/v1/reports/{id}/approve` |
+| **Reports: Get all reports** | GET | – | `/api/v1/reports` |
+| **Reports: Create a new report** | POST | body: `title`, `description`, `location`, `district`, `type`, `userId`, `imageUrl`, `videoUrl`, `audioUrl`, `latitude`, `longitude`, `isEmergency` | `/api/v1/reports` |
+| **Reports: Get report by ID** | GET | `id` (path) | `/api/v1/reports/{id}` |
+| **Reports: Delete report by ID** | DELETE | `id` (path) | `/api/v1/reports/{id}` |
+| **Reports: Check if report exists** | GET | `id` (path) | `/api/v1/reports/{id}/exists` |
+| **Reports: Get reports by user ID** | GET | `userId` (path) | `/api/v1/reports/user/{userId}` |
+| **Reports: Get all public reports** | GET | – | `/api/v1/reports/public` |
+| **Reports: Get reports by district** | GET | `district` (path) | `/api/v1/reports/district/{district}` |
+| **Locations: Get all locations** | GET | – | `/api/v1/locations` |
+| **Locations: Create a new location** | POST | body: `latitude`, `longitude`, `idReport` | `/api/v1/locations` |
+| **Locations: Get dangerous locations** | GET | query: `quantityReports` (default: 5) | `/api/v1/locations/dangerous` |
+| **Locations: Delete locations by report ID** | DELETE | `reportId` (path) | `/api/v1/locations/report/{reportId}` |
+| **Alerts: Get all alerts** | GET | – | `/api/v1/alerts` |
+| **Alerts: Create a new alert** | POST | body: `location`, `district`, `type`, `description`, `userId`, `imageUrl`, `reportId` | `/api/v1/alerts` |
+| **Alerts: Get alert by ID** | GET | `id` (path) | `/api/v1/alerts/{id}` |
+| **Alerts: Get alerts by user ID** | GET | `userId` (path) | `/api/v1/alerts/user/{userId}` |
+| **Alerts: Delete alerts by user ID** | DELETE | `userId` (path) | `/api/v1/alerts/user/{userId}` |
+| **Alerts: Delete alerts by report ID** | DELETE | `reportId` (path) | `/api/v1/alerts/report/{reportId}` |
+| **AI: Classify incident report** | POST | body: `description`, `location`, `district` | `/api/v1/ai/classify-incident` |
+| **AI: Chatbot safety assistance** | POST | body: `message`, `context`, `userId` | `/api/v1/ai/chatbot` |
+| **AI: Analyze evidence metadata** | POST | body: `evidenceUrl`, `evidenceType`, `description` | `/api/v1/ai/analyze-evidence` |
+
+#### 7.2.1.7. Software Deployment Evidence for Sprint Review
+
+**Landing Page:**
+
+- Ingresamos a la plataforma de [Netlify](https://www.netlify.com/), seleccionamos la opción de importar un proyecto existente y vinculamos el repositorio oficial donde se encuentra alojada la Landing Page institucional de PeaceApp.
+!["Proceso de despliegue en Sprint 1 - Landing Page Netlify"](assets/sprint1-deployed-landingPage-netlify.png)
+
+<div style="page-break-after: always;"></div>
+
+**Web Services (Microservicios):**
+
+- Los microservicios del ecosistema distribuido junto con los componentes de infraestructura compartidos fueron empaquetados en imágenes independientes y desplegados de forma exitosa mediante contenedores Docker, garantizando el aislamiento de contextos, alta disponibilidad y la correcta orquestación de red en el clúster local y de nube.
+!["Proceso de despliegue en Sprint 1 - Microservicios Docker Containers"](assets/sprint1-deployed-microServices-docker.png)
+
+#### 7.2.1.8. Team Collaboration Insights during Sprint.
+
+## 7.3. Validation Interviews.
+
+### 7.3.1. Diseño de Entrevistas.
+
+### 7.3.2. Registro de Entrevistas.
+
+### 7.3.3. Evaluaciones según heurísticas.
+
+## 7.4. Video About-the-Product.
+
+**Duración:** 55 s  **Formato:** MP4
+
+Se presenta de manera concisa la propuesta de valor y las principales funcionalidades logradas para el MVP de **PeaceApp**. El video expone las interfaces interactivas de la aplicación web destinadas al control y visualización de incidentes por parte de las municipalidades, así como el flujo en la aplicación móvil que permite a los ciudadanos interactuar de forma intuitiva con el chatbot de asistencia inteligente y las alertas de seguridad distritales.
+
+
+**Enlaces:** https://www.youtube.com/watch?v=oqUSiRLa8lI

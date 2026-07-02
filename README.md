@@ -1736,6 +1736,9 @@ El diagrama de contenedores de PeaceApp ilustra cómo los usuarios del sistema, 
 ## Profiles Service
 - Maneja los datos personales y las preferencias de los usuarios, permitiendo consultar y actualizar información de perfil.
 
+## Payments Service
+- Gestiona planes, suscripciones, pagos municipales e integración con Stripe.
+
 ## Reports Service
 - Administra la creación, edición, visualización y eliminación de reportes de incidentes, además de exponerlos en el mapa.
 
@@ -1745,11 +1748,8 @@ El diagrama de contenedores de PeaceApp ilustra cómo los usuarios del sistema, 
 ## Location Service
 - Gestiona el registro y consulta de coordenadas de ubicación, permitiendo el envío de la ubicación en tiempo real y la integración con mapas.
 
-## ChatBot Service
-- Permite la interacción conversacional con los usuarios dentro de la aplicación, brindando asistencia, resolviendo dudas y guiando en el uso de funcionalidades mediante inteligencia artificial.
-
-## Image Recognizer Service
-- Procesa y analiza imágenes enviadas por los usuarios en los reportes, permitiendo identificar elementos relevantes (como incidentes, objetos o situaciones de riesgo) mediante técnicas de reconocimiento de imágenes.
+## IA Service
+- Integra el chatbot y el análisis visual para asistir en consultas, creación de reportes y clasificación de evidencias.
 
 Cada uno de estos microservicios expone su propia API y se comunica directamente con la base de datos relacional para almacenar y consultar información.
 
@@ -1766,6 +1766,9 @@ Cada uno de estos microservicios expone su propia API y se comunica directamente
 
 ## OpenAI API
 - Servicio externo utilizado por el ChatBot Service y el Image Recognizer Service para implementar capacidades de inteligencia artificial, como procesamiento de lenguaje natural y reconocimiento de imágenes.
+
+## Stripe 
+- Sistema externo de pagos que procesa de forma segura las suscripciones y transacciones de las municipalidades sin almacenar datos sensibles de tarjetas
 
 ![structurizr-109662-Containers.png](assets/structurizr-109662-Containers.png)
 

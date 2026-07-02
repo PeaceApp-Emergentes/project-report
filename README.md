@@ -3079,6 +3079,891 @@ Esta tabla contiene los registros históricos y activos de las advertencias gene
 
 ---
 
+# 5.6. Bounded Context: Payment
+
+El bounded context **Payment** pertenece al sistema **PeaceApp** y se encarga de gestionar las suscripciones de las municipalidades. Su función principal es crear sesiones de pago, verificar el estado de una transacción, consultar los datos de una suscripción y permitir su cancelación o reactivación.
+
+Este bounded context funciona como un microservicio independiente llamado `payment-service`. Está desarrollado con **Spring Boot**, **Spring Data JPA**, **MySQL**, **Eureka Client** y la API de **Stripe** como sistema externo de pagos.
+---
+
+# 5.6.1. Domain Layer
+
+La capa de dominio contiene la entidad principal del bounded context **Payment**. En este proyecto, el aggregate principal es `Subscription`, el cual representa la suscripción de una municipalidad al servicio ofrecido por PeaceApp.
+
+## Aggregate: Subscription
+
+**Nombre:** `Subscription`
+
+**Descripción:**  
+El aggregate `Subscription` representa el registro local de una suscripción municipal. Almacena el correo institucional, el nombre de la municipalidad, los identificadores generados por Stripe y el estado actual de la suscripción.
+
+### Atributos del aggregate
+
+| Atributo             | Descripción                                                             | Tipo   |
+|----------------------|-------------------------------------------------------------------------|--------|
+| id                   | Identificador único de la suscripción en la base de datos.              | Long   |
+| institutionalEmail   | Correo institucional relacionado con la municipalidad.                  | String |
+| municipalityName     | Nombre de la municipalidad suscrita.                                    | String |
+| stripeSessionId      | Identificador de la sesión de pago creada en Stripe.                    | String |
+| stripeSubscriptionId | Identificador de la suscripción creada en Stripe.                       | String |
+| status               | Estado local de la suscripción, como `PENDING`, `ACTIVE` o `CANCELING`. | String |
+| createdAt            | Fecha de creación del registro.                                         | Date   |
+| updatedAt            | Fecha de la última actualización del registro.                          | Date   |
+
+### Métodos del aggregate
+
+La entidad utiliza Lombok para generar automáticamente sus métodos de acceso.
+
+| Método                                         | Descripción                                           |
+|------------------------------------------------|-------------------------------------------------------|
+| Subscription()                                 | Constructor vacío requerido por JPA.                  |
+| getId()                                        | Obtiene el identificador de la suscripción.           |
+| setId(Long id)                                 | Asigna el identificador de la suscripción.            |
+| getInstitutionalEmail()                        | Obtiene el correo institucional.                      |
+| setInstitutionalEmail(String email)            | Asigna el correo institucional.                       |
+| getMunicipalityName()                          | Obtiene el nombre de la municipalidad.                |
+| setMunicipalityName(String name)               | Asigna el nombre de la municipalidad.                 |
+| getStripeSessionId()                           | Obtiene el identificador de la sesión de Stripe.      |
+| setStripeSessionId(String sessionId)           | Asigna el identificador de la sesión de Stripe.       |
+| getStripeSubscriptionId()                      | Obtiene el identificador de la suscripción de Stripe. |
+| setStripeSubscriptionId(String subscriptionId) | Asigna el identificador de la suscripción de Stripe.  |
+| getStatus()                                    | Obtiene el estado local de la suscripción.            |
+| setStatus(String status)                       | Actualiza el estado local de la suscripción.          |
+| getCreatedAt()                                 | Obtiene la fecha de creación.                         |
+| getUpdatedAt()                                 | Obtiene la fecha de actualización.                    |
+
+---
+
+## Value Objects
+
+En el código revisado no se identifican Value Objects implementados explícitamente. Los datos como el correo institucional, el estado y los identificadores de Stripe se manejan mediante tipos simples.
+
+Sin embargo, a nivel de diseño táctico se podría considerar el siguiente Value Object:
+
+### Value Object: SubscriptionStatus
+
+**Nombre:** `SubscriptionStatus`
+
+**Descripción:**  
+Representa los posibles estados de una suscripción y evita el uso de cadenas de texto sin validación.
+
+### Atributos
+
+| Nombre   | Tipo   | Descripción                      |
+|----------|--------|----------------------------------|
+| value    | String | Estado actual de la suscripción. |
+
+### Métodos
+
+| Nombre      | Descripción                                            |
+|-------------|--------------------------------------------------------|
+| pending()   | Representa una suscripción pendiente de confirmación.  |
+| active()    | Representa una suscripción activa.                     |
+| canceling() | Representa una suscripción programada para cancelarse. |
+| isActive()  | Indica si la suscripción se encuentra activa.          |
+
+---
+
+## Commands
+
+El proyecto no implementa comandos mediante clases separadas. Las operaciones de escritura se reciben directamente mediante DTO y son procesadas por `StripePaymentService`.
+
+### CreateCheckoutRequest
+
+**Descripción:**  
+Representa la solicitud para crear una sesión de pago en Stripe.
+
+| Atributo           | Descripción                                                    | Tipo   |
+|--------------------|----------------------------------------------------------------|--------|
+| institutionalEmail | Correo institucional de la municipalidad.                      | String |
+| municipalityName   | Nombre de la municipalidad.                                    | String |
+| successUrl         | Dirección a la que Stripe redirige después de un pago exitoso. | String |
+| cancelUrl          | Dirección a la que Stripe redirige si el pago es cancelado.    | String |
+
+### EmailRequest
+
+**Descripción:**  
+Representa la solicitud utilizada para cancelar o reactivar una suscripción mediante el correo institucional.
+
+| Atributo   | Descripción                                          | Tipo   |
+|------------|------------------------------------------------------|--------|
+| email      | Correo institucional relacionado con la suscripción. | String |
+
+---
+
+## Queries
+
+Las consultas tampoco se encuentran implementadas como clases independientes. El controlador recibe directamente los parámetros requeridos y llama al servicio de aplicación.
+ 
+| Consulta               | Descripción                                                                 |
+|------------------------|-----------------------------------------------------------------------------|
+| GetSessionStatus       | Consulta el estado de una sesión de pago usando su identificador de Stripe. |
+| GetSubscriptionByEmail | Consulta la suscripción más reciente asociada a un correo institucional.    |
+
+---
+
+## Domain Services
+
+El código actual no contiene interfaces separadas de Command Service y Query Service. La lógica se encuentra centralizada en `StripePaymentService`.
+
+### StripePaymentService
+
+**Descripción:**  
+Servicio encargado de coordinar las operaciones de pago y suscripción con Stripe y mantener una copia local del estado de cada suscripción.
+
+| Método                                               | Descripción                                                                                       |
+|------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| createCheckoutSession(CreateCheckoutRequest request) | Crea una sesión de pago en Stripe y registra una suscripción local con estado `PENDING`.          |
+| getSessionStatus(String sessionId)                   | Consulta el estado de una sesión de Stripe y actualiza la suscripción local.                      |
+| getSubscriptionForEmail(String email)                | Obtiene la suscripción más reciente de una municipalidad y consulta sus datos actuales en Stripe. |
+| cancelAtPeriodEnd(String email)                      | Programa la cancelación de la suscripción al finalizar el periodo pagado.                         |
+| reactivate(String email)                             | Revierte una cancelación programada y reactiva la suscripción.                                    |
+| requireLocal(String email)                           | Busca una suscripción local válida o genera una excepción si no existe.                           |
+| toDetail(Subscription local, StripeSubscription sub) | Convierte la información local y externa en una respuesta detallada.                              |
+
+---
+
+# 5.6.2. Interface Layer
+
+La capa de interfaz expone los endpoints REST del bounded context **Payment**. Recibe solicitudes HTTP, utiliza los DTO correspondientes y delega las operaciones al servicio `StripePaymentService`.
+
+## Controller: PaymentController
+
+**Descripción:**  
+El controlador `PaymentController` permite crear sesiones de pago, verificar transacciones y administrar las suscripciones municipales.
+
+La ruta base del controlador es:
+
+```text
+/api/v1/payments
+```
+
+### Métodos del controller
+
+| Método                                               | Descripción                                                                 | HTTP                                              | Respuesta                                                 |
+|------------------------------------------------------|-----------------------------------------------------------------------------|---------------------------------------------------|-----------------------------------------------------------|
+| createCheckoutSession(CreateCheckoutRequest request) | Crea una sesión de pago para una suscripción municipal.                     | POST `/api/v1/payments/checkout-session`          | 200 OK con `CheckoutSessionResponse` o 502 Bad Gateway    |
+| getSession(String sessionId)                         | Consulta el estado de una sesión de pago.                                   | GET `/api/v1/payments/session/{sessionId}`        | 200 OK con `SessionStatusResponse` o 502 Bad Gateway      |
+| getSubscription(String email)                        | Consulta la suscripción más reciente asociada a un correo institucional.    | GET `/api/v1/payments/subscription?email={email}` | 200 OK con `SubscriptionDetailResponse` o 502 Bad Gateway |
+| cancelSubscription(EmailRequest body)                | Programa la cancelación de una suscripción al finalizar el periodo vigente. | POST `/api/v1/payments/subscription/cancel`       | 200 OK con `SubscriptionDetailResponse` o 502 Bad Gateway |
+| reactivateSubscription(EmailRequest body)            | Revierte una cancelación programada.                                        | POST `/api/v1/payments/subscription/reactivate`   | 200 OK con `SubscriptionDetailResponse` o 502 Bad Gateway |
+
+---
+
+## Resources and DTO
+
+### CreateCheckoutRequest
+
+**Descripción:**  
+DTO utilizado para recibir la información necesaria para crear una sesión de pago.
+
+| Atributo           | Tipo   | Descripción                                     |
+|--------------------|--------|-------------------------------------------------|
+| institutionalEmail | String | Correo institucional de la municipalidad.       |
+| municipalityName   | String | Nombre de la municipalidad.                     |
+| successUrl         | String | URL de redirección después de un pago exitoso.  |
+| cancelUrl          | String | URL de redirección cuando el pago es cancelado. |
+
+### CheckoutSessionResponse
+
+**Descripción:**  
+DTO utilizado para devolver la sesión creada en Stripe.
+
+| Atributo   | Tipo   | Descripción                                   |
+|------------|--------|-----------------------------------------------|
+| sessionId  | String | Identificador de la sesión de Stripe.         |
+| url        | String | Dirección de Stripe donde se realiza el pago. |
+
+### SessionStatusResponse
+
+**Descripción:**  
+DTO que contiene el estado de una sesión de pago.
+
+| Atributo       | Tipo    | Descripción                                          |
+|----------------|---------|------------------------------------------------------|
+| sessionId      | String  | Identificador de la sesión consultada.               |
+| paid           | boolean | Indica si el pago fue completado.                    |
+| status         | String  | Estado actual de la sesión.                          |
+| subscriptionId | String  | Identificador de la suscripción generada por Stripe. |
+
+### SubscriptionDetailResponse
+
+**Descripción:**  
+DTO que devuelve información detallada de una suscripción.
+
+| Atributo           | Tipo    | Descripción                                                 |
+|--------------------|---------|-------------------------------------------------------------|
+| found              | boolean | Indica si se encontró una suscripción.                      |
+| municipalityName   | String  | Nombre de la municipalidad.                                 |
+| institutionalEmail | String  | Correo institucional relacionado.                           |
+| subscriptionId     | String  | Identificador de la suscripción en Stripe.                  |
+| status             | String  | Estado actual de la suscripción.                            |
+| active             | boolean | Indica si la suscripción está activa.                       |
+| cancelAtPeriodEnd  | boolean | Indica si la suscripción se cancelará al final del periodo. |
+| currentPeriodEnd   | Long    | Fecha de finalización del periodo en formato epoch.         |
+| amount             | Long    | Monto del plan expresado en la unidad mínima de la moneda.  |
+| currency           | String  | Moneda utilizada en el pago.                                |
+| interval           | String  | Intervalo de cobro, como mensual o anual.                   |
+
+### EmailRequest
+
+**Descripción:**  
+DTO interno utilizado para recibir el correo de una municipalidad.
+
+| Atributo   | Tipo   | Descripción                                     |
+|------------|--------|-------------------------------------------------|
+| email      | String | Correo institucional asociado a la suscripción. |
+
+---
+
+# 5.6.3. Application Layer
+
+La capa de aplicación contiene la lógica principal del bounded context. Coordina la comunicación con Stripe, actualiza el estado de las suscripciones y utiliza el repositorio para guardar la información local.
+
+## Command Services Implementation
+
+El código no separa formalmente los comandos y las consultas. Sin embargo, las siguientes operaciones de `StripePaymentService` cumplen la función de Command Service.
+
+### Clase: StripePaymentService
+
+**Descripción:**  
+Implementa las operaciones que modifican el estado de una suscripción, tanto en Stripe como en la base de datos local.
+
+| Método                                               | Descripción                                                                                                       |
+|------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| createCheckoutSession(CreateCheckoutRequest request) | Crea una sesión de suscripción en Stripe y guarda un registro local con estado `PENDING`.                         |
+| cancelAtPeriodEnd(String email)                      | Configura la suscripción para cancelarse cuando termine el periodo pagado y cambia su estado local a `CANCELING`. |
+| reactivate(String email)                             | Elimina la cancelación programada y cambia el estado local a `ACTIVE`.                                            |
+
+---
+
+## Query Services Implementation
+
+Las siguientes operaciones de `StripePaymentService` cumplen la función de Query Service.
+
+### Clase: StripePaymentService
+
+**Descripción:**  
+Consulta el estado de las sesiones y suscripciones tanto en la base de datos local como en Stripe.
+
+| Método                                | Descripción                                                                                |
+|---------------------------------------|--------------------------------------------------------------------------------------------|
+| getSessionStatus(String sessionId)    | Consulta una sesión de Stripe, determina si fue pagada y actualiza el registro local.      |
+| getSubscriptionForEmail(String email) | Busca la suscripción más reciente del correo y obtiene su información actual desde Stripe. |
+
+---
+
+## Flujo de creación de una sesión
+
+1. El cliente envía los datos de la municipalidad y las URL de redirección.
+2. `StripePaymentService` construye una sesión de Stripe en modo suscripción.
+3. Stripe devuelve el identificador y la URL de pago.
+4. Se registra una nueva entidad `Subscription` con estado `PENDING`.
+5. El controlador devuelve la URL para que el usuario complete el pago.
+
+---
+
+## Flujo de verificación del pago
+
+1. El cliente envía el identificador de la sesión.
+2. El servicio consulta la sesión directamente en Stripe.
+3. Se verifica el estado del pago.
+4. Se obtiene el identificador de la suscripción.
+5. El registro local cambia a `ACTIVE` si el pago fue completado.
+6. Se devuelve el estado de la sesión al cliente.
+
+---
+
+# 5.6.4. Infrastructure Layer
+
+La capa de infraestructura proporciona la persistencia de las suscripciones y la configuración necesaria para la integración con Stripe.
+
+## Repositorio: SubscriptionRepository
+
+**Descripción:**  
+Repositorio basado en Spring Data JPA encargado de gestionar la entidad `Subscription`. Extiende de `JpaRepository<Subscription, Long>`.
+
+| Método                                                                       | Descripción                                                               |
+|------------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| save(Subscription subscription)                                              | Guarda o actualiza una suscripción. Método heredado de `JpaRepository`.   |
+| findAll()                                                                    | Obtiene todas las suscripciones registradas. Método heredado.             |
+| findById(Long id)                                                            | Busca una suscripción mediante su identificador local. Método heredado.   |
+| deleteById(Long id)                                                          | Elimina una suscripción mediante su identificador local. Método heredado. |
+| findByStripeSessionId(String stripeSessionId)                                | Busca una suscripción mediante el identificador de sesión de Stripe.      |
+| findFirstByInstitutionalEmailOrderByCreatedAtDesc(String institutionalEmail) | Obtiene la suscripción más reciente asociada a un correo institucional.   |
+
+---
+
+## External System: Stripe
+
+**Descripción:**  
+Stripe es el sistema externo encargado de crear sesiones de pago, procesar suscripciones y mantener el estado real de los pagos.
+
+| Operación               | Descripción                                                   |
+|-------------------------|---------------------------------------------------------------|
+| Session.create()        | Crea una nueva sesión de pago en modo suscripción.            |
+| Session.retrieve()      | Obtiene el estado de una sesión existente.                    |
+| Subscription.retrieve() | Obtiene los datos actuales de una suscripción.                |
+| Subscription.update()   | Actualiza la configuración de cancelación de una suscripción. |
+| Product.create()        | Crea automáticamente el producto asociado al plan.            |
+| Price.create()          | Crea el precio recurrente mensual del plan.                   |
+
+---
+
+## Configuración: StripeConfig
+
+**Descripción:**  
+La clase `StripeConfig` inicializa la clave privada de Stripe y determina el identificador del precio que será utilizado para las suscripciones.
+
+| Atributo          | Descripción                                                         |
+|-------------------|---------------------------------------------------------------------|
+| apiKey            | Clave privada utilizada para autenticarse con Stripe.               |
+| configuredPriceId | Identificador del precio configurado mediante variables de entorno. |
+| planAmount        | Monto del plan en la unidad mínima de la moneda.                    |
+| planCurrency      | Moneda utilizada por el plan.                                       |
+| planName          | Nombre del producto de suscripción.                                 |
+| resolvedPriceId   | Identificador final del precio utilizado por el servicio.           |
+
+### Métodos
+
+| Método       | Descripción                                                                              |
+|--------------|------------------------------------------------------------------------------------------|
+| init()       | Inicializa Stripe y crea automáticamente un producto y precio si no fueron configurados. |
+| getPriceId() | Devuelve el identificador del precio que será usado en las sesiones de pago.             |
+
+---
+
+## Service Discovery
+
+El microservicio utiliza `@EnableDiscoveryClient`, por lo que se registra en Eureka con el nombre:
+
+```text
+payment-service
+```
+
+Su puerto predeterminado es:
+
+```text
+8088
+```
+
+---
+
+# 5.6.5. Bounded Context Software Architecture Component Level Diagrams
+
+## Backend
+- El diagrama muestra los principales componentes internos del Payment Service. El controlador recibe solicitudes, el servicio de aplicación coordina las operaciones, el repositorio almacena las suscripciones y Stripe procesa los pagos externos.
+
+![PaymentBackendComponents-dark.png](assets/PaymentBackendComponents-dark.png)
+
+## WebApp
+- El diagrama representa cómo la aplicación web permite a una municipalidad iniciar el pago, consultar su suscripción, cancelarla o reactivarla.
+
+![PaymentWebAppComponents-dark.png](assets/PaymentWebAppComponents-dark.png)
+
+## MobileApp
+- El diagrama muestra cómo la aplicación móvil consulta y administra una suscripción mediante el API Gateway y el Payment Service.
+
+![PaymentWebAppComponents-dark.png](assets/PaymentWebAppComponents-dark.png)
+
+# 5.6.6. Bounded Context Software Architecture Code Level Diagrams
+
+## 5.6.6.1. Bounded Context Domain Layer Class Diagram
+El siguiente diagrama representa la entidad `Subscription`, los DTO utilizados por el controlador, el servicio de aplicación y el repositorio.
+
+![payment-class.png](assets/payment-class.png)
+
+## 5.6.6.2. Bounded Context Database Design Diagram
+El bounded context Payment utiliza una tabla principal llamada `subscriptions`. Esta tabla guarda la información local de cada suscripción municipal y sus identificadores relacionados con Stripe.
+
+![payment-db.png](assets/payment-db.png)
+
+# 5.7. Bounded Context: AI Service
+
+El bounded context **AI Service** pertenece al sistema **PeaceApp** y se encarga de brindar funcionalidades de inteligencia artificial relacionadas con la seguridad ciudadana. Sus funciones principales son responder consultas mediante un chatbot, clasificar reportes de incidentes y analizar evidencias enviadas por los usuarios.
+
+Este bounded context funciona como un microservicio independiente llamado `ai-service`, desarrollado con **Spring Boot**, **Eureka Client**, **OpenAPI** y una integración externa con la API de **OpenAI**. También puede trabajar en modo simulado mediante la propiedad `AI_MOCK_ENABLED`.
+---
+
+# 5.7.1. Domain Layer
+
+La capa de dominio contiene los comandos que representan las solicitudes realizadas al servicio de inteligencia artificial, los resultados generados y la interfaz que define sus operaciones principales.
+
+En este bounded context no existe una entidad persistente ni un aggregate tradicional, debido a que el servicio procesa solicitudes y devuelve resultados sin almacenar información en una base de datos.
+
+## Domain Model
+
+El dominio del AI Service está compuesto principalmente por tres procesos:
+
+| Proceso                 | Descripción                                                                   |
+|-------------------------|-------------------------------------------------------------------------------|
+| Chatbot Assistance      | Responde consultas relacionadas con seguridad ciudadana y el uso de PeaceApp. |
+| Incident Classification | Clasifica un incidente según su descripción, ubicación y distrito.            |
+| Evidence Analysis       | Analiza una evidencia mediante su URL, tipo y descripción.                    |
+
+---
+
+## Commands
+
+Los comandos representan las solicitudes que el usuario envía al AI Service.
+
+### ChatbotCommand
+
+**Descripción:**  
+Representa una consulta realizada al chatbot de PeaceApp.
+
+| Atributo   | Descripción                                                 | Tipo   |
+|------------|-------------------------------------------------------------|--------|
+| message    | Mensaje o pregunta enviada por el usuario.                  | String |
+| context    | Información adicional sobre el contexto de la conversación. | String |
+| userId     | Identificador opcional del usuario de PeaceApp.             | Long   |
+
+### Validaciones
+
+| Validación          | Descripción                                  |
+|---------------------|----------------------------------------------|
+| message obligatorio | El mensaje no puede ser nulo ni estar vacío. |
+
+---
+
+### ClassifyIncidentCommand
+
+**Descripción:**  
+Representa una solicitud para clasificar un incidente de seguridad ciudadana.
+
+| Atributo    | Descripción                                       | Tipo   |
+|-------------|---------------------------------------------------|--------|
+| description | Descripción del incidente reportado.              | String |
+| location    | Dirección o ubicación donde ocurrió el incidente. | String |
+| district    | Distrito en el que ocurrió el incidente.          | String |
+
+### Validaciones
+
+| Validación              | Descripción                                      |
+|-------------------------|--------------------------------------------------|
+| description obligatoria | La descripción no puede ser nula ni estar vacía. |
+
+---
+
+### AnalyzeEvidenceCommand
+
+**Descripción:**  
+Representa una solicitud para analizar una evidencia relacionada con un incidente.
+
+| Atributo     | Descripción                                           | Tipo   |
+|--------------|-------------------------------------------------------|--------|
+| evidenceUrl  | Dirección donde se encuentra almacenada la evidencia. | String |
+| evidenceType | Tipo de evidencia, como imagen, video o audio.        | String |
+| description  | Descripción adicional de la evidencia.                | String |
+
+### Validaciones
+
+| Validación                | Descripción                                                           |
+|---------------------------|-----------------------------------------------------------------------|
+| evidenceUrl o description | Al menos la URL de la evidencia o su descripción debe estar presente. |
+
+---
+
+## Value Objects
+
+### ChatbotResult
+
+**Nombre:** `ChatbotResult`
+
+**Descripción:**  
+Representa el resultado generado por el chatbot de PeaceApp.
+
+### Atributos
+
+| Nombre           | Tipo         | Descripción                          |
+|------------------|--------------|--------------------------------------|
+| answer           | String       | Respuesta generada para el usuario.  |
+| suggestedActions | List<String> | Lista de acciones recomendadas.      |
+| mock             | boolean      | Indica si la respuesta fue simulada. |
+
+---
+
+### IncidentClassificationResult
+
+**Nombre:** `IncidentClassificationResult`
+
+**Descripción:**  
+Representa el resultado de la clasificación de un incidente.
+
+### Atributos
+
+| Nombre               | Tipo         | Descripción                                                 |
+|----------------------|--------------|-------------------------------------------------------------|
+| incidentType         | String       | Tipo de incidente identificado.                             |
+| severity             | String       | Nivel de gravedad del incidente.                            |
+| summary              | String       | Resumen generado del incidente.                             |
+| suggestedTitle       | String       | Título sugerido para el reporte.                            |
+| suggestedDescription | String       | Descripción sugerida para el reporte.                       |
+| recommendedActions   | List<String> | Acciones recomendadas para el usuario.                      |
+| valid                | boolean      | Indica si la descripción corresponde a un incidente válido. |
+| mock                 | boolean      | Indica si el resultado fue generado de forma simulada.      |
+
+---
+
+### EvidenceAnalysisResult
+
+**Nombre:** `EvidenceAnalysisResult`
+
+**Descripción:**  
+Representa el resultado obtenido después de analizar una evidencia.
+
+### Atributos
+
+| Nombre              | Tipo         | Descripción                                        |
+|---------------------|--------------|----------------------------------------------------|
+| detectedType        | String       | Tipo de incidente detectado en la evidencia.       |
+| validImage          | boolean      | Indica si la imagen pudo ser validada.             |
+| summary             | String       | Resumen del análisis realizado.                    |
+| observedSignals     | List<String> | Señales o elementos identificados en la evidencia. |
+| requiresHumanReview | boolean      | Indica si la evidencia necesita revisión humana.   |
+| mock                | boolean      | Indica si el resultado fue simulado.               |
+
+---
+
+## Domain Services
+
+### AiCommandService
+
+**Descripción:**  
+Interfaz de dominio que define las operaciones disponibles para procesar solicitudes de inteligencia artificial.
+
+| Método                                  | Descripción                                                            |
+|-----------------------------------------|------------------------------------------------------------------------|
+| handle(ChatbotCommand command)          | Procesa un mensaje enviado al chatbot y devuelve una respuesta.        |
+| handle(ClassifyIncidentCommand command) | Clasifica un incidente y devuelve su tipo, gravedad y recomendaciones. |
+| handle(AnalyzeEvidenceCommand command)  | Analiza una evidencia y devuelve los elementos detectados.             |
+
+En este bounded context no existe un Query Service porque todas las operaciones procesan una solicitud y generan un nuevo resultado.
+
+---
+
+# 5.5.2. Interface Layer
+
+La capa de interfaz expone los endpoints REST del AI Service. Recibe los recursos enviados por los usuarios, los transforma en comandos y devuelve los resultados generados por el servicio.
+
+## Controller: AiController
+
+**Descripción:**  
+El controlador `AiController` expone las operaciones de inteligencia artificial relacionadas con el chatbot, la clasificación de incidentes y el análisis de evidencias.
+
+La ruta base del controlador es:
+
+```text
+/api/v1/ai
+```
+### Métodos del controller
+
+| Método                                                     | Descripción                                                            | HTTP                                | Respuesta                                                                                      |
+|------------------------------------------------------------|------------------------------------------------------------------------|-------------------------------------|------------------------------------------------------------------------------------------------|
+| chatbot(ChatbotRequestResource resource)                   | Procesa una consulta enviada al chatbot de PeaceApp.                   | POST `/api/v1/ai/chatbot`           | 200 OK con `ChatbotResponseResource`, 400 Bad Request o 503 Service Unavailable                |
+| classifyIncident(ClassifyIncidentRequestResource resource) | Clasifica un incidente según su descripción y ubicación.               | POST `/api/v1/ai/classify-incident` | 200 OK con `IncidentClassificationResponseResource`, 400 Bad Request o 503 Service Unavailable |
+| analyzeEvidence(AnalyzeEvidenceRequestResource resource)   | Analiza la evidencia asociada a un incidente.                          | POST `/api/v1/ai/analyze-evidence`  | 200 OK con `EvidenceAnalysisResponseResource`, 400 Bad Request o 503 Service Unavailable       |
+| handleAiException(Exception exception)                     | Convierte las excepciones del servicio en respuestas HTTP controladas. | Interno                             | `AiErrorResource`                                                                              |
+
+---
+
+## Resources
+
+### ChatbotRequestResource
+
+**Descripción:**  
+Recurso utilizado para recibir una consulta dirigida al chatbot.
+
+| Atributo  | Tipo   | Descripción                           |
+|-----------|--------|---------------------------------------|
+| message   | String | Mensaje enviado por el usuario.       |
+| context   | String | Contexto opcional de la conversación. |
+| userId    | Long   | Identificador opcional del usuario.   |
+
+---
+
+### ChatbotResponseResource
+
+**Descripción:**  
+Recurso que contiene la respuesta generada por el chatbot.
+
+| Atributo         | Tipo         | Descripción                          |
+|------------------|--------------|--------------------------------------|
+| answer           | String       | Respuesta generada por el asistente. |
+| suggestedActions | List<String> | Acciones sugeridas para el usuario.  |
+| mock             | boolean      | Indica si la respuesta fue simulada. |
+
+---
+
+### ClassifyIncidentRequestResource
+
+**Descripción:**  
+Recurso utilizado para solicitar la clasificación de un incidente.
+
+| Atributo    | Tipo   | Descripción                            |
+|-------------|--------|----------------------------------------|
+| description | String | Descripción del incidente.             |
+| location    | String | Ubicación donde ocurrió.               |
+| district    | String | Distrito relacionado con el incidente. |
+
+---
+
+### IncidentClassificationResponseResource
+
+**Descripción:**  
+Recurso que devuelve la clasificación obtenida para el incidente.
+
+| Atributo             | Tipo         | Descripción                                    |
+|----------------------|--------------|------------------------------------------------|
+| incidentType         | String       | Tipo de incidente identificado.                |
+| severity             | String       | Gravedad estimada del incidente.               |
+| summary              | String       | Resumen del análisis.                          |
+| suggestedTitle       | String       | Título sugerido para el reporte.               |
+| suggestedDescription | String       | Descripción sugerida para el reporte.          |
+| recommendedActions   | List<String> | Acciones recomendadas.                         |
+| valid                | boolean      | Indica si el incidente fue considerado válido. |
+| mock                 | boolean      | Indica si la respuesta fue simulada.           |
+
+---
+
+### AnalyzeEvidenceRequestResource
+
+**Descripción:**  
+Recurso utilizado para enviar información de una evidencia.
+
+| Atributo     | Tipo   | Descripción                            |
+|--------------|--------|----------------------------------------|
+| evidenceUrl  | String | URL de la evidencia.                   |
+| evidenceType | String | Tipo de evidencia enviada.             |
+| description  | String | Descripción adicional de la evidencia. |
+
+---
+
+### EvidenceAnalysisResponseResource
+
+**Descripción:**  
+Recurso que devuelve el resultado del análisis de una evidencia.
+
+| Atributo            | Tipo         | Descripción                                 |
+|---------------------|--------------|---------------------------------------------|
+| detectedType        | String       | Tipo de incidente detectado.                |
+| validImage          | boolean      | Indica si la imagen fue considerada válida. |
+| summary             | String       | Resumen del análisis.                       |
+| observedSignals     | List<String> | Señales observadas en la evidencia.         |
+| requiresHumanReview | boolean      | Indica si necesita revisión humana.         |
+| mock                | boolean      | Indica si el resultado fue simulado.        |
+
+---
+
+### AiErrorResource
+
+**Descripción:**  
+Recurso utilizado para devolver errores controlados del AI Service.
+
+| Atributo  | Tipo    | Descripción                                      |
+|-----------|---------|--------------------------------------------------|
+| code      | String  | Código del error producido.                      |
+| message   | String  | Descripción del error.                           |
+| mock      | boolean | Indica si el error corresponde al modo simulado. |
+
+---
+
+## Assemblers
+
+| Clase                                                     | Descripción                                                                     |
+|-----------------------------------------------------------|---------------------------------------------------------------------------------|
+| ChatbotCommandFromResourceAssembler                       | Convierte un `ChatbotRequestResource` en un `ChatbotCommand`.                   |
+| ClassifyIncidentCommandFromResourceAssembler              | Convierte un `ClassifyIncidentRequestResource` en un `ClassifyIncidentCommand`. |
+| AnalyzeEvidenceCommandFromResourceAssembler               | Convierte un `AnalyzeEvidenceRequestResource` en un `AnalyzeEvidenceCommand`.   |
+| ChatbotResponseResourceFromResultAssembler                | Convierte un `ChatbotResult` en un `ChatbotResponseResource`.                   |
+| IncidentClassificationResponseResourceFromResultAssembler | Convierte un `IncidentClassificationResult` en un recurso de respuesta.         |
+| EvidenceAnalysisResponseResourceFromResultAssembler       | Convierte un `EvidenceAnalysisResult` en un recurso de respuesta.               |
+
+---
+
+# 5.7.3. Application Layer
+
+La capa de aplicación contiene la implementación de las operaciones definidas por el dominio. Esta capa determina si debe utilizar respuestas simuladas o comunicarse con OpenAI.
+
+## Command Services Implementation
+
+### Clase: AiCommandServiceImpl
+
+**Descripción:**  
+Implementa las funcionalidades principales del AI Service. Procesa las solicitudes del chatbot, la clasificación de incidentes y el análisis de evidencias.
+
+| Método                                         | Descripción                                                                                                                           |
+|------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|
+| handle(ChatbotCommand command)                 | Valida que la consulta esté relacionada con PeaceApp o seguridad ciudadana y genera una respuesta mediante OpenAI o el modo simulado. |
+| handle(ClassifyIncidentCommand command)        | Clasifica un incidente mediante OpenAI o reglas locales según el contenido de la descripción.                                         |
+| handle(AnalyzeEvidenceCommand command)         | Analiza una evidencia mediante OpenAI o devuelve un resultado simulado.                                                               |
+| isClearlyInScopeChatbotMessage(String message) | Verifica que la consulta esté dentro del alcance del chatbot.                                                                         |
+| normalizeForScopeCheck(String value)           | Normaliza el texto para facilitar su validación.                                                                                      |
+| containsAny(String value, String... keywords)  | Comprueba si un texto contiene palabras relacionadas con seguridad ciudadana.                                                         |
+| isMunicipalityContext(String context)          | Determina si la solicitud proviene del contexto municipal o web.                                                                      |
+| outOfScopeChatbotResult(String context)        | Genera una respuesta controlada para consultas fuera del alcance.                                                                     |
+| buildIncidentClassification(...)               | Construye un resultado simulado de clasificación.                                                                                     |
+| looksLikeValidIncident(String description)     | Verifica si la descripción tiene características mínimas de un incidente válido.                                                      |
+| safe(String value)                             | Evita valores nulos durante el procesamiento.                                                                                         |
+
+---
+
+## Flujo del chatbot
+
+1. El usuario envía un mensaje y un contexto opcional.
+2. El controlador convierte el recurso en `ChatbotCommand`.
+3. `AiCommandServiceImpl` valida si la consulta pertenece al alcance de PeaceApp.
+4. Si la consulta está fuera del alcance, se devuelve una respuesta controlada.
+5. Si el modo simulado está activado, se devuelve una respuesta local.
+6. Si el modo simulado está desactivado, se utiliza `OpenAiClient`.
+7. El resultado se transforma en `ChatbotResponseResource`.
+
+---
+
+## Flujo de clasificación de incidentes
+
+1. El usuario envía la descripción, ubicación y distrito.
+2. La información se convierte en `ClassifyIncidentCommand`.
+3. Se valida que la descripción no esté vacía.
+4. En modo simulado, el sistema utiliza palabras clave para clasificar el incidente.
+5. En modo real, la solicitud se envía a OpenAI.
+6. Se devuelve el tipo, gravedad, resumen y acciones recomendadas.
+
+---
+
+## Flujo de análisis de evidencias
+
+1. El usuario proporciona la URL, el tipo o la descripción de la evidencia.
+2. La información se convierte en `AnalyzeEvidenceCommand`.
+3. Se valida que exista una URL o descripción.
+4. En modo simulado, se devuelve un análisis predefinido.
+5. En modo real, la evidencia se procesa mediante OpenAI.
+6. Se devuelve el tipo detectado, el resumen y la necesidad de revisión humana.
+
+---
+
+# 5.7.4. Infrastructure Layer
+
+La capa de infraestructura contiene la configuración del proveedor de inteligencia artificial y el cliente encargado de comunicarse con la API externa de OpenAI.
+
+El AI Service no utiliza repositorios ni base de datos, debido a que procesa solicitudes en tiempo real y no almacena sus resultados.
+
+## External Client: OpenAiClient
+
+**Descripción:**  
+Cliente encargado de realizar solicitudes HTTP a la API de OpenAI mediante `RestClient`. Utiliza el endpoint `/responses` para generar los resultados requeridos por el servicio.
+
+| Método | Descripción |
+|--------|-------------|
+| generateChatbotResponse(String message, String context) | Genera una respuesta para el chatbot de PeaceApp. |
+| classifyIncident(String description, String location, String district) | Solicita a OpenAI la clasificación de un incidente. |
+| analyzeEvidence(String evidenceUrl, String evidenceType, String description) | Solicita el análisis visual o descriptivo de una evidencia. |
+| createResponse(...) | Construye y envía una solicitud de texto a OpenAI. |
+| createVisionResponse(...) | Construye y envía una solicitud que incluye una imagen. |
+| ensureApiKeyConfigured() | Verifica que la clave de OpenAI esté configurada. |
+| mapOpenAiHttpError(...) | Convierte errores HTTP de OpenAI en excepciones internas. |
+| extractProviderMessage(String responseBody) | Obtiene el mensaje de error devuelto por OpenAI. |
+| extractOutputText(String responseBody) | Extrae el texto generado de la respuesta externa. |
+| parseJsonPayload(...) | Convierte el texto JSON recibido en un objeto Java. |
+| normalizeIncidentType(String incidentType) | Normaliza el tipo de incidente generado. |
+| normalizeSeverity(String severity) | Normaliza el nivel de gravedad generado. |
+
+---
+
+## Configuration: AiProperties
+
+**Descripción:**  
+Componente encargado de leer las propiedades necesarias para configurar el funcionamiento del AI Service.
+
+| Atributo     | Descripción                                           |
+|--------------|-------------------------------------------------------|
+| mockEnabled  | Indica si el servicio utilizará respuestas simuladas. |
+| openAiApiKey | Clave utilizada para autenticarse con OpenAI.         |
+| openAiModel  | Modelo de inteligencia artificial configurado.        |
+
+### Métodos
+
+| Método            | Descripción                                     |
+|-------------------|-------------------------------------------------|
+| isMockEnabled()   | Indica si el modo simulado está activo.         |
+| hasOpenAiApiKey() | Comprueba si existe una clave de OpenAI válida. |
+| getOpenAiApiKey() | Devuelve la clave configurada.                  |
+| getOpenAiModel()  | Devuelve el modelo configurado.                 |
+
+---
+
+## Exception: OpenAiProviderException
+
+**Descripción:**  
+Excepción personalizada utilizada para representar errores producidos durante la comunicación con OpenAI.
+
+| Atributo  | Descripción                           |
+|-----------|---------------------------------------|
+| code      | Código interno del error.             |
+| status    | Estado HTTP relacionado con el error. |
+| message   | Descripción heredada de la excepción. |
+
+### Métodos
+
+| Método      | Descripción                              |
+|-------------|------------------------------------------|
+| getCode()   | Devuelve el código del error.            |
+| getStatus() | Devuelve el estado HTTP correspondiente. |
+
+---
+
+## External System: OpenAI
+
+**Descripción:**  
+OpenAI es el sistema externo utilizado para generar las respuestas del chatbot, clasificar incidentes y analizar evidencias.
+
+| Operación                   | Descripción                                                         |
+|-----------------------------|---------------------------------------------------------------------|
+| Generación de respuestas    | Responde consultas relacionadas con seguridad ciudadana y PeaceApp. |
+| Clasificación de incidentes | Determina el tipo y la gravedad de un reporte.                      |
+| Análisis de evidencias      | Analiza imágenes y descripciones relacionadas con incidentes.       |
+| Generación estructurada     | Devuelve resultados JSON que son transformados en Value Objects.    |
+
+---
+
+## Service Discovery
+
+El microservicio utiliza `@EnableDiscoveryClient`, por lo que se registra en Eureka con el nombre:
+
+```text
+ai-service
+```
+# 5.7.5. Bounded Context Software Architecture Component Level Diagrams
+
+## Backend
+- El diagrama muestra los componentes internos del AI Service. El controlador recibe solicitudes, los assemblers las transforman en comandos, el servicio de aplicación procesa las operaciones y el cliente externo se comunica con OpenAI.
+
+![AiBackendComponents-dark.png](assets/AiBackendComponents-dark.png)
+
+## WebApp
+- El diagrama representa cómo la aplicación web municipal consume las funcionalidades del AI Service para obtener asistencia, analizar evidencias y clasificar reportes.
+
+![AiWebAppComponents-dark.png](assets/AiWebAppComponents-dark.png)
+
+## MobileApp
+- El diagrama muestra cómo la aplicación móvil permite a los ciudadanos utilizar el chatbot, clasificar incidentes y analizar evidencias mediante el AI Service.
+
+![AiWebAppComponents-dark.png](assets/AiWebAppComponents-dark.png)
+
+# 5.7.6. Bounded Context Software Architecture Code Level Diagrams
+
+## 5.7.6.1. Bounded Context Domain Layer Class Diagram
+
+- El siguiente diagrama representa los comandos, Value Objects y servicios principales del dominio del AI Service.
+
+![ai-class.png](assets/ai-class.png)
+
+## 5.7.6.2. Bounded Context Database Design Diagram
+
+-El AI Service no cuenta con una base de datos propia ni con entidades persistentes. Las solicitudes se procesan en tiempo real y sus resultados son devueltos directamente al cliente.
+
+![ai-db.png](assets/ai-db.png)
+
 # Capítulo VI: Solution UX Design
 
 ## 6.1. Style Guidelines
@@ -3613,54 +4498,54 @@ Durante este sprint, se trabajó en las funcionalidades base de acceso al ecosis
 
 **Tabla de control de estado del Sprint**
 
-| Sprint # | **Sprint 1** | | | | | | |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **User Story** | | **Work-Item / Task** | | | | | |
-| **Id** | **Title** | **Id** | **Title** | **Description** | **Est. (h)** | **Assigned To** | **Status** |
-| **US04** | Registro de Usuarios | US04-MO-01 | Form registro ciudadano | UI en Flutter/Mobile; captura de datos personales obligatorios y DNI civil. | 4 | **Noriega Suschenko Anatoly** | Done |
-| | | US04-FE-01 | Form registro municipio | UI en React/Web; campos de distrito, provincia y teléfono de contacto. | 5 | **Noriega Suschenko Anatoly** | Done |
-| **US05** | Iniciar Sesión | US05-MO-01 | Login móvil ciudadano | Pantalla de inicio de sesión en Flutter; manejo de estados y persistencia local. | 3 | **Arroyo Ormeño André** | Done |
-| | | US05-FE-01 | Login web municipal | Pantalla de inicio de sesión en React para autoridades; redirección al Dashboard. | 3 | **Reyes Trujillano Fabian** | Done |
-| **US11** | Editar Información de Perfil | US11-MO-01 | Formulario editar perfil ciudadano | UI móvil para modificar datos telefónicos y residencia; validación en cliente. | 3 | **Guia Carrasco Pedro** | Done |
-| | | US11-FE-01 | Gestión perfil municipalidad | Vista web interactiva para auditar y actualizar datos institucionales del serenazgo. | 3 | **Reyes Trujillano Fabian** | Done |
-| **US12** | Recuperar Contraseña | US12-FE-01 | Interfaz recuperación email | Pantalla web para solicitar el enlace mediante el ingreso de correo electrónico. | 3 | **Arroyo Ormeño André** | Done |
-| | | US12-FE-02 | Formulario nueva contraseña | Vista web transaccional para definir y confirmar la clave de acceso de forma segura. | 3 | **Arroyo Ormeño André** | Done |
-| **US13** | Acceder a Mapa con Reportes | US13-FE-01 | Lienzo cartográfico central web | Integración del mapa de calor interactivo basado en Mapbox en el dashboard. | 5 | **Reyes Trujillano Fabian** | Done |
-| **US14** | Acceder al Perfil de Usuario | US14-MO-01 | Vista de cuenta móvil | Renderizado de datos del ciudadano autenticado y acciones de personalización. | 2 | **Guia Carrasco Pedro** | Done|
-| **US15** | Filtrar Reportes | US15-FE-01 | Controles de filtrado web | Componentes UI en consola web para clasificar incidentes por tipo, fecha y estado. | 3 | **Reyes Trujillano Fabian** | Done |
-| **US16** | Buscar Ubicación en el Mapa | US16-FE-01 | Buscador predictivo web | Caja de geocodificación en el mapa web para localizar direcciones y avenidas. | 3 | **Reyes Trujillano Fabian** | Done |
-| **US18** | Notificación de Éxito al Reportar | US18-MO-01 | Modal confirmación reporte | Cuadro de diálogo ilustrativo en Flutter tras registrar un incidente comunitario. | 2 | **Santillan Alvarado Melina** | Done |
-| **US21** | Estado Vacío en “Mis Reportes” | US21-MO-01 | UI empty state reportes | Vista condicional y amigable si el ciudadano aún no ha aportado incidentes. | 2 | **Guia Carrasco Pedro** | Done |
-| **US25** | Ver Detalles Rápidos en Mapa | US25-FE-01 | Popups informativos web | Tooltips contextuales sobre los marcadores del mapa web para ver un resumen. | 3 | **Arroyo Ormeño André** | Done |
-| **US31** | Acceso como Municipalidad | US31-FE-01 | Enrutamiento Dashboard web | Restricción y renderizado de la consola web limitado a la sesión del municipio. | 4 | **Noriega Suschenko Anatoly** | Done |
-| **US32** | Visualizar Reportes en Dashboard | US32-FE-01 | Gráficos analíticos web | Distribución de componentes visuales de incidencias tabuladas por distrito. | 4 | **Reyes Trujillano Fabian** | Done |
-| **US35** | Ver Detalle Completo del Reporte | US35-FE-01 | Modal expandido incidente | Interfaz web que muestra la descripción, evidencias y autoría completa. | 3 | **Arroyo Ormeño André** | Done |
-| **US38** | Enviar Alerta de Emergencia | US38-MO-01 | SOS Pánico síncrono móvil | Botón crítico en app móvil para gatillar el envío inmediato de coordenadas. | 4 | **Guia Carrasco Pedro** | Done |
-| | | US38-MO-02 | Pantalla SOS fuera cobertura | Interfaz adaptativa ante fallo de red móvil para derivar emergencias vía SMS. | 3 | **Guia Carrasco Pedro** | Done |
-| **US39** | Confirmación de Envío de Emergencia | US39-MO-01 | UI de confirmación SOS | Pantalla transaccional móvil de envío exitoso de auxilio hacia serenazgo. | 2 | **Guia Carrasco Pedro** | Done |
-| **US42** | Consultar Nivel de Seguridad mediante Chatbot | US42-MO-01 | Interfaz de chat móvil | Componente de chat síncrono embebido en Flutter para la interacción ciudadana. | 4 | **Santillan Alvarado Melina** | Done |
-| **US43** | Asistencia del Chatbot para Crear Reportes | US43-MO-01 | Workflow de asistencia móvil | Lógica conversacional en app móvil para recolectar datos y armar el borrador. | 4 | **Santillan Alvarado Melina** | Done |
-| **US48** | Acceder al Soporte Externo de PeaceApp | US48-MO-01 | Enrutamiento de soporte | Menú interactivo móvil para desviar consultas técnico-operativas al bot. | 2 | **Santillan Alvarado Melina** | Done |
-| **TS01** | Autenticación JWT mediante RESTful API | TS01-BE-01 | Configuración Spring Security | Filtros de seguridad, validación asimétrica y protección de endpoints privados. | 5 | **Reyes Trujillano Fabian** | Done |
-| **TS02** | Crear Nuevo Usuario mediante RESTful API | TS02-BE-01 | Sign-up REST Endpoints | Implementación de `POST /api/v1/auth/register` en `IAMService` segregado por rol. | 4 | **Noriega Suschenko Anatoly** | Done |
-| **TS03** | Editar Perfil de Usuario mediante RESTful API | TS03-BE-01 | Endpoint update profile | Desarrollo de controladores Spring PATCH en `UserService` para mutar perfiles. | 3 | **Noriega Suschenko Anatoly** | Done |
-| **TS04** | Crear Reporte de Incidente mediante RESTful API | TS04-BE-01 | Endpoint creación reportes | Endpoints en `ReportService` para registrar incidentes ciudadanos en estado pendiente. | 4 | **Arroyo Ormeño André** | Done |
-| **TS05** | Obtener Lista de Reportes mediante RESTful API | TS05-BE-01 | GET list endpoints reportes | Lógica de negocio para servir colecciones de incidentes filtradas por rol. | 4 | **Arroyo Ormeño André** | Done |
-| **TS06** | Obtener Reporte por ID mediante RESTful API | TS06-BE-01 | GET report by ID endpoint | Implementación de búsquedas controladas y seguras de un incidente específico. | 3 | **Arroyo Ormeño André** | Done |
-| **TS07** | Crear Coordenadas de Ubicación al Generar un Reporte | TS07-BE-01 | Persistencia espacial inicial | Lógica en `LocationService` para acoplar latitud y longitud a los agregados. | 3 | **Guia Carrasco Pedro** | Done |
-| **TS08** | Obtener Ubicaciones para Renderizar Reportes en el Mapa | TS08-BE-01 | Endpoint JSON marcadores | Servicio web encargado de retornar las coordenadas para el renderizado del mapa. | 3 | **Guia Carrasco Pedro** | Done |
-| **TS09** | Crear Alerta al Acercarse a una Zona de Peligro | TS09-BE-01 | Lógica proximidad de alertas | Componentes en `AlertService` para inicializar alarmas ante cruce de perímetros. | 4 | **Guia Carrasco Pedro** | Done |
-| **TS10** | Obtener Alertas por Usuario | TS10-BE-01 | GET alerts endpoint | Endpoint para servir las notificaciones históricas de peligro de una identidad. | 3 | **Guia Carrasco Pedro** | Done |
-| **TS11** | Eliminar Alertas al Recargar el Mapa | TS11-BE-01 | Limpieza caché de alertas | Lógica backend para prevenir el envío de elementos duplicados o desactualizados. | 3 | **Guia Carrasco Pedro** | Done |
-| **TS12** | Obtener Detalles de Alerta por ID | TS12-BE-01 | GET alert details API | Consulta atómica de infraestructura para recuperar el detalle de una alerta. | 3 | **Guia Carrasco Pedro** | Done |
-| **TS13** | Obtener Datos de Usuario por Email | TS13-BE-01 | Query filter by email | Método optimizado en `UserService` para validar identidades durante la autenticación. | 3 | **Noriega Suschenko Anatoly** | Done |
-| **TS14** | Manejo de Roles de Usuario | TS14-BE-01 | Interceptor de Autorización | Lógica en `IAMService` (HTTP 403) para bloquear accesos y registros cruzados. | 3 | **Noriega Suschenko Anatoly** | Done |
-| **TS15** | Crear Alerta de Emergencia mediante RESTful API | TS15-BE-01 | POST emergency endpoint | API en `AlertService` para registrar la señal inmediata de pánico ciudadana. | 4 | **Guia Carrasco Pedro** | Done |
-| **TS16** | Obtener Lista de Emergencias mediante RESTful API | TS16-BE-01 | GET emergencies list | Servicio web para recuperar incidentes activos prioritarios para el municipio. | 3 | **Guia Carrasco Pedro** | Done |
-| **TS17** | Actualizar Estado de Emergencia mediante RESTful API | TS17-BE-01 | PATCH status emergency | Endpoint transaccional para actualizar el ciclo de vida de la alerta (`ATTENDED`). | 3 | **Guia Carrasco Pedro** | Done |
-| **TS18** | Envío de Notificaciones de Emergencia | TS18-BE-01 | Orquestador eventos SOS | Despachador encargado de derivar las emergencias registradas en tiempo real. | 3 | **Guia Carrasco Pedro** | Done |
-| **TS20** | Implementar Microservicio de Chatbot mediante NLP | TS20-BE-01 | Despliegue de servicio NLP | Microservicio independiente en `AIService` para procesar y clasificar texto conversacional. | 6 | **Santillan Alvarado Melina** | Done |
-| **TS23** | Orquestación de Servicios de IA en el API Gateway | TS23-BE-01 | Enrutamiento proxy Gateway | Configuración en `GatewayService` para redirigir tráfico de IA aplicando filtros JWT. | 3 | **Guia Carrasco Pedro** | Done |
+| Sprint #       | **Sprint 1**                                            |                      |                                    |                                                                                             |              |                               |            |
+|:---------------|:--------------------------------------------------------|:---------------------|:-----------------------------------|:--------------------------------------------------------------------------------------------|:-------------|:------------------------------|:-----------|
+| **User Story** |                                                         | **Work-Item / Task** |                                    |                                                                                             |              |                               |            |
+| **Id**         | **Title**                                               | **Id**               | **Title**                          | **Description**                                                                             | **Est. (h)** | **Assigned To**               | **Status** |
+| **US04**       | Registro de Usuarios                                    | US04-MO-01           | Form registro ciudadano            | UI en Flutter/Mobile; captura de datos personales obligatorios y DNI civil.                 | 4            | **Noriega Suschenko Anatoly** | Done       |
+|                |                                                         | US04-FE-01           | Form registro municipio            | UI en React/Web; campos de distrito, provincia y teléfono de contacto.                      | 5            | **Noriega Suschenko Anatoly** | Done       |
+| **US05**       | Iniciar Sesión                                          | US05-MO-01           | Login móvil ciudadano              | Pantalla de inicio de sesión en Flutter; manejo de estados y persistencia local.            | 3            | **Arroyo Ormeño André**       | Done       |
+|                |                                                         | US05-FE-01           | Login web municipal                | Pantalla de inicio de sesión en React para autoridades; redirección al Dashboard.           | 3            | **Reyes Trujillano Fabian**   | Done       |
+| **US11**       | Editar Información de Perfil                            | US11-MO-01           | Formulario editar perfil ciudadano | UI móvil para modificar datos telefónicos y residencia; validación en cliente.              | 3            | **Guia Carrasco Pedro**       | Done       |
+|                |                                                         | US11-FE-01           | Gestión perfil municipalidad       | Vista web interactiva para auditar y actualizar datos institucionales del serenazgo.        | 3            | **Reyes Trujillano Fabian**   | Done       |
+| **US12**       | Recuperar Contraseña                                    | US12-FE-01           | Interfaz recuperación email        | Pantalla web para solicitar el enlace mediante el ingreso de correo electrónico.            | 3            | **Arroyo Ormeño André**       | Done       |
+|                |                                                         | US12-FE-02           | Formulario nueva contraseña        | Vista web transaccional para definir y confirmar la clave de acceso de forma segura.        | 3            | **Arroyo Ormeño André**       | Done       |
+| **US13**       | Acceder a Mapa con Reportes                             | US13-FE-01           | Lienzo cartográfico central web    | Integración del mapa de calor interactivo basado en Mapbox en el dashboard.                 | 5            | **Reyes Trujillano Fabian**   | Done       |
+| **US14**       | Acceder al Perfil de Usuario                            | US14-MO-01           | Vista de cuenta móvil              | Renderizado de datos del ciudadano autenticado y acciones de personalización.               | 2            | **Guia Carrasco Pedro**       | Done       |
+| **US15**       | Filtrar Reportes                                        | US15-FE-01           | Controles de filtrado web          | Componentes UI en consola web para clasificar incidentes por tipo, fecha y estado.          | 3            | **Reyes Trujillano Fabian**   | Done       |
+| **US16**       | Buscar Ubicación en el Mapa                             | US16-FE-01           | Buscador predictivo web            | Caja de geocodificación en el mapa web para localizar direcciones y avenidas.               | 3            | **Reyes Trujillano Fabian**   | Done       |
+| **US18**       | Notificación de Éxito al Reportar                       | US18-MO-01           | Modal confirmación reporte         | Cuadro de diálogo ilustrativo en Flutter tras registrar un incidente comunitario.           | 2            | **Santillan Alvarado Melina** | Done       |
+| **US21**       | Estado Vacío en “Mis Reportes”                          | US21-MO-01           | UI empty state reportes            | Vista condicional y amigable si el ciudadano aún no ha aportado incidentes.                 | 2            | **Guia Carrasco Pedro**       | Done       |
+| **US25**       | Ver Detalles Rápidos en Mapa                            | US25-FE-01           | Popups informativos web            | Tooltips contextuales sobre los marcadores del mapa web para ver un resumen.                | 3            | **Arroyo Ormeño André**       | Done       |
+| **US31**       | Acceso como Municipalidad                               | US31-FE-01           | Enrutamiento Dashboard web         | Restricción y renderizado de la consola web limitado a la sesión del municipio.             | 4            | **Noriega Suschenko Anatoly** | Done       |
+| **US32**       | Visualizar Reportes en Dashboard                        | US32-FE-01           | Gráficos analíticos web            | Distribución de componentes visuales de incidencias tabuladas por distrito.                 | 4            | **Reyes Trujillano Fabian**   | Done       |
+| **US35**       | Ver Detalle Completo del Reporte                        | US35-FE-01           | Modal expandido incidente          | Interfaz web que muestra la descripción, evidencias y autoría completa.                     | 3            | **Arroyo Ormeño André**       | Done       |
+| **US38**       | Enviar Alerta de Emergencia                             | US38-MO-01           | SOS Pánico síncrono móvil          | Botón crítico en app móvil para gatillar el envío inmediato de coordenadas.                 | 4            | **Guia Carrasco Pedro**       | Done       |
+|                |                                                         | US38-MO-02           | Pantalla SOS fuera cobertura       | Interfaz adaptativa ante fallo de red móvil para derivar emergencias vía SMS.               | 3            | **Guia Carrasco Pedro**       | Done       |
+| **US39**       | Confirmación de Envío de Emergencia                     | US39-MO-01           | UI de confirmación SOS             | Pantalla transaccional móvil de envío exitoso de auxilio hacia serenazgo.                   | 2            | **Guia Carrasco Pedro**       | Done       |
+| **US42**       | Consultar Nivel de Seguridad mediante Chatbot           | US42-MO-01           | Interfaz de chat móvil             | Componente de chat síncrono embebido en Flutter para la interacción ciudadana.              | 4            | **Santillan Alvarado Melina** | Done       |
+| **US43**       | Asistencia del Chatbot para Crear Reportes              | US43-MO-01           | Workflow de asistencia móvil       | Lógica conversacional en app móvil para recolectar datos y armar el borrador.               | 4            | **Santillan Alvarado Melina** | Done       |
+| **US48**       | Acceder al Soporte Externo de PeaceApp                  | US48-MO-01           | Enrutamiento de soporte            | Menú interactivo móvil para desviar consultas técnico-operativas al bot.                    | 2            | **Santillan Alvarado Melina** | Done       |
+| **TS01**       | Autenticación JWT mediante RESTful API                  | TS01-BE-01           | Configuración Spring Security      | Filtros de seguridad, validación asimétrica y protección de endpoints privados.             | 5            | **Reyes Trujillano Fabian**   | Done       |
+| **TS02**       | Crear Nuevo Usuario mediante RESTful API                | TS02-BE-01           | Sign-up REST Endpoints             | Implementación de `POST /api/v1/auth/register` en `IAMService` segregado por rol.           | 4            | **Noriega Suschenko Anatoly** | Done       |
+| **TS03**       | Editar Perfil de Usuario mediante RESTful API           | TS03-BE-01           | Endpoint update profile            | Desarrollo de controladores Spring PATCH en `UserService` para mutar perfiles.              | 3            | **Noriega Suschenko Anatoly** | Done       |
+| **TS04**       | Crear Reporte de Incidente mediante RESTful API         | TS04-BE-01           | Endpoint creación reportes         | Endpoints en `ReportService` para registrar incidentes ciudadanos en estado pendiente.      | 4            | **Arroyo Ormeño André**       | Done       |
+| **TS05**       | Obtener Lista de Reportes mediante RESTful API          | TS05-BE-01           | GET list endpoints reportes        | Lógica de negocio para servir colecciones de incidentes filtradas por rol.                  | 4            | **Arroyo Ormeño André**       | Done       |
+| **TS06**       | Obtener Reporte por ID mediante RESTful API             | TS06-BE-01           | GET report by ID endpoint          | Implementación de búsquedas controladas y seguras de un incidente específico.               | 3            | **Arroyo Ormeño André**       | Done       |
+| **TS07**       | Crear Coordenadas de Ubicación al Generar un Reporte    | TS07-BE-01           | Persistencia espacial inicial      | Lógica en `LocationService` para acoplar latitud y longitud a los agregados.                | 3            | **Guia Carrasco Pedro**       | Done       |
+| **TS08**       | Obtener Ubicaciones para Renderizar Reportes en el Mapa | TS08-BE-01           | Endpoint JSON marcadores           | Servicio web encargado de retornar las coordenadas para el renderizado del mapa.            | 3            | **Guia Carrasco Pedro**       | Done       |
+| **TS09**       | Crear Alerta al Acercarse a una Zona de Peligro         | TS09-BE-01           | Lógica proximidad de alertas       | Componentes en `AlertService` para inicializar alarmas ante cruce de perímetros.            | 4            | **Guia Carrasco Pedro**       | Done       |
+| **TS10**       | Obtener Alertas por Usuario                             | TS10-BE-01           | GET alerts endpoint                | Endpoint para servir las notificaciones históricas de peligro de una identidad.             | 3            | **Guia Carrasco Pedro**       | Done       |
+| **TS11**       | Eliminar Alertas al Recargar el Mapa                    | TS11-BE-01           | Limpieza caché de alertas          | Lógica backend para prevenir el envío de elementos duplicados o desactualizados.            | 3            | **Guia Carrasco Pedro**       | Done       |
+| **TS12**       | Obtener Detalles de Alerta por ID                       | TS12-BE-01           | GET alert details API              | Consulta atómica de infraestructura para recuperar el detalle de una alerta.                | 3            | **Guia Carrasco Pedro**       | Done       |
+| **TS13**       | Obtener Datos de Usuario por Email                      | TS13-BE-01           | Query filter by email              | Método optimizado en `UserService` para validar identidades durante la autenticación.       | 3            | **Noriega Suschenko Anatoly** | Done       |
+| **TS14**       | Manejo de Roles de Usuario                              | TS14-BE-01           | Interceptor de Autorización        | Lógica en `IAMService` (HTTP 403) para bloquear accesos y registros cruzados.               | 3            | **Noriega Suschenko Anatoly** | Done       |
+| **TS15**       | Crear Alerta de Emergencia mediante RESTful API         | TS15-BE-01           | POST emergency endpoint            | API en `AlertService` para registrar la señal inmediata de pánico ciudadana.                | 4            | **Guia Carrasco Pedro**       | Done       |
+| **TS16**       | Obtener Lista de Emergencias mediante RESTful API       | TS16-BE-01           | GET emergencies list               | Servicio web para recuperar incidentes activos prioritarios para el municipio.              | 3            | **Guia Carrasco Pedro**       | Done       |
+| **TS17**       | Actualizar Estado de Emergencia mediante RESTful API    | TS17-BE-01           | PATCH status emergency             | Endpoint transaccional para actualizar el ciclo de vida de la alerta (`ATTENDED`).          | 3            | **Guia Carrasco Pedro**       | Done       |
+| **TS18**       | Envío de Notificaciones de Emergencia                   | TS18-BE-01           | Orquestador eventos SOS            | Despachador encargado de derivar las emergencias registradas en tiempo real.                | 3            | **Guia Carrasco Pedro**       | Done       |
+| **TS20**       | Implementar Microservicio de Chatbot mediante NLP       | TS20-BE-01           | Despliegue de servicio NLP         | Microservicio independiente en `AIService` para procesar y clasificar texto conversacional. | 6            | **Santillan Alvarado Melina** | Done       |
+| **TS23**       | Orquestación de Servicios de IA en el API Gateway       | TS23-BE-01           | Enrutamiento proxy Gateway         | Configuración en `GatewayService` para redirigir tráfico de IA aplicando filtros JWT.       | 3            | **Guia Carrasco Pedro**       | Done       |
 
 #### 7.2.1.3. Development Evidence for Sprint Review.
 Los avances específicos son:
@@ -3677,29 +4562,29 @@ Los avances específicos son:
   - **GatewayService & EurekaServer:** Implementación del servidor de descubrimiento Eureka y configuración de rutas e interceptación en el API Gateway para orquestar la comunicación del ecosistema distribuido.
   - **ReportService, AlertService, LocationService & MessageBroker:** Cimentación de la base de datos estructural del dominio y configuraciones iniciales para soportar el flujo reactivo de mensajería, localización e incidentes.
 
-| Repository | Branch | Commit Id | Commit Message | Commit Message Body | Commited on (Date) |
-| :---: | :---: | :---: | :--- | :--- | :---: |
-| AIService | main | da5b1020d10030922d0e47a686deaa0e276b2cbf | chore: remove target folder | | 20/06/2026 |
-| AIService | main | b39aac09b46e2735b9603466d5b3be5e86390f4d | chore: add gitignore file | | 20/06/2026 |
-| AIService | main | 5d04966bdc90fa6a9c5c48c93257aad3541914a5 | feat: integrate OpenAI support in AI service | | 20/06/2026 |
-| AIService | main | 8d9e678763c389436838684dc5e8b6a51a276b88 | Initial commit | | 20/06/2026 |
-| PeaceApp-Web | main | c8ba68a4f958ef77babf250014ec83e0bc57735c | refactor: fix things | | 20/06/2026 |
-| PeaceApp-Web | main | 5ff76ff97746676ef5f56747ec794027fbc01f54 | feat: add web additions | | 16/06/2026 |
-| PeaceApp-Web | main | 578932264c740759a651659246541e5eb5948017 | feat: add initial web app implementation | | 13/05/2026 |
-| GatewayService | main | 6ef70bbdae10479cd610d12ff08bccc7a5b68896 | refactor: add missing lines | | 20/06/2026 |
-| GatewayService | main | 8471388581798deb6242752ad290aec88435fb29 | feat: add gateway additions | | 16/06/2026 |
-| GatewayService | main | d4c30a83f746424514060dacfe8010ed49d97831 | feat: add initial service implementation | | 13/05/2026 |
-| UserService | main | c7b84b080862c3fa58099f3230e0c7a8a9fbf92d | feat: add users additions | | 16/06/2026 |
-| UserService | main | cf2a207d7149a181b2a100054ee32c0ac1ab3b67 | feat: add initial service implementation | | 13/05/2026 |
-| ReportService | main | 01a44a4e8f3b1e12a21926c3156e300364281430 | feat: add report additions | | 16/06/2026 |
-| ReportService | main | 7abeb6690f97eea0292bdb352f1f4cdc903a1670 | feat: add initial service implementation | | 13/05/2026 |
-| IAMService | main | 834c538a10b5418f24b394de15f81576bb205290 | feat: add iam additions | | 16/06/2026 |
-| IAMService | main | 48a0801518770bf6c3d5da1620764ccd76312490 | feat: add initial service implementation | | 13/05/2026 |
-| AlertService | main | 618b4d2acb6a73f1bc72386d0b2d242cbe9fde79 | feat: add alert service additions | | 16/06/2026 |
-| AlertService | main | 847ec1a00e0e506c9948dfb59126a831fc3b056c | feat: add initial service implementation | | 13/05/2026 |
-| MessageBroker | main | 1bc5a7dbb7983e71af4ca865a41aaf54a8b9478c | feat: add initial service implementation | | 13/05/2026 |
-| LocationService | main | 441016116577520acfcde7e291ef7b6356e83620 | feat: add initial service implementation | | 13/05/2026 |
-| EurekaServer | main | a48415bb921918604d8733857689fddeea973def | feat: add initial service implementation | | 13/05/2026 |
+|   Repository    | Branch   |               Commit Id                  | Commit Message                               | Commit Message Body   | Commited on (Date)   |
+|:---------------:|:--------:|:----------------------------------------:|:---------------------------------------------|:----------------------|:--------------------:|
+|    AIService    |   main   | da5b1020d10030922d0e47a686deaa0e276b2cbf | chore: remove target folder                  |                       |      20/06/2026      |
+|    AIService    |   main   | b39aac09b46e2735b9603466d5b3be5e86390f4d | chore: add gitignore file                    |                       |      20/06/2026      |
+|    AIService    |   main   | 5d04966bdc90fa6a9c5c48c93257aad3541914a5 | feat: integrate OpenAI support in AI service |                       |      20/06/2026      |
+|    AIService    |   main   | 8d9e678763c389436838684dc5e8b6a51a276b88 | Initial commit                               |                       |      20/06/2026      |
+|  PeaceApp-Web   |   main   | c8ba68a4f958ef77babf250014ec83e0bc57735c | refactor: fix things                         |                       |      20/06/2026      |
+|  PeaceApp-Web   |   main   | 5ff76ff97746676ef5f56747ec794027fbc01f54 | feat: add web additions                      |                       |      16/06/2026      |
+|  PeaceApp-Web   |   main   | 578932264c740759a651659246541e5eb5948017 | feat: add initial web app implementation     |                       |      13/05/2026      |
+| GatewayService  |   main   | 6ef70bbdae10479cd610d12ff08bccc7a5b68896 | refactor: add missing lines                  |                       |      20/06/2026      |
+| GatewayService  |   main   | 8471388581798deb6242752ad290aec88435fb29 | feat: add gateway additions                  |                       |      16/06/2026      |
+| GatewayService  |   main   | d4c30a83f746424514060dacfe8010ed49d97831 | feat: add initial service implementation     |                       |      13/05/2026      |
+|   UserService   |   main   | c7b84b080862c3fa58099f3230e0c7a8a9fbf92d | feat: add users additions                    |                       |      16/06/2026      |
+|   UserService   |   main   | cf2a207d7149a181b2a100054ee32c0ac1ab3b67 | feat: add initial service implementation     |                       |      13/05/2026      |
+|  ReportService  |   main   | 01a44a4e8f3b1e12a21926c3156e300364281430 | feat: add report additions                   |                       |      16/06/2026      |
+|  ReportService  |   main   | 7abeb6690f97eea0292bdb352f1f4cdc903a1670 | feat: add initial service implementation     |                       |      13/05/2026      |
+|   IAMService    |   main   | 834c538a10b5418f24b394de15f81576bb205290 | feat: add iam additions                      |                       |      16/06/2026      |
+|   IAMService    |   main   | 48a0801518770bf6c3d5da1620764ccd76312490 | feat: add initial service implementation     |                       |      13/05/2026      |
+|  AlertService   |   main   | 618b4d2acb6a73f1bc72386d0b2d242cbe9fde79 | feat: add alert service additions            |                       |      16/06/2026      |
+|  AlertService   |   main   | 847ec1a00e0e506c9948dfb59126a831fc3b056c | feat: add initial service implementation     |                       |      13/05/2026      |
+|  MessageBroker  |   main   | 1bc5a7dbb7983e71af4ca865a41aaf54a8b9478c | feat: add initial service implementation     |                       |      13/05/2026      |
+| LocationService |   main   | 441016116577520acfcde7e291ef7b6356e83620 | feat: add initial service implementation     |                       |      13/05/2026      |
+|  EurekaServer   |   main   | a48415bb921918604d8733857689fddeea973def | feat: add initial service implementation     |                       |      13/05/2026      |
 
 #### 7.2.1.4. Testing Suite Evidence for Sprint Review.
 Para esta sección del proyecto se hizo uso de la herramienta Visual Studio Code empleando el lenguaje Gherkin.

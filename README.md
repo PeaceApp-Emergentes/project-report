@@ -590,7 +590,7 @@ Los avances específicos son:
 #### 7.2.2.4. Testing Suite Evidence for Sprint Review.
 #### 7.2.2.5. Execution Evidence for Sprint Review.
 
-Se trabajó en la maduración de las capacidades analíticas del ecosistema y en la implementación del flujo transaccional B2G para este segundo sprint. En la aplicación web se completó la integración de los componentes analíticos inteligentes, habilitando paneles interactivos para la auditoría de evidencias y un asistente conversacional IA integrado para la resolución de consultas directas de los operadores. Paralelamente, se desplegó la infraestructura del módulo de facturación mediante Stripe Checkout, permitiendo la contratación automatizada de planes institucionales y dotando al sistema de flujos robustos de resiliencia ante la cancelación o fallas en el procesamiento de transacciones financieras.
+Se trabajó en la maduración de las capacidades analíticas del ecosistema y en la implementación del flujo transaccional B2G para este segundo sprint. En la aplicación web se completó la integración de los componentes analíticos inteligentes, habilitando paneles interactivos para la auditoría de evidencias y un asistente conversacional IA integrado para la resolución de consultas directas de los operadores. Paralelamente, se desplegó la infraestructura del módulo de facturación mediante Stripe Checkout, permitiendo la contratación automatizada de planes institucionales, la gestión activa del ciclo de vida de las suscripciones y dotando al sistema de flujos robustos de resiliencia ante la cancelación o fallas en el procesamiento de transacciones financieras.
 
 **Web Application:**
 
@@ -603,6 +603,12 @@ Se trabajó en la maduración de las capacidades analíticas del ecosistema y en
 - **Flujo de Pago Cancelado:** Pantalla interactiva de resiliencia del sistema que se activa de forma automática si la pasarela de Stripe detecta una cancelación o interrupción en la transacción, impidiendo la persistencia de la cuenta municipal y ofreciendo un retorno seguro al formulario de registro.
 
 !["Vista implementada en Sprint 2 - Pago Cancelado Crear Cuenta"](assets/sprint2-appweb-noPagarCrearCuenta.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Gestión de Suscripción:** Panel administrativo interno que permite a las autoridades consultar en tiempo real el estado actual de su cuenta ("Active"), validar el costo del plan mensual contratado, auditar la fecha programada para el siguiente cobro recurrente y proveer mecanismos para cancelar o refrescar la suscripción.
+
+!["Vista implementada en Sprint 2 - Gestión Suscripción"](assets/sprint2-appweb-gestiónSuscripcion.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 

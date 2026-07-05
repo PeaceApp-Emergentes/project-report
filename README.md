@@ -527,9 +527,170 @@ Se trabajó en el despliegue del núcleo transaccional, los servicios distribuid
 
 #### 7.2.1.8. Team Collaboration Insights during Sprint.
 
+### 7.2.2. Sprint 2
+#### 7.2.2.1. Sprint Planning 2.
+#### 7.2.2.2. Sprint Backlog 2
+
+Durante este sprint, se trabajó en la maduración de las capacidades analíticas de la plataforma y en la implementación del flujo de monetización B2G del MVP. Específicamente, se integró el motor de visión computacional en el ecosistema para automatizar la categorización predictiva y la verificación de archivos multimedia adjuntos, implementando estas herramientas de asistencia en la aplicación web para optimizar la gestión de reportes por parte de las municipalidades. Paralelamente, se desarrolló y desplegó la infraestructura del módulo de facturación y suscripciones gubernamentales a través de la API externa de Stripe, asegurando que el acceso al dashboard de monitoreo web quede estrictamente vinculado al estado financiero y de suscripción de cada entidad municipal.
+
+**Tabla de control de estado del Sprint**
+
+| Sprint # | **Sprint 2** | | | | | | |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **User Story** | | **Work-Item / Task** | | | | | |
+| **Id** | **Title** | **Id** | **Title** | **Description** | **Est. (h)** | **Assigned To** | **Status** |
+| **US44** | Autocompletado de Tipo de Incidente por IA | US44-FE-01 | Sugerencia automatizada en Web | Módulo en la aplicación web (React) para mostrar y aplicar la categoría del delito sugerida automáticamente por la IA al revisar un reporte municipal. | 4 | **Arroyo Ormeño André** | Done |
+| **US45** | Validación Preliminar de Evidencia Visual por IA | US45-FE-01 | Alertas de validez en Dashboard | Interfaz web que despliega advertencias e indicadores visuales si la foto o video adjunto no guarda relación con el incidente reportado. | 3 | **Santillan Alvarado Melina** | Done |
+| | | US45-FE-02 | Panel de control de evidencias | Consola en la app web donde el operador municipal visualiza el desglose y puntaje de coincidencia calculado por la IA antes de auditar. | 4 | **Reyes Trujillano Fabian** | Done |
+| **US46** | Contratar Plan Municipal | US46-FE-01 | Interfaz de selección de planes | Pasarela en React web que presenta la cuadrícula de planes institucionales y redirige a la pasarela de pago. | 5 | **Noriega Suschenko Anatoly** | Done |
+| **US47** | Consultar Estado de Suscripción Municipal | US47-FE-01 | Panel de estado financiero | Vista dentro del perfil municipal que renderiza si la cuenta se encuentra Activa, Pendiente o Vencida. | 3 | **Noriega Suschenko Anatoly** | Done |
+| **TS21** | Clasificación de Evidencia Visual mediante Microservicio de IA | TS21-BE-01 | Modelo de visión artificial | Implementación del motor de inferencia en `AIService` para procesar frames e imágenes y retornar métricas de confianza. | 6 | **Santillan Alvarado Melina** | Done |
+| **TS22** | Integrar Validación Visual de IA al Servicio de Reportes | TS22-BE-01 | Orquestador de análisis visual | Middleware en Spring Boot para acoplar las respuestas del motor de IA visual al flujo síncrono del `ReportService`. | 4 | **Arroyo Ormeño André** | Done |
+| **TS26** | Implementar Billing Service para Municipalidades | TS26-BE-01 | Arquitectura core de facturación | Cimentación y base de datos relacional para el microservicio `BillingService` encargado de rastrear planes y suscripciones. | 5 | **Guia Carrasco Pedro** | Done |
+| **TS27** | Integrar Stripe como Proveedor Externo de Pagos | TS27-BE-01 | API Stripe Checkout Session | Conector backend en `BillingService` para instanciar sesiones de pago seguras y delegar transacciones críticas a Stripe. | 4 | **Guia Carrasco Pedro** | Done |
+| **TS28** | Procesar Webhooks de Stripe | TS28-BE-01 | Endpoint reactivo e idempotente | Implementación del receptor asíncrono para escuchar eventos de Stripe y actualizar estados de cuenta (`charge.failed`, `invoice.paid`). | 4 | **Guia Carrasco Pedro** | Done |
+| **TS29** | Controlar Acceso Municipal según Suscripción | TS29-BE-01 | Interceptor de pasarela | Lógica en el API Gateway para interceptar peticiones del dashboard e impedir la gestión de reportes a municipios vencidos. | 3 | **Reyes Trujillano Fabian** | Done |
+
+#### 7.2.2.3. Development Evidence for Sprint Review
+
+Los avances específicos son:
+
+- **Web Application / Mobile Application / Landing Page:**
+  - **PeaceApp-Web:** Implementación de las interfaces adaptadas para la visualización del chatbot inteligente y el soporte transaccional de pagos (Stripe) dentro de la consola, corrección de redirecciones institucionales hacia la Landing Page y configuraciones de despliegue en entornos de producción (Netlify).
+  - **PeaceApp-Mobile:** Despliegue de actualizaciones críticas para el consumo de servicios de backend optimizados y reajustes finos sobre los flujos de sugerencias e intenciones del asistente inteligente.
+  - **Landing-Page:** Corrección formal de los hipervínculos de acción del botón "Get Started" para asegurar el enrutamiento correcto hacia las plataformas de descarga del aplicativo móvil.
+
+- **Web Services (Microservices & Infrastructure):**
+  - **PaymentService:** Inicialización y configuración estructural del nuevo microservicio encargado de centralizar la facturación, los planes municipales y la pasarela de pagos.
+  - **AIService:** Desarrollo y despliegue del modelo predictivo para la detección de imágenes e inteligencia visual, y posterior refactorización de algoritmos de clasificación de evidencia.
+  - **GatewayService:** Ingesta de nuevas rutas semánticas seguras y mapeo de proxies en el API Gateway para orquestar los flujos transaccionales e inteligentes agregados.
+  - **ReportService, AlertService & UserService:** Implementación de filtros transaccionales avanzados para la verificación y auditoría de cobertura jurisdiccional de las municipalidades, optimizando la persistencia objeto-relacional de las entidades del dominio.
+
+| Repository | Branch | Commit Id | Commit Message | Commit Message Body | Commited on (Date) |
+| :---: | :---: | :---: | :--- | :--- | :---: |
+| AlertService | main | 2692cb7465f8cc37cedfecdd2984b60ed7f85fac | refactor: que cambio | | 29/06/2026 |
+| UserService | main | 031fd48f904730cbd97e7077268622769fbec06f | refactor: porque | | 29/06/2026 |
+| AIService | main | f5a8e30b52bf046cf77bd4a3a61300c4cbd5aa21 | refactor: la ia haciendo cosas chistosas | | 29/06/2026 |
+| PaymentService | main | 396de6004019d8d1f8e6fe9e898a814cd732fcbe | first commit | | 27/06/2026 |
+| ReportService | main | 6a46d3bfabb2a25bc89a0e02333e9096962e2d5e | feat: add municipality coverage verification | | 27/06/2026 |
+| PeaceApp-Mobile | main | 94e2f24e84d9b37ccb5a8fc8a007e90cb84877dc | feat: bacjend deployado lol | | 27/06/2026 |
+| PeaceApp-Mobile | main | 46c540abd9c2d44f6509cbb665dee36cb7fca99d | refactor: update ai suggestions | | 27/06/2026 |
+| Landing-Page | main | a9f6c87bd9a42a9dcd464e8a870a1181568a0edd | Fix get started app URL | | 27/06/2026 |
+| GatewayService | main | cfbe82a52976207e9e5e207d0107c9b46482eba7 | feat: oh dios mio | | 27/06/2026 |
+| GatewayService | main | a6fbfca7528eb37d5d140c44e63d883a1b7b2e75 | feat: add more routes | | 27/06/2026 |
+| PeaceApp-Web | main | 2d0b1ebdd7f51bfd491af862fed4e5b1fe0188a8 | feat: si | | 27/06/2026 |
+| PeaceApp-Web | main | efd62c3467faed0439c76caa84a36b8ae2e5f490 | Fix landing page info URL | | 27/06/2026 |
+| PeaceApp-Web | main | 3a87a4b3705c08bbbc436e81ec5dcbc41c4e10a6 | feat: i'm a landing page | | 27/06/2026 |
+| PeaceApp-Web | main | 9b923e8162000b864727a75ce51773c25cff23b2 | feat: netlify n backend stuff | | 27/06/2026 |
+| PeaceApp-Web | main | 5159d962062c64eccd178e367ff2ccb6b74fd447 | feat: add chatbot and payments | | 27/06/2026 |
+| UserService | main | 230d538c6144c8fb1d8e53e52b32f41da37f5b68 | feat: add municipality stuff or smth | | 27/06/2026 |
+| AlertService | main | 85538971c2225441d1f5baa525c755c067c733eb | refactor: add municipality coverage verification | | 27/06/2026 |
+| AIService | main | bddc157a84520fa5da021c1c781fc901ad9aca93 | feat: image detection ai | | 27/06/2026 |
+
+#### 7.2.2.4. Testing Suite Evidence for Sprint Review.
+#### 7.2.2.5. Execution Evidence for Sprint Review.
+
+Se trabajó en la maduración de las capacidades analíticas del ecosistema y en la implementación del flujo transaccional B2G para este segundo sprint. En la aplicación web se completó la integración de los componentes analíticos inteligentes, habilitando paneles interactivos para la auditoría de evidencias y un asistente conversacional IA integrado para la resolución de consultas directas de los operadores. Paralelamente, se desplegó la infraestructura del módulo de facturación mediante Stripe Checkout, permitiendo la contratación automatizada de planes institucionales y dotando al sistema de flujos robustos de resiliencia ante la cancelación o fallas en el procesamiento de transacciones financieras.
+
+**Web Application:**
+
+- **Pago de Suscripción al Crear Cuenta:** Formulario de pasarela de pago institucional integrado oficialmente con Stripe Checkout, donde el representante municipal ingresa los datos de contacto y el método de pago por tarjeta para activar la suscripción mensual del distrito.
+
+!["Vista implementada en Sprint 2 - Pago Suscripción Crear Cuenta"](assets/sprint2-appweb-pagoSuscripciónCrearCuenta.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Flujo de Pago Cancelado:** Pantalla interactiva de resiliencia del sistema que se activa de forma automática si la pasarela de Stripe detecta una cancelación o interrupción en la transacción, impidiendo la persistencia de la cuenta municipal y ofreciendo un retorno seguro al formulario de registro.
+
+!["Vista implementada en Sprint 2 - Pago Cancelado Crear Cuenta"](assets/sprint2-appweb-noPagarCrearCuenta.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Análisis IA del Reporte:** Modal transaccional inteligente donde el operador municipal audita un incidente comunitario; el microservicio de IA evalúa de forma asíncrona la coherencia del título, la descripción textual y la validez de la foto o video adjunto como evidencia física, retornando categorías sugeridas y niveles de severidad predictivos.
+
+!["Vista implementada en Sprint 2 - Analizar Reporte IA"](assets/sprint2-appweb-analizarReporteIA.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+- **Asistente IA (Chatbot Municipal):** Ventana de chat conversacional embebida dentro de la consola del dashboard web, la cual asiste y orienta a los operadores respondiendo dudas técnico-operativas sobre el significado y el estado dinámico de los marcadores cartográficos.
+
+!["Vista implementada en Sprint 2 - Asistente IA Web"](assets/sprint2-appweb-asistenteIA.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
+#### 7.2.2.6. Services Documentation Evidence for Sprint Review.
+#### 7.2.2.7. Software Deployment Evidence for Sprint Review.
+#### 7.2.2.8. Team Collaboration Insights during Sprint.
+
 ## 7.3. Validation Interviews.
 
 ### 7.3.1. Diseño de Entrevistas.
+
+A continuación, se presentan las preguntas que se utilizarán en las entrevistas de validación de PeaceApp. Estas preguntas tienen como finalidad evaluar la facilidad de uso, claridad de navegación, comprensión de funcionalidades, confianza en el sistema y valor percibido por los usuarios luego de interactuar con la aplicación implementada. Las entrevistas se aplicarán a los dos segmentos objetivo del proyecto: ciudadanos preocupados por su seguridad en espacios públicos y gestores u operadores de seguridad municipal.
+
+#### Segmento Objetivo: Ciudadanos preocupados por su seguridad en espacios públicos
+
+1. **Después de registrarse o iniciar sesión en la app móvil, ¿qué tan claro le resultó entender qué acciones podía realizar como ciudadano?**  
+   *Objetivo:* Evaluar la claridad inicial de la interfaz, el acceso y la comprensión del rol ciudadano dentro de la aplicación.
+
+2. **Al crear un reporte de incidente, ¿qué tan sencillo fue seleccionar el tipo de incidente, completar la información y adjuntar evidencia multimedia?**  
+   *Objetivo:* Validar la facilidad de uso del flujo principal de creación de reportes y la comprensión de los campos requeridos.
+
+3. **¿La opción de marcar un reporte como emergencia o normal le pareció clara y adecuada para comunicar el nivel de urgencia del incidente?**  
+   *Objetivo:* Evaluar si el usuario comprende la diferencia entre reporte regular y emergencia al momento de registrar un incidente.
+
+4. **¿Qué percepción tuvo sobre la sugerencia con IA para mejorar el título, la descripción o clasificar el tipo de incidente?**  
+   *Objetivo:* Identificar si la asistencia con IA aporta claridad, rapidez y confianza durante la creación del reporte.
+
+5. **Al usar el mapa, ¿qué tan fácil fue identificar reportes cercanos, zonas de riesgo y detalles de los incidentes mediante los marcadores?**  
+   *Objetivo:* Validar la comprensión visual del mapa, los íconos y la utilidad de la información georreferenciada.
+
+6. **¿Las notificaciones o alertas de proximidad le parecieron útiles para tomar mejores decisiones al desplazarse por espacios públicos?**  
+   *Objetivo:* Evaluar el valor percibido de las alertas cercanas como mecanismo preventivo de seguridad.
+
+7. **Al utilizar el botón SOS, ¿el proceso de confirmación antes de enviar la emergencia le pareció claro y seguro?**  
+   *Objetivo:* Verificar si el flujo SOS transmite control, evita envíos accidentales y genera confianza en situaciones críticas.
+
+8. **¿Qué tan útil le resultó la opción de compartir su ubicación mediante WhatsApp o SMS con familiares o contactos de confianza?**  
+   *Objetivo:* Medir el interés del usuario en funciones de acompañamiento y comunicación rápida en situaciones de riesgo.
+
+9. **¿El chatbot ciudadano respondió de forma comprensible y útil para resolver dudas sobre seguridad o uso de la aplicación?**  
+   *Objetivo:* Validar la utilidad del asistente IA como canal de orientación dentro del contexto de PeaceApp.
+
+10. **Después de usar la aplicación, ¿qué elementos le harían confiar en PeaceApp para utilizarla de manera frecuente?**  
+    *Objetivo:* Identificar factores de adopción relacionados con privacidad, facilidad de uso, precisión de alertas, rapidez y confiabilidad del sistema.
+
+#### Segmento Objetivo: Gestores y Operadores de Seguridad Municipal
+
+1. **Durante el registro municipal y el proceso de suscripción, ¿qué tan claro le resultó el flujo para crear una cuenta institucional y completar el pago mensual?**  
+   *Objetivo:* Validar la comprensión del proceso de onboarding municipal, incluyendo el registro, pago y habilitación de acceso.
+
+2. **Al ingresar al sistema web, ¿qué tan clara fue la diferencia entre una cuenta municipal activa, cancelada o pendiente de renovación?**  
+   *Objetivo:* Evaluar la comprensión del estado de suscripción y su relación con el acceso al dashboard y al mapa.
+
+3. **Al revisar el dashboard, ¿qué tan fácil fue identificar los reportes y emergencias correspondientes a su distrito?**  
+   *Objetivo:* Validar la claridad del panel de monitoreo y la correcta comprensión del filtrado por jurisdicción.
+
+4. **¿Los filtros por tipo, ubicación, fecha y urgencia le ayudaron a priorizar los reportes de manera eficiente?**  
+   *Objetivo:* Evaluar la utilidad de los filtros para apoyar la toma de decisiones operativas.
+
+5. **Al gestionar un reporte, ¿qué tan claro fue el proceso para aprobarlo, rechazarlo, marcarlo como atendido o modificar su estado de emergencia?**  
+   *Objetivo:* Validar la comprensión del flujo de gestión y control municipal sobre los reportes ciudadanos.
+
+6. **¿La recepción de emergencias en tiempo real le pareció adecuada para mejorar la capacidad de respuesta del equipo municipal?**  
+   *Objetivo:* Medir el valor operativo del WebSocket y del respaldo por sondeo para la atención oportuna de emergencias.
+
+7. **Al usar la opción “Analizar con IA” en un reporte, ¿qué tan útil fue el resultado para interpretar la información, evidencia e importancia del caso?**  
+   *Objetivo:* Evaluar si el análisis con IA aporta soporte a la priorización, validación y comprensión del incidente.
+
+8. **¿El chatbot municipal brindó orientación útil para tareas como priorizar reportes, revisar emergencias, gestionar la suscripción o resolver dudas del sistema?**  
+   *Objetivo:* Validar la utilidad del asistente IA como soporte operativo para usuarios municipales.
+
+9. **¿La plataforma transmite confianza respecto a la privacidad, seguridad de datos y aislamiento de información entre municipalidades?**  
+   *Objetivo:* Evaluar la percepción de seguridad, multitenancy y protección de datos ciudadanos e institucionales.
+
+10. **Después de utilizar PeaceApp, ¿qué tan viable considera su adopción dentro de una municipalidad y qué mejoras serían necesarias para implementarla en un entorno real?**  
+    *Objetivo:* Identificar barreras de adopción, necesidades de capacitación, ajustes técnicos y valor institucional percibido.
 
 ### 7.3.2. Registro de Entrevistas.
 

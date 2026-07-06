@@ -804,6 +804,22 @@ A continuación, se presentan las preguntas que se utilizarán en las entrevista
 
 ### 7.3.2. Registro de Entrevistas.
 
+#### **Segmento 2: Municipalidad**
+##### Entrevista 1
+**Nombre:** Mauricio Oliveira Paucar 
+
+**Edad:** 27 años
+
+**Distrito:** Breña
+
+![Mauricio Gov-Validation-Interview](assets/entrevista_ciudadano_validación_Mauricio.png?raw=true)
+
+> Mauricio, Coordinador de Operaciones de Seguridad Ciudadana Municipal con experiencia en la gestión de centrales de monitoreo, participó en una entrevista de validación para probar el ecosistema web de PeaceApp orientado a la administración de incidentes locales. Comentó que su experiencia inicial con la plataforma fue sumamente positiva, destacando la agilidad y simplicidad del proceso de suscripción institucional mediante Stripe, lo cual contrasta positivamente con la típica burocracia de los sistemas gubernamentales tradicionales.
+> 
+> Consideró que el aislamiento automático de reportes por geolocalización distrital y las alertas SOS de emergencia recibidas en tiempo real a través de popups globales son las herramientas de mayor valor operativo para los turnos de alta carga, permitiendo reaccionar en segundos y evitar el ruido visual de zonas limítrofes. Asimismo, elogió la utilidad de la opción “Analizar con IA” como un excelente filtro de calidad preliminar, capaz de traducir jergas o descripciones vagas generadas por el pánico de los ciudadanos y auditar automáticamente la validez de la evidencia multimedia adjunta antes de despachar una unidad de serenazgo a campo.
+> 
+> Mauricio señaló que el flujo de control de estados de los reportes es altamente intuitivo y que la plataforma transmite total confianza respecto a la seguridad y aislamiento multitenant de los datos de su jurisdicción. Como sugerencia para futuras iteraciones de desarrollo, recomendó agregar un módulo complementario que permita asignar de manera directa los incidentes al identificador específico de la patrulla o motorizado que se encuentre patrullando en la calle. Finalmente, ratificó que la adopción de PeaceApp es totalmente viable en entornos reales gracias a su capacidad de conectar tecnológicamente al vecino con la central municipal.
+
 ### 7.3.3. Evaluaciones según heurísticas.
 
 ## 7.4. Video About-the-Product.

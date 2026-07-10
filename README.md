@@ -930,6 +930,114 @@ Asimismo, señaló que el chatbot sería útil para orientar y capacitar a los o
 
 ### 7.3.3. Evaluaciones según heurísticas.
 
+Aplicación para evaluar: PeaceApp
+
+**Tareas a evaluar:**
+
+- Los ciudadanos necesitan visualizar mayor detalle de los incidentes directamente en el mapa.
+- Los ciudadanos requieren identificar claramente si un reporte fue validado, aprobado o atendido por la municipalidad.
+- Los usuarios necesitan conocer cómo se protegen sus datos personales y para qué se solicitan los permisos de la aplicación.
+- Los operadores municipales requieren asignar un identificador y una unidad de serenazgo a cada reporte.
+- El personal municipal necesita orientación inicial y documentación para aprender a utilizar la plataforma.
+- El proceso de suscripción debe adaptarse a los contratos, pagos y procedimientos administrativos de las municipalidades.
+
+**Tabla resumen:**
+
+<table>
+  <tr>
+    <th rowspan="2">Escala de severidad</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+    <th>5</th>
+  </tr>
+  <tr>
+    <td>No tan grave</td>
+    <td>Leve</td>
+    <td>Moderado</td>
+    <td>Grave</td>
+    <td>Muy grave</td>
+  </tr>
+</table>
+
+| #Orden | Problema | Escala de Severidad | Heurística/Principio violada(o) |
+|--------|----------|---------------------|--------------------------------|
+| #1 | El mapa necesita mostrar mayor detalle sobre los incidentes reportados | 3 | Visibilidad del estado del sistema |
+| #2 | No se comunica claramente si los reportes fueron validados, aprobados o atendidos | 4 | Visibilidad del estado del sistema |
+| #3 | La aplicación debe explicar claramente cómo protege los datos personales | 4 | Privacidad y seguridad |
+| #4 | El sistema no permite asignar un identificador y una unidad de serenazgo a cada reporte | 4 | Flexibilidad y eficiencia de uso |
+| #5 | Se necesita mayor orientación inicial y documentación para los operadores municipales | 2 | Ayuda y documentación |
+| #6 | El pago mensual con tarjeta no se adapta a los procesos administrativos municipales | 5 | Correspondencia entre el sistema y el mundo real |
+
+**Heurísticas y Recomendaciones:**
+
+**Problema #1:** El mapa necesita mostrar mayor detalle sobre los incidentes reportados.
+
+**Heurística violada:** Visibilidad del estado del sistema  
+
+**Descripción del problema:** Actualmente, el mapa permite identificar los incidentes mediante marcadores, pero la información visible sobre cada reporte es limitada. Esto dificulta que el ciudadano conozca rápidamente las características y el estado del incidente.
+
+**Recomendación:** Incorporar una ventana informativa al seleccionar cada marcador, mostrando el tipo de incidente, una descripción breve, la fecha, el nivel de urgencia, la distancia, el estado del reporte y su validación municipal.
+
+![](assets/H1.png)
+
+
+**Problema #2:** No se comunica claramente si los reportes fueron validados, aprobados o atendidos.
+
+**Heurística violada:** Visibilidad del estado del sistema  
+
+**Descripción del problema:** Los ciudadanos no pueden reconocer con suficiente claridad si un reporte fue revisado por la municipalidad, si todavía se encuentra pendiente o si el incidente ya fue atendido. Esto puede generar dudas sobre la confiabilidad y vigencia de la información.
+
+**Recomendación:** Incorporar etiquetas visibles como “Pendiente de validación”, “Aprobado”, “En atención” y “Atendido”. También se debe mostrar la fecha de la última actualización y un indicador cuando la evidencia haya sido verificada.
+
+![](assets/H2.png)
+
+
+**Problema #3:** La aplicación debe explicar claramente cómo protege los datos personales.
+
+**Heurística violada:** Privacidad y seguridad  
+
+**Descripción del problema:** La aplicación solicita acceso a información sensible, como la ubicación, los contactos, la cámara y los archivos multimedia. Sin embargo, el usuario no recibe suficiente información sobre la finalidad de estos permisos y la manera en que sus datos serán protegidos.
+
+**Recomendación:** Mostrar mensajes explicativos antes de solicitar cada permiso e incorporar una sección de privacidad donde el usuario pueda revisar el uso de sus datos, administrar los permisos concedidos y decidir qué información desea compartir.
+
+![](assets/H3.png)
+
+
+**Problema #4:** El sistema no permite asignar un identificador y una unidad de serenazgo a cada reporte.
+
+**Heurística violada:** Flexibilidad y eficiencia de uso  
+
+**Descripción del problema:** Los operadores municipales pueden revisar y modificar el estado de los reportes, pero no pueden asignarlos directamente a una unidad de serenazgo. Esto obliga a realizar la coordinación mediante procesos externos y dificulta el seguimiento de cada incidencia.
+
+**Recomendación:** Generar automáticamente un código único para cada reporte e incorporar una opción para asignarlo a una unidad, operador o equipo de serenazgo. También se debe registrar la hora de asignación, el responsable y el estado de atención.
+
+![](assets/H4.png)
+
+
+**Problema #5:** Se necesita mayor orientación inicial y documentación para los operadores municipales.
+
+**Heurística violada:** Ayuda y documentación  
+
+**Descripción del problema:** Aunque la plataforma incluye un chatbot municipal, los operadores nuevos o con poca experiencia tecnológica pueden necesitar una orientación inicial para comprender las funciones principales del sistema.
+
+**Recomendación:** Incorporar un recorrido guiado durante el primer inicio de sesión, mensajes explicativos en los módulos y una sección de preguntas frecuentes. El chatbot debe mantenerse como una herramienta complementaria para resolver consultas específicas.
+
+![](assets/H5.png)
+
+
+**Problema #6:** El pago mensual con tarjeta no se adapta a los procesos administrativos municipales.
+
+**Heurística violada:** Correspondencia entre el sistema y el mundo real  
+
+**Descripción del problema:** Las municipalidades suelen contratar servicios mediante presupuestos anuales, órdenes de servicio, contratos y procesos de facturación institucional. Un modelo basado únicamente en pagos mensuales con tarjeta puede dificultar la contratación y adopción de PeaceApp.
+
+**Recomendación:** Incorporar planes anuales, contratos institucionales, órdenes de compra y facturación para entidades públicas. También se deben enviar recordatorios anticipados antes del vencimiento de la suscripción para evitar interrupciones del servicio.
+
+![](assets/H6.png)
+
+
 ## 7.4. Video About-the-Product.
 
 **Duración:** 55 s  **Formato:** MP4

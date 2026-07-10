@@ -607,6 +607,74 @@ Los avances específicos son:
 | AIService | main | bddc157a84520fa5da021c1c781fc901ad9aca93 | feat: image detection ai | | 27/06/2026 |
 
 #### 7.2.2.4. Testing Suite Evidence for Sprint Review.
+
+Para esta sección del proyecto se hizo uso de la herramienta Visual Studio Code empleando el lenguaje Gherkin.
+Se mostrarán a continuación los Acceptance Test según el enfoque de DDD (Domain Driven Desgin)
+
+- Generar Reporte de Incidentes
+
+![](assets/Gherkin3Sprint1.png?raw=true)
+
+- Subir Evidencia Multimedia
+
+![](assets/Gherkin4Sprint1.png?raw=true)
+
+- Visualización de Reportes
+
+![](assets/Gherkin6Sprint1.png?raw=true)
+
+- Monitoreo de Proximidad a Zonas de Riesgo
+
+![](assets/Gherkin7Sprint1.png?raw=true)
+
+- Notificación de Alerta de Riesgo
+
+![](assets/Gherkin8Sprint1.png?raw=true)
+
+- Selección de Contactos de Monitoreo
+
+![](assets/Gherkin9Sprint1.png?raw=true)
+
+- Compartición de Ubicación en Tiempo Real
+
+![](assets/Gherkin10Sprint1.png?raw=true)
+
+- Editar Perfil
+
+![](assets/Gherkin11Sprint1.png?raw=true)
+
+- Recuperar Contraseña
+
+![](assets/Gherkin12Sprint1.png?raw=true)
+
+- Acceder a Mapa con Reportes
+
+![](assets/Gherkin13Sprint1.png?raw=true)
+
+- Acceder al Perfil
+
+![](assets/Gherkin14Sprint1.png?raw=true)
+
+- Filtrar Reportes
+
+![](assets/Gherkin15Sprint1.png?raw=true)
+
+- Buscar Ubicación en el Mapa
+
+![](assets/Gherkin16Sprint1.png?raw=true)
+
+- Formulario de Reporte
+
+![](assets/Gherkin17Sprint1.png?raw=true)
+
+- Validación y errores
+
+![](assets/Gherkin19Sprint1.png?raw=true)
+
+- Actualización del mapa/heatmap
+
+![](assets/Gherkin20Sprint1.png?raw=true)
+
 #### 7.2.2.5. Execution Evidence for Sprint Review.
 
 Se trabajó en la maduración de las capacidades analíticas del ecosistema y en la implementación del flujo transaccional B2G para este segundo sprint. En la aplicación web se completó la integración de los componentes analíticos inteligentes, habilitando paneles interactivos para la auditoría de evidencias y un asistente conversacional IA integrado para la resolución de consultas directas de los operadores. Paralelamente, se desplegó la infraestructura del módulo de facturación mediante Stripe Checkout, permitiendo la contratación automatizada de planes institucionales, la gestión activa del ciclo de vida de las suscripciones y dotando al sistema de flujos robustos de resiliencia ante la cancelación o fallas en el procesamiento de transacciones financieras.

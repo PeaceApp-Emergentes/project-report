@@ -531,6 +531,8 @@ Durante el Sprint 1, el equipo priorizó la coordinación transversal entre fron
 Como práctica de trabajo, se realizaron sincronizaciones frecuentes para validar dependencias entre microservicios y clientes, reduciendo bloqueos de integración. La definición temprana de responsabilidades por historia permitió mantener continuidad en el desarrollo y avanzar en paralelo sobre funcionalidades de alto impacto del MVP.
 
 El principal aprendizaje del sprint fue la importancia de estandarizar de forma temprana los payloads y reglas de autorización entre servicios para evitar retrabajo. A nivel de equipo, se consolidó una dinámica colaborativa efectiva orientada a entregables integrados y verificables.
+
+![insights-s1](<assets/insights-s1.png>)
 ### 7.2.2. Sprint 2
 #### 7.2.2.1. Sprint Planning 2.
 
@@ -823,6 +825,8 @@ Durante el Sprint 2, la colaboración se centró en la integración de capacidad
 El equipo mantuvo revisiones continuas de contratos entre servicios y validó escenarios de éxito y error en pagos, cancelaciones y actualización de estados, lo que permitió estabilizar el comportamiento transaccional del sistema. También se reforzó la comunicación entre desarrollo y despliegue para sincronizar cambios en entornos Netlify y AWS.
 
 Como resultado, el sprint consolidó una arquitectura más madura para operación municipal real, con aprendizajes claros sobre idempotencia en webhooks, trazabilidad de eventos de pago e interoperabilidad entre módulos inteligentes y financieros.
+
+![insights](assets/insights-s2.png)
 ## 7.3. Validation Interviews.
 
 ### 7.3.1. Diseño de Entrevistas.

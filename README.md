@@ -262,9 +262,9 @@ Objetivo: Conocer las restricciones legales y técnicas obligatorias en el secto
 
 ### 2.2.2. Registro de entrevistas
 
-**Segmento: Ciudadano**
-
 **URL de todas las entrevistas:** <https://upcedupe-my.sharepoint.com/:v:/g/personal/u202211813_upc_edu_pe/IQC7BYOzpq18S4vn6MthppIiAcqwcAiE3_GLepOwe9b8H-Q?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=2ayLo6>
+
+**Segmento: Ciudadano**
 
 **Entrevista N°1:**
 

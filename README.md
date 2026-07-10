@@ -5619,16 +5619,12 @@ Se presenta de manera concisa la propuesta de valor y las principales funcionali
 
 - Amazon Web Services. (2026). *AWS Documentation*. <https://docs.aws.amazon.com/>
 - Docker. (2026). *Docker Documentation*. <https://docs.docker.com/>
-- Forsgren, N., Humble, J., & Kim, G. (2018). *Accelerate: The Science of Lean Software and DevOps*. IT Revolution Press.
 - GitHub Docs. (2026). *GitHub Docs*. <https://docs.github.com/>
 - Google. (2026). *Material Design*. <https://m3.material.io/>
 - Instituto Nacional de Estadística e Informática. (2024). *Perú: Encuesta Nacional de Programas Presupuestales*. <https://www.inei.gob.pe/>
-- ISO/IEC. (2011). *ISO/IEC 25010: Systems and software engineering - Systems and software Quality Requirements and Evaluation (SQuaRE) - System and software quality models*.
 - Mapbox. (2026). *Mapbox Documentation*. <https://docs.mapbox.com/>
 - Nielsen, J. (1994). *10 Usability Heuristics for User Interface Design*. Nielsen Norman Group. <https://www.nngroup.com/articles/ten-usability-heuristics/>
 - OpenAI. (2026). *OpenAI API Documentation*. <https://platform.openai.com/docs>
-- Rubin, J., & Chisnell, D. (2008). *Handbook of Usability Testing* (2nd ed.). Wiley.
-- United Nations Office on Drugs and Crime. (2020). *Handbook on Crime Prevention through Urban Design and Planning*. United Nations.
 
 # Anexos
 

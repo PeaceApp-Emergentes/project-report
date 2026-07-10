@@ -5548,3 +5548,66 @@ Se presenta de manera concisa la propuesta de valor y las principales funcionali
 
 
 **Enlaces:** https://www.youtube.com/watch?v=oqUSiRLa8lI
+
+---
+
+# Conclusiones
+
+**Impacto de PeaceApp en la seguridad ciudadana:** PeaceApp responde a una problemática relevante para Lima Metropolitana y otras zonas urbanas del Perú: la necesidad de contar con información oportuna, confiable y georreferenciada sobre incidentes de seguridad. La solución permite que los ciudadanos visualicen reportes y alertas cercanas, compartan su ubicación y generen reportes con evidencia multimedia, mientras que las municipalidades pueden monitorear, validar y gestionar incidentes desde una plataforma web. De esta manera, PeaceApp fortalece la toma de decisiones ciudadanas y la coordinación municipal frente a situaciones de riesgo.
+
+**Innovación mediante tecnologías emergentes:** El proyecto integra capacidades de inteligencia artificial para apoyar la clasificación de incidentes, el análisis de evidencia y la asistencia mediante chatbot. Estas funcionalidades permiten reducir la carga operativa de los usuarios y aportar mayor contexto a los reportes generados. Asimismo, el uso de mapas interactivos, geolocalización, alertas de proximidad y servicios externos especializados convierte a PeaceApp en una solución tecnológica orientada a la prevención, respuesta y análisis de la seguridad urbana.
+
+**Arquitectura distribuida y escalable:** La solución fue diseñada bajo un enfoque de microservicios organizados por bounded contexts, incluyendo IAM, Profiles, Reports, Alerts, Locations, Payments y AI. Esta separación favorece la mantenibilidad, la evolución independiente de los servicios y la escalabilidad de componentes críticos como reportes, alertas e inteligencia artificial. El uso de API Gateway, Service Discovery, bases de datos por contexto y despliegue en infraestructura cloud permite proyectar una arquitectura preparada para escenarios reales de crecimiento.
+
+**Validación funcional y experiencia de usuario:** Durante el desarrollo se validaron flujos clave de la aplicación móvil y web, incluyendo creación de reportes, visualización de incidentes, gestión municipal, alertas, chatbot, pagos y despliegue de servicios. Las entrevistas de validación y evaluaciones heurísticas permitieron identificar mejoras importantes en privacidad, claridad del estado de reportes, orientación inicial para operadores y adaptación del modelo de suscripción a procesos municipales.
+
+**Potencial de expansión:** PeaceApp puede evolucionar hacia una plataforma de seguridad ciudadana más amplia mediante la integración con sistemas municipales existentes, centrales de serenazgo, cámaras urbanas, sistemas de monitoreo, canales de mensajería y analítica avanzada. Su enfoque modular permite extender la solución a nuevos distritos y adaptar sus funcionalidades a diferentes contextos de gestión pública y prevención del delito.
+
+# Recomendaciones
+
+**Fortalecer la observabilidad y monitoreo post-despliegue:** Se recomienda incorporar herramientas de monitoreo, registro centralizado de errores y métricas de uso para evaluar el comportamiento real de los microservicios y de las aplicaciones cliente. Esto permitiría detectar fallas en tiempo real, medir tiempos de respuesta, analizar flujos críticos y priorizar mejoras según evidencia operativa.
+
+**Ampliar las pruebas automatizadas:** Para garantizar estabilidad en futuras iteraciones, es importante consolidar pruebas unitarias, de integración y end-to-end en los servicios principales. Los flujos críticos como autenticación, creación de reportes, generación de alertas, clasificación por IA, pagos y gestión de ubicación deben contar con pruebas automatizadas dentro del pipeline de desarrollo.
+
+**Mejorar la experiencia de operadores municipales:** Las validaciones heurísticas evidencian la necesidad de mayor orientación inicial para usuarios municipales. Se recomienda incorporar recorridos guiados, mensajes contextuales, documentación dentro de la plataforma y mejoras en el seguimiento operativo de reportes, como asignación a unidades de serenazgo, responsable del caso y estado de atención.
+
+**Reforzar privacidad y seguridad de datos:** Dado que PeaceApp trabaja con ubicación, contactos, evidencia multimedia e información sensible, se recomienda fortalecer los mecanismos de consentimiento, control de permisos, cifrado de datos, auditoría de accesos y políticas claras de tratamiento de información. Esto es especialmente importante para generar confianza en ciudadanos y municipalidades.
+
+**Expandir la validación con perfiles diversos:** Las entrevistas realizadas aportaron información valiosa, pero la solución debería validarse con más perfiles de ciudadanos y operadores municipales, considerando edad, alfabetización digital, distrito, nivel de exposición a inseguridad y necesidades de accesibilidad. Esto permitirá detectar barreras reales de adopción y mejorar la inclusión del producto.
+
+**Evaluar integraciones institucionales:** Para incrementar el impacto de PeaceApp, se recomienda evaluar integraciones con canales oficiales de municipalidades, sistemas de serenazgo, servicios de emergencia, plataformas de mensajería y fuentes públicas de datos. Estas integraciones permitirían mejorar la trazabilidad y reducir tiempos de respuesta ante incidentes.
+
+# Video About The Team
+
+**Enlace:** <https://upcedupe-my.sharepoint.com/:v:/g/personal/u202211813_upc_edu_pe/IQDyC3ZxanJwSafTlU1XuaGTAXJgkiZx7u1wsXE4m-4pJHY?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=ndCVfM>
+
+# Bibliografía
+
+- Amazon Web Services. (2026). *AWS Documentation*. <https://docs.aws.amazon.com/>
+- Docker. (2026). *Docker Documentation*. <https://docs.docker.com/>
+- Forsgren, N., Humble, J., & Kim, G. (2018). *Accelerate: The Science of Lean Software and DevOps*. IT Revolution Press.
+- GitHub Docs. (2026). *GitHub Docs*. <https://docs.github.com/>
+- Google. (2026). *Material Design*. <https://m3.material.io/>
+- Instituto Nacional de Estadística e Informática. (2024). *Perú: Encuesta Nacional de Programas Presupuestales*. <https://www.inei.gob.pe/>
+- ISO/IEC. (2011). *ISO/IEC 25010: Systems and software engineering - Systems and software Quality Requirements and Evaluation (SQuaRE) - System and software quality models*.
+- Mapbox. (2026). *Mapbox Documentation*. <https://docs.mapbox.com/>
+- Nielsen, J. (1994). *10 Usability Heuristics for User Interface Design*. Nielsen Norman Group. <https://www.nngroup.com/articles/ten-usability-heuristics/>
+- OpenAI. (2026). *OpenAI API Documentation*. <https://platform.openai.com/docs>
+- Rubin, J., & Chisnell, D. (2008). *Handbook of Usability Testing* (2nd ed.). Wiley.
+- United Nations Office on Drugs and Crime. (2020). *Handbook on Crime Prevention through Urban Design and Planning*. United Nations.
+
+# Anexos
+
+- [AIService](https://github.com/PeaceApp-Emergentes/AIService)
+- [AlertService](https://github.com/PeaceApp-Emergentes/AlertService)
+- [EurekaServer](https://github.com/PeaceApp-Emergentes/EurekaServer)
+- [GatewayService](https://github.com/PeaceApp-Emergentes/GatewayService)
+- [IAMService](https://github.com/PeaceApp-Emergentes/IAMService)
+- [Landing-Page](https://github.com/PeaceApp-Emergentes/Landing-Page)
+- [LocationService](https://github.com/PeaceApp-Emergentes/LocationService)
+- [MessageBroker](https://github.com/PeaceApp-Emergentes/MessageBroker)
+- [PaymentService](https://github.com/PeaceApp-Emergentes/PaymentService)
+- [PeaceApp-Mobile](https://github.com/PeaceApp-Emergentes/PeaceApp-Mobile)
+- [PeaceApp-Web](https://github.com/PeaceApp-Emergentes/PeaceApp-Web)
+- [ReportService](https://github.com/PeaceApp-Emergentes/ReportService)
+- [UserService](https://github.com/PeaceApp-Emergentes/UserService)

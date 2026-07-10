@@ -649,15 +649,17 @@ Objetivo: Conocer las restricciones legales y técnicas obligatorias en el secto
 
 ### 2.2.2. Registro de entrevistas
 
-**Segmento: Ciudadano**
+**URL de todas las entrevistas:** <https://upcedupe-my.sharepoint.com/:v:/g/personal/u202211813_upc_edu_pe/IQC7BYOzpq18S4vn6MthppIiAcqwcAiE3_GLepOwe9b8H-Q?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=2ayLo6>
 
 **URL de las entrevistas:** https://drive.google.com/drive/folders/1FgvKursJUJVBZ7pQd1PT35ZcSaMzPoaR?usp=sharing
+
+**Segmento: Ciudadano**
 
 **Entrevista N°1:**
 
 ![Entrevista1](assets/Entrevista1.png)
 
-**Timing:** 
+**Timing:*00:05***
 
 **Nombre:** Mauricio Rojas
 
@@ -674,11 +676,11 @@ entorno. La falta de iluminación y vigilancia en las calles aumenta su sensaci�
 
 ![Entrevista2](assets/Entrevista2.png)
 
-**Timing:**
+**Timing:*09:57***
 
 Nombre: Edson Sanchez
 
-Edad: 20 años
+Edad: 21 años
 
 Pasatiempos: Salir con amigos y jugar fútbol.
 
@@ -691,7 +693,7 @@ El entrevistado se siente inseguro en espacios públicos, especialmente cerca de
 
 ![Entrevista_5](assets/interview_5.png)
 
-**Timing:** 13:46
+**Timing:*19:33***
 
 **Nombre**: Maria Paula Rojas
 
@@ -709,7 +711,7 @@ Maria Paula Rojas, una joven de 19 años que estudia Educación Infantil y disfr
 
 ![Entrevista1](assets/Entrevista1-Municipalidad.png?raw=true)
 
-**Timing:** 7:42
+**Timing:*23:26***
 
 **Nombre:** Mauricio Paucar
 
@@ -721,35 +723,53 @@ Maria Paula Rojas, una joven de 19 años que estudia Educación Infantil y disfr
 
 Mauricio trabaja como Coordinador de Operaciones de Seguridad Ciudadana Municipal. Actualmente, la gestión de emergencias en la municipalidad depende de llamadas telefónicas, WhatsApp, radios y registros manuales, lo que genera retrasos cuando la información llega incompleta o poco clara. Utilizan cámaras CCTV, teléfonos y grupos de comunicación, pero los sistemas no están integrados ni automatizados. Uno de los principales problemas son las falsas alarmas, ya que no cuentan con mecanismos automáticos de validación, ocasionando pérdida de recursos y tiempo operativo. Considera muy útil una plataforma que permita recibir evidencia multimedia en tiempo real para validar incidentes y priorizar emergencias. Los mapas del delito se elaboran manualmente y la coordinación con la PNP y municipalidades vecinas se realiza principalmente mediante llamadas y WhatsApp. Considera importante que un nuevo sistema genere KPIs automáticos, mapas de calor y reportes operativos en tiempo real. También cree que la plataforma podría servir para informar rápidamente a los vecinos mediante alertas segmentadas. Identifica como principales barreras la resistencia al cambio y el bajo nivel de experiencia tecnológica de algunos operadores, por lo que el sistema debería ser intuitivo, rápido y fácil de usar. Además, considera indispensable garantizar privacidad, cifrado y control de accesos en la información de los ciudadanos.
 
+**Entrevista N°2:**
+
+![Entrevista2](assets/Entrevista2-Municipalidad.png?raw=true)
+
+**Timing:*31:08***
+
+**Nombre:** Victor Gutierrez
+
+**Edad:** 64 años
+
+**Pasatiempos:** Actividades comunitarias y caminatas.
+
+**Ocupación:** Presidente en el distrito de San Martín de Porres, con experiencia en serenazgo y seguridad ciudadana.
+
+Víctor explica que, cuando se reporta una emergencia, el personal se comunica inmediatamente con la central de serenazgo y utiliza principalmente walkie-talkies para informar sobre robos, actos de violencia y otras incidencias. Actualmente no cuentan con un sistema para verificar previamente si los reportes son verdaderos, por lo que deben acudir al lugar de los hechos. Considera muy valioso recibir fotografías, videos, audios e información verbal, ya que estas evidencias pueden facilitar la identificación de los responsables y el apoyo a las víctimas. También señala que no utilizan mapas del delito o mapas de calor y que la coordinación con la Policía depende de la gravedad del incidente. Considera importante implementar una aplicación con una base de datos que almacene incidencias y evidencias, además de mejorar el equipamiento de las casetas. Finalmente, destaca la necesidad de capacitar al personal y restringir el acceso a la información a las áreas de serenazgo, seguridad ciudadana y Policía para evitar filtraciones.
+
+**Entrevista N°3:**
+
+![Entrevista3](assets/Entrevista3-Municipalidad.png?raw=true)
+
+**Timing:*39:22***
+
+**Nombre:** Massiel Gutarra
+
+**Edad:** 24 años
+
+**Pasatiempos:** Tecnología y actividades comunitarias.
+
+**Ocupación:** Analista del área de Seguridad de la Municipalidad del Callao.
+
+Massiel explica que la atención de emergencias se realiza manualmente mediante llamadas, WhatsApp, radios, cuadernos y archivos de Excel, lo que puede generar retrasos de entre 10 y 15 minutos. Los sistemas de cámaras, comunicaciones y registros no están integrados, y las falsas alarmas se validan según la experiencia del operador, provocando pérdida de combustible, personal y tiempo. Considera que recibir fotos, videos y audios permitiría evaluar mejor cada incidente y enviar los recursos adecuados. También señala que los mapas del delito se elaboran mensualmente y que la coordinación con la Policía y otros distritos depende de llamadas y WhatsApp. Una nueva plataforma debería generar tiempos de respuesta, tasas de falsas alarmas y mapas de calor, además de ofrecer alertas inmediatas a los vecinos. Finalmente, destaca que el sistema debe ser intuitivo, rápido, proteger los datos personales, registrar las acciones de los usuarios y mantener aislada la información de cada municipalidad.
+
 ### 2.2.3. Análisis de entrevistas
 
-En base a las cinco entrevistas realizadas (N=5), se identificaron características objetivas y subjetivas comunes en los segmentos analizados. El perfil principal corresponde a **estudiantes universitarios jóvenes (20-22 años)** de Lima Metropolitana, con experiencias directas o indirectas de inseguridad ciudadana y alta disposición a usar tecnología para mejorar su seguridad.
+Para la validación de PeaceApp se realizaron seis entrevistas, divididas en dos segmentos: tres ciudadanos y tres representantes o trabajadores vinculados con la seguridad ciudadana municipal. Los resultados permitieron reconocer necesidades diferenciadas según el tipo de usuario.
 
-#### Características Objetivas
-- **Edad:** El 100% tiene entre 20 y 22 años.  
-- **Ocupación:** El 100% son estudiantes universitarios; el 20% combina estudios con trabajo formal.  
-- **Pasatiempos:** El 80% disfruta actividades recreativas como salir con amigos, jugar videojuegos, practicar deporte o pasear con mascotas. El 20% mencionó la lectura como actividad principal.  
+#### Segmento ciudadano
 
-#### Características Subjetivas
-- **Percepción de inseguridad:** El 100% manifestó sentirse inseguro en zonas con poca iluminación o sin vigilancia.  
-- **Experiencias relacionadas:**  
-  - 60% ha presenciado robos o situaciones de riesgo (Mauricio, Marcia, Fernanda).  
-  - 40% no ha sido víctima ni testigo directo, pero perciben alto riesgo en su entorno (Edson, Jefferson).  
-- **Reacciones ante incidentes:**  
-  - 60% ayudaría a la víctima (auxilio, prestar celular, bloquear dispositivos).  
-  - 20% grabaría o difundiría el hecho.  
-  - 20% evitaría involucrarse y priorizaría su seguridad.  
-- **Uso de tecnología y disposición a apps:** El 100% no ha usado aplicaciones de seguridad ciudadana, pero el 100% estaría dispuesto a utilizarlas si son intuitivas y confiables.  
-- **Funcionalidades valoradas:**  
-  - 100% valora recibir **alertas sobre zonas peligrosas**.  
-  - 100% considera útil **compartir ubicación en tiempo real**.  
-  - 60% destacó la importancia de un **botón de emergencia o contacto directo con autoridades**.  
-  - 40% valoró la inclusión de **foros o espacios comunitarios**.  
-- **Confianza y datos:** El 100% enfatizó la necesidad de protección de datos personales y actualización constante de la información.  
+Los ciudadanos entrevistados manifestaron sentirse inseguros principalmente en calles desoladas, zonas con poca iluminación, lugares sin vigilancia y espacios donde anteriormente ocurrieron robos. Para protegerse, suelen observar constantemente su entorno, evitar rutas consideradas peligrosas, cuidar sus pertenencias y compartir su ubicación cuando se encuentran en lugares desconocidos. Aunque ninguno indicó haber utilizado previamente una aplicación especializada en seguridad ciudadana, mostraron interés en una solución que permita recibir alertas sobre incidentes recientes, conocer rutas alternativas, compartir la ubicación en tiempo real y contactar rápidamente con familiares o autoridades. También destacaron la importancia de que la aplicación sea fácil de usar, confiable, accesible para diferentes edades y segura en el tratamiento de los datos personales.
+
+#### Segmento municipalidad
+
+Los entrevistados vinculados con las municipalidades señalaron que la atención de emergencias depende principalmente de llamadas telefónicas, mensajes de WhatsApp, radios, registros en cuadernos y archivos de Excel. Estos procesos manuales pueden generar retrasos, especialmente cuando la información proporcionada por los ciudadanos es incompleta o cuando se reciben falsas alarmas. Consideran valioso recibir reportes estructurados con fotografías, videos o audios, ya que facilitarían la validación de los incidentes y la asignación adecuada de recursos. Asimismo, identificaron la necesidad de contar con mapas de calor actualizados, indicadores de tiempo de respuesta, estadísticas de incidencias, seguimiento de unidades y reportes automáticos. Para implementar una nueva plataforma, indicaron que esta debe ser intuitiva, rápida y acompañarse de capacitación para el personal. También debe incorporar cifrado, roles de acceso, registros de auditoría, respaldos y aislamiento de la información entre municipalidades.
 
 #### Conclusión
-El segmento entrevistado muestra un patrón homogéneo: **jóvenes universitarios urbanos, conscientes de la inseguridad en espacios públicos, especialmente en zonas mal iluminadas, con experiencias cercanas de riesgo y una clara disposición a usar soluciones tecnológicas**. Para ellos, PeaceApp debe priorizar **alertas en tiempo real, ubicación compartida, contacto con autoridades y seguridad en el manejo de datos**. Estas características son la base para construir arquetipos de usuario sólidos y orientar las decisiones de diseño, usabilidad y marketing de la aplicación.
 
+Ambos segmentos muestran interés en una plataforma que facilite la comunicación entre ciudadanos y municipalidades. Los ciudadanos requieren información oportuna para prevenir situaciones de riesgo, mientras que las municipalidades necesitan centralizar y validar los reportes para mejorar sus tiempos de respuesta. Por ello, PeaceApp debe priorizar las alertas en tiempo real, los reportes con evidencia multimedia, los mapas de riesgo, la facilidad de uso y la protección de los datos personales.
 
 ## 2.3. Needfinding
 

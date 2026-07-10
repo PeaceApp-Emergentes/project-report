@@ -3443,7 +3443,7 @@ Su puerto predeterminado es:
 ## MobileApp
 - El diagrama muestra cómo la aplicación móvil consulta y administra una suscripción mediante el API Gateway y el Payment Service.
 
-![PaymentWebAppComponents-dark.png](assets/PaymentWebAppComponents-dark.png)
+![PaymentMobileAppComponents-dark.png](assets/PaymentMobileAppComponents-dark.png)
 
 # 5.6.6. Bounded Context Software Architecture Code Level Diagrams
 

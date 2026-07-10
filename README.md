@@ -224,6 +224,40 @@
     - [6.5.1. Web Applications Prototyping](#651-web-applications-prototyping)
     - [6.5.2. Mobile Applications Prototyping](#652-mobile-applications-prototyping)
 
+### [Capítulo VII: Product Implementation, Validation & Deployment](#capítulo-vii-product-implementation-validation--deployment)
+
+- [7.1. Software Configuration Management](#71-software-configuration-management)
+    - [7.1.1. Software Development Environment Configuration](#711-software-development-environment-configuration)
+    - [7.1.2. Source Code Management](#712-source-code-management)
+    - [7.1.3. Source Code Style Guide & Conventions](#713-source-code-style-guide--conventions)
+    - [7.1.4. Software Deployment Configuration](#714-software-deployment-configuration)
+
+- [7.2. Solution Implementation](#72-solution-implementation)
+    - [7.2.1. Sprint 1](#721-sprint-1)
+        - [7.2.1.1. Sprint Planning 1](#7211-sprint-planning-1)
+        - [7.2.1.2. Sprint Backlog 1](#7212-sprint-backlog-1)
+        - [7.2.1.3. Development Evidence for Sprint Review](#7213-development-evidence-for-sprint-review)
+        - [7.2.1.4. Testing Suite Evidence for Sprint Review](#7214-testing-suite-evidence-for-sprint-review)
+        - [7.2.1.5. Execution Evidence for Sprint Review](#7215-execution-evidence-for-sprint-review)
+        - [7.2.1.6. Services Documentation Evidence for Sprint Review](#7216-services-documentation-evidence-for-sprint-review)
+        - [7.2.1.7. Software Deployment Evidence for Sprint Review](#7217-software-deployment-evidence-for-sprint-review)
+        - [7.2.1.8. Team Collaboration Insights during Sprint](#7218-team-collaboration-insights-during-sprint)
+
+- [7.3. Validation Interviews](#73-validation-interviews)
+    - [7.3.1. Diseño de Entrevistas](#731-diseño-de-entrevistas)
+    - [7.3.2. Registro de Entrevistas](#732-registro-de-entrevistas)
+    - [7.3.3. Evaluaciones según heurísticas](#733-evaluaciones-según-heurísticas)
+
+- [7.4. Video About-the-Product](#74-video-about-the-product)
+
+### Secciones Finales
+
+- [Conclusiones](#conclusiones)
+- [Recomendaciones](#recomendaciones)
+- [Video About The Team](#video-about-the-team)
+- [Bibliografía](#bibliografía)
+- [Anexos](#anexos)
+
 
 
 # Student Outcome
@@ -5598,16 +5632,54 @@ Se presenta de manera concisa la propuesta de valor y las principales funcionali
 
 # Anexos
 
-- [AIService](https://github.com/PeaceApp-Emergentes/AIService)
-- [AlertService](https://github.com/PeaceApp-Emergentes/AlertService)
-- [EurekaServer](https://github.com/PeaceApp-Emergentes/EurekaServer)
-- [GatewayService](https://github.com/PeaceApp-Emergentes/GatewayService)
-- [IAMService](https://github.com/PeaceApp-Emergentes/IAMService)
-- [Landing-Page](https://github.com/PeaceApp-Emergentes/Landing-Page)
-- [LocationService](https://github.com/PeaceApp-Emergentes/LocationService)
-- [MessageBroker](https://github.com/PeaceApp-Emergentes/MessageBroker)
-- [PaymentService](https://github.com/PeaceApp-Emergentes/PaymentService)
-- [PeaceApp-Mobile](https://github.com/PeaceApp-Emergentes/PeaceApp-Mobile)
-- [PeaceApp-Web](https://github.com/PeaceApp-Emergentes/PeaceApp-Web)
-- [ReportService](https://github.com/PeaceApp-Emergentes/ReportService)
-- [UserService](https://github.com/PeaceApp-Emergentes/UserService)
+**Anexo N°1: [AIService](https://github.com/PeaceApp-Emergentes/AIService)**
+
+Repositorio del microservicio de inteligencia artificial para clasificación de incidentes, chatbot y análisis de evidencia.
+
+**Anexo N°2: [AlertService](https://github.com/PeaceApp-Emergentes/AlertService)**
+
+Repositorio del microservicio encargado de la generación, consulta y gestión de alertas ciudadanas.
+
+**Anexo N°3: [EurekaServer](https://github.com/PeaceApp-Emergentes/EurekaServer)**
+
+Repositorio del servidor de descubrimiento utilizado para registrar y localizar los microservicios del ecosistema PeaceApp.
+
+**Anexo N°4: [GatewayService](https://github.com/PeaceApp-Emergentes/GatewayService)**
+
+Repositorio del API Gateway que centraliza el acceso a los microservicios backend.
+
+**Anexo N°5: [IAMService](https://github.com/PeaceApp-Emergentes/IAMService)**
+
+Repositorio del microservicio de identidad, autenticación, autorización y gestión de roles.
+
+**Anexo N°6: [LocationService](https://github.com/PeaceApp-Emergentes/LocationService)**
+
+Repositorio del microservicio responsable de ubicaciones, coordenadas y zonas asociadas a reportes.
+
+**Anexo N°7: [MessageBroker](https://github.com/PeaceApp-Emergentes/MessageBroker)**
+
+Repositorio del componente de mensajería utilizado para apoyar la comunicación asíncrona entre servicios.
+
+**Anexo N°8: [PaymentService](https://github.com/PeaceApp-Emergentes/PaymentService)**
+
+Repositorio del microservicio de pagos y gestión de suscripciones municipales.
+
+**Anexo N°9: [ReportService](https://github.com/PeaceApp-Emergentes/ReportService)**
+
+Repositorio del microservicio central para creación, revisión, aprobación y consulta de reportes ciudadanos.
+
+**Anexo N°10: [UserService](https://github.com/PeaceApp-Emergentes/UserService)**
+
+Repositorio del microservicio orientado a la gestión de datos de usuarios ciudadanos y municipales.
+
+**Anexo N°11: [PeaceApp-Web](https://github.com/PeaceApp-Emergentes/PeaceApp-Web)**
+
+Repositorio de la aplicación web utilizada por las municipalidades para monitoreo y gestión de incidentes.
+
+**Anexo N°12: [PeaceApp-Mobile](https://github.com/PeaceApp-Emergentes/PeaceApp-Mobile)**
+
+Repositorio de la aplicación móvil orientada a ciudadanos para reportes, alertas y asistencia.
+
+**Anexo N°13: [Landing-Page](https://github.com/PeaceApp-Emergentes/Landing-Page)**
+
+Repositorio de la landing page institucional de PeaceApp.

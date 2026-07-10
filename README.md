@@ -3200,7 +3200,7 @@ Representa la solicitud utilizada para cancelar o reactivar una suscripción med
 ## Queries
 
 Las consultas tampoco se encuentran implementadas como clases independientes. El controlador recibe directamente los parámetros requeridos y llama al servicio de aplicación.
- 
+
 | Consulta               | Descripción                                                                 |
 |------------------------|-----------------------------------------------------------------------------|
 | GetSessionStatus       | Consulta el estado de una sesión de pago usando su identificador de Stripe. |

@@ -526,9 +526,28 @@ Se trabajó en el despliegue del núcleo transaccional, los servicios distribuid
 !["Proceso de despliegue en Sprint 1 - Microservicios Docker Containers"](assets/sprint1-deployed-microServices-docker.png)
 
 #### 7.2.1.8. Team Collaboration Insights during Sprint.
+Durante el Sprint 1, el equipo priorizó la coordinación transversal entre frontend web, mobile e infraestructura backend para construir una base funcional común del ecosistema PeaceApp. La colaboración fue clave para alinear contratos API, roles de acceso y flujos críticos de registro, autenticación, reportes y alertas SOS.
 
+Como práctica de trabajo, se realizaron sincronizaciones frecuentes para validar dependencias entre microservicios y clientes, reduciendo bloqueos de integración. La definición temprana de responsabilidades por historia permitió mantener continuidad en el desarrollo y avanzar en paralelo sobre funcionalidades de alto impacto del MVP.
+
+El principal aprendizaje del sprint fue la importancia de estandarizar de forma temprana los payloads y reglas de autorización entre servicios para evitar retrabajo. A nivel de equipo, se consolidó una dinámica colaborativa efectiva orientada a entregables integrados y verificables.
 ### 7.2.2. Sprint 2
 #### 7.2.2.1. Sprint Planning 2.
+
+El Sprint Planning 2 definió la evolución del MVP hacia capacidades inteligentes de análisis y un modelo de monetización B2G sostenible. En esta reunión se priorizaron historias orientadas a la asistencia con IA para auditoría de reportes, validación de evidencia visual y habilitación de suscripciones municipales con control de acceso por estado financiero.
+
+| Sprint # | Sprint 2 |
+| :--- | :--- |
+| Sprint Planning Background | Reunión de planificación enfocada en ampliar la propuesta de valor para municipalidades mediante IA aplicada a reportes y un flujo de suscripción integrado con pasarela de pagos. |
+| Date | 24/06/2026 |
+| Time | 12:00 AM |
+| Location | Discord (Reunión virtual) |
+| Prepared By | Equipo de desarrollo de PeaceApp |
+| Attendees (to planning meeting) | Noriega Suschenko Anatoly, Arroyo Ormeño André, Reyes Trujillano Fabian, Santillan Alvarado Melina, Guia Carrasco Pedro |
+| Sprint Goal & User Stories | Entregar funcionalidades de inteligencia aplicada a la gestión municipal y habilitar el ciclo transaccional de suscripción institucional. <br><br>Historias priorizadas: autocompletado de tipo de incidente por IA, validación preliminar de evidencia visual, contratación de plan municipal, consulta del estado de suscripción, integración de Stripe Checkout, procesamiento de webhooks e interceptor de acceso por suscripción en Gateway. |
+| Sprint 2 Goal | Implementar una versión operativa de PeaceApp orientada a municipalidades con análisis de reportes asistido por IA y monetización B2G funcional, asegurando control de acceso al dashboard según el estado de suscripción. |
+| Sprint 2 Velocity | Pendiente de medir |
+| Sum of Story Points | 41 |
 #### 7.2.2.2. Sprint Backlog 2
 
 Durante este sprint, se trabajó en la maduración de las capacidades analíticas de la plataforma y en la implementación del flujo de monetización B2G del MVP. Específicamente, se integró el motor de visión computacional en el ecosistema para automatizar la categorización predictiva y la verificación de archivos multimedia adjuntos, implementando estas herramientas de asistencia en la aplicación web para optimizar la gestión de reportes por parte de las municipalidades. Paralelamente, se desarrolló y desplegó la infraestructura del módulo de facturación y suscripciones gubernamentales a través de la API externa de Stripe, asegurando que el acceso al dashboard de monitoreo web quede estrictamente vinculado al estado financiero y de suscripción de cada entidad municipal.
@@ -731,7 +750,11 @@ Se trabajó en la maduración de las capacidades analíticas del ecosistema y en
 <div style="page-break-after: always;"></div>
 
 #### 7.2.2.8. Team Collaboration Insights during Sprint.
+Durante el Sprint 2, la colaboración se centró en la integración de capacidades avanzadas de IA y en la implementación del flujo de suscripciones municipales con Stripe. La coordinación entre frontend web, servicios de IA, billing y gateway fue determinante para asegurar consistencia funcional y seguridad en el acceso por estado de suscripción.
 
+El equipo mantuvo revisiones continuas de contratos entre servicios y validó escenarios de éxito y error en pagos, cancelaciones y actualización de estados, lo que permitió estabilizar el comportamiento transaccional del sistema. También se reforzó la comunicación entre desarrollo y despliegue para sincronizar cambios en entornos Netlify y AWS.
+
+Como resultado, el sprint consolidó una arquitectura más madura para operación municipal real, con aprendizajes claros sobre idempotencia en webhooks, trazabilidad de eventos de pago e interoperabilidad entre módulos inteligentes y financieros.
 ## 7.3. Validation Interviews.
 
 ### 7.3.1. Diseño de Entrevistas.

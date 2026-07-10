@@ -804,21 +804,129 @@ A continuación, se presentan las preguntas que se utilizarán en las entrevista
 
 ### 7.3.2. Registro de Entrevistas.
 
+**URL de todas las entrevistas:** <https://upcedupe-my.sharepoint.com/:v:/g/personal/u202211813_upc_edu_pe/IQC7BYOzpq18S4vn6MthppIiAcqwcAiE3_GLepOwe9b8H-Q?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=2ayLo6>
+
+#### **Segmento 1: Ciudadano**
+##### Entrevista 1
+
+![Entrevista1](assets/Entrevista1-Validacion.png)
+
+**Timing:*00:05***
+
+**Nombre:** Mauricio Rojas
+
+**Edad:** 22 años
+
+**Pasatiempos:** Salir con amigos y con mascotas.
+
+**Ocupación:** Estudiante Universitario (Ingeniería de Software)
+
+Mauricio considera que PeaceApp es una aplicación clara, intuitiva y sencilla de utilizar. El proceso de registro le resultó familiar y pudo identificar rápidamente las acciones disponibles. También señaló que la creación de reportes requiere pocos pasos y poco tiempo.
+
+Destacó la utilidad de la inteligencia artificial para mejorar el título, la descripción y la clasificación de los incidentes, especialmente cuando el ciudadano no sabe cómo redactar la información. Asimismo, valoró los marcadores del mapa, las alertas de proximidad, el botón SOS, el envío de la ubicación mediante WhatsApp o SMS y el chatbot orientado a temas de seguridad.
+
+En general, considera que la aplicación cubre la mayoría de las funcionalidades necesarias y que puede ser útil para los ciudadanos. Como mejoras, recomendó ampliar los tipos de incidentes disponibles y mostrar información más detallada en el mapa.
+
+##### Entrevista 2
+
+![Entrevista2](assets/Entrevista2-Validacion.png)
+
+**Timing:*12:12***
+
+**Nombre:** Edson Sanchez
+
+Edad: 21 años
+
+Pasatiempos: Salir con amigos y jugar fútbol.
+
+Ocupación: Estudiante Universitario (Psicología)
+
+Edson considera que PeaceApp es intuitiva y fácil de comprender, ya que sus opciones se encuentran claramente identificadas. El proceso para crear un reporte, seleccionar el tipo de incidente, completar la información y adjuntar evidencias le resultó sencillo.
+
+Valoró la posibilidad de diferenciar entre un reporte normal y una emergencia. También destacó la inteligencia artificial para mejorar reportes redactados de manera poco clara, así como el mapa y las alertas de proximidad para reconocer zonas de riesgo y evitar transitar por ellas.
+
+Además, consideró importantes el botón SOS, la ubicación compartida con familiares y la orientación proporcionada por el chatbot. Indicó que utilizaría PeaceApp con mayor frecuencia al comprobar que los reportes publicados sean relevantes, estén correctamente redactados y brinden información útil, especialmente durante viajes o visitas a lugares desconocidos.
+
+##### Entrevista 3
+
+![Entrevista3](assets/Entrevista3-Validacion.png)
+
+**Timing:*28:26***
+
+**Nombre**: Stephanie Maldonado
+
+**Edad:** 25 años
+
+**Pasatiempos:** Dibujar, ver series animadas, cantar, estudiar educacion especial.
+
+**Ocupación:** Estudiante universitaria (Educacion Infantil)
+
+Stephanie considera que PeaceApp es clara, rápida y fácil de utilizar. Comprendió las funciones presentadas y señaló que los pasos para crear un reporte y diferenciar entre una incidencia normal y una emergencia se encuentran bien definidos.
+
+Destacó la inteligencia artificial porque permite mejorar la redacción de los reportes y ahorrar tiempo. También valoró los marcadores del mapa, las alertas de proximidad para prevenir riesgos, el botón SOS con confirmación para evitar envíos accidentales y la posibilidad de compartir la ubicación con familiares mediante WhatsApp o SMS.
+
+Asimismo, consideró que el chatbot respondió claramente y resolvió sus dudas con rapidez. Los elementos que le generarían confianza para utilizar PeaceApp frecuentemente serían la precisión de las alertas, la facilidad de uso, la rapidez del sistema y la protección de sus datos personales.
+
 #### **Segmento 2: Municipalidad**
 ##### Entrevista 1
+
+![Mauricio Gov-Validation-Interview](assets/entrevista_ciudadano_validación_Mauricio.png?raw=true)
+
+**Timing:*38:33***
+
 **Nombre:** Mauricio Oliveira Paucar 
 
 **Edad:** 27 años
 
-**Distrito:** Breña
+**Pasatiempos:** Salir con amigos y con mascotas.
 
-![Mauricio Gov-Validation-Interview](assets/entrevista_ciudadano_validación_Mauricio.png?raw=true)
+**Ocupación:** Coordinador de Operaciones de Seguridad Ciudadana Municipal
 
-> Mauricio, Coordinador de Operaciones de Seguridad Ciudadana Municipal con experiencia en la gestión de centrales de monitoreo, participó en una entrevista de validación para probar el ecosistema web de PeaceApp orientado a la administración de incidentes locales. Comentó que su experiencia inicial con la plataforma fue sumamente positiva, destacando la agilidad y simplicidad del proceso de suscripción institucional mediante Stripe, lo cual contrasta positivamente con la típica burocracia de los sistemas gubernamentales tradicionales.
-> 
-> Consideró que el aislamiento automático de reportes por geolocalización distrital y las alertas SOS de emergencia recibidas en tiempo real a través de popups globales son las herramientas de mayor valor operativo para los turnos de alta carga, permitiendo reaccionar en segundos y evitar el ruido visual de zonas limítrofes. Asimismo, elogió la utilidad de la opción “Analizar con IA” como un excelente filtro de calidad preliminar, capaz de traducir jergas o descripciones vagas generadas por el pánico de los ciudadanos y auditar automáticamente la validez de la evidencia multimedia adjunta antes de despachar una unidad de serenazgo a campo.
-> 
-> Mauricio señaló que el flujo de control de estados de los reportes es altamente intuitivo y que la plataforma transmite total confianza respecto a la seguridad y aislamiento multitenant de los datos de su jurisdicción. Como sugerencia para futuras iteraciones de desarrollo, recomendó agregar un módulo complementario que permita asignar de manera directa los incidentes al identificador específico de la patrulla o motorizado que se encuentre patrullando en la calle. Finalmente, ratificó que la adopción de PeaceApp es totalmente viable en entornos reales gracias a su capacidad de conectar tecnológicamente al vecino con la central municipal.
+Mauricio, Coordinador de Operaciones de Seguridad Ciudadana Municipal con experiencia en la gestión de centrales de monitoreo, participó en una entrevista de validación para probar el ecosistema web de PeaceApp orientado a la administración de incidentes locales. Comentó que su experiencia inicial con la plataforma fue sumamente positiva, destacando la agilidad y simplicidad del proceso de suscripción institucional mediante Stripe, lo cual contrasta positivamente con la típica burocracia de los sistemas gubernamentales tradicionales.
+
+Consideró que el aislamiento automático de reportes por geolocalización distrital y las alertas SOS de emergencia recibidas en tiempo real a través de popups globales son las herramientas de mayor valor operativo para los turnos de alta carga, permitiendo reaccionar en segundos y evitar el ruido visual de zonas limítrofes. Asimismo, elogió la utilidad de la opción “Analizar con IA” como un excelente filtro de calidad preliminar, capaz de traducir jergas o descripciones vagas generadas por el pánico de los ciudadanos y auditar automáticamente la validez de la evidencia multimedia adjunta antes de despachar una unidad de serenazgo a campo.
+
+Mauricio señaló que el flujo de control de estados de los reportes es altamente intuitivo y que la plataforma transmite total confianza respecto a la seguridad y aislamiento multitenant de los datos de su jurisdicción. Como sugerencia para futuras iteraciones de desarrollo, recomendó agregar un módulo complementario que permita asignar de manera directa los incidentes al identificador específico de la patrulla o motorizado que se encuentre patrullando en la calle. Finalmente, ratificó que la adopción de PeaceApp es totalmente viable en entornos reales gracias a su capacidad de conectar tecnológicamente al vecino con la central municipal.
+
+##### Entrevista 2
+
+![Entrevista5](assets/Entrevista5-Validacion.png)
+
+**Timing:*51:12***
+
+**Nombre:** Victor Gutierrez
+
+**Edad:** 64 años
+
+**Pasatiempos:** Actividades comunitarias y caminatas.
+
+**Ocupación:** Presidente en el distrito de San Martín de Porres, con experiencia en serenazgo y seguridad ciudadana.
+
+Víctor considera que la plataforma municipal de PeaceApp es accesible y fácil de comprender. Señaló que los estados de la suscripción están claramente diferenciados y que el dashboard permite identificar con facilidad los reportes y emergencias correspondientes al distrito. También valoró los filtros por tipo, ubicación, fecha y urgencia, ya que permiten mantener las incidencias organizadas y detalladas.
+
+El proceso para aprobar, rechazar, atender o modificar el estado de un reporte le pareció adecuado. Asimismo, destacó la recepción de emergencias en tiempo real, debido a que permite actuar inmediatamente ante una situación de riesgo. Consideró útiles tanto el análisis mediante inteligencia artificial como el chatbot municipal, pues ayudan a resolver consultas, interpretar la información y tomar decisiones.
+
+Finalmente, Víctor manifestó confianza en la privacidad de la plataforma al considerar que la información se comparte únicamente entre el ciudadano y la municipalidad correspondiente. Considera que PeaceApp es una solución importante y viable para un entorno real, ya que mejoraría la comunicación entre los ciudadanos y el área de seguridad ciudadana, superando las limitaciones de los canales telefónicos tradicionales.
+
+##### Entrevista 3
+
+![Entrevista6](assets/Entrevista6-Validacion.png)
+
+**Timing:*56:08***
+
+**Nombre:** Massiel Gutarra
+
+**Edad:** 24 años
+
+**Pasatiempos:** Tecnología y actividades comunitarias.
+
+**Ocupación:** Analista del área de Seguridad de la Municipalidad del Callao.
+
+Massiel considera que el registro institucional de PeaceApp es claro e intuitivo. Sin embargo, señala que el pago mensual con tarjeta no se ajusta completamente a los procesos administrativos de las municipalidades, que suelen utilizar presupuestos anuales, órdenes de servicio y contratos. Por ello, recomienda incorporar facturación institucional, contratos anuales y avisos anticipados antes del vencimiento de la suscripción.
+
+Destacó que el dashboard, el mapa y los marcadores permiten identificar rápidamente las incidencias correspondientes a cada distrito. También valoró los filtros por tipo, fecha, ubicación y urgencia, así como la facilidad para aprobar, rechazar o marcar reportes como atendidos. Considera que las alertas en tiempo real mejoran la capacidad de respuesta y que el análisis con inteligencia artificial ayuda a resumir reportes desordenados, reconocer su prioridad y tomar decisiones con mayor rapidez.
+
+Asimismo, señaló que el chatbot sería útil para orientar y capacitar a los operadores nuevos. La separación de la información entre municipalidades le transmite confianza, debido a que protege los datos sensibles de los ciudadanos. Finalmente, considera viable implementar PeaceApp en un entorno municipal real, siempre que se adapte el modelo de contratación pública y se optimice la plataforma para funcionar correctamente en computadoras con especificaciones básicas.
 
 ### 7.3.3. Evaluaciones según heurísticas.
 

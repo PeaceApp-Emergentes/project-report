@@ -1740,7 +1740,7 @@ Cada uno de estos microservicios expone su propia API y se comunica directamente
 ## WhatsApp API
 - Servicio externo utilizado para compartir la ubicación en tiempo real mediante la plataforma de mensajería WhatsApp.
 
-## Map System
+## MapBox
 - Proveedor externo de información geográfica que permite mostrar mapas, ubicar incidentes y destacar zonas críticas en la aplicación.
 
 ## OpenAI API

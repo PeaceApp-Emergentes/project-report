@@ -1719,13 +1719,13 @@ Por ello, no requieren un diseño altamente especializado.
 
 ### 4.3.1. Software Architecture System Landscape Diagram
 
-![peaceapp_landscape.png](assets/peaceapp_landscape.png)
+![LandscapeDiagram-dark.png](assets/LandscapeDiagram-dark.png)
 
 ### 4.3.2. Software Architecture Context Level Diagrams
 
 PeaceApp se organiza en seis sistemas internos —Client Apps, IAM, Profiles, Reports, Alerts y Locations— que interactúan entre sí y con dos actores: el Citizen, que reporta incidentes y comparte su ubicación, y el Municipality, que monitorea y gestiona el sistema. Externamente, integra Mapbox para mapas, SMS Gateway y WhatsApp API para envío de alertas y ubicaciones, y OpenAI API para el chatbot y reconocimiento de imágenes.
 
-![structurizr-109662-SystemContext.png](assets/structurizr-109662-SystemContext.png)
+![SystemContextDiagram-dark.png](assets/SystemContextDiagram-dark.png)
 
 ### 4.3.3. Software Architecture Container Level Diagrams
 
@@ -1773,17 +1773,17 @@ Cada uno de estos microservicios expone su propia API y se comunica directamente
 ## OpenAI API
 - Servicio externo utilizado por el ChatBot Service y el Image Recognizer Service para implementar capacidades de inteligencia artificial, como procesamiento de lenguaje natural y reconocimiento de imágenes.
 
-## Stripe 
+## Stripe
 - Sistema externo de pagos que procesa de forma segura las suscripciones y transacciones de las municipalidades sin almacenar datos sensibles de tarjetas
 
-![structurizr-109662-Containers.png](assets/structurizr-109662-Containers.png)
+![ContainerDiagram-dark.png](assets/ContainerDiagram-dark.png)
 
 
 ### 4.3.4. Software Architecture System Deployment Diagram
 
 PeaceApp se despliega íntegramente en AWS. Los usuarios acceden desde dispositivos Android (app en Kotlin) o navegadores web (SPA en Vue+Vite). El Landing Page se sirve vía CloudFront + S3, los seis microservicios corren en pods Docker dentro de un clúster EKS (Kubernetes), y cada uno tiene su propia instancia MySQL en Amazon RDS para garantizar aislamiento de datos por bounded context.
 
-![peaceapp_deployment.png](assets/peaceapp_deployment.png)
+![DeploymentDiagram-dark.png](assets/DeploymentDiagram-dark.png)
 
 ---
 
